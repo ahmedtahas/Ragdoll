@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://bb0t7afkfxbvv"]
+
+[ext_resource type="Script" path="res://scenes/game/modules/joy_stick.gd" id="1_l3kki"]
+[ext_resource type="Texture2D" uid="uid://e6q8ogylbeyy" path="res://assets/sprites/ui/joystick.png" id="2_3g6oc"]
+
+[node name="Joy Stick" type="CanvasLayer"]
+script = ExtResource("1_l3kki")
+
+[node name="MovementStick" type="TouchScreenButton" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(-250, -250)
+texture_normal = ExtResource("2_3g6oc")
+
+[node name="LeftStick" type="Sprite2D" parent="."]
+modulate = Color(0.615686, 0.141176, 0.360784, 0.588235)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_3g6oc")
+
+[node name="ActionStick" type="TouchScreenButton" parent="."]
+modulate = Color(0.666667, 0.470588, 0.0823529, 0.392157)
+position = Vector2(-250, -250)
+texture_normal = ExtResource("2_3g6oc")
+
+[node name="RigthStick" type="Sprite2D" parent="."]
+modulate = Color(0.615686, 0.141176, 0.360784, 0.588235)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_3g6oc")

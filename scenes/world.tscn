@@ -1,0 +1,984 @@
+[gd_scene load_steps=4 format=3 uid="uid://dspift8ih848t"]
+
+[ext_resource type="Script" path="res://scenes/world.gd" id="1_nxmvl"]
+[ext_resource type="Texture2D" uid="uid://dypiuxls7wfn3" path="res://assets/sprites/environment/wall.jpg" id="2_0513c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2tvng"]
+size = Vector2(8154, 20855)
+
+[node name="world" type="Node2D"]
+position = Vector2(0, 27)
+script = ExtResource("1_nxmvl")
+metadata/_edit_vertical_guides_ = [21119.0]
+metadata/_edit_horizontal_guides_ = []
+
+[node name="Point1" type="Marker2D" parent="."]
+position = Vector2(7210, -3416)
+
+[node name="Point2" type="Marker2D" parent="."]
+position = Vector2(13228, -3518)
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-4077, -5280)
+
+[node name="Sprite" type="Sprite2D" parent="LeftWall"]
+position = Vector2(2704, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite2" type="Sprite2D" parent="LeftWall"]
+position = Vector2(2701, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite3" type="Sprite2D" parent="LeftWall"]
+position = Vector2(2700, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite4" type="Sprite2D" parent="LeftWall"]
+position = Vector2(2703, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite5" type="Sprite2D" parent="LeftWall"]
+position = Vector2(2700, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite6" type="Sprite2D" parent="LeftWall"]
+position = Vector2(2699, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite7" type="Sprite2D" parent="LeftWall"]
+position = Vector2(-14.0005, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite8" type="Sprite2D" parent="LeftWall"]
+position = Vector2(-17.0005, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite9" type="Sprite2D" parent="LeftWall"]
+position = Vector2(-18.0005, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite10" type="Sprite2D" parent="LeftWall"]
+position = Vector2(-15.0005, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite11" type="Sprite2D" parent="LeftWall"]
+position = Vector2(-18.0005, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite12" type="Sprite2D" parent="LeftWall"]
+position = Vector2(-19.0005, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite13" type="Sprite2D" parent="LeftWall"]
+position = Vector2(-2704, -2582)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite14" type="Sprite2D" parent="LeftWall"]
+position = Vector2(-2707, -4360)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite15" type="Sprite2D" parent="LeftWall"]
+position = Vector2(-2708, -875)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite16" type="Sprite2D" parent="LeftWall"]
+position = Vector2(-2705, 2641)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite17" type="Sprite2D" parent="LeftWall"]
+position = Vector2(-2708, 863)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite18" type="Sprite2D" parent="LeftWall"]
+position = Vector2(-2709, 4348)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+position = Vector2(0, 5147.5)
+shape = SubResource("RectangleShape2D_2tvng")
+
+[node name="LeftWall2" type="StaticBody2D" parent="."]
+position = Vector2(5280, 4077)
+rotation = 1.5708
+
+[node name="Sprite" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(2704, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite2" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(2701, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite3" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(2700, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite4" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(2703, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite5" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(2700, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite6" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(2699, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite7" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(-14.0005, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite8" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(-17.0005, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite9" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(-18.0005, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite10" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(-15.0005, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite11" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(-18.0005, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite12" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(-19.0005, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite13" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(-2704, -2582)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite14" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(-2707, -4360)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite15" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(-2708, -875)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite16" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(-2705, 2641)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite17" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(-2708, 863)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite18" type="Sprite2D" parent="LeftWall2"]
+position = Vector2(-2709, 4348)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall2"]
+shape = SubResource("RectangleShape2D_2tvng")
+
+[node name="LeftWall3" type="StaticBody2D" parent="."]
+position = Vector2(15840, 4077)
+rotation = 1.5708
+
+[node name="Sprite" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(2704, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite2" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(2701, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite3" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(2700, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite4" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(2703, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite5" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(2700, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite6" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(2699, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite7" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(-14.0005, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite8" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(-17.0005, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite9" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(-18.0005, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite10" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(-15.0005, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite11" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(-18.0005, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite12" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(-19.0005, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite13" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(-2704, -2582)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite14" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(-2707, -4360)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite15" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(-2708, -875)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite16" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(-2705, 2641)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite17" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(-2708, 863)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite18" type="Sprite2D" parent="LeftWall3"]
+position = Vector2(-2709, 4348)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall3"]
+shape = SubResource("RectangleShape2D_2tvng")
+
+[node name="LeftWall4" type="StaticBody2D" parent="."]
+position = Vector2(25197, -5280)
+
+[node name="Sprite" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(2704, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite2" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(2701, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite3" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(2700, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite4" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(2703, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite5" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(2700, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite6" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(2699, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite7" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(-14.0005, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite8" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(-17.0005, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite9" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(-18.0005, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite10" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(-15.0005, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite11" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(-18.0005, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite12" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(-19.0005, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite13" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(-2704, -2582)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite14" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(-2707, -4360)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite15" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(-2708, -875)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite16" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(-2705, 2641)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite17" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(-2708, 863)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite18" type="Sprite2D" parent="LeftWall4"]
+position = Vector2(-2709, 4348)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall4"]
+shape = SubResource("RectangleShape2D_2tvng")
+
+[node name="LeftWall5" type="StaticBody2D" parent="."]
+position = Vector2(5280, -14637)
+rotation = 1.5708
+
+[node name="Sprite" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(2704, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite2" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(2701, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite3" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(2700, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite4" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(2703, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite5" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(2700, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite6" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(2699, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite7" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(-14.0005, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite8" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(-17.0005, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite9" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(-18.0005, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite10" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(-15.0005, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite11" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(-18.0005, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite12" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(-19.0005, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite13" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(-2704, -2582)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite14" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(-2707, -4360)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite15" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(-2708, -875)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite16" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(-2705, 2641)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite17" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(-2708, 863)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite18" type="Sprite2D" parent="LeftWall5"]
+position = Vector2(-2709, 4348)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall5"]
+shape = SubResource("RectangleShape2D_2tvng")
+
+[node name="LeftWall6" type="StaticBody2D" parent="."]
+position = Vector2(15840, -14637)
+rotation = 1.5708
+
+[node name="Sprite" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(2704, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite2" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(2701, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite3" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(2700, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite4" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(2703, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite5" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(2700, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite6" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(2699, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite7" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(-14.0005, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite8" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(-17.0005, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite9" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(-18.0005, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite10" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(-15.0005, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite11" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(-18.0005, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite12" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(-19.0005, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite13" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(-2704, -2582)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite14" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(-2707, -4360)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite15" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(-2708, -875)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite16" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(-2705, 2641)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite17" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(-2708, 863)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite18" type="Sprite2D" parent="LeftWall6"]
+position = Vector2(-2709, 4348)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall6"]
+shape = SubResource("RectangleShape2D_2tvng")
+
+[node name="LeftWall7" type="StaticBody2D" parent="."]
+position = Vector2(-4077, -15840)
+
+[node name="Sprite" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(2704, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite2" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(2701, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite3" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(2700, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite4" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(2703, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite5" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(2700, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite6" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(2699, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite7" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(-14.0005, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite8" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(-17.0005, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite9" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(-18.0005, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite10" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(-15.0005, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite11" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(-18.0005, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite12" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(-19.0005, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite13" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(-2704, -2582)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite14" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(-2707, -4360)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite15" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(-2708, -875)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite16" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(-2705, 2641)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite17" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(-2708, 863)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite18" type="Sprite2D" parent="LeftWall7"]
+position = Vector2(-2709, 4348)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall7"]
+shape = SubResource("RectangleShape2D_2tvng")
+
+[node name="LeftWall8" type="StaticBody2D" parent="."]
+position = Vector2(-4076, 5279)
+
+[node name="Sprite" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(2704, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite2" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(2701, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite3" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(2700, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite4" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(2703, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite5" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(2700, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite6" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(2699, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite7" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(-14.0005, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite8" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(-17.0005, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite9" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(-18.0005, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite10" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(-15.0005, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite11" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(-18.0005, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite12" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(-19.0005, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite13" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(-2704, -2582)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite14" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(-2707, -4360)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite15" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(-2708, -875)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite16" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(-2705, 2641)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite17" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(-2708, 863)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite18" type="Sprite2D" parent="LeftWall8"]
+position = Vector2(-2709, 4348)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall8"]
+shape = SubResource("RectangleShape2D_2tvng")
+
+[node name="LeftWall9" type="StaticBody2D" parent="."]
+position = Vector2(25196, -15840)
+
+[node name="Sprite" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(2704, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite2" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(2701, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite3" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(2700, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite4" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(2703, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite5" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(2700, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite6" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(2699, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite7" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(-14.0005, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite8" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(-17.0005, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite9" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(-18.0005, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite10" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(-15.0005, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite11" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(-18.0005, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite12" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(-19.0005, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite13" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(-2704, -2582)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite14" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(-2707, -4360)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite15" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(-2708, -875)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite16" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(-2705, 2641)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite17" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(-2708, 863)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite18" type="Sprite2D" parent="LeftWall9"]
+position = Vector2(-2709, 4348)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall9"]
+shape = SubResource("RectangleShape2D_2tvng")
+
+[node name="LeftWall10" type="StaticBody2D" parent="."]
+position = Vector2(25197, 5280)
+
+[node name="Sprite" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(2704, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite2" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(2701, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite3" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(2700, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite4" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(2703, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite5" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(2700, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite6" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(2699, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite7" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(-14.0005, -2566)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite8" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(-17.0005, -4344)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite9" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(-18.0005, -859)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite10" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(-15.0005, 2657)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite11" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(-18.0005, 879)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite12" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(-19.0005, 4364)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite13" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(-2704, -2582)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite14" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(-2707, -4360)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite15" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(-2708, -875)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite16" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(-2705, 2641)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite17" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(-2708, 863)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="Sprite18" type="Sprite2D" parent="LeftWall10"]
+position = Vector2(-2709, 4348)
+scale = Vector2(10, 10)
+texture = ExtResource("2_0513c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall10"]
+shape = SubResource("RectangleShape2D_2tvng")
