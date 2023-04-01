@@ -1,15 +1,1 @@
-res://scenes/world.tscn
-res://scenes/game/modules/multi_target_camera.tscn
-res://scenes/game/modules/slow_motion.tscn
-res://scenes/game/character/holstar.tscn
-res://scenes/game/character/dummy.tscn
-res://scenes/game/character/zeina.tscn
-res://scenes/game/character/roki_roki.tscn
-res://scenes/game/character/crock.tscn
-res://scenes/world.gd
-res://scenes/game/character/holstar.gd
-res://scenes/game/character/crock.gd
-res://scenes/game/character/zeina.gd
-res://scenes/game/modules/Character.gd
-res://scenes/menu/main_menu.tscn
 res://scenes/game/modules/audio.tscn
