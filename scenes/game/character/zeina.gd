@@ -118,13 +118,12 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 			return
 		get_parent().mtc.remove_target(before_image)
 		before_image.queue_free()
-		
 		get_parent().respawn_player(dash_preview.get_node("Dash/Range").global_position, health, self, true)
 		
 func skill_hit_signal(hit: Node2D) -> void:
-	
+	hit_check = true
 	if hit is RigidBody2D:
-		hit_check = true
+		
 		if hit.get_parent() != self:
 			before_image.disconnect("hit_signal", skill_hit_signal)
 			
@@ -149,6 +148,7 @@ func skill_hit_signal(hit: Node2D) -> void:
 			before_image.queue_free()
 			get_parent().mtc.add_target(Body)
 	else:
+		print("AAA")
 		before_image.disconnect("hit_signal", skill_hit_signal)
 		get_parent().mtc.remove_target(before_image)
 		before_image.queue_free()

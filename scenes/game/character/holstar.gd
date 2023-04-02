@@ -18,6 +18,7 @@ extends Node2D
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var rua: RigidBody2D = $RUA
 @onready var rla: RigidBody2D = $RLA
+@onready var rf: RigidBody2D = $RF
 @onready var ra: CharacterBody2D = $Extra/ShootingArm
 @onready var crosshair: Sprite2D = $Extra/Cross
 @onready var barrel: Marker2D = $Extra/ShootingArm/Barrel
@@ -62,6 +63,7 @@ func take_damage(amount: float) -> void:
 	if health <= amount:
 		return
 	health -= amount
+	print(health)
 	
 	
 func skill_signal(direction: Vector2, is_aiming) -> void:
@@ -78,6 +80,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		ra.look_at(crosshair.global_position)
 		rua.visible = false
 		rla.visible = false
+		rf.visible = false
 		
 	else:
 		cooldown.wait_time = 6
@@ -96,13 +99,19 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		ra.set_collision_mask_value(1, false)
 		rua.visible = true
 		rla.visible = true
+		rf.visible = true
 		
 		
 func bullet_hit_signal(hit: Node2D) -> void:
 	if hit is RigidBody2D:
 		if hit.get_parent() != self:
 			hit.apply_central_impulse((hit.global_position - bullet.global_position).normalized() * hit_power)
-			hit.get_parent().character.stun()
+			if hit.get_parent() is RigidBody2D:
+				hit.get_parent().get_parent().character.push((hit.global_position - bullet.global_position).normalized(), hit_power * 0.5)
+				hit.get_parent().get_parent().character.stun()
+			else:
+				hit.get_parent().character.push((hit.global_position - bullet.global_position).normalized(), hit_power * 0.5)
+				hit.get_parent().character.stun()
 			if hit.name == "Head":
 				hit.get_parent().take_damage(40)
 			elif not hit.get_parent() is RigidBody2D:

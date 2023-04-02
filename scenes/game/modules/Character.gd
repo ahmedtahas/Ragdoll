@@ -55,3 +55,6 @@ func stun() -> void:
 func hit_stun() -> void:
 	cooldown.wait_time = 0.2
 	cooldown.start()
+	
+func play_audio() -> void:
+	$hit.play()

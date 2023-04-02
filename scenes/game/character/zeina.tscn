@@ -18,7 +18,7 @@ height = 258.0
 radius = 45.0111
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nh6sg"]
-radius = 43.143
+radius = 44.0
 height = 342.741
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_obmqm"]
@@ -204,7 +204,7 @@ position = Vector2(0.0384979, 127.744)
 shape = SubResource("CapsuleShape2D_nh6sg")
 
 [node name="RLL" type="RigidBody2D" parent="." groups=["Damagable"]]
-position = Vector2(128, 479)
+position = Vector2(128, 480)
 rotation = -0.523599
 mass = 0.1
 gravity_scale = 0.5
@@ -222,7 +222,7 @@ position = Vector2(0.0384521, 127.744)
 shape = SubResource("CapsuleShape2D_nh6sg")
 
 [node name="RK" type="RigidBody2D" parent="." groups=["Damager"]]
-position = Vector2(256, 701)
+position = Vector2(256, 702)
 mass = 0.01
 gravity_scale = 0.0
 continuous_cd = 2
@@ -233,7 +233,7 @@ contact_monitor = true
 shape = SubResource("CircleShape2D_obmqm")
 
 [node name="LUL" type="RigidBody2D" parent="." groups=["Damagable"]]
-position = Vector2(-64, 368)
+position = Vector2(0, 258)
 rotation = 0.523599
 mass = 0.1
 gravity_scale = 0.5
@@ -242,14 +242,16 @@ max_contacts_reported = 1
 contact_monitor = true
 
 [node name="Sprite2D6" type="Sprite2D" parent="LUL"]
+position = Vector2(0, 127.6)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("5_x0new")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LUL"]
+position = Vector2(0, 127.6)
 shape = SubResource("CapsuleShape2D_nh6sg")
 
 [node name="LLL" type="RigidBody2D" parent="." groups=["Damagable"]]
-position = Vector2(-192, 590)
+position = Vector2(-192, 591)
 rotation = 0.523599
 mass = 0.1
 gravity_scale = 0.5
@@ -265,7 +267,7 @@ texture = ExtResource("5_x0new")
 shape = SubResource("CapsuleShape2D_nh6sg")
 
 [node name="LK" type="RigidBody2D" parent="." groups=["Damager"]]
-position = Vector2(-256, 701)
+position = Vector2(-256, 702)
 mass = 0.01
 gravity_scale = 0.0
 continuous_cd = 2
@@ -503,7 +505,7 @@ length = 1.0
 stiffness = 64.0
 
 [node name="RRL" type="DampedSpringJoint2D" parent="Extra/DampedJoints"]
-position = Vector2(91, 500)
+position = Vector2(91, 501)
 rotation = -0.523599
 node_a = NodePath("../../../RLL")
 node_b = NodePath("../../../RUL")
@@ -511,7 +513,7 @@ length = 1.0
 stiffness = 64.0
 
 [node name="RRL2" type="DampedSpringJoint2D" parent="Extra/DampedJoints"]
-position = Vector2(164, 458)
+position = Vector2(165, 458)
 rotation = -0.523599
 node_a = NodePath("../../../RLL")
 node_b = NodePath("../../../RUL")
@@ -519,7 +521,7 @@ length = 1.0
 stiffness = 64.0
 
 [node name="LLL" type="DampedSpringJoint2D" parent="Extra/DampedJoints"]
-position = Vector2(-165, 458)
+position = Vector2(-165, 459)
 rotation = 0.523599
 node_a = NodePath("../../../LLL")
 node_b = NodePath("../../../LUL")
@@ -527,7 +529,7 @@ length = 1.0
 stiffness = 64.0
 
 [node name="LLL2" type="DampedSpringJoint2D" parent="Extra/DampedJoints"]
-position = Vector2(-91, 501)
+position = Vector2(-92, 501)
 rotation = 0.523599
 node_a = NodePath("../../../LLL")
 node_b = NodePath("../../../LUL")
@@ -615,22 +617,22 @@ node_a = NodePath("../../../Hip")
 node_b = NodePath("../../../LUL")
 
 [node name="RRL3" type="PinJoint2D" parent="Extra/PinJoints"]
-position = Vector2(128, 479)
+position = Vector2(128, 480)
 node_a = NodePath("../../../RUL")
 node_b = NodePath("../../../RLL")
 
 [node name="RK" type="PinJoint2D" parent="Extra/PinJoints"]
-position = Vector2(256, 701)
+position = Vector2(256, 702)
 node_a = NodePath("../../../RLL")
 node_b = NodePath("../../../RK")
 
 [node name="LLL3" type="PinJoint2D" parent="Extra/PinJoints"]
-position = Vector2(-129, 479)
+position = Vector2(-128, 480)
 node_a = NodePath("../../../LUL")
 node_b = NodePath("../../../LLL")
 
 [node name="LK" type="PinJoint2D" parent="Extra/PinJoints"]
-position = Vector2(-256, 701)
+position = Vector2(-256, 702)
 node_a = NodePath("../../../LLL")
 node_b = NodePath("../../../LK")
 

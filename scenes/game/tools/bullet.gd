@@ -11,5 +11,6 @@ func _physics_process(_delta: float) -> void:
 		emit_signal("hit_signal", get_last_slide_collision().get_collider())
 	
 	
+	
 func _set_velocity(angle: float) -> void:
 	set_velocity(vel.rotated(angle) * speed)

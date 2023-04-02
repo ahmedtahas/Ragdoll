@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://dfctusw14gxrg"]
 
 [ext_resource type="Script" path="res://scenes/game/modules/Character.gd" id="1_oamtx"]
+[ext_resource type="AudioStream" uid="uid://b0vtmq7c5xl46" path="res://assets/sound_effects/slowdown-92003.mp3" id="2_f1ees"]
 
 [node name="Character" type="Node2D"]
 script = ExtResource("1_oamtx")
+
+[node name="hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_f1ees")
