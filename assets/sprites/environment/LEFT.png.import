@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kp4s2l5yhnv0"
-path="res://.godot/imported/quadruple.png-dd7b030fb9f62812d52567839b655ff9.ctex"
+uid="uid://bui0xqp6eodm2"
+path="res://.godot/imported/LEFT.png-906d6125ad81c701be587d0679e83085.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/character/quadruple.png"
-dest_files=["res://.godot/imported/quadruple.png-dd7b030fb9f62812d52567839b655ff9.ctex"]
+source_file="res://assets/sprites/environment/LEFT.png"
+dest_files=["res://.godot/imported/LEFT.png-906d6125ad81c701be587d0679e83085.ctex"]
 
 [params]
 

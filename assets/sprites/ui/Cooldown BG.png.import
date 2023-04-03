@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4k4s81dmm7qm"
-path="res://.godot/imported/triple.png-3175e1fb47adaaa564f177e3a541bc0f.ctex"
+uid="uid://jltqbope05cf"
+path="res://.godot/imported/Cooldown BG.png-2b78dfbd296b20ca74415b116fe04316.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/character/triple.png"
-dest_files=["res://.godot/imported/triple.png-3175e1fb47adaaa564f177e3a541bc0f.ctex"]
+source_file="res://assets/sprites/ui/Cooldown BG.png"
+dest_files=["res://.godot/imported/Cooldown BG.png-2b78dfbd296b20ca74415b116fe04316.ctex"]
 
 [params]
 

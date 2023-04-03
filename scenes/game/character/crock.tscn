@@ -764,3 +764,5 @@ node_b = NodePath("../../../LK")
 
 [node name="SkillCooldown" type="Timer" parent="Extra"]
 one_shot = true
+
+[node name="SkillDuration" type="Timer" parent="Extra"]

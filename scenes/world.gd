@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var player1_instance = preload("res://scenes/game/character/selim.tscn")
-@onready var player2_instance = preload("res://scenes/game/character/holstar.tscn")
+@onready var player1_instance = preload("res://scenes/game/character/crock.tscn")
+@onready var player2_instance = preload("res://scenes/game/character/selim.tscn")
 @onready var mtc_instance = preload("res://scenes/game/modules/multi_target_camera.tscn")
 
 @onready var point1: Marker2D = $Point1
@@ -29,6 +29,7 @@ func _ready() -> void:
 	mtc.add_target(player2.get_node("Body"))
 	
 	player2.joy_stick.disconnect("move_signal", player2.character.move_signal)
+	player2.joy_stick.disconnect("skill_signal", player2.skill_signal)
 	
 
 func respawn_player(player_position: Vector2, player_health: float, player: Node2D, cooldown: bool):
@@ -48,7 +49,7 @@ func respawn_player(player_position: Vector2, player_health: float, player: Node
 		player1.transform = Transform2D(0, potential_position)
 		add_child(player1)
 		mtc.add_target(player1.get_node("Body"))
-		player1.health = player_health
+		player1.character.health = player_health
 		if cooldown:
 			player1.cooldown.start()
 	else:
@@ -65,7 +66,7 @@ func respawn_player(player_position: Vector2, player_health: float, player: Node
 		player2.transform = Transform2D(0, potential_position)
 		add_child(player2)
 		mtc.add_target(player2.get_node("Body"))
-		player2.health = player_health
+		player2.character.health = player_health
 		if cooldown:
 			player2.cooldown.start()
 	

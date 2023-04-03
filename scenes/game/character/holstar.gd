@@ -4,9 +4,12 @@ extends Node2D
 @onready var character_instance = preload("res://scenes/game/modules/character.tscn")
 @onready var bullet_instance = preload("res://scenes/game/tools/bullet.tscn")
 
+@onready var cooldown_time: float = get_node("/root/Config").get_value("cooldown", "holstar")
 @onready var health: float = get_node("/root/Config").get_value("health", "holstar")
+@onready var current_health: float = health
 @onready var damage: float = get_node("/root/Config").get_value("damage", "holstar")
-@onready var hit_power: float = get_node("/root/Config").get_value("power", "holstar")
+@onready var power: float = get_node("/root/Config").get_value("power", "holstar")
+@onready var speed: float = get_node("/root/Config").get_value("speed", "holstar")
 
 @onready var character: Node2D
 @onready var joy_stick: CanvasLayer
@@ -24,6 +27,12 @@ extends Node2D
 @onready var barrel: Marker2D = $Extra/ShootingArm/Barrel
 
 
+@onready var cooldown_bar: TextureProgressBar
+@onready var cooldown_text: RichTextLabel
+
+@onready var cooldown_set: bool = false
+
+
 func _ready() -> void:
 	character = character_instance.instantiate()
 	joy_stick = joy_stick_instance.instantiate()
@@ -31,10 +40,14 @@ func _ready() -> void:
 	get_node("Extra").add_child(character)
 	get_node("Extra").add_child(joy_stick)
 	
+	character.health = health
+	character.current_health = current_health
+	character.damage = damage
+	character.power = power
+	character.speed = speed
+	
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
-	
-	cooldown.wait_time = get_node("/root/Config").get_value("cooldown", "holstar")
 	
 	ra.visible = false
 	ra.set_collision_layer_value(1, false)
@@ -42,29 +55,43 @@ func _ready() -> void:
 	
 	crosshair.visible = false
 	
+	cooldown.wait_time = cooldown_time
+	cooldown.start()
+	cooldown_bar = character.get_node("UI/CooldownBar")
+	cooldown_text = character.get_node("UI/CooldownBar/Text")
+	cooldown_bar.set_value(100)
+	cooldown_text.set_text("[center]ready[/center]")
+	
 	_ignore_self()
+	
+
+func _physics_process(_delta: float) -> void:
+	if not ra.visible:
+		crosshair.global_position = barrel.global_position
+	if cooldown.is_stopped():
+		if cooldown_set:
+			pass
+		else:
+			cooldown_bar.set_value(100)
+			cooldown_text.set_text("[center]ready[/center]")
+			cooldown_set = true
+	else:
+		if cooldown_set:
+			cooldown_set = false
+		cooldown_bar.set_value(100 - ((100 * cooldown.time_left) / cooldown_time))
+		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 	
 	
 func _ignore_self() -> void:
 	for child_1 in get_children():
 		if child_1 is RigidBody2D:
-			child_1.body_entered.connect(self._on_body_entered.bind(child_1))
+			child_1.body_entered.connect(character.on_body_entered.bind(child_1))
 			child_1.add_collision_exception_with(ra)
 			for child_2 in get_children():
 				if child_1 != child_2 and child_2 is RigidBody2D:
 					child_1.add_collision_exception_with(child_2)
 
 
-func _on_body_entered(body: Node, caller: RigidBody2D) -> void:
-	character.on_body_entered(body, caller, hit_power, damage)
-	
-	
-func take_damage(amount: float) -> void:
-	if health <= amount:
-		return
-	health -= amount
-	print(health)
-	
 	
 func skill_signal(direction: Vector2, is_aiming) -> void:
 	if not cooldown.is_stopped():
@@ -105,17 +132,17 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 func bullet_hit_signal(hit: Node2D) -> void:
 	if hit is RigidBody2D:
 		if hit.get_parent() != self:
-			hit.apply_central_impulse((hit.global_position - bullet.global_position).normalized() * hit_power)
+			hit.apply_central_impulse((hit.global_position - bullet.global_position).normalized() * character.power)
 			if hit.get_parent() is RigidBody2D:
-				hit.get_parent().get_parent().character.push((hit.global_position - bullet.global_position).normalized(), hit_power * 0.5)
+				hit.get_parent().get_parent().character.push((hit.global_position - bullet.global_position).normalized(), character.power * 0.5)
 				hit.get_parent().get_parent().character.stun()
 			else:
-				hit.get_parent().character.push((hit.global_position - bullet.global_position).normalized(), hit_power * 0.5)
+				hit.get_parent().character.push((hit.global_position - bullet.global_position).normalized(), character.power * 0.5)
 				hit.get_parent().character.stun()
 			if hit.name == "Head":
-				hit.get_parent().take_damage(40)
+				hit.get_parent().character.take_damage(character.damage * 4)
 			elif not hit.get_parent() is RigidBody2D:
-				hit.get_parent().take_damage(20)
+				hit.get_parent().character.take_damage(character.damage * 2)
 		else:
 			cooldown.stop()
 			

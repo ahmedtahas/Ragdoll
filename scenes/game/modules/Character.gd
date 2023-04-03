@@ -1,28 +1,42 @@
 extends Node2D
 
 
-@onready var cooldown: Timer = get_parent().get_node("HitCooldown")
+@onready var hit_cooldown: Timer = get_parent().get_node("HitCooldown")
 
-const movement_strength: float = 50
-var movement_vector: Vector2 = Vector2.ZERO
+@onready var health: float
+@onready var current_health: float
+@onready var damage: float
+@onready var power: float
+@onready var speed: float
+
+@onready var health_bar = get_node("UI/HealthBar")
+@onready var health_text = get_node("UI/HealthBar/Text")
+
+@onready var movement_vector: Vector2 = Vector2.ZERO
 
 
-func on_body_entered(body: Node, caller: RigidBody2D, hit_power: float, damage: float) -> void:
+func _ready() -> void:
+	await get_tree().create_timer(0.01).timeout
+	health_bar.set_value(100)
+	health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
+
+
+func on_body_entered(body: Node, caller: RigidBody2D) -> void:
 	if body is RigidBody2D:
-		body.apply_central_impulse((body.global_position - caller.global_position).normalized() * hit_power)
-		caller.apply_central_impulse((caller.global_position - body.global_position).normalized() * hit_power)
-		push((caller.global_position - body.global_position).normalized(), hit_power / 2)
+		body.apply_central_impulse((body.global_position - caller.global_position).normalized() * power)
+		caller.apply_central_impulse((caller.global_position - body.global_position).normalized() * power)
+		push((caller.global_position - body.global_position).normalized(), power / 2)
 		
 		if body.get_parent() is RigidBody2D:
-			body.get_parent().get_parent().character.push((body.global_position - caller.global_position).normalized(), hit_power / 2)
+			body.get_parent().get_parent().character.push((body.global_position - caller.global_position).normalized(), power / 2)
 		else:
-			body.get_parent().character.push((body.global_position - caller.global_position).normalized(), hit_power / 2)
+			body.get_parent().character.push((body.global_position - caller.global_position).normalized(), power / 2)
 			hit_stun()
 			slow_motion()
 			if caller.is_in_group("Damager") and body.name == "Head":
-				body.get_parent().take_damage(damage * 2)
+				body.get_parent().character.take_damage(damage * 2)
 			elif caller.is_in_group("Damager") and body.is_in_group("Damagable"):
-				body.get_parent().take_damage(damage)
+				body.get_parent().character.take_damage(damage)
 		
 	
 func push(direction: Vector2, push_strength: float) -> void:
@@ -37,24 +51,35 @@ func slow_motion(slow_motion_speed: float = 0.05, slow_motion_duration: float = 
 	Engine.time_scale = 1
 	
 
+func take_damage(amount: float) -> void:
+	if current_health <= amount:
+		current_health = 0
+		health_bar.set_value(current_health)
+		health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
+		return
+	print(current_health)
+	current_health -= amount
+	health_bar.set_value((100 * current_health) / health)
+	health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
+
 
 func _physics_process(_delta: float):
-	if cooldown.is_stopped():
-		get_parent().get_parent().get_node("Body").apply_central_impulse(movement_vector * movement_strength)
+	if hit_cooldown.is_stopped():
+		get_parent().get_parent().get_node("Body").apply_central_impulse(movement_vector * speed)
 	
 
 func move_signal(vector: Vector2) -> void:
 	movement_vector = vector
 	
 
-func stun() -> void:
-	cooldown.wait_time = 0.5
-	cooldown.start()
+func stun(wait_time: float = 0.5) -> void:
+	hit_cooldown.wait_time = wait_time
+	hit_cooldown.start()
 
 
 func hit_stun() -> void:
-	cooldown.wait_time = 0.2
-	cooldown.start()
+	hit_cooldown.wait_time = 0.2
+	hit_cooldown.start()
 	
 func play_audio() -> void:
 	$hit.play()

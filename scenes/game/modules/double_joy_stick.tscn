@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bb0t7afkfxbvv"]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" path="res://scenes/game/modules/joy_stick.gd" id="1_l3kki"]
+[ext_resource type="Script" path="res://scenes/game/modules/double_joy_stick.gd" id="1_l3kki"]
 [ext_resource type="Texture2D" uid="uid://e6q8ogylbeyy" path="res://assets/sprites/ui/joystick.png" id="2_3g6oc"]
 
 [node name="Joy Stick" type="CanvasLayer"]

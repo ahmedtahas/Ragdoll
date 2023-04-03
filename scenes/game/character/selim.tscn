@@ -270,6 +270,7 @@ shape = SubResource("CircleShape2D_f8x0j")
 position = Vector2(0, 305)
 
 [node name="Reach" type="Marker2D" parent="Extra/Center"]
+position = Vector2(900, 0)
 
 [node name="HitCooldown" type="Timer" parent="Extra"]
 one_shot = true

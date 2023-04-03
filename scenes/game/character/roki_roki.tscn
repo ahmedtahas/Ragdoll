@@ -22,7 +22,7 @@ height = 427.233
 [sub_resource type="CircleShape2D" id="CircleShape2D_hytgy"]
 radius = 55.0091
 
-[node name="Roki Roki" type="Node2D"]
+[node name="RokiRoki" type="Node2D"]
 script = ExtResource("1_pgwq5")
 
 [node name="Head" type="RigidBody2D" parent="." groups=["Damagable", "Damager"]]
@@ -484,4 +484,7 @@ node_a = NodePath("../../../LLL")
 node_b = NodePath("../../../LK")
 
 [node name="SkillCooldown" type="Timer" parent="Extra"]
+one_shot = true
+
+[node name="SkillDuration" type="Timer" parent="Extra"]
 one_shot = true

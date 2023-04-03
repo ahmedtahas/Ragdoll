@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cd0hw574gwn11"
-path="res://.godot/imported/siluet.png-07e9dec844ca80bf98e7da307d661589.ctex"
+uid="uid://bqeoluim7n6os"
+path="res://.godot/imported/RIGHT.png-068af66d76ddb566c6b31107cd077b9c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/character/siluet.png"
-dest_files=["res://.godot/imported/siluet.png-07e9dec844ca80bf98e7da307d661589.ctex"]
+source_file="res://assets/sprites/environment/RIGHT.png"
+dest_files=["res://.godot/imported/RIGHT.png-068af66d76ddb566c6b31107cd077b9c.ctex"]
 
 [params]
 
