@@ -57,7 +57,6 @@ func take_damage(amount: float) -> void:
 		health_bar.set_value(current_health)
 		health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
 		return
-	print(current_health)
 	current_health -= amount
 	health_bar.set_value((100 * current_health) / health)
 	health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")

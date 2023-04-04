@@ -41,6 +41,8 @@ func _ready() -> void:
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
 	
+	joy_stick.button = true
+	
 	cooldown.wait_time = cooldown_time
 	duration.wait_time = duration_time
 	cooldown_bar = character.get_node("UI/CooldownBar")
@@ -56,7 +58,7 @@ func _ready() -> void:
 	
 
 func _physics_process(_delta: float) -> void:
-		
+	
 	if not duration.is_stopped():
 		cooldown_bar.set_value((100 * duration.time_left) / duration_time)
 		cooldown_text.set_text("[center]" + str(duration.time_left).pad_decimals(1) + "s[/center]")
@@ -97,21 +99,22 @@ func _ignore_self() -> void:
 	get_node('RF/Clock').body_entered.connect(character.on_body_entered.bind(get_node('RF/Clock')))
 
 
-func skill_signal(_direction: Vector2, is_aiming: bool) -> void:
+func skill_signal(using: bool) -> void:
 	
 	if not cooldown.is_stopped():
 		return
 	
-	if is_aiming:
+	if using:
 		pass
 		
 	else:
-		character.play_audio()
 		var old_health = character.health
 		var old_position = get_node('Body').global_position
 		duration.start()
 		await get_tree().create_timer(duration_time).timeout
 		get_parent().respawn_player(old_position, old_health, self, true)
 		cooldown.start()
+		
+		
 		
 		

@@ -24,6 +24,7 @@ extends Node2D
 @onready var duration: Timer = $Extra/SkillDuration
 
 @onready var cooldown_set: bool = false
+@onready var connected: bool = true
 
 
 func _ready() -> void:
@@ -41,6 +42,8 @@ func _ready() -> void:
 	
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
+	
+	joy_stick.button = true
 	
 	cooldown.wait_time = cooldown_time
 	duration.wait_time = duration_time
@@ -82,11 +85,11 @@ func _ignore_self() -> void:
 					child_1.add_collision_exception_with(child_2)
 
 
-func skill_signal(_direction: Vector2, is_aiming) -> void:
+func skill_signal(using: bool) -> void:
 	if not cooldown.is_stopped():
 		return
 	
-	if is_aiming:
+	if using:
 		pass
 		
 	else:

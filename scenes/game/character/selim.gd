@@ -23,9 +23,11 @@ extends Node2D
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var duration: Timer = $Extra/ChargeUp
 @onready var body: RigidBody2D = $Body
+@onready var shockwave = $Extra/Shockwave
 
 @onready var cooldown_set: bool = false
 @onready var charging: bool = false
+@onready var shocking: bool = false
 
 
 func _ready() -> void:
@@ -44,18 +46,33 @@ func _ready() -> void:
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
 	
+	joy_stick.button = true
+	
 	cooldown.wait_time = cooldown_time
 	duration.wait_time = duration_time
 	cooldown_bar = character.get_node("UI/CooldownBar")
 	cooldown_text = character.get_node("UI/CooldownBar/Text")
 	cooldown_bar.set_value(100)
 	cooldown_text.set_text("[center]ready[/center]")
-	
+	shockwave.visible = false
 	
 	_ignore_self()
 	
 
 func _physics_process(_delta: float) -> void:
+	
+	shockwave.global_position = body.global_position
+	
+	if shocking and shockwave.scale.x > 0.25:
+		_scale_shockwave(-0.003)
+	elif not shocking and shockwave.scale.x < 70 and shockwave.visible:
+		_scale_shockwave(0.6)
+		
+	elif shockwave.scale.x >= 70:
+		shockwave.visible = false
+		shockwave.scale.x = 1
+		shockwave.scale.y = 1
+		
 	if charging:
 		if not duration.is_stopped():
 			cooldown_bar.set_value((100 * duration.time_left) / duration_time)
@@ -64,7 +81,7 @@ func _physics_process(_delta: float) -> void:
 		elif duration.is_stopped():
 			cooldown_bar.set_value(0)
 			cooldown_text.set_text("[center]charged[/center]")
-		
+	
 	elif cooldown.is_stopped():
 		if cooldown_set:
 			pass
@@ -79,6 +96,8 @@ func _physics_process(_delta: float) -> void:
 		cooldown_bar.set_value(100 - ((100 * cooldown.time_left) / cooldown_time))
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 	
+		
+		
 func _ignore_self() -> void:
 	for child_1 in get_children():
 		if child_1 is RigidBody2D:
@@ -87,17 +106,27 @@ func _ignore_self() -> void:
 				if child_1 != child_2 and child_2 is RigidBody2D:
 					child_1.add_collision_exception_with(child_2)
 
+func _scale_shockwave(value: float) -> void:
+	shockwave.scale.x += value
+	shockwave.scale.y += value
 
-func skill_signal(_direction: Vector2, is_aiming) -> void:
+
+func skill_signal(is_charging: bool) -> void:
 	
 	if not cooldown.is_stopped():
 		return
 	
-	if is_aiming:
+	if is_charging:
+		shockwave.visible = true
 		charging = true
+		shocking = true
+		body.freeze = true
 		duration.start()
 		
+		
 	else:
+		body.freeze = false
+		shocking = false
 		charging = false
 		var multiplier = duration_time - duration.time_left
 		duration.stop()
@@ -107,6 +136,8 @@ func skill_signal(_direction: Vector2, is_aiming) -> void:
 		opponent = get_parent().get_opponent(self)
 		opponent.character.take_damage((multiplier / 2) * character.damage)
 		opponent.character.push((opponent.get_node("Body").global_position - body.global_position).normalized(), character.power * multiplier)
+		
+		
 		
 		
 		

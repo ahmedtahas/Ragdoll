@@ -26,11 +26,11 @@ extends Node2D
 @onready var crosshair: Sprite2D = $Extra/Cross
 @onready var barrel: Marker2D = $Extra/ShootingArm/Barrel
 
-
 @onready var cooldown_bar: TextureProgressBar
 @onready var cooldown_text: RichTextLabel
 
 @onready var cooldown_set: bool = false
+@onready var connected: bool = true
 
 
 func _ready() -> void:
@@ -66,8 +66,10 @@ func _ready() -> void:
 	
 
 func _physics_process(_delta: float) -> void:
+	
 	if not ra.visible:
 		crosshair.global_position = barrel.global_position
+		
 	if cooldown.is_stopped():
 		if cooldown_set:
 			pass

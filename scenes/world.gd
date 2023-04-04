@@ -28,8 +28,8 @@ func _ready() -> void:
 	mtc.add_target(player1.get_node("Body"))
 	mtc.add_target(player2.get_node("Body"))
 	
-	player2.joy_stick.disconnect("move_signal", player2.character.move_signal)
-	player2.joy_stick.disconnect("skill_signal", player2.skill_signal)
+	#player2.joy_stick.disconnect("move_signal", player2.character.move_signal)
+	#player2.joy_stick.disconnect("skill_signal", player2.skill_signal)
 	
 
 func respawn_player(player_position: Vector2, player_health: float, player: Node2D, cooldown: bool):
@@ -44,7 +44,7 @@ func respawn_player(player_position: Vector2, player_health: float, player: Node
 			
 		var player_center = potential_position + player.center
 		if (opponent_center - player_center).length() < player2.radius.x:
-			potential_position += (player_center - opponent_center).normalized() * (get_opponent(player1).radius.x + 200) 
+			potential_position += ((player_center - opponent_center) + Vector2.RIGHT).normalized() * (get_opponent(player1).radius.x + 200) 
 		player1 = player2_instance.instantiate()
 		player1.transform = Transform2D(0, potential_position)
 		add_child(player1)
@@ -61,7 +61,7 @@ func respawn_player(player_position: Vector2, player_health: float, player: Node
 			
 		var player_center = potential_position + player.center
 		if (opponent_center - player_center).length() < player1.radius.x:
-			potential_position += (player_center - opponent_center).normalized() * (get_opponent(player2).radius.x + 200) 
+			potential_position += ((player_center - opponent_center) + Vector2.RIGHT).normalized() * (get_opponent(player2).radius.x + 200) 
 		player2 = player1_instance.instantiate()
 		player2.transform = Transform2D(0, potential_position)
 		add_child(player2)

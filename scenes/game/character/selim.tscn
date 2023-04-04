@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://c72hhxfayu4ir"]
+[gd_scene load_steps=12 format=3 uid="uid://c72hhxfayu4ir"]
 
 [ext_resource type="Texture2D" uid="uid://dm0gceittncr2" path="res://assets/sprites/character/1_.png" id="1_6bk0w"]
 [ext_resource type="Script" path="res://scenes/game/character/selim.gd" id="1_dujti"]
 [ext_resource type="Texture2D" uid="uid://c7ob3kwj1aii4" path="res://assets/sprites/character/3_.png" id="2_ebsho"]
 [ext_resource type="Texture2D" uid="uid://igtfmvghqyto" path="res://assets/sprites/character/4_.png" id="3_ok8xy"]
 [ext_resource type="Texture2D" uid="uid://ctfp4wndqphou" path="res://assets/sprites/weapon/axe.png" id="4_thk3q"]
+[ext_resource type="Texture2D" uid="uid://bwyvpwv74252p" path="res://assets/sprites/ui/Shockwave.png" id="6_y5qf2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4a8r0"]
 radius = 130.035
@@ -525,3 +526,6 @@ one_shot = true
 [node name="ChargeUp" type="Timer" parent="Extra"]
 wait_time = 3.0
 one_shot = true
+
+[node name="Shockwave" type="Sprite2D" parent="Extra"]
+texture = ExtResource("6_y5qf2")
