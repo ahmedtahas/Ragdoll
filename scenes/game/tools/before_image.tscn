@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bndarqamty38d"]
+[gd_scene load_steps=5 format=3 uid="uid://6v587ratc73y"]
 
 [ext_resource type="Script" path="res://scenes/game/tools/before_image.gd" id="1_3fgum"]
 [ext_resource type="Texture2D" uid="uid://dkxh12qq3s6rs" path="res://assets/sprites/character/before_image.png" id="2_kq3so"]
-[ext_resource type="Texture2D" uid="uid://br5xjs44lylxr" path="res://assets/sprites/weapon/dagger.png" id="3_kqkon"]
+[ext_resource type="Texture2D" uid="uid://br5xjs44lylxr" path="res://assets/sprites/weapon/zeina/weapon.png" id="3_p8qt6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y1fj1"]
 size = Vector2(23.5104, 163.935)
@@ -25,14 +25,14 @@ modulate = Color(0, 0, 0, 1)
 position = Vector2(-26, -200)
 rotation = 0.261799
 scale = Vector2(1.2, 1.2)
-texture = ExtResource("3_kqkon")
+texture = ExtResource("3_p8qt6")
 
 [node name="Dagger3" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)
 position = Vector2(-21, 204)
 rotation = 2.87979
 scale = Vector2(1.2, 1.2)
-texture = ExtResource("3_kqkon")
+texture = ExtResource("3_p8qt6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-12.1585, -248.775)

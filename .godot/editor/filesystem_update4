@@ -1,4 +1,3 @@
-res://scenes/game/modules/character.tscn
 res://scenes/world.tscn
 res://scenes/game/modules/multi_target_camera.tscn
 res://scenes/game/character/holstar.tscn
@@ -7,7 +6,9 @@ res://scenes/game/character/zeina.tscn
 res://scenes/game/character/roki_roki.tscn
 res://scenes/game/character/crock.tscn
 res://scenes/menu/main_menu.tscn
+res://scenes/game/modules/character.tscn
 res://scenes/game/character/selim.tscn
 res://scenes/game/tools/bullet.tscn
 res://scenes/game/modules/joy_stick.tscn
 res://scenes/game/tools/before_image.tscn
+res://scenes/world.gd

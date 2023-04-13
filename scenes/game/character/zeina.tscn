@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://sglushbh71q5"]
+[gd_scene load_steps=13 format=3 uid="uid://bbff88rlciu8t"]
 
 [ext_resource type="Script" path="res://scenes/game/character/zeina.gd" id="1_8om6e"]
 [ext_resource type="Texture2D" uid="uid://dm0gceittncr2" path="res://assets/sprites/character/1_.png" id="2_45g4y"]
+[ext_resource type="Texture2D" uid="uid://br5xjs44lylxr" path="res://assets/sprites/weapon/zeina/weapon.png" id="4_7arsb"]
 [ext_resource type="Texture2D" uid="uid://c7ob3kwj1aii4" path="res://assets/sprites/character/3_.png" id="4_txyjf"]
-[ext_resource type="Texture2D" uid="uid://br5xjs44lylxr" path="res://assets/sprites/weapon/dagger.png" id="5_wegfm"]
+[ext_resource type="Script" path="res://scenes/game/modules/weapon_collision.gd" id="5_nahym"]
 [ext_resource type="Texture2D" uid="uid://igtfmvghqyto" path="res://assets/sprites/character/4_.png" id="5_x0new"]
 [ext_resource type="Texture2D" uid="uid://dddhf8qbmwtuf" path="res://assets/sprites/ui/dash.png" id="8_qcfgh"]
 
@@ -109,12 +110,8 @@ shape = SubResource("CircleShape2D_0scub")
 self_modulate = Color(0, 0, 0, 1)
 position = Vector2(0, -83)
 scale = Vector2(1.2, 1.2)
-texture = ExtResource("5_wegfm")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RF"]
-position = Vector2(0, -83)
-scale = Vector2(1.2, 1.2)
-polygon = PackedVector2Array(4, -111.2, 4, -107.8, 7, -103.8, 7, -100.8, 9, -97.8, 9, -93.5, 11, -87.7, 11, -75.5, 13, 23.5, 16.1, 23.5, 36, 25.6, 36, 27.3, 37.6, 30.5, 34.2, 30.5, 27, 32.3, 27, 33.1, 24.2, 34.5, 12, 34.5, 12, 110.5, 9.4, 110.5, 6.4, 113.5, -7, 113.5, -7, 112.2, -10, 111.2, -10, 109.9, -12, 107.9, -12, 103.4, -10.2, 94.5, -11, 94.5, -12, 34.5, -24.4, 34.5, -26.4, 32.5, -31.1, 32.5, -36, 31.3, -36, 29.7, -37.6, 26.5, -34.4, 26.5, -32.4, 24.5, -24, 24.5, -15, 23.6, -11, 19.1, -11, -72.6, -6.9, -101.5, -5.8, -101.5, -3.8, -108.5, -2.5, -108.5, -1, -110.8, -1, -112.9)
+texture = ExtResource("4_7arsb")
+script = ExtResource("5_nahym")
 
 [node name="LUA" type="RigidBody2D" parent="." groups=["Damagable"]]
 position = Vector2(-86, 0)
@@ -160,15 +157,11 @@ contact_monitor = true
 self_modulate = Color(0, 0, 0, 1)
 position = Vector2(0, -83)
 scale = Vector2(1.2, 1.2)
-texture = ExtResource("5_wegfm")
+texture = ExtResource("4_7arsb")
+script = ExtResource("5_nahym")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LF"]
 shape = SubResource("CircleShape2D_0scub")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LF"]
-position = Vector2(0, -83)
-scale = Vector2(1.2, 1.2)
-polygon = PackedVector2Array(4, -111.2, 4, -107.8, 7, -103.8, 7, -100.8, 9, -97.8, 9, -93.5, 11, -87.7, 11, -75.5, 13, 23.5, 16.1, 23.5, 36, 25.6, 36, 27.3, 37.6, 30.5, 34.2, 30.5, 27, 32.3, 27, 33.1, 24.2, 34.5, 12, 34.5, 12, 110.5, 9.4, 110.5, 6.4, 113.5, -7, 113.5, -7, 112.2, -10, 111.2, -10, 109.9, -12, 107.9, -12, 103.4, -10.2, 94.5, -11, 94.5, -12, 34.5, -24.4, 34.5, -26.4, 32.5, -31.1, 32.5, -36, 31.3, -36, 29.7, -37.6, 26.5, -34.4, 26.5, -32.4, 24.5, -24, 24.5, -15, 23.6, -11, 19.1, -11, -72.6, -6.9, -101.5, -5.8, -101.5, -3.8, -108.5, -2.5, -108.5, -1, -110.8, -1, -112.9)
 
 [node name="Hip" type="RigidBody2D" parent="." groups=["Damagable"]]
 position = Vector2(0, 172)

@@ -4,12 +4,7 @@ extends Node2D
 @onready var character_instance = preload("res://scenes/game/modules/character.tscn")
 @onready var bullet_instance = preload("res://scenes/game/tools/bullet.tscn")
 
-@onready var cooldown_time: float = get_node("/root/Config").get_value("cooldown", "holstar")
-@onready var health: float = get_node("/root/Config").get_value("health", "holstar")
-@onready var current_health: float = health
-@onready var damage: float = get_node("/root/Config").get_value("damage", "holstar")
-@onready var power: float = get_node("/root/Config").get_value("power", "holstar")
-@onready var speed: float = get_node("/root/Config").get_value("speed", "holstar")
+@onready var cooldown_time: float = get_node("/root/Config").get_value("cooldown", name.replace("@", "").rstrip("0123456789").to_lower())
 
 @onready var character: Node2D
 @onready var joy_stick: CanvasLayer
@@ -39,12 +34,6 @@ func _ready() -> void:
 	
 	get_node("Extra").add_child(character)
 	get_node("Extra").add_child(joy_stick)
-	
-	character.health = health
-	character.current_health = current_health
-	character.damage = damage
-	character.power = power
-	character.speed = speed
 	
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)

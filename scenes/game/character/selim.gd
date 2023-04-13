@@ -4,13 +4,8 @@ extends Node2D
 @onready var joy_stick_instance = preload("res://scenes/game/modules/joy_stick.tscn")
 @onready var character_instance = preload("res://scenes/game/modules/character.tscn")
 
-@onready var duration_time: float = get_node("/root/Config").get_value("duration", "selim")
-@onready var cooldown_time: float = get_node("/root/Config").get_value("cooldown", "selim")
-@onready var health: float = get_node("/root/Config").get_value("health", "selim")
-@onready var current_health: float = health
-@onready var damage: float = get_node("/root/Config").get_value("damage", "selim")
-@onready var power: float = get_node("/root/Config").get_value("power", "selim")
-@onready var speed: float = get_node("/root/Config").get_value("speed", "selim")
+@onready var duration_time: float = get_node("/root/Config").get_value("duration", name.replace("@", "").rstrip("0123456789").to_lower())
+@onready var cooldown_time: float = get_node("/root/Config").get_value("cooldown", name.replace("@", "").rstrip("0123456789").to_lower())
 
 @onready var cooldown_bar: TextureProgressBar
 @onready var cooldown_text: RichTextLabel
@@ -36,12 +31,6 @@ func _ready() -> void:
 	
 	get_node("Extra").add_child(character)
 	get_node("Extra").add_child(joy_stick)
-	
-	character.health = health
-	character.current_health = current_health
-	character.damage = damage
-	character.power = power
-	character.speed = speed
 	
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
@@ -133,6 +122,8 @@ func skill_signal(is_charging: bool) -> void:
 		cooldown.start()
 		var opponent = get_parent().get_opponent(self)
 		await get_tree().create_timer((opponent.get_node("Body").global_position - body.global_position).length() / 10000).timeout
+#		if opponent == null:
+#			return
 		opponent = get_parent().get_opponent(self)
 		opponent.character.take_damage((multiplier / 2) * character.damage)
 		opponent.character.push((opponent.get_node("Body").global_position - body.global_position).normalized(), character.power * multiplier)

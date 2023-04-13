@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://c72hhxfayu4ir"]
+[gd_scene load_steps=13 format=3 uid="uid://s6stxhwfkt57"]
 
 [ext_resource type="Texture2D" uid="uid://dm0gceittncr2" path="res://assets/sprites/character/1_.png" id="1_6bk0w"]
 [ext_resource type="Script" path="res://scenes/game/character/selim.gd" id="1_dujti"]
 [ext_resource type="Texture2D" uid="uid://c7ob3kwj1aii4" path="res://assets/sprites/character/3_.png" id="2_ebsho"]
 [ext_resource type="Texture2D" uid="uid://igtfmvghqyto" path="res://assets/sprites/character/4_.png" id="3_ok8xy"]
-[ext_resource type="Texture2D" uid="uid://ctfp4wndqphou" path="res://assets/sprites/weapon/axe.png" id="4_thk3q"]
+[ext_resource type="Texture2D" uid="uid://ctfp4wndqphou" path="res://assets/sprites/weapon/selim/weapon.png" id="4_xu6de"]
+[ext_resource type="Script" path="res://scenes/game/modules/weapon_collision.gd" id="5_5njhj"]
 [ext_resource type="Texture2D" uid="uid://bwyvpwv74252p" path="res://assets/sprites/ui/Shockwave.png" id="6_y5qf2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4a8r0"]
@@ -106,12 +107,8 @@ shape = SubResource("CircleShape2D_vki4d")
 self_modulate = Color(0, 0, 0, 1)
 position = Vector2(-2, -220)
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("4_thk3q")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RF"]
-position = Vector2(-2, -220)
-scale = Vector2(1.5, 1.5)
-polygon = PackedVector2Array(71.5, -308.5, 71.5, -306, 84.5, -284, 84.5, -280.5, 92.5, -251.8, 92.5, -243.5, 93.5, -211.5, 92.3, -211.5, 89.2, -189.5, 88, -189.5, 81, -166.5, 79.7, -166.5, 72.8, -151.5, 71.4, -151.5, 58.4, -136.5, 53.5, -136.5, 53.5, -158.5, 52.9, -158.5, 49, -174.5, 34.6, -190.5, 31.8, -190.5, 26.8, -194.5, 21.1, -194.5, 19.5, -186.1, 19.5, 218.5, 20.1, 218.5, 23, 231.5, 21.5, 231.5, 21.5, 323.5, 19.6, 323.5, 16.6, 328.5, 11.6, 328.5, -7.5, 329.6, -7.5, 328.5, -11.5, 328.5, -11.5, 326.4, -17.5, 321.4, -17.5, 221.5, -16.3, 221.5, -13.5, 190.3, -13.5, -184.5, -14.3, -184.5, -15.3, -194.5, -18.5, -194.5, -38.5, -181.4, -38.5, -180, -46.5, -166, -46.5, -137.5, -48.9, -137.5, -52.4, -135.2, -54.5, -136.3, -54.5, -137.8, -68.5, -154.8, -68.5, -157, -78.5, -175, -78.5, -178.5, -86.5, -210.3, -86.5, -226.5, -87.8, -235.5, -86.4, -235.5, -84.4, -264.5, -83, -264.5, -78.1, -284.5, -76.9, -284.5, -70.9, -299.5, -69.5, -299.5, -58.6, -315.5, -49.7, -315.5, -47.7, -294.5, -40.2, -278.5, -39.6, -278.5, -31.6, -269.5, -30.1, -269.5, -15.5, -263.5, -15.5, -264.1, -10.5, -272.1, -10.5, -275.8, -2, -305.5, -0.100006, -305.5, 3.39999, -307.8, 5.5, -306.7, 5.5, -305.2, 9.5, -300.2, 9.5, -294.5, 17, -268.5, 17.6, -268.5, 21.6, -262.5, 23.5, -262.5, 40.5, -270.8, 48.5, -279.3, 48.5, -281, 53.5, -291, 53.5, -297.6, 54.5, -316.6, 54.5, -318.7, 56.7, -319.8)
+texture = ExtResource("4_xu6de")
+script = ExtResource("5_5njhj")
 
 [node name="LUA" type="RigidBody2D" parent="." groups=["Damagable"]]
 position = Vector2(-129, 0)

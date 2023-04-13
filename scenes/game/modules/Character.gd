@@ -3,11 +3,11 @@ extends Node2D
 
 @onready var hit_cooldown: Timer = get_parent().get_node("HitCooldown")
 
-@onready var health: float
-@onready var current_health: float
-@onready var damage: float
-@onready var power: float
-@onready var speed: float
+@onready var health: float = get_node("/root/Config").get_value("health", get_parent().get_parent().name.replace("@", "").rstrip("0123456789").to_lower())
+@onready var current_health: float =  health
+@onready var damage: float =  get_node("/root/Config").get_value("damage", get_parent().get_parent().name.replace("@", "").rstrip("0123456789").to_lower())
+@onready var power: float =  get_node("/root/Config").get_value("power", get_parent().get_parent().name.replace("@", "").rstrip("0123456789").to_lower())
+@onready var speed: float =  get_node("/root/Config").get_value("speed", get_parent().get_parent().name.replace("@", "").rstrip("0123456789").to_lower())
 
 @onready var health_bar = get_node("UI/HealthBar")
 @onready var health_text = get_node("UI/HealthBar/Text")

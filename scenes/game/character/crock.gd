@@ -3,13 +3,8 @@ extends Node2D
 @onready var joy_stick_instance = preload("res://scenes/game/modules/joy_stick.tscn")
 @onready var character_instance = preload("res://scenes/game/modules/character.tscn")
 
-@onready var duration_time: float = get_node("/root/Config").get_value("duration", "crock")
-@onready var cooldown_time: float = get_node("/root/Config").get_value("cooldown", "crock")
-@onready var health: float = get_node("/root/Config").get_value("health", "crock")
-@onready var current_health: float = health
-@onready var damage: float = get_node("/root/Config").get_value("damage", "crock")
-@onready var power: float = get_node("/root/Config").get_value("power", "crock")
-@onready var speed: float = get_node("/root/Config").get_value("speed", "crock")
+@onready var duration_time: float = get_node("/root/Config").get_value("duration", name.replace("@", "").rstrip("0123456789").to_lower())
+@onready var cooldown_time: float = get_node("/root/Config").get_value("cooldown", name.replace("@", "").rstrip("0123456789").to_lower())
 
 @onready var cooldown_bar: TextureProgressBar
 @onready var cooldown_text: RichTextLabel
@@ -31,12 +26,6 @@ func _ready() -> void:
 	
 	get_node("Extra").add_child(character)
 	get_node("Extra").add_child(joy_stick)
-	
-	character.health = health
-	character.current_health = current_health
-	character.damage = damage
-	character.power = power
-	character.speed = speed
 	
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
