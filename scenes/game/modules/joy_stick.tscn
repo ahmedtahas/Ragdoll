@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/game/modules/joy_stick.gd" id="1_1fgen"]
 [ext_resource type="Texture2D" uid="uid://e6q8ogylbeyy" path="res://assets/sprites/ui/joystick.png" id="2_c4qb3"]
 
-[node name="Double Joy Stick" type="CanvasLayer"]
+[node name="DoubleJoyStick" type="CanvasLayer"]
 script = ExtResource("1_1fgen")
 
 [node name="MovementStick" type="TouchScreenButton" parent="."]

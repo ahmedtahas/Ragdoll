@@ -1,13 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://b0m6j6y1xsy4x"]
+[gd_scene load_steps=9 format=3 uid="uid://b0m6j6y1xsy4x"]
 
 [ext_resource type="Script" path="res://scenes/game/tools/bullet.gd" id="1_jpi5p"]
 [ext_resource type="Texture2D" uid="uid://bg0hr2fg7ego4" path="res://assets/sprites/weapon/bullet.png" id="1_qrbl8"]
+[ext_resource type="Script" path="res://scenes/game/tools/bullet_sync.gd" id="3_d4b20"]
+[ext_resource type="Script" path="res://scenes/game/tools/trail.gd" id="4_73uhd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6pw4o"]
 radius = 12.0
 height = 66.0
 
-[node name="Bullet" type="CharacterBody2D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4j8yv"]
+properties/0/path = NodePath("Synchronizer:pos")
+properties/0/spawn = true
+properties/0/sync = true
+properties/1/path = NodePath("Synchronizer:rot")
+properties/1/spawn = true
+properties/1/sync = true
+
+[sub_resource type="Curve" id="Curve_koudb"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_4td0b"]
+offsets = PackedFloat32Array(0.433993, 0.854786)
+colors = PackedColorArray(0, 0, 0, 1, 0.43778, 0.218179, 0.00178888, 1)
+
+[node name="Bullet" type="CharacterBody2D" groups=["Skill"]]
 script = ExtResource("1_jpi5p")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -18,3 +36,18 @@ texture = ExtResource("1_qrbl8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_6pw4o")
+
+[node name="Synchronizer" type="Node2D" parent="."]
+script = ExtResource("3_d4b20")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Synchronizer"]
+root_path = NodePath("../..")
+replication_config = SubResource("SceneReplicationConfig_4j8yv")
+
+[node name="TrailHead" type="Marker2D" parent="."]
+position = Vector2(-39, 0)
+
+[node name="Trail" type="Line2D" parent="TrailHead"]
+width_curve = SubResource("Curve_koudb")
+gradient = SubResource("Gradient_4td0b")
+script = ExtResource("4_73uhd")

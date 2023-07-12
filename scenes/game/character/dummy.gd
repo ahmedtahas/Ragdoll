@@ -56,7 +56,6 @@ func _physics_process(_delta: float) -> void:
 func _ignore_self() -> void:
 	for child_1 in get_children():
 		if child_1 is RigidBody2D:
-			child_1.body_entered.connect(character.on_body_entered.bind(child_1))
 			for child_2 in get_children():
 				if child_1 != child_2 and child_2 is RigidBody2D:
 					child_1.add_collision_exception_with(child_2)

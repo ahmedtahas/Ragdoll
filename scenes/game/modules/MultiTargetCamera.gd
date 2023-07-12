@@ -1,10 +1,10 @@
 extends Camera2D
 
-var camera_speed =0.5 # camera position lerp speed
-var zoom_speed = 0.25  
-var min_zoom = 0.25  
-var max_zoom = 15  
-var margin = Vector2(1200, 800) 
+var camera_speed: float = 0.5 # camera position lerp speed
+var zoom_speed: float = 0.25  
+var min_zoom: float = 0.25  
+var max_zoom: float = 15  
+var margin: Vector2 = Vector2(1200, 800) 
 
 var targets = [] 
 var position_vectors: Vector2
@@ -42,6 +42,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func add_target(target):
+	print(multiplayer.get_unique_id(), "  ::  ", target.get_node("../..").name)
 	if not target in targets:
 		targets.append(target)
 

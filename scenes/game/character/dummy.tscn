@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://sknui6nd6x00"]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scenes/game/character/dummy.gd" id="1_ilisn"]
 [ext_resource type="Texture2D" uid="uid://dm0gceittncr2" path="res://assets/sprites/character/1_.png" id="2_5s5jl"]

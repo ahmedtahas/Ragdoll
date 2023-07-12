@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y1fj1"]
 size = Vector2(23.5104, 163.935)
 
-[node name="Before Image" type="CharacterBody2D"]
+[node name="Before Image" type="CharacterBody2D" groups=["Skill"]]
 script = ExtResource("1_3fgum")
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]

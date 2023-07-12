@@ -1,90 +1,89 @@
-[gd_scene load_steps=7 format=3 uid="uid://dspift8ih848t"]
+[gd_scene load_steps=4 format=3 uid="uid://dspift8ih848t"]
 
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_nxmvl"]
-[ext_resource type="Texture2D" uid="uid://bui0xqp6eodm2" path="res://assets/sprites/environment/LEFT.png" id="2_nvxwv"]
-[ext_resource type="Texture2D" uid="uid://bqeoluim7n6os" path="res://assets/sprites/environment/RIGHT.png" id="3_75e7y"]
-[ext_resource type="Texture2D" uid="uid://dkihg8h8axe0i" path="res://assets/sprites/environment/TOP.png" id="4_bm37v"]
-[ext_resource type="Texture2D" uid="uid://cx3kn7dvehly2" path="res://assets/sprites/environment/BASE.png" id="5_br4vj"]
+[ext_resource type="Texture2D" uid="uid://bnxtduxbf131" path="res://assets/sprites/environment/Wall.png" id="3_4chnp"]
+[ext_resource type="PackedScene" uid="uid://chqdqglpyhnp" path="res://scenes/game/modules/multi_target_camera.tscn" id="6_hsuk7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4x5ui"]
-size = Vector2(260, 875.7)
-
-[node name="world" type="Node2D"]
-position = Vector2(0, 27)
+[node name="Main" type="Node2D"]
 script = ExtResource("1_nxmvl")
 
 [node name="Point1" type="Marker2D" parent="."]
-position = Vector2(4459, -3202)
+position = Vector2(5105, -1590)
 
 [node name="Point2" type="Marker2D" parent="."]
-position = Vector2(10477, -3304)
-
-[node name="Left" type="StaticBody2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="Left"]
-position = Vector2(-1300, -4402)
-texture = ExtResource("2_nvxwv")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2(-1301, -4403.5)
-scale = Vector2(10, 10)
-shape = SubResource("RectangleShape2D_4x5ui")
-
-[node name="Rigth" type="StaticBody2D" parent="."]
-position = Vector2(16195, -1828)
-
-[node name="Sprite2D" type="Sprite2D" parent="Rigth"]
-texture = ExtResource("3_75e7y")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rigth"]
-position = Vector2(-8, -3.00049)
-scale = Vector2(10, 10)
-shape = SubResource("RectangleShape2D_4x5ui")
+position = Vector2(15315, -1590)
 
 [node name="Top" type="StaticBody2D" parent="."]
-position = Vector2(4374, -7475)
+position = Vector2(10210, -5090)
 
 [node name="Sprite2D" type="Sprite2D" parent="Top"]
-texture = ExtResource("4_bm37v")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Top"]
-position = Vector2(-44, -4)
-rotation = 1.5708
 scale = Vector2(10, 10)
-shape = SubResource("RectangleShape2D_4x5ui")
+texture = ExtResource("3_4chnp")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Top"]
+scale = Vector2(10, 10)
+polygon = PackedVector2Array(1536, 1024, -1536, 1024, -1536, -1024, 5, -1024, 5, -511.6, 2.40002, -509, -1021, -509, -1021, 509, 1021, 509, 1021, -509, 91, -509, 91, -510.4, 89, -511.4, 89, -1024, 1536, -1024)
 
 [node name="Bottom" type="StaticBody2D" parent="."]
-position = Vector2(1753, 1262)
+position = Vector2(10210, -5090)
 
 [node name="Sprite2D" type="Sprite2D" parent="Bottom"]
-texture = ExtResource("5_br4vj")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
-position = Vector2(5.99982, 14.9998)
-rotation = 1.5708
+rotation = 3.14159
 scale = Vector2(10, 10)
-shape = SubResource("RectangleShape2D_4x5ui")
+texture = ExtResource("3_4chnp")
 
-[node name="Top2" type="StaticBody2D" parent="."]
-position = Vector2(13125, -7475)
-
-[node name="Sprite2D" type="Sprite2D" parent="Top2"]
-texture = ExtResource("4_bm37v")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Top2"]
-position = Vector2(-44, -21.001)
-rotation = 1.5708
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bottom"]
+rotation = -3.14159
 scale = Vector2(10, 10)
-shape = SubResource("RectangleShape2D_4x5ui")
+polygon = PackedVector2Array(1536, 1024, -1536, 1024, -1536, -1024, 5, -1024, 5, -511.6, 2.40002, -509, -1021, -509, -1021, 509, 1021, 509, 1021, -509, 91, -509, 91, -510.4, 89, -511.4, 89, -1024, 1536, -1024)
 
-[node name="Bottom2" type="StaticBody2D" parent="."]
-position = Vector2(10503, 1262)
+[node name="MTC" parent="." instance=ExtResource("6_hsuk7")]
 
-[node name="Sprite2D" type="Sprite2D" parent="Bottom2"]
-texture = ExtResource("5_br4vj")
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/game/character/zeina.tscn", "res://scenes/game/character/crock.tscn", "res://scenes/game/character/holstar.tscn", "res://scenes/game/character/tin.tscn", "res://scenes/game/character/roki_roki.tscn", "res://scenes/game/character/paranoc.tscn")
+spawn_path = NodePath("../Spawner")
+spawn_limit = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom2"]
-position = Vector2(28, -3.00098)
-rotation = 1.5708
-scale = Vector2(10, 10)
-shape = SubResource("RectangleShape2D_4x5ui")
+[node name="NetworkInfo" type="VBoxContainer" parent="."]
+offset_left = 410.0
+offset_top = 4.0
+offset_right = 450.0
+offset_bottom = 56.0
+
+[node name="NetworkSideDisplay" type="Label" parent="NetworkInfo"]
+layout_mode = 2
+
+[node name="UniquePeerID" type="Label" parent="NetworkInfo"]
+layout_mode = 2
+
+[node name="Menu" type="VBoxContainer" parent="."]
+offset_left = 406.0
+offset_top = 248.0
+offset_right = 446.0
+offset_bottom = 288.0
+
+[node name="Host" type="Button" parent="Menu"]
+layout_mode = 2
+text = "HOST"
+
+[node name="Join" type="Button" parent="Menu"]
+layout_mode = 2
+text = "JOIN"
+
+[node name="Spawner" type="Node2D" parent="."]
+
+[node name="ServerSkill" type="Node2D" parent="."]
+
+[node name="ClientSkill" type="Node2D" parent="."]
+
+[node name="ServerSkillSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/game/tools/bullet.tscn", "res://scenes/game/tools/dagger.tscn")
+spawn_path = NodePath("../ServerSkill")
+spawn_limit = 1
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]
+[connection signal="pressed" from="Menu/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Menu/Join" to="." method="_on_join_pressed"]
+[connection signal="spawned" from="ServerSkillSpawner" to="." method="_on_multiplayer_spawner_spawned"]

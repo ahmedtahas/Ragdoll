@@ -1,84 +1,47 @@
 extends Node2D
 
-@onready var player1_instance = preload("res://scenes/game/character/zeina.tscn")
-@onready var player2_instance = preload("res://scenes/game/character/selim.tscn")
-@onready var mtc_instance = preload("res://scenes/game/modules/multi_target_camera.tscn")
 
-@onready var point1: Marker2D = $Point1
-@onready var point2: Marker2D = $Point2
+@onready var room: Vector2 = Vector2(20420, -10180)
 
-@onready var mtc: Camera2D
-@onready var player1: Node2D
-@onready var player2: Node2D
+@onready var connected_peer_ids = []
+@onready var client_id
 
-@onready var room: Vector2 = Vector2(21120, -10560)
 
-func _ready() -> void:
-	player2 = player1_instance.instantiate()
-	player1 = player2_instance.instantiate()
-	mtc = mtc_instance.instantiate()
-	
-	player1.transform = Transform2D(point1.transform)
-	player2.transform = Transform2D(point2.transform)
-	
-	add_child(player1)
-	add_child(player2)
-	add_child(mtc)
-	
-	mtc.add_target(player1.get_node("Body"))
-	mtc.add_target(player2.get_node("Body"))
-	
-	player2.joy_stick.disconnect("move_signal", player2.character.move_signal)
-	player2.joy_stick.disconnect("skill_signal", player2.skill_signal)
-	
+var multiplayer_peer = ENetMultiplayerPeer.new()
 
-func respawn_player(player_position: Vector2, player_health: float, player: Node2D, cooldown: bool):
+const PORT = 7777
+const ADDRESS = "127.0.0.1"
+const clientaddr = "192.168.0.21"
+
+
+@rpc("any_peer", "reliable", "call_local")
+func slowdown(time_scale: float, duration: float):
+	Engine.time_scale = time_scale
+	await get_tree().create_timer(time_scale * duration).timeout
 	Engine.time_scale = 1
-	if player == player1:
-		var potential_position = player_position
-		var opponent_center = player2.get_node("Body").global_position + player2.center.rotated(player2.get_node("Body").global_rotation)
-		mtc.remove_target(player1.get_node("Body"))
-		player1.queue_free()
-		potential_position = get_inside_position(potential_position, player)
-		
-		var player_center = potential_position + player.center
-		if (opponent_center - player_center).length() < player2.radius.x + 200:
-			potential_position += ((player_center - opponent_center) + Vector2.RIGHT).normalized() * (get_opponent(player1).radius.x + 200) 
-		player1 = player2_instance.instantiate()
-		player1.transform = Transform2D(0, potential_position)
-		player1.set_name(player1.name.replace("@", "").rstrip("0123456789").to_lower())
-		add_child(player1)
-		mtc.add_target(player1.get_node("Body"))
-		player1.character.health = player_health
-		if cooldown:
-			player1.cooldown.start()
+
+	
+@rpc("any_peer", "call_remote", "reliable", 1)
+func set_opponent(selection):
+	print(multiplayer.get_unique_id(), " 's  opponent is  ", CharacterSelection.opponent)
+	CharacterSelection.opponent = selection
+	
+	print(multiplayer.get_unique_id(), " 's  opponent is  ", CharacterSelection.opponent)
+#	rpc_id(multiplayer.get_remote_sender_id(), "_set_bolen", true)
+	
+	
+@rpc("call_local", "any_peer", "reliable")
+func get_opponent_id():
+	if multiplayer_peer.get_unique_id() > 1000:
+		return 1
 	else:
-		var potential_position = player_position
-		var opponent_center = player1.get_node("Body").global_position + player1.center.rotated(player1.get_node("Body").global_rotation)
-		mtc.remove_target(player2.get_node("Body"))
-		player2.queue_free()
-		potential_position = get_inside_position(potential_position, player)
-		var player_center = potential_position + player.center
-		if (opponent_center - player_center).length() < player1.radius.x:
-			potential_position += ((player_center - opponent_center) + Vector2.RIGHT).normalized() * (get_opponent(player2).radius.x + 200) 
-		player2 = player1_instance.instantiate()
-		player2.set_name(player2.name.replace("@", "").rstrip("0123456789").to_lower())
-		player2.transform = Transform2D(0, potential_position)
-		
-		add_child(player2)
-		mtc.add_target(player2.get_node("Body"))
-		player2.character.health = player_health
-		if cooldown:
-			player2.cooldown.start()
-	
-	
-func get_opponent(player) -> Node2D:
-	if player == player1:
-		return player2
-	return player1
+		for id in connected_peer_ids:
+			if id != 1:
+				return id
 		
 		
-func get_inside_position(pos: Vector2, player: Node2D) -> Vector2:
+func get_inside_position(pos: Vector2, player_name: StringName) -> Vector2:
+	var player = get_node("Spawner/" + player_name)
 	if pos.x > room.x:
 		pos.x = room.x - player.radius.x
 	elif pos.x < player.radius.x:
@@ -86,5 +49,88 @@ func get_inside_position(pos: Vector2, player: Node2D) -> Vector2:
 	if pos.y < room.y:
 		pos.y = room.y + player.radius.x
 	elif pos.y > -player.radius.x:
-		pos.y = -player.radius.x
+		pos.y -= player.radius.x
 	return pos
+
+
+func _on_host_pressed() -> void:
+	$NetworkInfo/NetworkSideDisplay.text = "Server"
+	$Menu.visible = false
+	multiplayer_peer.create_server(PORT)
+	multiplayer.multiplayer_peer = multiplayer_peer
+	$NetworkInfo/UniquePeerID.text = str(multiplayer.get_unique_id())
+	add_player_character(1)
+	get_node("Spawner/1/LocalCharacter/Head").freeze = true
+	multiplayer_peer.peer_connected.connect(
+		func(new_peer_id):
+			client_id = new_peer_id
+			await get_tree().create_timer(2).timeout
+			get_node("Spawner/1/LocalCharacter/Head").freeze = false
+			rpc_id(new_peer_id,"set_opponent", CharacterSelection.own)
+			rpc("add_newly_connected_player_character", new_peer_id)
+#			add_newly_connected_player_character(new_peer_id)
+			rpc_id(new_peer_id, "add_previously_connected_player_characters", 1)
+			add_player_character(new_peer_id)
+	)
+
+
+func _on_join_pressed() -> void:
+	$NetworkInfo/NetworkSideDisplay.text = "Client"
+	$Menu.visible = false
+	multiplayer_peer.create_client(clientaddr, PORT)
+	multiplayer.multiplayer_peer = multiplayer_peer
+	multiplayer_peer.peer_connected.connect(
+		func(_peer_):
+			await get_tree().create_timer(1).timeout
+			rpc_id(1,"set_opponent", CharacterSelection.own)
+	)
+	$NetworkInfo/UniquePeerID.text = str(multiplayer.get_unique_id())
+	
+		
+func add_player_character(peer_id):
+	connected_peer_ids.append(peer_id)
+	
+	var player_character
+	
+	if peer_id == multiplayer.get_unique_id():
+		player_character = load("res://scenes/game/character/" + CharacterSelection.own + ".tscn").instantiate()
+	else:
+		player_character = load("res://scenes/game/character/" + CharacterSelection.opponent + ".tscn").instantiate()
+
+	player_character.set_multiplayer_authority(peer_id)
+	print(player_character.name, "   ::  ", multiplayer.get_unique_id(), "   ::  ", connected_peer_ids)
+	$Spawner.add_child(player_character)
+	if peer_id == 1:
+		player_character.transform = $Point1.transform
+	else:
+		player_character.transform = $Point2.transform
+	
+	
+@rpc("call_remote", "reliable")
+func add_skill(skill_name: String) -> void:
+	var skill = load("res://scenes/game/tools/" + skill_name + ".tscn").instantiate()
+	print("SKILLLLLLLLL     ", multiplayer.get_unique_id())
+	$ClientSkill.add_child(skill, true)
+	skill.set_multiplayer_authority(client_id)
+	
+	
+@rpc("call_remote", "reliable")
+func remove_skill() -> void:
+	for child in $ClientSkill.get_children():
+		child.queue_free()
+	
+	
+@rpc	
+func add_newly_connected_player_character(new_peer_id):
+	print(new_peer_id, "  :---------:  ", multiplayer.get_unique_id())
+	add_player_character(new_peer_id)
+	
+	
+@rpc
+func add_previously_connected_player_characters(peer_id) -> void:
+	connected_peer_ids.append(peer_id)
+
+
+func _on_multiplayer_spawner_spawned(node: Node) -> void:
+	print(node, "   spawned   by ", multiplayer.get_unique_id())
+	pass # Replace with function body.

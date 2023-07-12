@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Ragsters"
-run/main_scene="res://scenes/world.tscn"
+run/main_scene="res://scenes/game/character/character_selection.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Config="*res://global/Config.gd"
+CharacterSelection="*res://global/character_selection.gd"
 
 [display]
 

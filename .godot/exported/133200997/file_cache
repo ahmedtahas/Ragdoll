@@ -1,0 +1,17 @@
+res://scenes/game/character/character_selection.tscn::62079693da5374e59bb70b3e0e8707c6::1689094345::res://.godot/exported/133200997/export-c3ccf46526b33bcea0e65705cf11bd85-character_selection.scn
+res://scenes/game/character/crock.tscn::510924df4bbafc8ae302a39220da8281::1689094345::res://.godot/exported/133200997/export-f3330be496eaf9f0fe5bcc9e45b63632-crock.scn
+res://scenes/game/character/dummy.tscn::cb6c4437adbad9f8bdbbed24b3a3ec36::1687297652::res://.godot/exported/133200997/export-a94385027fa5ba55557180426f96ce6c-dummy.scn
+res://scenes/game/character/holstar.tscn::8737f1a241b890edefc7cd87b792f2d5::1689094345::res://.godot/exported/133200997/export-bb7b4743549627315b8b1653496f7009-holstar.scn
+res://scenes/game/character/paranoc.tscn::47fe4f03c64777a1fbd40e0014b761e4::1689094345::res://.godot/exported/133200997/export-ee7f81eb0dd7303dfb82e82fee86e45f-paranoc.scn
+res://scenes/game/character/roki_roki.tscn::f4ab81cdadfbd4db3ea07684ec00de59::1689094345::res://.godot/exported/133200997/export-d34230e6a27711c399a2dfeaa4ea40a7-roki_roki.scn
+res://scenes/game/character/tin.tscn::eccb8986fc5325312e9d989ed221b9d7::1689094345::res://.godot/exported/133200997/export-e915f8285b0816d2f7e116920c755253-tin.scn
+res://scenes/game/character/zeina.tscn::cf4306559de23c6695847cc763c292e9::1689094345::res://.godot/exported/133200997/export-d3a3da6cae55063ac5c1d1e105729768-zeina.scn
+res://scenes/game/modules/character.tscn::367f06c709097cc40a7e5d54cc261824::1689094571::res://.godot/exported/133200997/export-e3d2df25c3409c75382baca4541944b1-character.scn
+res://scenes/game/modules/joy_stick.tscn::e3debf37d54fff7c26cdb5ec4579bcff::1688407971::res://.godot/exported/133200997/export-d6068c8ccfbbd4ddd00d4bfaeaae4ee5-joy_stick.scn
+res://scenes/game/modules/multi_target_camera.tscn::9f2ef3c8295386dbcc9d846e4909d135::1682627914::res://.godot/exported/133200997/export-c45022c489538227625b13894adee32f-multi_target_camera.scn
+res://scenes/game/tools/before_image.tscn::b05e521322c5109a77d79aca4545040f::1682957064::res://.godot/exported/133200997/export-de6b35a8697d8426ea8d430f1e012e1c-before_image.scn
+res://scenes/game/tools/bullet.tscn::c2aed6bcd7833b34b8714f59594894a5::1689094345::res://.godot/exported/133200997/export-3d16425bef2e62ba9e310aa515007109-bullet.scn
+res://scenes/game/tools/dagger.tscn::48faac0d798dd9b8ab76e80e07cc5583::1689094345::res://.godot/exported/133200997/export-ee15accc28a222ae23fc45289805aa9f-dagger.scn
+res://scenes/menu/main_menu.tscn::4cca70a74ed15ded59d93536fe54ce4d::1682627914::res://.godot/exported/133200997/export-9ae7820dfc5b492c0424e6a9127ac776-main_menu.scn
+res://scenes/world.tscn::3a07203c0a5d5d042dd56e62f1b8a087::1689094536::res://.godot/exported/133200997/export-6b9c1b1fd6ae6f795188dfdc89e222b0-world.scn
+res://node_2d.tscn::61dc0268d55cb0d3937f95ededc56d9d::1688407971::res://.godot/exported/133200997/export-362256a061aa8890e9a1e558b11e5ec3-node_2d.scn
