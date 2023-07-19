@@ -1,17 +1,17 @@
-[gd_scene load_steps=24 format=3 uid="uid://c6fir1mdp2upi"]
+[gd_scene load_steps=24 format=3 uid="uid://7wqonnxvnt1o"]
 
-[ext_resource type="Script" path="res://scenes/game/character/paranoc.gd" id="1_h0kxn"]
-[ext_resource type="Script" path="res://scenes/game/character/load_skin.gd" id="1_qnhnp"]
-[ext_resource type="Script" path="res://scenes/game/character/pusher.gd" id="2_wytsv"]
-[ext_resource type="Texture2D" uid="uid://dm0gceittncr2" path="res://assets/sprites/character/1_.png" id="3_1kb0k"]
-[ext_resource type="Texture2D" uid="uid://c7ob3kwj1aii4" path="res://assets/sprites/character/3_.png" id="4_lwc6l"]
-[ext_resource type="Script" path="res://scenes/game/modules/weapon_collision.gd" id="5_vs1w8"]
-[ext_resource type="Texture2D" uid="uid://igtfmvghqyto" path="res://assets/sprites/character/4_.png" id="6_4hdo7"]
-[ext_resource type="Script" path="res://scenes/game/character/copy_skin.gd" id="7_shgwh"]
-[ext_resource type="Script" path="res://scenes/game/character/positions.gd" id="8_22jox"]
-[ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="9_awwpr"]
-[ext_resource type="PackedScene" uid="uid://dfctusw14gxrg" path="res://scenes/game/modules/character.tscn" id="10_ti88n"]
-[ext_resource type="Script" path="res://scenes/game/character/Synchronizer.gd" id="11_qyxrs"]
+[ext_resource type="Script" path="res://scenes/game/character/fiend.gd" id="1_movwc"]
+[ext_resource type="Script" path="res://scenes/game/character/positions.gd" id="2_nng47"]
+[ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="3_nfaj4"]
+[ext_resource type="PackedScene" uid="uid://dfctusw14gxrg" path="res://scenes/game/modules/character.tscn" id="4_f0y3k"]
+[ext_resource type="Script" path="res://scenes/game/character/Synchronizer.gd" id="5_yhiiv"]
+[ext_resource type="Script" path="res://scenes/game/character/copy_skin.gd" id="6_purqk"]
+[ext_resource type="Texture2D" uid="uid://dm0gceittncr2" path="res://assets/sprites/character/1_.png" id="7_52od3"]
+[ext_resource type="Texture2D" uid="uid://c7ob3kwj1aii4" path="res://assets/sprites/character/3_.png" id="8_ju2nn"]
+[ext_resource type="Texture2D" uid="uid://igtfmvghqyto" path="res://assets/sprites/character/4_.png" id="9_ry8sv"]
+[ext_resource type="Script" path="res://scenes/game/character/load_skin.gd" id="10_t43fm"]
+[ext_resource type="Script" path="res://scenes/game/character/pusher.gd" id="11_4slda"]
+[ext_resource type="Script" path="res://scenes/game/modules/weapon_collision.gd" id="12_i66ek"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0xx80"]
 properties/0/path = NodePath(".:head_pos")
@@ -139,11 +139,11 @@ height = 342.741
 [sub_resource type="CircleShape2D" id="CircleShape2D_ajoku"]
 radius = 45.0111
 
-[node name="Paranoc" type="Node2D"]
-script = ExtResource("1_h0kxn")
+[node name="Fiend" type="Node2D"]
+script = ExtResource("1_movwc")
 
 [node name="Extra" type="Node2D" parent="."]
-script = ExtResource("8_22jox")
+script = ExtResource("2_nng47")
 
 [node name="Center" type="Marker2D" parent="Extra"]
 position = Vector2(0, 305)
@@ -160,20 +160,20 @@ one_shot = true
 [node name="SkillDuration" type="Timer" parent="Extra"]
 one_shot = true
 
-[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("9_awwpr")]
+[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("3_nfaj4")]
 
-[node name="Character" parent="Extra" instance=ExtResource("10_ti88n")]
+[node name="Character" parent="Extra" instance=ExtResource("4_f0y3k")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Extra"]
 replication_config = SubResource("SceneReplicationConfig_0xx80")
-script = ExtResource("11_qyxrs")
+script = ExtResource("5_yhiiv")
 
 [node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
 one_shot = true
 
 [node name="RemoteCharacter" type="Node2D" parent="."]
 position = Vector2(-510, 714)
-script = ExtResource("7_shgwh")
+script = ExtResource("6_purqk")
 
 [node name="Head" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable", "Damager"]]
 position = Vector2(1282, -267)
@@ -181,7 +181,7 @@ position = Vector2(1282, -267)
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Head"]
 position = Vector2(0, -64)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_1kb0k")
+texture = ExtResource("7_52od3")
 
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="RemoteCharacter/Head"]
 position = Vector2(0, -86)
@@ -192,7 +192,7 @@ position = Vector2(1271, -47)
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Body"]
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("4_lwc6l")
+texture = ExtResource("8_ju2nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/Body"]
 shape = SubResource("CapsuleShape2D_c723l")
@@ -203,7 +203,7 @@ rotation = 1.5708
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RUA"]
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("4_lwc6l")
+texture = ExtResource("8_ju2nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/RUA"]
 shape = SubResource("CapsuleShape2D_c723l")
@@ -215,7 +215,7 @@ rotation = 1.5708
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RLA"]
 position = Vector2(-0.000305176, -87)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("4_lwc6l")
+texture = ExtResource("8_ju2nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/RLA"]
 position = Vector2(-0.000305176, -87)
@@ -236,7 +236,7 @@ rotation = 1.5708
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LUA"]
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("4_lwc6l")
+texture = ExtResource("8_ju2nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/LUA"]
 shape = SubResource("CapsuleShape2D_c723l")
@@ -247,7 +247,7 @@ rotation = 1.5708
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LLA"]
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("4_lwc6l")
+texture = ExtResource("8_ju2nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/LLA"]
 shape = SubResource("CapsuleShape2D_c723l")
@@ -266,7 +266,7 @@ position = Vector2(1271, 168)
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Hip"]
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("4_lwc6l")
+texture = ExtResource("8_ju2nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/Hip"]
 shape = SubResource("CapsuleShape2D_c723l")
@@ -278,7 +278,7 @@ rotation = 0.523599
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LUL"]
 position = Vector2(-0.425659, 127.263)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("6_4hdo7")
+texture = ExtResource("9_ry8sv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/LUL"]
 position = Vector2(0.0743408, 128.129)
@@ -290,7 +290,7 @@ rotation = 0.523599
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LLL"]
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("6_4hdo7")
+texture = ExtResource("9_ry8sv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/LLL"]
 shape = SubResource("CapsuleShape2D_m05er")
@@ -311,7 +311,7 @@ rotation = -0.523599
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RUL"]
 position = Vector2(0.660461, 127.096)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("6_4hdo7")
+texture = ExtResource("9_ry8sv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/RUL"]
 position = Vector2(0.660461, 127.096)
@@ -324,7 +324,7 @@ rotation = -0.523599
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RLL"]
 position = Vector2(-0.44043, 126.763)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("6_4hdo7")
+texture = ExtResource("9_ry8sv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/RLL"]
 position = Vector2(0.0595093, 125.897)
@@ -340,7 +340,7 @@ shape = SubResource("CircleShape2D_aku66")
 scale = Vector2(0.8, 0.8)
 
 [node name="LocalCharacter" type="Node2D" parent="."]
-script = ExtResource("1_qnhnp")
+script = ExtResource("10_t43fm")
 
 [node name="Head" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable", "Damager"]]
 position = Vector2(0, -86)
@@ -349,12 +349,12 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/Head"]
 position = Vector2(7.62939e-06, -66)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_1kb0k")
+texture = ExtResource("7_52od3")
 
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="LocalCharacter/Head"]
 position = Vector2(0, -87)
@@ -386,11 +386,11 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/RUA"]
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("4_lwc6l")
+texture = ExtResource("8_ju2nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RUA"]
 shape = SubResource("CapsuleShape2D_0age7")
@@ -423,12 +423,12 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/RLA"]
 position = Vector2(0.199707, -86.6001)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("4_lwc6l")
+texture = ExtResource("8_ju2nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RLA"]
 position = Vector2(0.199707, -86.6002)
@@ -460,13 +460,13 @@ gravity_scale = 0.0
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RF"]
 shape = SubResource("CircleShape2D_oinx5")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/RF"]
-script = ExtResource("5_vs1w8")
+script = ExtResource("12_i66ek")
 
 [node name="RF" type="DampedSpringJoint2D" parent="LocalCharacter/RF"]
 position = Vector2(0, 43)
@@ -496,11 +496,11 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/LUA"]
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("4_lwc6l")
+texture = ExtResource("8_ju2nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LUA"]
 shape = SubResource("CapsuleShape2D_0age7")
@@ -533,11 +533,11 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/LLA"]
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("4_lwc6l")
+texture = ExtResource("8_ju2nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LLA"]
 shape = SubResource("CapsuleShape2D_0age7")
@@ -569,10 +569,10 @@ gravity_scale = 0.0
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/LF"]
-script = ExtResource("5_vs1w8")
+script = ExtResource("12_i66ek")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LF"]
 shape = SubResource("CircleShape2D_oinx5")
@@ -603,12 +603,12 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/RUL"]
 position = Vector2(0.0385132, 127.744)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("6_4hdo7")
+texture = ExtResource("9_ry8sv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RUL"]
 position = Vector2(0.0384979, 127.744)
@@ -641,12 +641,12 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/RLL"]
 position = Vector2(0.0384674, 127.744)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("6_4hdo7")
+texture = ExtResource("9_ry8sv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RLL"]
 position = Vector2(0.0384521, 127.744)
@@ -678,7 +678,7 @@ gravity_scale = 0.0
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RK"]
 shape = SubResource("CircleShape2D_ajoku")
@@ -698,12 +698,12 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/LUL"]
 position = Vector2(0, 127.6)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("6_4hdo7")
+texture = ExtResource("9_ry8sv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LUL"]
 position = Vector2(0, 127.6)
@@ -736,11 +736,11 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/LLL"]
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("6_4hdo7")
+texture = ExtResource("9_ry8sv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LLL"]
 shape = SubResource("CapsuleShape2D_1600t")
@@ -772,7 +772,7 @@ gravity_scale = 0.0
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LK"]
 shape = SubResource("CircleShape2D_ajoku")
@@ -791,11 +791,11 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/Hip"]
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("4_lwc6l")
+texture = ExtResource("8_ju2nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/Hip"]
 shape = SubResource("CapsuleShape2D_0age7")
@@ -827,11 +827,11 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("2_wytsv")
+script = ExtResource("11_4slda")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body"]
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("4_lwc6l")
+texture = ExtResource("8_ju2nn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/Body"]
 shape = SubResource("CapsuleShape2D_0age7")

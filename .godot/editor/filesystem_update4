@@ -1,4 +1,5 @@
 res://scenes/world.tscn
+res://scenes/world.gd
 res://scenes/game/character/character_selection.tscn
 res://scenes/game/modules/character.tscn
 res://scenes/game/character/crock.tscn
@@ -8,4 +9,4 @@ res://scenes/game/character/holstar.tscn
 res://scenes/game/character/zeina.tscn
 res://scenes/game/character/roki_roki.tscn
 res://scenes/game/character/tin.tscn
-res://scenes/game/character/paranoc.tscn
+res://scenes/game/character/fiend.tscn

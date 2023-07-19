@@ -40,7 +40,7 @@ polygon = PackedVector2Array(1536, 1024, -1536, 1024, -1536, -1024, 5, -1024, 5,
 [node name="MTC" parent="." instance=ExtResource("6_hsuk7")]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/game/character/zeina.tscn", "res://scenes/game/character/crock.tscn", "res://scenes/game/character/holstar.tscn", "res://scenes/game/character/tin.tscn", "res://scenes/game/character/roki_roki.tscn", "res://scenes/game/character/paranoc.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/game/character/zeina.tscn", "res://scenes/game/character/crock.tscn", "res://scenes/game/character/holstar.tscn", "res://scenes/game/character/tin.tscn", "res://scenes/game/character/roki_roki.tscn")
 spawn_path = NodePath("../Spawner")
 spawn_limit = 1
 
@@ -80,8 +80,6 @@ text = "JOIN"
 _spawnable_scenes = PackedStringArray("res://scenes/game/tools/bullet.tscn", "res://scenes/game/tools/dagger.tscn")
 spawn_path = NodePath("../ServerSkill")
 spawn_limit = 1
-
-[node name="Node2D" type="Node2D" parent="."]
 
 [connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]
 [connection signal="pressed" from="Menu/Host" to="." method="_on_host_pressed"]

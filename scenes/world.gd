@@ -64,7 +64,7 @@ func _on_host_pressed() -> void:
 	multiplayer_peer.peer_connected.connect(
 		func(new_peer_id):
 			client_id = new_peer_id
-			await get_tree().create_timer(2).timeout
+			await get_tree().create_timer(3).timeout
 			get_node("Spawner/1/LocalCharacter/Head").freeze = false
 			rpc_id(new_peer_id,"set_opponent", CharacterSelection.own)
 			rpc("add_newly_connected_player_character", new_peer_id)
@@ -81,7 +81,7 @@ func _on_join_pressed() -> void:
 	multiplayer.multiplayer_peer = multiplayer_peer
 	multiplayer_peer.peer_connected.connect(
 		func(_peer_):
-			await get_tree().create_timer(1).timeout
+			await get_tree().create_timer(2).timeout
 			rpc_id(1,"set_opponent", CharacterSelection.own)
 	)
 	$NetworkInfo/UniquePeerID.text = str(multiplayer.get_unique_id())
@@ -99,7 +99,7 @@ func add_player_character(peer_id):
 
 	player_character.set_multiplayer_authority(peer_id)
 	print(player_character.name, "   ::  ", multiplayer.get_unique_id(), "   ::  ", connected_peer_ids)
-	$Spawner.add_child(player_character)
+	$Spawner.add_child(player_character, true)
 	if peer_id == 1:
 		player_character.transform = $Point1.transform
 	else:
