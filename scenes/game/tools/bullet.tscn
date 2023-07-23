@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://b0m6j6y1xsy4x"]
 
 [ext_resource type="Script" path="res://scenes/game/tools/bullet.gd" id="1_jpi5p"]
-[ext_resource type="Texture2D" uid="uid://bg0hr2fg7ego4" path="res://assets/sprites/weapon/bullet.png" id="1_qrbl8"]
+[ext_resource type="Texture2D" uid="uid://dub0xu7lrwrr" path="res://assets/sprites/character/equipped/holstar/Bullet.png" id="2_3ru2a"]
 [ext_resource type="Script" path="res://scenes/game/tools/bullet_sync.gd" id="3_d4b20"]
 [ext_resource type="Script" path="res://scenes/game/tools/trail.gd" id="4_73uhd"]
 
@@ -33,7 +33,7 @@ script = ExtResource("1_jpi5p")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0, 0, 1)
 scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_qrbl8")
+texture = ExtResource("2_3ru2a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
