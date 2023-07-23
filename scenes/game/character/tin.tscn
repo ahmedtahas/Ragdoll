@@ -1,9 +1,9 @@
-[gd_scene load_steps=27 format=3 uid="uid://mcb75yleyg6g"]
+[gd_scene load_steps=26 format=3 uid="uid://mcb75yleyg6g"]
 
 [ext_resource type="Script" path="res://scenes/game/character/tin.gd" id="1_ewb0n"]
 [ext_resource type="Texture2D" uid="uid://dm0gceittncr2" path="res://assets/sprites/character/1_.png" id="2_nc73b"]
 [ext_resource type="Script" path="res://scenes/game/character/load_skin.gd" id="2_swrqo"]
-[ext_resource type="Script" path="res://scenes/game/character/pusher.gd" id="3_q7hvc"]
+[ext_resource type="Script" path="res://scenes/game/character/teleporter.gd" id="3_mkq22"]
 [ext_resource type="Texture2D" uid="uid://c7ob3kwj1aii4" path="res://assets/sprites/character/3_.png" id="3_uyyti"]
 [ext_resource type="Texture2D" uid="uid://gixase2g622y" path="res://assets/sprites/character/equipped/tin/RF.png" id="4_o2k33"]
 [ext_resource type="Script" path="res://scenes/game/modules/weapon_collision.gd" id="5_bh8x3"]
@@ -14,7 +14,6 @@
 [ext_resource type="Script" path="res://scenes/game/character/copy_skin.gd" id="9_vj2bs"]
 [ext_resource type="Texture2D" uid="uid://bwyvpwv74252p" path="res://assets/sprites/character/equipped/tin/Shockwave.png" id="9_vlpwg"]
 [ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="10_ak2ar"]
-[ext_resource type="Script" path="res://scenes/game/character/Synchronizer.gd" id="13_iiwbs"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4a8r0"]
 radius = 130.035
@@ -37,99 +36,135 @@ radius = 67.0075
 properties/0/path = NodePath(".:head_pos")
 properties/0/spawn = true
 properties/0/sync = true
+properties/0/watch = false
 properties/1/path = NodePath(".:head_rot")
 properties/1/spawn = true
 properties/1/sync = true
+properties/1/watch = false
 properties/2/path = NodePath(".:body_pos")
 properties/2/spawn = true
 properties/2/sync = true
+properties/2/watch = false
 properties/3/path = NodePath(".:body_rot")
 properties/3/spawn = true
 properties/3/sync = true
+properties/3/watch = false
 properties/4/path = NodePath(".:rua_pos")
 properties/4/spawn = true
 properties/4/sync = true
+properties/4/watch = false
 properties/5/path = NodePath(".:rua_rot")
 properties/5/spawn = true
 properties/5/sync = true
+properties/5/watch = false
 properties/6/path = NodePath(".:rla_pos")
 properties/6/spawn = true
 properties/6/sync = true
+properties/6/watch = false
 properties/7/path = NodePath(".:rla_rot")
 properties/7/spawn = true
 properties/7/sync = true
+properties/7/watch = false
 properties/8/path = NodePath(".:rf_pos")
 properties/8/spawn = true
 properties/8/sync = true
+properties/8/watch = false
 properties/9/path = NodePath(".:rf_rot")
 properties/9/spawn = true
 properties/9/sync = true
+properties/9/watch = false
 properties/10/path = NodePath(".:lua_pos")
 properties/10/spawn = true
 properties/10/sync = true
+properties/10/watch = false
 properties/11/path = NodePath(".:lua_rot")
 properties/11/spawn = true
 properties/11/sync = true
+properties/11/watch = false
 properties/12/path = NodePath(".:lla_pos")
 properties/12/spawn = true
 properties/12/sync = true
+properties/12/watch = false
 properties/13/path = NodePath(".:lla_rot")
 properties/13/spawn = true
 properties/13/sync = true
+properties/13/watch = false
 properties/14/path = NodePath(".:lf_pos")
 properties/14/spawn = true
 properties/14/sync = true
+properties/14/watch = false
 properties/15/path = NodePath(".:lf_rot")
 properties/15/spawn = true
 properties/15/sync = true
+properties/15/watch = false
 properties/16/path = NodePath(".:hip_pos")
 properties/16/spawn = true
 properties/16/sync = true
+properties/16/watch = false
 properties/17/path = NodePath(".:hip_rot")
 properties/17/spawn = true
 properties/17/sync = true
+properties/17/watch = false
 properties/18/path = NodePath(".:rul_pos")
 properties/18/spawn = true
 properties/18/sync = true
+properties/18/watch = false
 properties/19/path = NodePath(".:rul_rot")
 properties/19/spawn = true
 properties/19/sync = true
+properties/19/watch = false
 properties/20/path = NodePath(".:rll_pos")
 properties/20/spawn = true
 properties/20/sync = true
+properties/20/watch = false
 properties/21/path = NodePath(".:rll_rot")
 properties/21/spawn = true
 properties/21/sync = true
+properties/21/watch = false
 properties/22/path = NodePath(".:lul_pos")
 properties/22/spawn = true
 properties/22/sync = true
+properties/22/watch = false
 properties/23/path = NodePath(".:lul_rot")
 properties/23/spawn = true
 properties/23/sync = true
+properties/23/watch = false
 properties/24/path = NodePath(".:lll_pos")
 properties/24/spawn = true
 properties/24/sync = true
+properties/24/watch = false
 properties/25/path = NodePath(".:lll_rot")
 properties/25/spawn = true
 properties/25/sync = true
+properties/25/watch = false
 properties/26/path = NodePath(".:rk_pos")
 properties/26/spawn = true
 properties/26/sync = true
+properties/26/watch = false
 properties/27/path = NodePath(".:rk_rot")
 properties/27/spawn = true
 properties/27/sync = true
+properties/27/watch = false
 properties/28/path = NodePath(".:lk_pos")
 properties/28/spawn = true
 properties/28/sync = true
+properties/28/watch = false
 properties/29/path = NodePath(".:lk_rot")
 properties/29/spawn = true
 properties/29/sync = true
+properties/29/watch = false
 properties/30/path = NodePath(".:shockwave_vis")
 properties/30/spawn = true
 properties/30/sync = true
+properties/30/watch = false
 properties/31/path = NodePath(".:shockwave_scale")
 properties/31/spawn = true
 properties/31/sync = true
+properties/31/watch = false
+properties/32/path = NodePath(".:health")
+properties/32/spawn = true
+properties/32/sync = true
+properties/32/watch = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_31g4u"]
 radius = 131.015
@@ -161,7 +196,7 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/Head"]
 scale = Vector2(1.2, 1.2)
@@ -198,7 +233,7 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body"]
 scale = Vector2(1.2, 1.2)
@@ -215,7 +250,7 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/RUA"]
 scale = Vector2(1.2, 1.2)
@@ -252,7 +287,7 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/RLA"]
 scale = Vector2(1.2, 1.2)
@@ -288,7 +323,7 @@ gravity_scale = 0.0
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RF"]
 shape = SubResource("CircleShape2D_vki4d")
@@ -325,7 +360,7 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/LUA"]
 scale = Vector2(1.2, 1.2)
@@ -362,7 +397,7 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/LLA"]
 scale = Vector2(1.2, 1.2)
@@ -398,7 +433,7 @@ gravity_scale = 0.0
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LF"]
 shape = SubResource("CircleShape2D_vki4d")
@@ -414,7 +449,7 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/Hip"]
 scale = Vector2(1.2, 1.2)
@@ -450,7 +485,7 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/LUL"]
 position = Vector2(0, 192.4)
@@ -488,7 +523,7 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/LLL"]
 position = Vector2(-0.304138, 191.758)
@@ -525,7 +560,7 @@ gravity_scale = 0.0
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LK"]
 shape = SubResource("CircleShape2D_f8x0j")
@@ -542,7 +577,7 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/RUL"]
 position = Vector2(1.52588e-05, 191.4)
@@ -581,7 +616,7 @@ gravity_scale = 0.5
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/RLL"]
 position = Vector2(0, 192.4)
@@ -618,7 +653,7 @@ gravity_scale = 0.0
 continuous_cd = 2
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("3_q7hvc")
+script = ExtResource("3_mkq22")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RK"]
 shape = SubResource("CircleShape2D_f8x0j")
@@ -656,7 +691,6 @@ script = ExtResource("9_5dlv0")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Extra"]
 replication_config = SubResource("SceneReplicationConfig_bdkiw")
-script = ExtResource("13_iiwbs")
 
 [node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
 one_shot = true

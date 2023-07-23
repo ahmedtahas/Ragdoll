@@ -6,17 +6,18 @@ extends Node2D
 
 @onready var health: float
 @onready var damage: float
-@onready var power: float
 @onready var speed: float
 @onready var current_health: float
 
-@onready var health_bar = get_node('UI/HealthBar')
-@onready var health_text = get_node('UI/HealthBar/Text')
+@onready var health_bar = get_node('LocalUI/HealthBar')
+@onready var health_text = get_node('LocalUI/HealthBar/Text')
+@onready var remote_health_bar = get_node('RemoteUI/HealthBar')
 
 @onready var movement_vector: Vector2 = Vector2.ZERO
 
 @onready var synchronizer: Node2D = get_parent()
 @onready var is_gunner: bool = false
+@onready var hit_count: float = 0
 
 @onready var arm: CharacterBody2D
 
@@ -55,22 +56,31 @@ extends Node2D
 @onready var remote_lll = get_node("../../RemoteCharacter/LLL")
 @onready var remote_lk = get_node("../../RemoteCharacter/LK")
 
+
+signal hit_signal
+
 func _ready() -> void:
-	main_scene = get_node("../../../..")
+	main_scene = Global.world
 	if is_multiplayer_authority():
-		
 		health = get_node("/root/Config").get_value("health", CharacterSelection.own)
 		damage = get_node("/root/Config").get_value("damage", CharacterSelection.own)
-		power = get_node("/root/Config").get_value("power", CharacterSelection.own)
 		speed = get_node("/root/Config").get_value("speed", CharacterSelection.own)
 		current_health = health
 		health_bar.set_value(100)
 		health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
+	else:
+		remote_health_bar.set_value(100)
+		await get_tree().create_timer(4).timeout
+		set_health()
 
+func set_health() -> void:
+	health = get_node("/root/Config").get_value("health", CharacterSelection.opponent)
+	current_health = health
 
 
 func on_body_entered(body: Node2D, caller: RigidBody2D) -> void:
 	if body is CharacterBody2D and not body.is_in_group("Skill"):
+		emit_signal("hit_signal")
 		hit_stun()
 		rpc("slow_motion")
 		if caller.is_in_group("Damager") and body.name == "Head":
@@ -157,9 +167,9 @@ func blackout(duration: float) -> void:
 
 func _blackout(duration: float) -> void:
 	var opponent = get_node("/root/Main/Spawner/" + str(main_scene.get_opponent_id()) + "/RemoteCharacter/Body")
-	get_node("../../../../MTC").remove_target(opponent)
+	Global.camera.remove_target(opponent)
 	await get_tree().create_timer(duration).timeout
-	get_node("../../../../MTC").add_target(opponent)
+	Global.camera.add_target(opponent)
 
 
 func _freeze_local(duration: float) -> void:
@@ -229,6 +239,8 @@ func _physics_process(_delta: float):
 		synchronizer.lll_rot = local_lll.global_rotation
 		synchronizer.lk_pos = local_lk.global_position
 		synchronizer.lk_rot = local_lk.global_rotation
+	
+		synchronizer.health = current_health
 		
 	else:
 		# set remote characters position and rotation
@@ -280,6 +292,10 @@ func _physics_process(_delta: float):
 		remote_lll.global_rotation = synchronizer.lll_rot
 		remote_lk.global_position = synchronizer.lk_pos
 		remote_lk.global_rotation = synchronizer.lk_rot
+		
+		current_health = synchronizer.health
+		remote_health_bar.set_value((100 * current_health) / health)
+		
 	
 
 func move_signal(vector: Vector2) -> void:

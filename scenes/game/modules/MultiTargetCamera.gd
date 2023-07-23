@@ -1,15 +1,15 @@
 extends Camera2D
 
-var camera_speed: float = 0.5 # camera position lerp speed
-var zoom_speed: float = 0.25  
-var min_zoom: float = 0.25  
-var max_zoom: float = 15  
-var margin: Vector2 = Vector2(1200, 800) 
+@onready var camera_speed: float = 0.5
+@onready var zoom_speed: float = 0.25
+@onready var min_zoom: float = 0.25
+@onready var max_zoom: float = 15
+@onready var margin: Vector2 = Vector2(1200, 800)
 
-var targets = [] 
-var position_vectors: Vector2
-var rect: Rect2
-var zoom_amount: float
+@onready var targets = []
+@onready var position_vectors: Vector2
+@onready var rect: Rect2
+@onready var zoom_amount: float
 
 @onready var screen_size = get_viewport_rect().size
 
@@ -37,15 +37,14 @@ func _physics_process(_delta: float) -> void:
 		zoom_amount = 14.9999999
 	elif zoom_amount <= min_zoom:
 		zoom_amount = 0.5000001
+		
 	zoom = lerp(zoom, Vector2.ONE * (1 / zoom_amount), zoom_speed)
-	
 
 
-func add_target(target):
-	print(multiplayer.get_unique_id(), "  ::  ", target.get_node("../..").name)
+func add_target(target) -> void:
 	if not target in targets:
 		targets.append(target)
 
-func remove_target(target):
+func remove_target(target) -> void:
 	if target in targets:
 		targets.erase(target)

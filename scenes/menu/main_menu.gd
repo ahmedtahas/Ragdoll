@@ -1,5 +1,15 @@
-extends Node2D
+extends Control
 
 
-func _on_button_button_up() -> void:
-	get_tree().change_scene_to_file("res://scenes/world.tscn")
+func multi_player() -> void:
+	get_tree().change_scene_to_file("res://scenes/menu/multiplayer_character_selection.tscn")
+
+
+func single_player() -> void:
+	get_tree().change_scene_to_file("res://scenes/menu/singleplayer_character_selection.tscn")
+	
+
+func options() -> void:
+	pass
+
+	

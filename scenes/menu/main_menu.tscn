@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://umownujau6sr"]
+[gd_scene load_steps=6 format=3 uid="uid://umownujau6sr"]
 
 [ext_resource type="Script" path="res://scenes/menu/main_menu.gd" id="1_l8f8e"]
-[ext_resource type="AudioStream" uid="uid://b0vtmq7c5xl46" path="res://assets/sound_effects/slowdown-92003.mp3" id="3_16xnd"]
 [ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="3_svfnv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oa1ck"]
@@ -25,7 +24,9 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="MainMenu" type="Node2D"]
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_l8f8e")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -72,7 +73,7 @@ theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_oa1ck")
 theme_override_styles/hover = SubResource("StyleBoxFlat_7g3th")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_5w2ud")
-text = "New Game"
+text = "Multi Player"
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -88,7 +89,7 @@ theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_oa1ck")
 theme_override_styles/hover = SubResource("StyleBoxFlat_7g3th")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_5w2ud")
-text = "Options"
+text = "Single Player"
 
 [node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -104,11 +105,8 @@ theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_oa1ck")
 theme_override_styles/hover = SubResource("StyleBoxFlat_7g3th")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_5w2ud")
-text = "Credits"
+text = "Options"
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_16xnd")
-volume_db = 4.692
-autoplay = true
-
-[connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/Button" to="." method="_on_button_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/Button" to="." method="multi_player"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/Button" to="." method="single_player"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3/Button" to="." method="options"]

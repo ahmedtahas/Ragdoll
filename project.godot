@@ -11,14 +11,15 @@ config_version=5
 [application]
 
 config/name="Ragsters"
-run/main_scene="res://scenes/game/character/character_selection.tscn"
-config/features=PackedStringArray("4.0", "Mobile")
-config/icon="res://icon.svg"
+run/main_scene="res://scenes/menu/main_menu.tscn"
+config/features=PackedStringArray("4.1", "Mobile")
+config/icon="res://icon.png"
 
 [autoload]
 
 Config="*res://global/Config.gd"
 CharacterSelection="*res://global/character_selection.gd"
+Global="*res://global/global.gd"
 
 [display]
 
@@ -29,6 +30,10 @@ window/stretch/mode="canvas_items"
 [editor_plugins]
 
 enabled=PackedStringArray()
+
+[filesystem]
+
+import/blender/enabled=false
 
 [gui]
 

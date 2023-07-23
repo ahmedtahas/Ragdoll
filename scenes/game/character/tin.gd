@@ -29,7 +29,7 @@ extends Node2D
 
 func _ready() -> void:
 	name = str(get_multiplayer_authority())
-	get_node("LocalCharacter").load_skin()
+	get_node("LocalCharacter").load_skin(character_name)
 	_ignore_self()
 	shockwave.visible = false
 	if is_multiplayer_authority():
@@ -44,35 +44,38 @@ func _ready() -> void:
 		
 		cooldown.wait_time = cooldown_time
 		duration.wait_time = duration_time
+			
+		cooldown_bar = character.get_node('LocalUI/CooldownBar')
+		cooldown_text = character.get_node('LocalUI/CooldownBar/Text')
+		cooldown_bar.set_value(100)
+		cooldown_text.set_text("[center]ready[/center]")
+		character.get_node("RemoteUI").visible = false
 		
 	else:
-		character.get_node("UI").visible = false
+		character.get_node("LocalUI").visible = false
 		
-	cooldown_bar = character.get_node('UI/CooldownBar')
-	cooldown_text = character.get_node('UI/CooldownBar/Text')
-	cooldown_bar.set_value(100)
-	cooldown_text.set_text("[center]ready[/center]")
 	
 		
 	if is_multiplayer_authority():
-		get_node("../../MTC").add_target(body)
+		Global.camera.add_target(body)
 		get_node("RemoteCharacter").queue_free()
 		for part in get_node("LocalCharacter").get_children():
-			part.set_power()
+			part.set_power(character_name)
 		
 	else:
-		get_node("../../MTC").add_target(remote_body)
+		Global.camera.add_target(get_node("RemoteCharacter/Body"))
 		get_node("LocalCharacter").queue_free()
 	
 
 @rpc("call_remote", "reliable")
 func add_skill(skill_name: String) -> void:
-	get_node("../..").add_skill(skill_name)
+	Global.world.add_skill(skill_name)
 	
 	
 @rpc("call_remote", "reliable")
 func remove_skill() -> void:
-	get_node("../..").remove_skill()
+	Global.world.remove_skill()
+
 	
 
 func _physics_process(_delta: float) -> void:
@@ -91,7 +94,10 @@ func _physics_process(_delta: float) -> void:
 		shockwave.visible = false
 		shockwave.scale.x = 0.1
 		shockwave.scale.y = 0.1
-		
+	
+	if not is_multiplayer_authority():
+		return
+	
 	if charging:
 		if not duration.is_stopped():
 			cooldown_bar.set_value((100 * duration.time_left) / duration_time)

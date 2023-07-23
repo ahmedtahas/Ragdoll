@@ -3,7 +3,7 @@ extends Control
 
 func _ready() -> void:
 	for child in get_node("Buttons").get_children():
-		child.pressed.connect(self.character_selected.bind(child.text))
+		child.pressed.connect(self.character_selected.bind(child.name))
 
 
 func character_selected(selection: String) -> void:

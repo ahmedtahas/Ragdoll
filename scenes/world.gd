@@ -5,13 +5,32 @@ extends Node2D
 
 @onready var connected_peer_ids = []
 @onready var client_id
+@onready var character_dictionary: Dictionary = {
+	"crock": preload("res://scenes/game/character/crock.tscn"),
+	"zeina": preload("res://scenes/game/character/zeina.tscn"),
+	"tin": preload("res://scenes/game/character/tin.tscn"),
+	"holstar": preload("res://scenes/game/character/holstar.tscn"),
+	"roki_roki": preload("res://scenes/game/character/roki_roki.tscn"),
+	"paranoc": preload("res://scenes/game/character/paranoc.tscn"),
+	"kaliber": preload("res://scenes/game/character/kaliber.tscn")
+}
+@onready var skill_dictionary: Dictionary = {
+	"dagger": preload("res://scenes/game/tools/dagger.tscn"),
+	"bullet": preload("res://scenes/game/tools/bullet.tscn")
+}
 
 
-var multiplayer_peer = ENetMultiplayerPeer.new()
+@onready var multiplayer_peer = ENetMultiplayerPeer.new()
 
 const PORT = 7777
 const ADDRESS = "127.0.0.1"
 const clientaddr = "192.168.0.21"
+
+
+func _ready() -> void:
+	Global.world = self
+	Global.spawner = $Spawner
+	Global.camera = $MTC
 
 
 @rpc("any_peer", "reliable", "call_local")
@@ -77,7 +96,7 @@ func _on_host_pressed() -> void:
 func _on_join_pressed() -> void:
 	$NetworkInfo/NetworkSideDisplay.text = "Client"
 	$Menu.visible = false
-	multiplayer_peer.create_client(clientaddr, PORT)
+	multiplayer_peer.create_client(ADDRESS, PORT)
 	multiplayer.multiplayer_peer = multiplayer_peer
 	multiplayer_peer.peer_connected.connect(
 		func(_peer_):
@@ -86,16 +105,16 @@ func _on_join_pressed() -> void:
 	)
 	$NetworkInfo/UniquePeerID.text = str(multiplayer.get_unique_id())
 	
-		
+	
 func add_player_character(peer_id):
 	connected_peer_ids.append(peer_id)
 	
 	var player_character
 	
 	if peer_id == multiplayer.get_unique_id():
-		player_character = load("res://scenes/game/character/" + CharacterSelection.own + ".tscn").instantiate()
+		player_character = character_dictionary.get(CharacterSelection.own).instantiate()
 	else:
-		player_character = load("res://scenes/game/character/" + CharacterSelection.opponent + ".tscn").instantiate()
+		player_character = character_dictionary.get(CharacterSelection.opponent).instantiate()
 
 	player_character.set_multiplayer_authority(peer_id)
 	print(player_character.name, "   ::  ", multiplayer.get_unique_id(), "   ::  ", connected_peer_ids)
@@ -108,7 +127,7 @@ func add_player_character(peer_id):
 	
 @rpc("call_remote", "reliable")
 func add_skill(skill_name: String) -> void:
-	var skill = load("res://scenes/game/tools/" + skill_name + ".tscn").instantiate()
+	var skill = skill_dictionary.get(skill_name).instantiate()
 	print("SKILLLLLLLLL     ", multiplayer.get_unique_id())
 	$ClientSkill.add_child(skill, true)
 	skill.set_multiplayer_authority(client_id)

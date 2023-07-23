@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=3 uid="uid://c2khg3vqn4pur"]
+
+[ext_resource type="Script" path="res://scenes/game/modules/single_character.gd" id="1_5ds7q"]
+[ext_resource type="Texture2D" uid="uid://jltqbope05cf" path="res://assets/sprites/ui/Cooldown BG.png" id="2_who5t"]
+[ext_resource type="Texture2D" uid="uid://bumpc88wfjml2" path="res://assets/sprites/ui/Cooldown.png" id="3_4c0id"]
+[ext_resource type="Texture2D" uid="uid://dyju5egibkyf7" path="res://assets/sprites/ui/Health BG.png" id="4_cf0ba"]
+[ext_resource type="Texture2D" uid="uid://bkcq5v378b4wd" path="res://assets/sprites/ui/Health.png" id="5_2r4ul"]
+[ext_resource type="Texture2D" uid="uid://52kd4mjbkxkk" path="res://assets/sprites/ui/Enemy Health BG.png" id="6_c4qre"]
+[ext_resource type="Texture2D" uid="uid://das337on0gr6x" path="res://assets/sprites/ui/EnemyHealth.png" id="7_0r3o1"]
+
+[node name="Character" type="Node2D"]
+script = ExtResource("1_5ds7q")
+
+[node name="LocalUI" type="CanvasLayer" parent="."]
+scale = Vector2(0.25, 0.25)
+transform = Transform2D(0.25, 0, 0, 0.25, 0, 0)
+
+[node name="CooldownBar" type="TextureProgressBar" parent="LocalUI"]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 1152.0
+offset_bottom = 1152.0
+value = 50.0
+fill_mode = 5
+texture_under = ExtResource("2_who5t")
+texture_progress = ExtResource("3_4c0id")
+radial_initial_angle = 150.0
+radial_fill_degrees = 180.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Text" type="RichTextLabel" parent="LocalUI/CooldownBar"]
+clip_contents = false
+layout_direction = 1
+layout_mode = 0
+offset_top = 230.0
+offset_right = 1024.0
+offset_bottom = 510.0
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+theme_override_colors/default_color = Color(0.54902, 0.596078, 1, 1)
+theme_override_font_sizes/normal_font_size = 200
+bbcode_enabled = true
+text = "[center]Ready[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="HealthBar" type="TextureProgressBar" parent="LocalUI"]
+offset_left = 128.0
+offset_top = 128.0
+offset_right = 1152.0
+offset_bottom = 1152.0
+value = 50.0
+fill_mode = 4
+texture_under = ExtResource("4_cf0ba")
+texture_progress = ExtResource("5_2r4ul")
+radial_initial_angle = 150.0
+radial_fill_degrees = 180.0
+
+[node name="Text" type="RichTextLabel" parent="LocalUI/HealthBar"]
+clip_contents = false
+layout_direction = 1
+layout_mode = 2
+offset_top = 512.0
+offset_right = 1024.0
+offset_bottom = 792.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+theme_override_colors/default_color = Color(1, 0.376471, 0.376471, 1)
+theme_override_font_sizes/normal_font_size = 200
+bbcode_enabled = true
+text = "[center]9999[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="RemoteUI" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="TextureProgressBar" parent="RemoteUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -544.0
+offset_top = 32.0
+offset_right = -32.0
+offset_bottom = 64.0
+grow_horizontal = 0
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("6_c4qre")
+texture_progress = ExtResource("7_0r3o1")

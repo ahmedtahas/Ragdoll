@@ -37,6 +37,8 @@ extends Node2D
 @export var lk_pos: Vector2 = Vector2.ZERO
 @export var lk_rot: float = 0
 
+@export var health: float = 0
+
 @export var aim: Vector2 = Vector2.ZERO
 
 @export var shockwave_vis: bool = false

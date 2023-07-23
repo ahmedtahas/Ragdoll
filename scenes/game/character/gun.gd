@@ -1,7 +1,7 @@
 extends Sprite2D
 
-func gun() -> void:
-	texture = load("res://assets/sprites/character/equipped/" + get_node("../../..").character_name + "/RF.png")
+func gun(character_name) -> void:
+	texture = load("res://assets/sprites/character/equipped/" + character_name + "/RF.png")
 	var bitmap = BitMap.new()
 	bitmap.create_from_image_alpha(texture.get_image())
 	var polys = bitmap.opaque_to_polygons(Rect2(Vector2.ZERO, texture.get_size()))[0]
@@ -11,4 +11,4 @@ func gun() -> void:
 	collision_polygon.reparent.call_deferred(get_parent())
 	if centered:
 		collision_polygon.position -= Vector2(bitmap.get_size()) / 2
-	print("GUN")
+	

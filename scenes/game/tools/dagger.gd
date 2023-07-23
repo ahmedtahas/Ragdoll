@@ -3,6 +3,8 @@ extends CharacterBody2D
 @onready var vel: Vector2 = Vector2.RIGHT
 @onready var speed: float = 10000
 @onready var sync: Node2D = $Synchronizer
+@onready var collision: bool
+
 
 signal hit_signal
 
@@ -13,7 +15,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if is_multiplayer_authority():
-		var collision = move_and_slide()
+		collision = move_and_slide()
 		if collision:
 			emit_signal("hit_signal", get_last_slide_collision().get_collider())
 		global_rotation += 0.5 * Engine.time_scale

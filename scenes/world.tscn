@@ -8,39 +8,26 @@
 script = ExtResource("1_nxmvl")
 
 [node name="Point1" type="Marker2D" parent="."]
-position = Vector2(5105, -1590)
+position = Vector2(5105, -5105)
 
 [node name="Point2" type="Marker2D" parent="."]
-position = Vector2(15315, -1590)
+position = Vector2(15315, -5105)
 
-[node name="Top" type="StaticBody2D" parent="."]
+[node name="Wall" type="StaticBody2D" parent="."]
 position = Vector2(10210, -5090)
 
-[node name="Sprite2D" type="Sprite2D" parent="Top"]
+[node name="Sprite2D" type="Sprite2D" parent="Wall"]
 scale = Vector2(10, 10)
 texture = ExtResource("3_4chnp")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Top"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wall"]
 scale = Vector2(10, 10)
-polygon = PackedVector2Array(1536, 1024, -1536, 1024, -1536, -1024, 5, -1024, 5, -511.6, 2.40002, -509, -1021, -509, -1021, 509, 1021, 509, 1021, -509, 91, -509, 91, -510.4, 89, -511.4, 89, -1024, 1536, -1024)
-
-[node name="Bottom" type="StaticBody2D" parent="."]
-position = Vector2(10210, -5090)
-
-[node name="Sprite2D" type="Sprite2D" parent="Bottom"]
-rotation = 3.14159
-scale = Vector2(10, 10)
-texture = ExtResource("3_4chnp")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bottom"]
-rotation = -3.14159
-scale = Vector2(10, 10)
-polygon = PackedVector2Array(1536, 1024, -1536, 1024, -1536, -1024, 5, -1024, 5, -511.6, 2.40002, -509, -1021, -509, -1021, 509, 1021, 509, 1021, -509, 91, -509, 91, -510.4, 89, -511.4, 89, -1024, 1536, -1024)
+polygon = PackedVector2Array(1536, 1024, -1536, 1024, -1536, -1024, 88.9999, -1024, 89.6, -508.9, 2.40002, -509, -1021, -509, -1021, 509, 1021, 509, 1021, -509, 89.6, -508.9, 89, -1024, 1536, -1024)
 
 [node name="MTC" parent="." instance=ExtResource("6_hsuk7")]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/game/character/zeina.tscn", "res://scenes/game/character/crock.tscn", "res://scenes/game/character/holstar.tscn", "res://scenes/game/character/tin.tscn", "res://scenes/game/character/roki_roki.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/game/character/zeina.tscn", "res://scenes/game/character/crock.tscn", "res://scenes/game/character/holstar.tscn", "res://scenes/game/character/tin.tscn", "res://scenes/game/character/roki_roki.tscn", "res://scenes/game/character/paranoc.tscn", "res://scenes/game/character/kaliber.tscn")
 spawn_path = NodePath("../Spawner")
 spawn_limit = 1
 

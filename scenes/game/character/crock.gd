@@ -5,7 +5,6 @@ extends Node2D
 @onready var duration_time: float
 @onready var cooldown_time: float
 
-
 @onready var cooldown_bar: TextureProgressBar
 @onready var cooldown_text: RichTextLabel
 
@@ -23,7 +22,7 @@ extends Node2D
 
 func _ready() -> void:
 	name = str(get_multiplayer_authority())
-	get_node("LocalCharacter").load_skin()
+	get_node("LocalCharacter").load_skin(character_name)
 	_ignore_self()
 	
 	if is_multiplayer_authority():
@@ -36,33 +35,35 @@ func _ready() -> void:
 		
 		cooldown.wait_time = cooldown_time
 		duration.wait_time = duration_time
-		cooldown_bar = character.get_node('UI/CooldownBar')
-		cooldown_text = character.get_node('UI/CooldownBar/Text')
+		cooldown_bar = character.get_node('LocalUI/CooldownBar')
+		cooldown_text = character.get_node('LocalUI/CooldownBar/Text')
 		cooldown_bar.set_value(100)
 		cooldown_text.set_text("[center]ready[/center]")
+		character.get_node("RemoteUI").visible = false
 		
 	else:
-		character.get_node("UI").visible = false
+		character.get_node("LocalUI").visible = false
+		
 		
 	if is_multiplayer_authority():
-		get_node("../../MTC").add_target(body)
+		Global.camera.add_target(body)
 		get_node("RemoteCharacter").queue_free()
 		for part in get_node("LocalCharacter").get_children():
-			part.set_power()
+			part.set_power(character_name)
 		
 	else:
-		get_node("../../MTC").add_target(get_node("RemoteCharacter/Body"))
+		Global.camera.add_target(get_node("RemoteCharacter/Body"))
 		get_node("LocalCharacter").queue_free()
 	
 
 @rpc("call_remote", "reliable")
 func add_skill(skill_name: String) -> void:
-	get_node("../..").add_skill(skill_name)
+	Global.world.add_skill(skill_name)
 	
 	
 @rpc("call_remote", "reliable")
 func remove_skill() -> void:
-	get_node("../..").remove_skill()
+	Global.world.remove_skill()
 
 
 func _physics_process(_delta: float) -> void:
@@ -111,10 +112,21 @@ func skill_signal(using: bool) -> void:
 		var old_position = body.global_position
 		
 		duration.start()
-		await get_tree().create_timer(duration_time).timeout
+		await duration.timeout
 		character.current_health = old_health
 		character._take_damage(0)
 		cooldown.start()
-		for child in get_node("LocalCharacter").get_children():
-			child.locate(old_position)
-			child.teleport()
+		teleport(old_position)
+		
+
+func teleport(pos: Vector2) -> void:
+	var opponent_id = str(get_node("../..").get_opponent_id())
+	var opponent_pos = get_node("../" + opponent_id + "/RemoteCharacter/Body").global_position
+	var opponent_rad = get_node("../" + opponent_id).radius
+	
+	if (pos - opponent_pos).length() < opponent_rad.length():
+		pos = opponent_pos + ((opponent_pos - pos).normalized() * (opponent_rad.length() + radius.length()))
+	for child in get_node("LocalCharacter").get_children():
+		child.locate(pos)
+		child.teleport()
+

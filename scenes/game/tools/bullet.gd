@@ -1,20 +1,23 @@
 extends CharacterBody2D
 
-var vel: Vector2 = Vector2.RIGHT
-var speed: float = 20000
+@onready var vel: Vector2 = Vector2.RIGHT
+@onready var speed: float = 20000
+@onready var sync: Node2D = $Synchronizer
+@onready var collision: bool
+
 
 signal hit_signal
 
 func _physics_process(_delta: float) -> void:
 	if is_multiplayer_authority():
-		var collision = move_and_slide()
+		collision = move_and_slide()
 		if collision:
 			emit_signal("hit_signal", get_last_slide_collision().get_collider())
-		$Synchronizer.pos = global_position
-		$Synchronizer.rot = global_rotation
+		sync.pos = global_position
+		sync.rot = global_rotation
 	else:
-		global_position = $Synchronizer.pos
-		global_rotation = $Synchronizer.rot
+		global_position = sync.pos
+		global_rotation = sync.rot
 	
 	
 

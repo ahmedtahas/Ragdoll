@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://do6hn0yeh44qc"]
+
+[ext_resource type="Script" path="res://scenes/menu/singleplayer_world.gd" id="1_qwkbm"]
+[ext_resource type="Texture2D" uid="uid://bnxtduxbf131" path="res://assets/sprites/environment/Wall.png" id="2_1s7cd"]
+[ext_resource type="PackedScene" uid="uid://chqdqglpyhnp" path="res://scenes/game/modules/multi_target_camera.tscn" id="3_2oovi"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_qwkbm")
+
+[node name="Point1" type="Marker2D" parent="."]
+position = Vector2(5105, -5105)
+
+[node name="Point2" type="Marker2D" parent="."]
+position = Vector2(15315, -5105)
+
+[node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2(10210, -5090)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall"]
+scale = Vector2(10, 10)
+texture = ExtResource("2_1s7cd")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wall"]
+scale = Vector2(10, 10)
+polygon = PackedVector2Array(1536, 1024, -1536, 1024, -1536, -1024, 88.9999, -1024, 89.6, -508.9, 2.40002, -509, -1021, -509, -1021, 509, 1021, 509, 1021, -509, 89.6, -508.9, 89, -1024, 1536, -1024)
+
+[node name="MTC" parent="." instance=ExtResource("3_2oovi")]
+
+[node name="Spawner" type="Node2D" parent="."]

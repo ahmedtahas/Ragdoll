@@ -1,12 +1,15 @@
+Timer
 Node2D
+CharacterBody2D
+Control
+CanvasLayer
+TextureProgressBar
+GPUParticles2D
+Sprite2D
 Marker2D
 Line2D
-Control
-Timer
 MultiplayerSynchronizer
 CollisionShape2D
-Sprite2D
-CharacterBody2D
 StaticBody2D
 RigidBody2D
 Camera2D
@@ -14,7 +17,6 @@ Label
 Button
 VBoxContainer
 MultiplayerSpawner
-CanvasLayer
 AnimationPlayer
 TextureRect
 ColorRect
@@ -24,9 +26,7 @@ Panel
 SubViewport
 RichTextLabel
 TextEdit
-TextureProgressBar
 AudioStreamPlayer
 AudioStreamPlayer2D
 AudioListener2D
 GrooveJoint2D
-PinJoint2D

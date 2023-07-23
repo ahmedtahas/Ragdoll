@@ -1,4 +1,4 @@
 extends Node
 
-var own
-var opponent
+var own: String
+var opponent: String

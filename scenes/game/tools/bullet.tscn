@@ -13,9 +13,11 @@ height = 66.0
 properties/0/path = NodePath("Synchronizer:pos")
 properties/0/spawn = true
 properties/0/sync = true
+properties/0/watch = false
 properties/1/path = NodePath("Synchronizer:rot")
 properties/1/spawn = true
 properties/1/sync = true
+properties/1/watch = false
 
 [sub_resource type="Curve" id="Curve_koudb"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
