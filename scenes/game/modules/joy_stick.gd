@@ -61,7 +61,7 @@ func _input(event: InputEvent) -> void:
 				var temp: Vector2 = event.position - movement_center
 				temp *= movement_radius / event.position.distance_to(movement_center)
 				movement_stick.position = temp + movement_center
-			emit_signal("move_signal", (event.position - movement_center).normalized())
+			emit_signal("move_signal", (event.position - movement_center).normalized(), true)
 			
 		elif action_area.is_visible_in_tree() and not button and not on_cooldown:
 			action_stick.position = event.position
@@ -76,7 +76,7 @@ func _input(event: InputEvent) -> void:
 		if movement_area.is_visible_in_tree():
 			movement_area.visible = false
 			movement_stick.visible = false
-			emit_signal("move_signal", Vector2.ZERO)
+			emit_signal("move_signal", Vector2.ZERO, false)
 			
 		elif action_area.is_visible_in_tree() and not button and not on_cooldown:
 			action_area.visible = false

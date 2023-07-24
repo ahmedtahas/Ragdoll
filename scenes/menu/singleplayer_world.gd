@@ -1,8 +1,5 @@
 extends Node2D
 
-
-@onready var room: Vector2 = Vector2(20420, -10180)
-
 @onready var player: Node2D
 
 @onready var bot: Node2D = preload("res://scenes/game/character/bot.tscn").instantiate()
@@ -37,15 +34,3 @@ func slow_motion(time_scale: float, duration: float):
 	Engine.time_scale = time_scale
 	await get_tree().create_timer(time_scale * duration).timeout
 	Engine.time_scale = 1
-	
-	
-func get_inside_position(pos: Vector2) -> Vector2:
-	if pos.x > room.x:
-		pos.x = room.x - player.radius.x
-	elif pos.x < player.radius.x:
-		pos.x = player.radius.x
-	if pos.y < room.y:
-		pos.y = room.y + player.radius.x
-	elif pos.y > -player.radius.x:
-		pos.y -= player.radius.x
-	return pos

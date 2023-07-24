@@ -24,9 +24,9 @@ extends Node2D
 func _ready() -> void:
 	name = str(get_multiplayer_authority())
 	get_node("LocalCharacter").load_skin(character_name)
-	_ignore_self()
 	
 	if is_multiplayer_authority():
+		get_node("RemoteCharacter").queue_free()
 		joy_stick.move_signal.connect(character.move_signal)
 		joy_stick.skill_signal.connect(self.skill_signal)
 		
@@ -41,22 +41,16 @@ func _ready() -> void:
 		cooldown_bar.set_value(100)
 		cooldown_text.set_text("[center]ready[/center]")
 		character.get_node("RemoteUI").visible = false
-		
-	else:
-		character.get_node("LocalUI").visible = false
-		
-		
-	
-	if is_multiplayer_authority():
 		Global.camera.add_target(body)
-		get_node("RemoteCharacter").queue_free()
 		for part in get_node("LocalCharacter").get_children():
 			part.set_power(character_name)
+		character.ignore_local()
 		
 	else:
-		Global.camera.add_target(get_node("RemoteCharacter/Body"))
 		get_node("LocalCharacter").queue_free()
-	
+		character.get_node("LocalUI").visible = false
+		Global.camera.add_target(get_node("RemoteCharacter/Body"))
+		character.ignore_remote()
 
 
 @rpc("call_remote", "reliable")
@@ -93,19 +87,6 @@ func _physics_process(_delta: float) -> void:
 		cooldown_bar.set_value(100 - ((100 * cooldown.time_left) / cooldown_time))
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 	
-	
-func _ignore_self() -> void:
-	for child_1 in get_node("LocalCharacter").get_children():
-		child_1.body_entered.connect(character.on_body_entered.bind(child_1))
-		for child_2 in get_node("LocalCharacter").get_children():
-			if child_1 != child_2:
-				child_1.add_collision_exception_with(child_2)
-		for child_2 in get_node("RemoteCharacter").get_children():
-			child_1.add_collision_exception_with(child_2)
-			for child_3 in get_node("RemoteCharacter").get_children():
-				if child_3 != child_2:
-					child_3.add_collision_exception_with(child_2)
-
 
 func skill_signal(using: bool) -> void:
 	if not cooldown.is_stopped() or not is_multiplayer_authority():

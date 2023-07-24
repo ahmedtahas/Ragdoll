@@ -3,6 +3,9 @@ extends Node2D
 
 @onready var character_name: String = "meri"
 
+@onready var clone_instance: PackedScene = preload("res://scenes/game/character/clone.tscn")
+
+@onready var clone: Node2D
 @onready var duration_time: float
 @onready var cooldown_time: float
 
@@ -17,21 +20,22 @@ extends Node2D
 @onready var body: RigidBody2D = $LocalCharacter/Body
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var duration: Timer = $Extra/SkillDuration
-@onready var clone: Node2D = $Extra/CloneCharacter
 
 @onready var cooldown_set: bool = false
+@onready var cloned: bool = false
 
+signal move_signal
 
 func _ready() -> void:
 	name = str(get_multiplayer_authority())
 	get_node("LocalCharacter").load_skin(character_name)
-	_ignore_self()
 	
 	if is_multiplayer_authority():
+		get_node("RemoteCharacter").queue_free()
 		joy_stick.move_signal.connect(character.move_signal)
 		joy_stick.skill_signal.connect(self.skill_signal)
 		
-		joy_stick.button = true
+		joy_stick.button = false
 		duration_time = get_node("/root/Config").get_value("duration", character_name)
 		cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
 		
@@ -42,23 +46,17 @@ func _ready() -> void:
 		cooldown_bar.set_value(100)
 		cooldown_text.set_text("[center]ready[/center]")
 		character.get_node("RemoteUI").visible = false
-		
-	else:
-		character.get_node("LocalUI").visible = false
-		
-		
-	
-	if is_multiplayer_authority():
 		Global.camera.add_target(body)
-		get_node("RemoteCharacter").queue_free()
 		for part in get_node("LocalCharacter").get_children():
 			part.set_power(character_name)
+		character.ignore_local()
 		
 	else:
-		Global.camera.add_target(get_node("RemoteCharacter/Body"))
 		get_node("LocalCharacter").queue_free()
+		character.get_node("LocalUI").visible = false
+		Global.camera.add_target(get_node("RemoteCharacter/Body"))
+		character.ignore_remote()
 	
-
 
 @rpc("call_remote", "reliable")
 func add_skill(skill_name: String) -> void:
@@ -69,8 +67,6 @@ func add_skill(skill_name: String) -> void:
 func remove_skill() -> void:
 	Global.world.remove_skill()
 
-
-	
 
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
@@ -94,28 +90,27 @@ func _physics_process(_delta: float) -> void:
 		cooldown_bar.set_value(100 - ((100 * cooldown.time_left) / cooldown_time))
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 	
-	
-func _ignore_self() -> void:
-	for child_1 in get_node("LocalCharacter").get_children():
-		child_1.body_entered.connect(character.on_body_entered.bind(child_1))
-		for child_2 in get_node("LocalCharacter").get_children():
-			if child_1 != child_2:
-				child_1.add_collision_exception_with(child_2)
-		for child_2 in get_node("RemoteCharacter").get_children():
-			child_1.add_collision_exception_with(child_2)
-			for child_3 in get_node("RemoteCharacter").get_children():
-				if child_3 != child_2:
-					child_3.add_collision_exception_with(child_2)
 
-
-func skill_signal(using: bool) -> void:
+func skill_signal(_vector: Vector2, using: bool) -> void:
 	if not cooldown.is_stopped() or not is_multiplayer_authority():
 		return
-	
+	emit_signal("move_signal", _vector, using)
 	if using:
 		pass
-		
-	else:
-		pass
-		
-		
+		if not cloned:
+			duration.start()
+			cloned = true
+			clone = clone_instance.instantiate()
+			if multiplayer.is_server():
+				get_node("../../ServerSkill").add_child(clone, true)
+			else:
+				get_node("../../ClientSkill").add_child(clone, true)
+				rpc_id(get_node("../..").get_opponent_id(), "add_skill", "clone")
+				clone.set_multiplayer_authority(multiplayer.get_unique_id())
+		else:
+			await duration.timeout
+			clone.queue_free()
+			if not multiplayer.is_server():
+				rpc_id(get_node("../..").get_opponent_id(), "remove_skill")
+			cooldown.start()
+			cloned = false

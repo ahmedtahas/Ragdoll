@@ -1,10 +1,9 @@
 extends Node2D
 
 
-@onready var room: Vector2 = Vector2(20420, -10180)
-
 @onready var connected_peer_ids = []
 @onready var client_id
+@onready var server_id
 @onready var character_dictionary: Dictionary = {
 	"crock": preload("res://scenes/game/character/crock.tscn"),
 	"zeina": preload("res://scenes/game/character/zeina.tscn"),
@@ -12,11 +11,13 @@ extends Node2D
 	"holstar": preload("res://scenes/game/character/holstar.tscn"),
 	"roki_roki": preload("res://scenes/game/character/roki_roki.tscn"),
 	"paranoc": preload("res://scenes/game/character/paranoc.tscn"),
-	"kaliber": preload("res://scenes/game/character/kaliber.tscn")
+	"kaliber": preload("res://scenes/game/character/kaliber.tscn"),
+	"meri": preload("res://scenes/game/character/meri.tscn")
 }
 @onready var skill_dictionary: Dictionary = {
 	"dagger": preload("res://scenes/game/tools/dagger.tscn"),
-	"bullet": preload("res://scenes/game/tools/bullet.tscn")
+	"bullet": preload("res://scenes/game/tools/bullet.tscn"),
+	"clone": preload("res://scenes/game/character/clone.tscn")
 }
 
 
@@ -42,11 +43,7 @@ func slowdown(time_scale: float, duration: float):
 	
 @rpc("any_peer", "call_remote", "reliable", 1)
 func set_opponent(selection):
-	print(multiplayer.get_unique_id(), " 's  opponent is  ", CharacterSelection.opponent)
 	CharacterSelection.opponent = selection
-	
-	print(multiplayer.get_unique_id(), " 's  opponent is  ", CharacterSelection.opponent)
-#	rpc_id(multiplayer.get_remote_sender_id(), "_set_bolen", true)
 	
 	
 @rpc("call_local", "any_peer", "reliable")
@@ -57,19 +54,6 @@ func get_opponent_id():
 		for id in connected_peer_ids:
 			if id != 1:
 				return id
-		
-		
-func get_inside_position(pos: Vector2, player_name: StringName) -> Vector2:
-	var player = get_node("Spawner/" + player_name)
-	if pos.x > room.x:
-		pos.x = room.x - player.radius.x
-	elif pos.x < player.radius.x:
-		pos.x = player.radius.x
-	if pos.y < room.y:
-		pos.y = room.y + player.radius.x
-	elif pos.y > -player.radius.x:
-		pos.y -= player.radius.x
-	return pos
 
 
 func _on_host_pressed() -> void:
@@ -79,6 +63,7 @@ func _on_host_pressed() -> void:
 	multiplayer.multiplayer_peer = multiplayer_peer
 	$NetworkInfo/UniquePeerID.text = str(multiplayer.get_unique_id())
 	add_player_character(1)
+	server_id = multiplayer.get_unique_id()
 	get_node("Spawner/1/LocalCharacter/Head").freeze = true
 	multiplayer_peer.peer_connected.connect(
 		func(new_peer_id):
@@ -100,8 +85,10 @@ func _on_join_pressed() -> void:
 	multiplayer.multiplayer_peer = multiplayer_peer
 	multiplayer_peer.peer_connected.connect(
 		func(_peer_):
+			client_id = multiplayer.get_unique_id()
+			server_id = _peer_
 			await get_tree().create_timer(2).timeout
-			rpc_id(1,"set_opponent", CharacterSelection.own)
+			rpc_id(_peer_,"set_opponent", CharacterSelection.own)
 	)
 	$NetworkInfo/UniquePeerID.text = str(multiplayer.get_unique_id())
 	
@@ -117,7 +104,6 @@ func add_player_character(peer_id):
 		player_character = character_dictionary.get(CharacterSelection.opponent).instantiate()
 
 	player_character.set_multiplayer_authority(peer_id)
-	print(player_character.name, "   ::  ", multiplayer.get_unique_id(), "   ::  ", connected_peer_ids)
 	$Spawner.add_child(player_character, true)
 	if peer_id == 1:
 		player_character.transform = $Point1.transform
@@ -128,8 +114,7 @@ func add_player_character(peer_id):
 @rpc("call_remote", "reliable")
 func add_skill(skill_name: String) -> void:
 	var skill = skill_dictionary.get(skill_name).instantiate()
-	print("SKILLLLLLLLL     ", multiplayer.get_unique_id())
-	$ClientSkill.add_child(skill, true)
+	$ClientSkill.add_child(skill)
 	skill.set_multiplayer_authority(client_id)
 	
 	
@@ -141,7 +126,6 @@ func remove_skill() -> void:
 	
 @rpc	
 func add_newly_connected_player_character(new_peer_id):
-	print(new_peer_id, "  :---------:  ", multiplayer.get_unique_id())
 	add_player_character(new_peer_id)
 	
 	
@@ -149,7 +133,3 @@ func add_newly_connected_player_character(new_peer_id):
 func add_previously_connected_player_characters(peer_id) -> void:
 	connected_peer_ids.append(peer_id)
 
-
-func _on_multiplayer_spawner_spawned(node: Node) -> void:
-	print(node, "   spawned   by ", multiplayer.get_unique_id())
-	pass # Replace with function body.

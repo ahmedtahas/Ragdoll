@@ -27,7 +27,7 @@ func _ready() -> void:
 	
 	get_node("LocalCharacter").load_skin(character_name)
 	
-	_ignore_self()
+	character.ignore_self()
 	
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
@@ -59,14 +59,6 @@ func _physics_process(_delta: float) -> void:
 		cooldown_bar.set_value((100 * hit_count) / max_combo)
 		cooldown_text.set_text("[center]" + str(hit_count) + "x[/center]")
 	
-	
-func _ignore_self() -> void:
-	for child_1 in get_node("LocalCharacter").get_children():
-		child_1.body_entered.connect(character.on_body_entered.bind(child_1))
-		for child_2 in get_node("LocalCharacter").get_children():
-			if child_1 != child_2:
-				child_1.add_collision_exception_with(child_2)
-
 
 func hit_signal() -> void:
 	if using or hit_count == max_combo:

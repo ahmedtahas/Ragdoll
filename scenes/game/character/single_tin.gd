@@ -28,7 +28,7 @@ extends Node2D
 func _ready() -> void:
 	name = character_name
 	get_node("LocalCharacter").load_skin(character_name)
-	_ignore_self()
+	character.ignore_self()
 	
 	shockwave.visible = false
 	
@@ -102,14 +102,6 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 	
 		
-		
-func _ignore_self() -> void:
-	for child_1 in get_node("LocalCharacter").get_children():
-		child_1.body_entered.connect(character.on_body_entered.bind(child_1))
-		for child_2 in get_node("LocalCharacter").get_children():
-			if child_1 != child_2:
-				child_1.add_collision_exception_with(child_2)
-
 
 func _scale_shockwave(value: float) -> void:
 	shockwave.scale.x += value

@@ -35,7 +35,7 @@ func _ready() -> void:
 	
 	dash_preview.visible = false
 	
-	_ignore_self()
+	character.ignore_self()
 	
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
@@ -71,13 +71,6 @@ func _physics_process(_delta: float) -> void:
 		cooldown_bar.set_value(100 - ((100 * cooldown.time_left) / cooldown_time))
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 
-
-func _ignore_self() -> void:
-	for child_1 in get_node("LocalCharacter").get_children():
-		child_1.body_entered.connect(character.on_body_entered.bind(child_1))
-		for child_2 in get_node("LocalCharacter").get_children():
-			if child_1 != child_2:
-				child_1.add_collision_exception_with(child_2)
 
 func _flicker() -> void:
 	if flicker:
@@ -125,7 +118,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 			
 			if (end_point - opponent_pos).length() < opponent_rad.length():
 				end_point = opponent_pos + ((dagger.global_position - opponent_pos).normalized() * (opponent_rad.length() + radius.length()))
-			end_point = Global.world.get_inside_position(end_point)
+			end_point = Global.get_inside_position(end_point, name)
 			teleport()
 		else:
 			_hit = false
@@ -145,7 +138,7 @@ func hit_signal(hit: Node2D) -> void:
 	if hit is RigidBody2D:
 		if hit.get_node("../..") != self and not hit.is_in_group("Skill"):
 			end_point = Global.bot.get_node("LocalCharacter/Body").global_position + ((dagger.global_position - body.global_position).normalized() * (Global.bot.radius.length() + radius.length()))
-			end_point = Global.world.get_inside_position(end_point)
+			end_point = Global.get_inside_position(end_point, name)
 			Global.bot.character.hit_stun()
 			if hit.name == "Head":
 				character.damage_bot(damage * 2)

@@ -24,6 +24,9 @@ extends Node2D
 @onready var main_scene: Node2D
 @onready var player_character: Node2D
 
+@onready var local_character = get_node("../../LocalCharacter")
+@onready var remote_character = get_node("../../RemoteCharacter")
+
 @onready var local_head = get_node("../../LocalCharacter/Head")
 @onready var local_body = get_node("../../LocalCharacter/Body")
 @onready var local_rua = get_node("../../LocalCharacter/RUA")
@@ -61,10 +64,15 @@ signal hit_signal
 
 func _ready() -> void:
 	main_scene = Global.world
+	if get_node("../..").name == "Clone":
+		damage = get_node("/root/Config").get_value("damage", "meri")
+		speed = get_node("/root/Config").get_value("speed", "meri")
+		return
 	if is_multiplayer_authority():
 		health = get_node("/root/Config").get_value("health", CharacterSelection.own)
 		damage = get_node("/root/Config").get_value("damage", CharacterSelection.own)
 		speed = get_node("/root/Config").get_value("speed", CharacterSelection.own)
+		print(CharacterSelection.own, "  CHAARRR  ", multiplayer.get_unique_id())
 		current_health = health
 		health_bar.set_value(100)
 		health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
@@ -73,9 +81,25 @@ func _ready() -> void:
 		await get_tree().create_timer(4).timeout
 		set_health()
 
+
 func set_health() -> void:
 	health = get_node("/root/Config").get_value("health", CharacterSelection.opponent)
 	current_health = health
+
+
+func ignore_local() -> void:
+	for child_1 in local_character.get_children():
+		child_1.body_entered.connect(self.on_body_entered.bind(child_1))
+		for child_2 in local_character.get_children():
+			if child_1 != child_2:
+				child_1.add_collision_exception_with(child_2)
+
+
+func ignore_remote() -> void:
+	for child_1 in remote_character.get_children():
+		for child_2 in remote_character.get_children():
+			if child_1 != child_2:
+				child_1.add_collision_exception_with(child_2)
 
 
 func on_body_entered(body: Node2D, caller: RigidBody2D) -> void:
@@ -297,8 +321,7 @@ func _physics_process(_delta: float):
 		remote_health_bar.set_value((100 * current_health) / health)
 		
 	
-
-func move_signal(vector: Vector2) -> void:
+func move_signal(vector: Vector2, _dummy: bool) -> void:
 	movement_vector = vector
 	
 

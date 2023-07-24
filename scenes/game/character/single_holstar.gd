@@ -34,7 +34,7 @@ extends Node2D
 
 
 func _ready() -> void:
-	_ignore_self()
+	ignore_self()
 	connect_body_signal()
 	name = character_name
 	get_node("LocalCharacter").load_skin(character_name)
@@ -105,7 +105,7 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 	
 	
-func _ignore_self() -> void:
+func ignore_self() -> void:
 	for child_1 in get_node("LocalCharacter").get_children():
 		child_1.add_collision_exception_with(ra)
 		for child_2 in get_node("LocalCharacter").get_children():

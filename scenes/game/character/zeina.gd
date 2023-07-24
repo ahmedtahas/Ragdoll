@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var character_name: String = "zeina"
 
-@onready var dagger_instance = preload("res://scenes/game/tools/dagger.tscn")
+@onready var dagger_instance: PackedScene = preload("res://scenes/game/tools/dagger.tscn")
 
 @onready var cooldown_time: float
 @onready var power: float
@@ -34,9 +34,8 @@ func _ready() -> void:
 	
 	dash_preview.visible = false
 	
-	_ignore_self()
-	
 	if is_multiplayer_authority():
+		get_node("RemoteCharacter").queue_free()
 		joy_stick.move_signal.connect(character.move_signal)
 		joy_stick.skill_signal.connect(self.skill_signal)
 		
@@ -50,21 +49,16 @@ func _ready() -> void:
 		cooldown_bar.set_value(100)
 		cooldown_text.set_text("[center]ready[/center]")
 		character.get_node("RemoteUI").visible = false
-		
-	else:
-		character.get_node("LocalUI").visible = false
-		
-		
-	
-	if is_multiplayer_authority():
 		Global.camera.add_target(body)
-		get_node("RemoteCharacter").queue_free()
 		for part in get_node("LocalCharacter").get_children():
 			part.set_power(character_name)
+		character.ignore_local()
 		
 	else:
-		Global.camera.add_target(get_node("RemoteCharacter/Body"))
 		get_node("LocalCharacter").queue_free()
+		character.get_node("LocalUI").visible = false
+		Global.camera.add_target(get_node("RemoteCharacter/Body"))
+		character.ignore_remote()
 	
 
 @rpc("call_remote", "reliable")
@@ -94,19 +88,6 @@ func _physics_process(_delta: float) -> void:
 			cooldown_set = false
 		cooldown_bar.set_value(100 - ((100 * cooldown.time_left) / cooldown_time))
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
-
-
-func _ignore_self() -> void:
-	for child_1 in get_node("LocalCharacter").get_children():
-		child_1.body_entered.connect(character.on_body_entered.bind(child_1))
-		for child_2 in get_node("LocalCharacter").get_children():
-			if child_1 != child_2:
-				child_1.add_collision_exception_with(child_2)
-		for child_2 in get_node("RemoteCharacter").get_children():
-			child_1.add_collision_exception_with(child_2)
-			for child_3 in get_node("RemoteCharacter").get_children():
-				if child_3 != child_2:
-					child_3.add_collision_exception_with(child_2)
 
 
 func _flicker() -> void:
@@ -141,8 +122,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		dash_preview.visible = false
 		end_point = _range.global_position
 		# check if hits character update endpoint
-		
-		end_point = get_node("../..").get_inside_position(end_point, str(multiplayer.get_unique_id()))
+		end_point = Global.get_inside_position(end_point, str(multiplayer.get_unique_id()))
 		
 		cooldown.start()
 		flicker = false
@@ -170,7 +150,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 			var opponent_rad = get_node("../" + opponent_id).radius
 			if (end_point - opponent_pos).length() < opponent_rad.length():
 				end_point = opponent_pos + ((dagger.global_position - opponent_pos).normalized() * (opponent_rad.length() + radius.length()))
-			end_point = Global.world.get_inside_position(end_point, name)
+			end_point = Global.get_inside_position(end_point, name)
 			teleport()
 			if not multiplayer.is_server():
 				rpc_id(get_node("../..").get_opponent_id(), "remove_skill")
@@ -196,7 +176,7 @@ func hit_signal(hit: Node2D) -> void:
 			var opponent_rad = get_node("../" + opponent_id).radius
 			
 			end_point = opponent_pos + ((dagger.global_position - body.global_position).normalized() * (opponent_rad.length() + radius.length()))
-			end_point = Global.world.get_inside_position(end_point, name)
+			end_point = Global.get_inside_position(end_point, name)
 			character.stun_opponent()
 			character._invul()
 			if hit.name == "Head":

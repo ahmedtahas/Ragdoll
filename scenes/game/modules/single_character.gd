@@ -42,16 +42,26 @@ func _physics_process(_delta: float) -> void:
 
 func set_health() -> void:
 	bot_health = get_node("/root/Config").get_value("health", "bot")
-	bot_current_health = health
+	bot_current_health = bot_health
+
+		
+func ignore_self() -> void:
+	for child_1 in get_node("../../LocalCharacter").get_children():
+		child_1.body_entered.connect(self.on_body_entered.bind(child_1))
+		for child_2 in get_node("../../LocalCharacter").get_children():
+			if child_1 != child_2:
+				child_1.add_collision_exception_with(child_2)
 
 
 func damage_bot(amount: float) -> void:
+	
 	if bot_current_health <= amount:
 		bot_current_health = 0
 		bot_health_bar.set_value(bot_current_health)
 		return
 	bot_current_health -= amount
 	bot_health_bar.set_value((100 * bot_current_health) / bot_health)
+	print(bot_current_health, "  ::  ", bot_health)
 
 
 func on_body_entered(body: Node2D, caller: RigidBody2D) -> void:
@@ -64,6 +74,7 @@ func on_body_entered(body: Node2D, caller: RigidBody2D) -> void:
 			damage_bot(damage * 2)
 		elif caller.is_in_group("Damager") and body.is_in_group("Damagable"):
 			damage_bot(damage)
+			print(caller.name, "   BBBBBB  ", body.name)
 			
 
 func push_part(direction: Vector2, strength: float, part: String) -> void:

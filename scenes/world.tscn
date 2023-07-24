@@ -27,7 +27,7 @@ polygon = PackedVector2Array(1536, 1024, -1536, 1024, -1536, -1024, 88.9999, -10
 [node name="MTC" parent="." instance=ExtResource("6_hsuk7")]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/game/character/zeina.tscn", "res://scenes/game/character/crock.tscn", "res://scenes/game/character/holstar.tscn", "res://scenes/game/character/tin.tscn", "res://scenes/game/character/roki_roki.tscn", "res://scenes/game/character/paranoc.tscn", "res://scenes/game/character/kaliber.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/game/character/zeina.tscn", "res://scenes/game/character/crock.tscn", "res://scenes/game/character/holstar.tscn", "res://scenes/game/character/tin.tscn", "res://scenes/game/character/roki_roki.tscn", "res://scenes/game/character/paranoc.tscn", "res://scenes/game/character/kaliber.tscn", "res://scenes/game/character/meri.tscn")
 spawn_path = NodePath("../Spawner")
 spawn_limit = 1
 
@@ -64,7 +64,7 @@ text = "JOIN"
 [node name="ClientSkill" type="Node2D" parent="."]
 
 [node name="ServerSkillSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/game/tools/bullet.tscn", "res://scenes/game/tools/dagger.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/game/tools/bullet.tscn", "res://scenes/game/tools/dagger.tscn", "res://scenes/game/character/clone.tscn")
 spawn_path = NodePath("../ServerSkill")
 spawn_limit = 1
 

@@ -32,9 +32,11 @@ func on_body_entered(body: Node2D, caller: RigidBody2D) -> void:
 		hit_stun()
 		Global.world.slow_motion(0.05, 1)
 		if caller.is_in_group("Damager") and body.name == "Head":
+			print(caller.name)
 			Global.player.character.take_damage(damage * 2)
 		elif caller.is_in_group("Damager") and body.is_in_group("Damagable"):
 			Global.player.character.take_damage(damage)
+			print(caller.name, "   AAAAAA  ", body.name)
 
 
 func move_signal(vector: Vector2) -> void:
