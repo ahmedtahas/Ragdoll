@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b3gsumju84qld"]
+[gd_scene load_steps=16 format=3 uid="uid://b3gsumju84qld"]
 
 [ext_resource type="Script" path="res://scenes/game/character/clone.gd" id="1_pye2w"]
 [ext_resource type="Script" path="res://scenes/game/character/load_skin.gd" id="2_t2asy"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://igtfmvghqyto" path="res://assets/sprites/character/4_.png" id="6_xs4tw"]
 [ext_resource type="Script" path="res://scenes/game/character/copy_skin.gd" id="7_x3w6n"]
 [ext_resource type="Script" path="res://scenes/game/character/positions.gd" id="8_ldwb6"]
-[ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="9_kuhcd"]
 [ext_resource type="PackedScene" uid="uid://dfctusw14gxrg" path="res://scenes/game/modules/character.tscn" id="10_ubvtg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dfao1"]
@@ -788,11 +787,6 @@ position = Vector2(750, 0)
 
 [node name="HitCooldown" type="Timer" parent="Extra"]
 one_shot = true
-
-[node name="SkillDuration" type="Timer" parent="Extra"]
-one_shot = true
-
-[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("9_kuhcd")]
 
 [node name="Character" parent="Extra" instance=ExtResource("10_ubvtg")]
 

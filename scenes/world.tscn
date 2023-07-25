@@ -68,7 +68,5 @@ _spawnable_scenes = PackedStringArray("res://scenes/game/tools/bullet.tscn", "re
 spawn_path = NodePath("../ServerSkill")
 spawn_limit = 1
 
-[connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]
 [connection signal="pressed" from="Menu/Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Menu/Join" to="." method="_on_join_pressed"]
-[connection signal="spawned" from="ServerSkillSpawner" to="." method="_on_multiplayer_spawner_spawned"]

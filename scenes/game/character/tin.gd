@@ -142,7 +142,7 @@ func skill_signal(is_charging: bool) -> void:
 		duration.stop()
 		cooldown.start()
 		
-		var opponent_pos = get_node("../" + str(get_node("../..").get_opponent_id()) + "/RemoteCharacter/Body").global_position
+		var opponent_pos = get_node("../" + str(Global.world.get_opponent_id()) + "/RemoteCharacter/Body").global_position
 		
 		if (opponent_pos - body.global_position).length() < skill_range:
 			character.push_opponent((body.global_position - opponent_pos).normalized(), power)

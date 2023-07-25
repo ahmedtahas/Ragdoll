@@ -1,10 +1,12 @@
 extends Node2D
 
-@onready var character_name: String = "kaliber"
+@onready var character_name: String = "meri"
 
+@onready var clone_instance: PackedScene = preload("res://scenes/game/character/single_clone.tscn")
+
+@onready var clone: Node2D
 @onready var duration_time: float
-@onready var max_combo: float
-@onready var damage: float
+@onready var cooldown_time: float
 
 @onready var cooldown_bar: TextureProgressBar
 @onready var cooldown_text: RichTextLabel
@@ -18,8 +20,10 @@ extends Node2D
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var duration: Timer = $Extra/SkillDuration
 
-@onready var using: bool = false
-@onready var hit_count: float = 0
+@onready var cooldown_set: bool = false
+@onready var cloned: bool = false
+
+signal move_signal
 
 
 func _ready() -> void:
@@ -31,13 +35,12 @@ func _ready() -> void:
 	
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
-	joy_stick.button = true
-	character.hit_signal.connect(self.hit_signal)
+	joy_stick.button = false
 	
-	max_combo = get_node("/root/Config").get_value("duration", character_name)
-	duration_time = get_node("/root/Config").get_value("cooldown", character_name)
-	damage = get_node("/root/Config").get_value("damage", character_name)
+	cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
+	duration_time = get_node("/root/Config").get_value("duration", character_name)
 	
+	cooldown.wait_time = cooldown_time
 	duration.wait_time = duration_time
 
 	cooldown_bar = character.get_node('LocalUI/CooldownBar')
@@ -51,33 +54,39 @@ func _ready() -> void:
 	
 
 func _physics_process(_delta: float) -> void:
+
 	if not duration.is_stopped():
 		cooldown_bar.set_value((100 * duration.time_left) / duration_time)
 		cooldown_text.set_text("[center]" + str(duration.time_left).pad_decimals(1) + "s[/center]")
 	
-	else:
-		cooldown_bar.set_value((100 * hit_count) / max_combo)
-		cooldown_text.set_text("[center]" + str(hit_count) + "x[/center]")
+	elif cooldown.is_stopped():
+		if not cooldown_set:
+			cooldown_bar.set_value(100)
+			cooldown_text.set_text("[center]ready[/center]")
+			cooldown_set = true
+			
+	elif duration.is_stopped():
+		if cooldown_set:
+			cooldown_set = false
+		cooldown_bar.set_value(100 - ((100 * cooldown.time_left) / cooldown_time))
+		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 	
-
-func hit_signal(_body: RigidBody2D, _caller: RigidBody2D) -> void:
-	if using or hit_count == max_combo:
+	
+func skill_signal(vector: Vector2, using: bool) -> void:
+	if not cooldown.is_stopped():
 		return
-	hit_count += 1
-
-
-func skill_signal(_using: bool) -> void:
-	if not duration.is_stopped() or hit_count <= 2:
-		return
 	
-	if _using:
-		pass
+	emit_signal("move_signal", vector, using)
 	
-	else:
-		Global.world.slow_motion(0.05, 1)
-		character.damage *= (hit_count / 2)
-		duration.wait_time = duration_time * hit_count / max_combo
-		duration.start()
-		await duration.timeout
-		character.damage = damage
-		hit_count = 0
+	if using:
+		if not cloned:
+			duration.start()
+			cloned = true
+			clone = clone_instance.instantiate()
+			print(cloned, "AAAAAAAAA")
+			add_sibling(clone)
+		else:
+			await duration.timeout
+			clone.queue_free()
+			cooldown.start()
+			cloned = false

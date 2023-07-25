@@ -132,10 +132,10 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		dagger = dagger_instance.instantiate()
 		dagger.hit_signal.connect(self.hit_signal)
 		if multiplayer.is_server():
-			get_node("../../ServerSkill").add_child(dagger, true)
+			Global.server_skill.add_child(dagger, true)
 		else:
-			get_node("../../ClientSkill").add_child(dagger, true)
-			rpc_id(get_node("../..").get_opponent_id(), "add_skill", "dagger")
+			Global.client_skill.add_child(dagger, true)
+			rpc_id(Global.world.get_opponent_id(), "add_skill", "dagger")
 #		get_node("../../MultiplayerSpawner").spawn(dagger)
 		dagger.set_multiplayer_authority(multiplayer.get_unique_id())
 		character.slow_motion()
@@ -145,15 +145,16 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		await get_tree().create_timer((end_point - body.global_position).length() / dagger.speed).timeout
 		
 		if not _hit:
-			var opponent_id = str(get_node("../..").get_opponent_id())
+			var opponent_id = str(Global.world.get_opponent_id())
 			var opponent_pos = get_node("../" + opponent_id + "/RemoteCharacter/Body").global_position
 			var opponent_rad = get_node("../" + opponent_id).radius
+			var opponent_center = get_node("../" + opponent_id).center
 			if (end_point - opponent_pos).length() < opponent_rad.length():
-				end_point = opponent_pos + ((dagger.global_position - opponent_pos).normalized() * (opponent_rad.length() + radius.length()))
+				end_point = opponent_pos + opponent_center + ((dagger.global_position - opponent_pos).normalized() * (opponent_rad.length() + radius.length()))
 			end_point = Global.get_inside_position(end_point, name)
 			teleport()
 			if not multiplayer.is_server():
-				rpc_id(get_node("../..").get_opponent_id(), "remove_skill")
+				rpc_id(Global.world.get_opponent_id(), "remove_skill")
 		else:
 			_hit = false
 		
@@ -171,22 +172,27 @@ func hit_signal(hit: Node2D) -> void:
 	_hit = true
 	if hit is RigidBody2D or hit is CharacterBody2D:
 		if hit.get_node("../..") != self and not hit.is_in_group("Skill"):
-			var opponent_id = str(get_node("../..").get_opponent_id())
+			var opponent_id = str(Global.world.get_opponent_id())
 			var opponent_pos = get_node("../" + opponent_id + "/RemoteCharacter/Body").global_position
 			var opponent_rad = get_node("../" + opponent_id).radius
-			
-			end_point = opponent_pos + ((dagger.global_position - body.global_position).normalized() * (opponent_rad.length() + radius.length()))
+			var opponent_center = get_node("../" + opponent_id).center
+			end_point = opponent_pos + opponent_center + ((dagger.global_position - body.global_position).normalized() * (opponent_rad.length() + radius.length()))
 			end_point = Global.get_inside_position(end_point, name)
 			character.stun_opponent()
 			character._invul()
 			if hit.name == "Head":
 				character.damage_opponent(damage * 2)
+			
 			else:
 				character.damage_opponent(damage * 1)
 			character.invul_opponent()
+		
+		else:
+			cooldown.stop()
+	
 	else:
 		end_point = dagger.global_position
 	teleport()
 	
 	if multiplayer.get_unique_id() != 1:
-		rpc_id(get_node("../..").get_opponent_id(), "remove_skill")
+		rpc_id(Global.world.get_opponent_id(), "remove_skill")

@@ -32,6 +32,8 @@ func _ready() -> void:
 	Global.world = self
 	Global.spawner = $Spawner
 	Global.camera = $MTC
+	Global.server_skill = $ServerSkill
+	Global.client_skill = $ClientSkill
 
 
 @rpc("any_peer", "reliable", "call_local")

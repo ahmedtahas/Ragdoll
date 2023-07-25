@@ -12,20 +12,16 @@ extends Node2D
 @onready var health_bar = get_node('LocalUI/HealthBar')
 @onready var health_text = get_node('LocalUI/HealthBar/Text')
 @onready var remote_health_bar = get_node('RemoteUI/HealthBar')
+@onready var local_character = get_node("../../LocalCharacter")
+@onready var remote_character = get_node("../../RemoteCharacter")
 
 @onready var movement_vector: Vector2 = Vector2.ZERO
-
 @onready var synchronizer: Node2D = get_parent()
 @onready var is_gunner: bool = false
 @onready var hit_count: float = 0
 
 @onready var arm: CharacterBody2D
-
 @onready var main_scene: Node2D
-@onready var player_character: Node2D
-
-@onready var local_character = get_node("../../LocalCharacter")
-@onready var remote_character = get_node("../../RemoteCharacter")
 
 @onready var local_head = get_node("../../LocalCharacter/Head")
 @onready var local_body = get_node("../../LocalCharacter/Body")
@@ -59,8 +55,8 @@ extends Node2D
 @onready var remote_lll = get_node("../../RemoteCharacter/LLL")
 @onready var remote_lk = get_node("../../RemoteCharacter/LK")
 
-
 signal hit_signal
+
 
 func _ready() -> void:
 	main_scene = Global.world
@@ -68,14 +64,15 @@ func _ready() -> void:
 		damage = get_node("/root/Config").get_value("damage", "meri")
 		speed = get_node("/root/Config").get_value("speed", "meri")
 		return
+	
 	if is_multiplayer_authority():
 		health = get_node("/root/Config").get_value("health", CharacterSelection.own)
 		damage = get_node("/root/Config").get_value("damage", CharacterSelection.own)
 		speed = get_node("/root/Config").get_value("speed", CharacterSelection.own)
-		print(CharacterSelection.own, "  CHAARRR  ", multiplayer.get_unique_id())
 		current_health = health
 		health_bar.set_value(100)
 		health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
+	
 	else:
 		remote_health_bar.set_value(100)
 		await get_tree().create_timer(4).timeout
@@ -104,19 +101,21 @@ func ignore_remote() -> void:
 
 func on_body_entered(body: Node2D, caller: RigidBody2D) -> void:
 	if body is CharacterBody2D and not body.is_in_group("Skill"):
-		emit_signal("hit_signal")
+		emit_signal("hit_signal", body, caller)
 		hit_stun()
 		rpc("slow_motion")
+		
 		if caller.is_in_group("Damager") and body.name == "Head":
 			rpc_id(main_scene.get_opponent_id(), "take_damage", damage * 2)
+		
 		elif caller.is_in_group("Damager") and body.is_in_group("Damagable"):
 			rpc_id(main_scene.get_opponent_id(), "take_damage", damage)
-			
-			
+
+
 func freeze_opponent(duration: float) -> void:
 	rpc_id(main_scene.get_opponent_id(), "freeze_local", duration)
-			
-			
+
+
 func invul_opponent() -> void:
 	rpc_id(main_scene.get_opponent_id(), "invul")
 
@@ -137,24 +136,24 @@ func stun_opponent(wait_time: float = 0.5) -> void:
 	rpc_id(main_scene.get_opponent_id(), "stun", wait_time)
 
 
+func blackout_opponent(duration: float) -> void:
+	rpc_id(main_scene.get_opponent_id(), "blackout", duration)
+
+
+@rpc("call_remote", "any_peer", "reliable", 1)
+func blackout(duration: float) -> void:
+	get_node("/root/Main/Spawner/" + str(multiplayer.get_unique_id())).character._blackout(duration)
+
+
 @rpc("call_remote", "any_peer", "reliable", 1)
 func push_part(direction: Vector2, strength: float, part: String) -> void:
 	get_node("/root/Main/Spawner/" + str(multiplayer.get_unique_id())).character._push_part(direction, strength, part)
-
-
-func _push_part(direction: Vector2, strength: float, part: String) -> void:
-	get_node("/root/Main/Spawner/" + get_node("../..").name + "/LocalCharacter/" + part).apply_impulse(direction * strength)
 
 
 @rpc("call_remote", "any_peer", "reliable", 1)
 func push_all(direction: Vector2, strength: float) -> void:
 	get_node("/root/Main/Spawner/" + str(multiplayer.get_unique_id())).character._push_all(direction, strength)
 
-
-func _push_all(direction: Vector2, strength: float) -> void:
-	for part in get_node("/root/Main/Spawner/" + get_node("../..").name + "/LocalCharacter").get_children():
-		part.apply_impulse(direction * strength)
-	
 
 @rpc("any_peer", "call_local", "reliable")
 func slow_motion():
@@ -174,19 +173,24 @@ func freeze_local(duration: float) -> void:
 @rpc("call_remote", "any_peer", "reliable", 1)
 func invul() -> void:
 	get_node("/root/Main/Spawner/" + str(multiplayer.get_unique_id())).character._invul()
-	
-	
-func _invul() -> void:
-	invul_cooldown.start()
-	
-	
-func blackout_opponent(duration: float) -> void:
-	rpc_id(main_scene.get_opponent_id(), "blackout", duration)
-	
+
 
 @rpc("call_remote", "any_peer", "reliable", 1)
-func blackout(duration: float) -> void:
-	get_node("/root/Main/Spawner/" + str(multiplayer.get_unique_id())).character._blackout(duration)
+func stun(wait_time: float = 0.5) -> void:
+	get_node("/root/Main/Spawner/" + str(multiplayer.get_unique_id())).character.hit_stun(wait_time)
+
+
+func _push_part(direction: Vector2, strength: float, part: String) -> void:
+	get_node("/root/Main/Spawner/" + get_node("../..").name + "/LocalCharacter/" + part).apply_impulse(direction * strength)
+
+
+func _push_all(direction: Vector2, strength: float) -> void:
+	for part in get_node("/root/Main/Spawner/" + get_node("../..").name + "/LocalCharacter").get_children():
+		part.apply_impulse(direction * strength)
+
+
+func _invul() -> void:
+	invul_cooldown.start()
 
 
 func _blackout(duration: float) -> void:
@@ -199,7 +203,9 @@ func _blackout(duration: float) -> void:
 func _freeze_local(duration: float) -> void:
 	for child in get_node("../../LocalCharacter").get_children():
 		child.freeze = true
+	
 	await get_tree().create_timer(duration).timeout
+	
 	for child in get_node("../../LocalCharacter").get_children():
 		child.freeze = false
 
@@ -207,11 +213,13 @@ func _freeze_local(duration: float) -> void:
 func _take_damage(amount: float) -> void:
 	if not invul_cooldown.is_stopped():
 		return
+	
 	if current_health <= amount:
 		current_health = 0
 		health_bar.set_value(current_health)
 		health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
 		return
+	
 	current_health -= amount
 	health_bar.set_value((100 * current_health) / health)
 	health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
@@ -226,7 +234,7 @@ func _physics_process(_delta: float):
 	if is_multiplayer_authority():
 		if hit_cooldown.is_stopped():
 			local_body.apply_impulse(movement_vector * speed)
-		# save local characters position and rotation
+		
 		synchronizer.head_pos = local_head.global_position
 		synchronizer.head_rot = local_head.global_rotation
 		
@@ -267,7 +275,6 @@ func _physics_process(_delta: float):
 		synchronizer.health = current_health
 		
 	else:
-		# set remote characters position and rotation
 		remote_head.global_position = synchronizer.head_pos
 		remote_head.global_rotation = synchronizer.head_rot
 		
@@ -280,12 +287,13 @@ func _physics_process(_delta: float):
 			remote_rf.visible = false
 			arm.visible = true
 			arm.look_at(synchronizer.aim)
+		
 		elif is_gunner and synchronizer.aim == Vector2.ZERO:
 			remote_rua.visible = true
 			remote_rla.visible = true
 			remote_rf.visible = true
 			arm.visible = false
-			
+		
 		remote_rua.global_position = synchronizer.rua_pos
 		remote_rua.global_rotation = synchronizer.rua_rot
 		remote_rla.global_position = synchronizer.rla_pos
@@ -319,28 +327,23 @@ func _physics_process(_delta: float):
 		
 		current_health = synchronizer.health
 		remote_health_bar.set_value((100 * current_health) / health)
-		
-	
+
+
 func move_signal(vector: Vector2, _dummy: bool) -> void:
 	movement_vector = vector
-	
-
-@rpc("call_remote", "any_peer", "reliable", 1)
-func stun(wait_time: float = 0.5) -> void:
-	get_node("/root/Main/Spawner/" + str(multiplayer.get_unique_id())).character.hit_stun(wait_time)
 
 
 func hit_stun(wait_time: float = 0.5) -> void:
 	hit_cooldown.wait_time = wait_time
 	hit_cooldown.start()
-	
+
 
 func play_audio() -> void:
 	$hit.play()
 
 
-#func _input(event: InputEvent) -> void:
-#	movement_vector = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	
-
-
+func _exit_tree() -> void:
+	if is_multiplayer_authority():
+		Global.camera.remove_target(local_body)
+	else:
+		Global.camera.remove_target(remote_body)

@@ -66,8 +66,16 @@ offset_bottom = 676.0
 text = "paranoc"
 
 [node name="kaliber" type="Button" parent="Buttons"]
+layout_mode = 0
 offset_left = 777.0
 offset_top = 725.0
 offset_right = 861.0
 offset_bottom = 757.0
 text = "Kaliber"
+
+[node name="meri" type="Button" parent="Buttons"]
+offset_left = 947.0
+offset_top = 720.0
+offset_right = 1031.0
+offset_bottom = 752.0
+text = "Meri"

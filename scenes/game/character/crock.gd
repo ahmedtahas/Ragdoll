@@ -103,12 +103,13 @@ func skill_signal(using: bool) -> void:
 		
 
 func teleport(pos: Vector2) -> void:
-	var opponent_id = str(get_node("../..").get_opponent_id())
+	var opponent_id = str(Global.world.get_opponent_id())
 	var opponent_pos = get_node("../" + opponent_id + "/RemoteCharacter/Body").global_position
 	var opponent_rad = get_node("../" + opponent_id).radius
+	var opponent_center = get_node("../" + opponent_id).center
 	
 	if (pos - opponent_pos).length() < opponent_rad.length():
-		pos = opponent_pos + ((opponent_pos - pos).normalized() * (opponent_rad.length() + radius.length()))
+		pos = opponent_pos + opponent_center + ((opponent_pos - pos).normalized() * (opponent_rad.length() + radius.length()))
 	for child in get_node("LocalCharacter").get_children():
 		child.locate(pos)
 		child.teleport()

@@ -79,7 +79,7 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("[center]" + str(hit_count) + "x[/center]")
 	
 
-func hit_signal() -> void:
+func hit_signal(_body: CharacterBody2D, _caller: RigidBody2D) -> void:
 	if using or hit_count == max_combo:
 		return
 	hit_count += 1

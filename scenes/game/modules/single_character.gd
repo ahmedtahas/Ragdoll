@@ -28,6 +28,7 @@ func _ready() -> void:
 	health = get_node("/root/Config").get_value("health", CharacterSelection.own)
 	damage = get_node("/root/Config").get_value("damage", CharacterSelection.own)
 	speed = get_node("/root/Config").get_value("speed", CharacterSelection.own)
+	print(CharacterSelection.own, speed)
 	current_health = health
 	health_bar.set_value(100)
 	health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
@@ -61,12 +62,11 @@ func damage_bot(amount: float) -> void:
 		return
 	bot_current_health -= amount
 	bot_health_bar.set_value((100 * bot_current_health) / bot_health)
-	print(bot_current_health, "  ::  ", bot_health)
 
 
 func on_body_entered(body: Node2D, caller: RigidBody2D) -> void:
 	if body is RigidBody2D:
-		emit_signal("hit_signal")
+		emit_signal("hit_signal", body, caller)
 		hit_stun()
 		Global.bot.character.hit_stun()
 		Global.world.slow_motion(0.05, 1)
@@ -74,7 +74,6 @@ func on_body_entered(body: Node2D, caller: RigidBody2D) -> void:
 			damage_bot(damage * 2)
 		elif caller.is_in_group("Damager") and body.is_in_group("Damagable"):
 			damage_bot(damage)
-			print(caller.name, "   BBBBBB  ", body.name)
 			
 
 func push_part(direction: Vector2, strength: float, part: String) -> void:
@@ -111,14 +110,18 @@ func take_damage(amount: float) -> void:
 	health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
 
 
-func move_signal(vector: Vector2) -> void:
+func move_signal(vector: Vector2, _dummy: bool) -> void:
 	movement_vector = vector
 	
 
 func hit_stun(wait_time: float = 0.5) -> void:
 	hit_cooldown.wait_time = wait_time
 	hit_cooldown.start()
-	
+
 
 func play_audio() -> void:
 	$hit.play()
+
+
+func _exit_tree() -> void:
+	Global.camera.remove_target(local_body)

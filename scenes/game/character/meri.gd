@@ -26,6 +26,7 @@ extends Node2D
 
 signal move_signal
 
+
 func _ready() -> void:
 	name = str(get_multiplayer_authority())
 	get_node("LocalCharacter").load_skin(character_name)
@@ -50,19 +51,19 @@ func _ready() -> void:
 		for part in get_node("LocalCharacter").get_children():
 			part.set_power(character_name)
 		character.ignore_local()
-		
+	
 	else:
 		get_node("LocalCharacter").queue_free()
 		character.get_node("LocalUI").visible = false
 		Global.camera.add_target(get_node("RemoteCharacter/Body"))
 		character.ignore_remote()
-	
+
 
 @rpc("call_remote", "reliable")
 func add_skill(skill_name: String) -> void:
 	Global.world.add_skill(skill_name)
-	
-	
+
+
 @rpc("call_remote", "reliable")
 func remove_skill() -> void:
 	Global.world.remove_skill()
@@ -89,28 +90,29 @@ func _physics_process(_delta: float) -> void:
 			cooldown_set = false
 		cooldown_bar.set_value(100 - ((100 * cooldown.time_left) / cooldown_time))
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
-	
+
 
 func skill_signal(_vector: Vector2, using: bool) -> void:
 	if not cooldown.is_stopped() or not is_multiplayer_authority():
 		return
+	
 	emit_signal("move_signal", _vector, using)
+	
 	if using:
-		pass
 		if not cloned:
 			duration.start()
 			cloned = true
 			clone = clone_instance.instantiate()
 			if multiplayer.is_server():
-				get_node("../../ServerSkill").add_child(clone, true)
+				Global.server_skill.add_child(clone, true)
 			else:
-				get_node("../../ClientSkill").add_child(clone, true)
-				rpc_id(get_node("../..").get_opponent_id(), "add_skill", "clone")
+				Global.client_skill.add_child(clone, true)
+				rpc_id(Global.world.get_opponent_id(), "add_skill", "clone")
 				clone.set_multiplayer_authority(multiplayer.get_unique_id())
 		else:
 			await duration.timeout
 			clone.queue_free()
 			if not multiplayer.is_server():
-				rpc_id(get_node("../..").get_opponent_id(), "remove_skill")
+				rpc_id(Global.world.get_opponent_id(), "remove_skill")
 			cooldown.start()
 			cloned = false

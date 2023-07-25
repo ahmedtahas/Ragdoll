@@ -11,7 +11,8 @@ extends Node2D
 	"holstar": preload("res://scenes/game/character/single_holstar.tscn"),
 	"roki_roki": preload("res://scenes/game/character/single_roki_roki.tscn"),
 	"paranoc": preload("res://scenes/game/character/single_paranoc.tscn"),
-	"kaliber": preload("res://scenes/game/character/single_kaliber.tscn")
+	"kaliber": preload("res://scenes/game/character/single_kaliber.tscn"),
+	"meri": preload("res://scenes/game/character/single_meri.tscn")
 }
 
 
