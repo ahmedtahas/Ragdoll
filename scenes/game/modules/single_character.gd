@@ -28,7 +28,6 @@ func _ready() -> void:
 	health = get_node("/root/Config").get_value("health", CharacterSelection.own)
 	damage = get_node("/root/Config").get_value("damage", CharacterSelection.own)
 	speed = get_node("/root/Config").get_value("speed", CharacterSelection.own)
-	print(CharacterSelection.own, speed)
 	current_health = health
 	health_bar.set_value(100)
 	health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
@@ -55,7 +54,6 @@ func ignore_self() -> void:
 
 
 func damage_bot(amount: float) -> void:
-	
 	if bot_current_health <= amount:
 		bot_current_health = 0
 		bot_health_bar.set_value(bot_current_health)

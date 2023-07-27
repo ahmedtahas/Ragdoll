@@ -28,6 +28,7 @@ extends Node2D
 @onready var cooldown_set: bool = false
 @onready var _hit: bool = false
 
+
 func _ready() -> void:
 	name = character_name
 	
@@ -122,7 +123,6 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 			teleport()
 		else:
 			_hit = false
-		
 
 
 func teleport() -> void:
@@ -133,18 +133,18 @@ func teleport() -> void:
 		child.teleport()
 		dagger.queue_free()
 
+
 func hit_signal(hit: Node2D) -> void:
 	_hit = true
 	if hit is RigidBody2D:
-		if hit.get_node("../..") != self and not hit.is_in_group("Skill"):
+		if hit.get_node("../..") != self:
 			end_point = Global.bot.get_node("LocalCharacter/Body").global_position + ((dagger.global_position - body.global_position).normalized() * (Global.bot.radius.length() + radius.length()))
 			end_point = Global.get_inside_position(end_point, name)
 			Global.bot.character.hit_stun()
 			if hit.name == "Head":
 				character.damage_bot(damage * 2)
 			else:
-				character.damage_bot(damage * 1)
+				character.damage_bot(damage)
 	else:
 		end_point = dagger.global_position
 	teleport()
-	

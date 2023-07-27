@@ -12,7 +12,8 @@ extends Node2D
 	"roki_roki": preload("res://scenes/game/character/single_roki_roki.tscn"),
 	"paranoc": preload("res://scenes/game/character/single_paranoc.tscn"),
 	"kaliber": preload("res://scenes/game/character/single_kaliber.tscn"),
-	"meri": preload("res://scenes/game/character/single_meri.tscn")
+	"meri": preload("res://scenes/game/character/single_meri.tscn"),
+	"moot": preload("res://scenes/game/character/single_moot.tscn")
 }
 
 
@@ -29,8 +30,8 @@ func _ready() -> void:
 	bot.transform = $Point2.transform
 	Global.camera.add_target(player.get_node("LocalCharacter/Body"))
 	Global.camera.add_target(bot.get_node("LocalCharacter/Body"))
-	
-	
+
+
 func slow_motion(time_scale: float, duration: float):
 	Engine.time_scale = time_scale
 	await get_tree().create_timer(time_scale * duration).timeout

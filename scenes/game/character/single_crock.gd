@@ -5,7 +5,6 @@ extends Node2D
 @onready var duration_time: float
 @onready var cooldown_time: float
 
-
 @onready var cooldown_bar: TextureProgressBar
 @onready var cooldown_text: RichTextLabel
 

@@ -88,7 +88,7 @@ func _physics_process(_delta: float) -> void:
 func skill_signal(using: bool) -> void:
 	if not is_multiplayer_authority() or not cooldown.is_stopped() or not duration.is_stopped():
 		return
-		
+	
 	if using:
 		pass
 	

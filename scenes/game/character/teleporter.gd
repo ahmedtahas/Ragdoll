@@ -20,15 +20,15 @@ func _integrate_forces(state):
 	if teleporting:
 		state.transform = Transform2D(rot,  loc)
 		teleporting = false
-		
-		
+
+
 func teleport() -> void:
 	teleporting = true
-	
-	
+
+
 func locate(_loc: Vector2) -> void:
 	loc = _loc
-	
-	
+
+
 func _rotate(_rot: float) -> void:
 	rot = _rot

@@ -5,8 +5,8 @@ extends CharacterBody2D
 @onready var sync: Node2D = $Synchronizer
 @onready var collision: bool
 
-
 signal hit_signal
+
 
 func _physics_process(_delta: float) -> void:
 	if is_multiplayer_authority():

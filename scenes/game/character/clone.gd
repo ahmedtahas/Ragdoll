@@ -73,7 +73,7 @@ func ignore_remote_meri() -> void:
 
 
 func _exit_tree() -> void:
-	if Global.xnor(get_parent().name == "ClientSkill", multiplayer.is_server()):
+	if (get_parent().name == "ClientSkill") == (multiplayer.is_server()):
 		Global.camera.remove_target(remote_body)
 	else:
 		Global.camera.remove_target(local_body)

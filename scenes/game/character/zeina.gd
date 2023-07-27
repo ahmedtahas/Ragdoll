@@ -75,8 +75,8 @@ func remove_skill() -> void:
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
-	
-	dash_preview.global_position = body.global_position + Vector2(0, 280).rotated(body.global_rotation)
+	if flicker:
+		dash_preview.global_position = body.global_position + center.rotated(body.global_rotation)
 	
 	if cooldown.is_stopped():
 		if not cooldown_set:
