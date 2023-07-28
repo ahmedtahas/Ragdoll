@@ -18,8 +18,15 @@ func _physics_process(_delta: float) -> void:
 	else:
 		global_position = sync.pos
 		global_rotation = sync.rot
-	
-	
+
 
 func fire(angle: float) -> void:
 	set_velocity(vel.rotated(angle) * speed)
+
+
+func _enter_tree() -> void:
+	Global.camera.add_target(self)
+
+
+func _exit_tree() -> void:
+	Global.camera.remove_target(self)

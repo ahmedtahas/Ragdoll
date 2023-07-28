@@ -59,17 +59,17 @@ func _ready() -> void:
 		for part in get_node("LocalCharacter").get_children():
 			part.set_power(character_name)
 		character.ignore_local()
-	
+
 	else:
 		get_node("LocalCharacter").queue_free()
 		character.get_node("LocalUI").visible = false
 		Global.camera.add_target(get_node("RemoteCharacter/Body"))
 		character.ignore_remote()
-	
+
 	ra.visible = false
 	ra.set_collision_layer_value(1, false)
 	ra.set_collision_mask_value(1, false)
-	
+
 	crosshair.visible = false
 
 
@@ -84,13 +84,13 @@ func remove_skill() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	
+
 	if not ra.visible:
 		crosshair.global_position = barrel.global_position
-		
+
 	if not is_multiplayer_authority():
 		return
-		
+
 	if cooldown.is_stopped():
 		if not cooldown_set:
 			cooldown_bar.set_value(100)
@@ -113,7 +113,7 @@ func _ignore_self() -> void:
 func skill_signal(direction: Vector2, is_aiming) -> void:
 	if not cooldown.is_stopped() or not is_multiplayer_authority():
 		return
-	
+
 	if is_aiming:
 		ra.visible = true
 		ra.set_collision_layer_value(1, true)
@@ -126,7 +126,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		crosshair.global_position += direction * 20
 		crosshair.rotation += 0.075
 		synchronizer.aim = crosshair.global_position
-	
+
 	else:
 		synchronizer.aim = Vector2.ZERO
 		cooldown.wait_time = 6

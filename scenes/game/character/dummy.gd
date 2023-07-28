@@ -22,21 +22,21 @@ extends Node2D
 func _ready() -> void:
 	character = character_instance.instantiate()
 	joy_stick = joy_stick_instance.instantiate()
-	
+
 	get_node("Extra").add_child(character)
 	get_node("Extra").add_child(joy_stick)
-	
+
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
-	
+
 	cooldown.wait_time = cooldown_time
 	cooldown_bar = character.get_node("UI/CooldownBar")
 	cooldown_text = character.get_node("UI/CooldownBar/Text")
 	cooldown_bar.set_value(100)
 	cooldown_text.set_text("[center]ready[/center]")
-	
+
 	_ignore_self()
-	
+
 
 func _physics_process(_delta: float) -> void:
 	if cooldown.is_stopped():
@@ -51,8 +51,8 @@ func _physics_process(_delta: float) -> void:
 			cooldown_set = false
 		cooldown_bar.set_value(100 - ((100 * cooldown.time_left) / cooldown_time))
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
-	
-	
+
+
 func _ignore_self() -> void:
 	for child_1 in get_children():
 		if child_1 is RigidBody2D:
@@ -64,11 +64,11 @@ func _ignore_self() -> void:
 func skill_signal(direction: Vector2, is_aiming) -> void:
 	if not cooldown.is_stopped():
 		return
-	
+
 	if is_aiming:
 		pass
-		
+
 	else:
 		pass
-		
-		
+
+

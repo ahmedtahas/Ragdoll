@@ -24,7 +24,7 @@ func _ready() -> void:
 			Global.camera.add_target(remote_body)
 			character.ignore_remote()
 			ignore_remote_meri()
-		
+
 		else:
 			get_node("RemoteCharacter").queue_free()
 			Global.camera.add_target(local_body)
@@ -37,7 +37,7 @@ func _ready() -> void:
 				part.rotate(meri.get_node("LocalCharacter/" + part.name).global_rotation)
 				part.teleport()
 			meri.move_signal.connect(character.move_signal)
-	
+
 	else:
 		meri = Global.spawner.get_node(str(Global.world.server_id))
 		if multiplayer.is_server():
@@ -52,7 +52,7 @@ func _ready() -> void:
 				part.rotate(meri.get_node("LocalCharacter/" + part.name).global_rotation)
 				part.teleport()
 			meri.move_signal.connect(character.move_signal)
-		
+
 		else:
 			get_node("LocalCharacter").queue_free()
 			Global.camera.add_target(remote_body)

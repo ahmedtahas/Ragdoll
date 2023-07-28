@@ -1,3 +1,4 @@
+GPUParticles2D
 Marker2D
 CollisionShape2D
 Sprite2D
@@ -7,7 +8,6 @@ Node2D
 Control
 CanvasLayer
 TextureProgressBar
-GPUParticles2D
 Line2D
 MultiplayerSynchronizer
 StaticBody2D

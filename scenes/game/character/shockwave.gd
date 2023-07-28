@@ -7,12 +7,12 @@ func _ready() -> void:
 	texture = load("res://assets/sprites/character/equipped/tin/Shockwave.png")
 	if sync.get_parent().get_child_count() == 2:
 		is_singleplayer = true
-	
-	
+
+
 func _physics_process(_delta: float) -> void:
 	if is_singleplayer:
 		return
-	
+
 	if is_multiplayer_authority():
 		sync.shockwave_vis = visible
 		sync.shockwave_scale = scale.x

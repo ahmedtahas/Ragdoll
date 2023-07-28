@@ -22,22 +22,22 @@ func _physics_process(_delta: float) -> void:
 		position_vectors += target.global_position
 	position_vectors /= targets.size()
 	position = lerp(position, position_vectors, camera_speed)
-	
+
 	rect = Rect2(position, Vector2.ONE)
 	for target in targets:
 		rect = rect.expand(target.global_position)
 	rect = rect.grow_individual(margin.x, margin.y, margin.x, margin.y)
-	
+
 	if rect.size.x > rect.size.y * screen_size.aspect():
 		zoom_amount = clamp(rect.size.x / screen_size.x, min_zoom, max_zoom)
 	else:
 		zoom_amount = clamp(rect.size.y / screen_size.y, min_zoom, max_zoom)
-		
+
 	if zoom_amount >= max_zoom:
 		zoom_amount = 14.9999999
 	elif zoom_amount <= min_zoom:
 		zoom_amount = 0.5000001
-		
+
 	zoom = lerp(zoom, Vector2.ONE * (1 / zoom_amount), zoom_speed)
 
 

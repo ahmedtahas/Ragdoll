@@ -44,7 +44,7 @@ func set_health() -> void:
 	bot_health = get_node("/root/Config").get_value("health", "bot")
 	bot_current_health = bot_health
 
-		
+
 func ignore_self() -> void:
 	for child_1 in get_node("../../LocalCharacter").get_children():
 		child_1.body_entered.connect(self.on_body_entered.bind(child_1))
@@ -72,7 +72,7 @@ func on_body_entered(body: Node2D, caller: RigidBody2D) -> void:
 			damage_bot(damage * 2)
 		elif caller.is_in_group("Damager") and body.is_in_group("Damagable"):
 			damage_bot(damage)
-			
+
 
 func push_part(direction: Vector2, strength: float, part: String) -> void:
 	Global.bot.get_node("LocalCharacter/" + part).apply_impulse(direction * strength)
@@ -80,12 +80,16 @@ func push_part(direction: Vector2, strength: float, part: String) -> void:
 
 func push_all(direction: Vector2, strength: float) -> void:
 	for part in Global.bot.get_node("LocalCharacter").get_children():
+		part.freeze = true
+	for part in Global.bot.get_node("LocalCharacter").get_children():
+		part.freeze = false
+	for part in Global.bot.get_node("LocalCharacter").get_children():
 		part.apply_impulse(direction * strength)
-	
-	
+
+
 func invul() -> void:
 	invul_cooldown.start()
-	
+
 
 func freeze_bot(duration: float) -> void:
 	for part in Global.bot.get_node("LocalCharacter").get_children():
@@ -110,7 +114,7 @@ func take_damage(amount: float) -> void:
 
 func move_signal(vector: Vector2, _dummy: bool) -> void:
 	movement_vector = vector
-	
+
 
 func hit_stun(wait_time: float = 0.5) -> void:
 	hit_cooldown.wait_time = wait_time

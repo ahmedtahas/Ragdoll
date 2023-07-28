@@ -41,12 +41,12 @@ func on_body_entered(body: Node2D, caller: RigidBody2D) -> void:
 
 func move_signal(vector: Vector2) -> void:
 	movement_vector = vector
-	
+
 
 func hit_stun(wait_time: float = 0.5) -> void:
 	hit_cooldown.wait_time = wait_time
 	hit_cooldown.start()
-	
+
 
 func play_audio() -> void:
 	$hit.play()
@@ -58,6 +58,6 @@ func paralyze(wait_time: float = 0.5) -> void:
 
 #func _input(event: InputEvent) -> void:
 #	movement_vector = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	
+
 
 

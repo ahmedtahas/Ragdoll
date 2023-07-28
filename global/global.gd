@@ -37,7 +37,7 @@ func avoid_enemy(player_id):
 		if server_skill.get_child_count() >= 0:
 			if not server_skill.get_child(0) is CharacterBody2D:
 				pass
-	
+
 	else:
 		teleporting_player_body = teleporting_player.get_node("RemoteCharacter/Body").global_position
-	
+

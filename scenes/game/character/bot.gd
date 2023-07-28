@@ -16,19 +16,18 @@ extends Node2D
 
 func _ready() -> void:
 	name = character_name
-	
+
 	player = Global.player.get_node("LocalCharacter/Body")
-	
+
 	get_node("LocalCharacter").load_skin(character_name)
-	
+
 	_ignore_self()
-			
+
 	for part in get_node("LocalCharacter").get_children():
 		part.set_power(character_name)
-	
+
 
 func _physics_process(_delta: float) -> void:
-	return
 	if direction_set:
 		return
 	if (body.global_position - player.global_position).length() > (Global.player.radius.length() + radius.length() + 300):

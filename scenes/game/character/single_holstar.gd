@@ -39,11 +39,11 @@ func _ready() -> void:
 	name = character_name
 	get_node("LocalCharacter").load_skin(character_name)
 	get_node("Extra/ShootingArm").arm(character_name)
-	
-	
+
+
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
-	
+
 	joy_stick.button = false
 	cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
 	power = get_node("/root/Config").get_value("power", character_name)
@@ -55,17 +55,17 @@ func _ready() -> void:
 	cooldown_text = character.get_node('LocalUI/CooldownBar/Text')
 
 	cooldown_bar.set_value(100)
-	cooldown_text.set_text("[center]ready[/center]")	
-			
+	cooldown_text.set_text("[center]ready[/center]")
+
 	for part in get_node("LocalCharacter").get_children():
 		part.set_power(character_name)
-		
+
 	ra.visible = false
 	ra.set_collision_layer_value(1, false)
 	ra.set_collision_mask_value(1, false)
-	
+
 	crosshair.visible = false
-	
+
 
 func connect_body_signal() -> void:
 	for child in get_node("LocalCharacter").get_children():
@@ -75,7 +75,7 @@ func connect_body_signal() -> void:
 func _physics_process(_delta: float) -> void:
 	if not ra.visible:
 		crosshair.global_position = barrel.global_position
-		
+
 	if aiming:
 		crosshair.rotation += 0.075
 		if growing:
@@ -92,7 +92,7 @@ func _physics_process(_delta: float) -> void:
 				growing = true
 	else:
 		crosshair.scale = Vector2(2,2)
-		
+
 	if cooldown.is_stopped():
 		if not cooldown_set:
 			cooldown_bar.set_value(100)
@@ -103,8 +103,8 @@ func _physics_process(_delta: float) -> void:
 			cooldown_set = false
 		cooldown_bar.set_value(100 - ((100 * cooldown.time_left) / cooldown_time))
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
-	
-	
+
+
 func ignore_self() -> void:
 	for child_1 in get_node("LocalCharacter").get_children():
 		child_1.add_collision_exception_with(ra)
@@ -112,7 +112,7 @@ func ignore_self() -> void:
 			if child_1 != child_2:
 				child_1.add_collision_exception_with(child_2)
 
-	
+
 func skill_signal(direction: Vector2, is_aiming: bool) -> void:
 	if not cooldown.is_stopped():
 		return
@@ -128,7 +128,7 @@ func skill_signal(direction: Vector2, is_aiming: bool) -> void:
 		rf.visible = false
 		ra.look_at(crosshair.global_position)
 		crosshair.global_position += direction * 20
-			
+
 	else:
 		aiming = is_aiming
 		growing = false
@@ -141,7 +141,7 @@ func skill_signal(direction: Vector2, is_aiming: bool) -> void:
 		bullet.global_position = barrel.global_position
 		bullet.look_at(crosshair.global_position)
 		bullet.fire((crosshair.global_position - barrel.global_position).angle())
-		
+
 		crosshair.visible = false
 		ra.visible = false
 		ra.set_collision_layer_value(1, false)
@@ -149,8 +149,8 @@ func skill_signal(direction: Vector2, is_aiming: bool) -> void:
 		rua.visible = true
 		rla.visible = true
 		rf.visible = true
-		
-		
+
+
 func hit_signal(hit: Node2D) -> void:
 	if hit is RigidBody2D:
 		if hit.get_node("../..") != self:
@@ -164,4 +164,4 @@ func hit_signal(hit: Node2D) -> void:
 		else:
 			cooldown.stop()
 	bullet.queue_free()
-		
+

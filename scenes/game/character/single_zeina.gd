@@ -31,16 +31,16 @@ extends Node2D
 
 func _ready() -> void:
 	name = character_name
-	
+
 	get_node("LocalCharacter").load_skin(character_name)
-	
+
 	dash_preview.visible = false
-	
+
 	character.ignore_self()
-	
+
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
-	
+
 	joy_stick.button = false
 	cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
 	power = get_node("/root/Config").get_value("power", character_name)
@@ -52,15 +52,15 @@ func _ready() -> void:
 	cooldown_text = character.get_node('LocalUI/CooldownBar/Text')
 
 	cooldown_bar.set_value(100)
-	cooldown_text.set_text("[center]ready[/center]")	
-			
+	cooldown_text.set_text("[center]ready[/center]")
+
 	for part in get_node("LocalCharacter").get_children():
 		part.set_power(character_name)
-	
+
 
 func _physics_process(_delta: float) -> void:
 	dash_preview.global_position = body.global_position + Vector2(0, 280).rotated(body.global_rotation)
-	
+
 	if cooldown.is_stopped():
 		if not cooldown_set:
 			cooldown_bar.set_value(100)
@@ -89,7 +89,7 @@ func _flicker() -> void:
 func skill_signal(direction: Vector2, is_aiming) -> void:
 	if not cooldown.is_stopped():
 		return
-		
+
 	if is_aiming:
 		dash_preview.visible = true
 		dash_preview.global_rotation = direction.angle()
@@ -98,7 +98,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 			for line in dash_preview.get_node("Dash").get_children():
 				line.visible = true
 			_flicker()
-		
+
 	else:
 		dash_preview.visible = false
 		end_point = _range.global_position
@@ -110,13 +110,13 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		Global.world.slow_motion(0.05, 1)
 		dagger.global_position = dash_preview.get_node("Dash").global_position
 		dagger.fire((end_point - dash_preview.get_node("Dash").global_position).angle())
-			
+
 		await get_tree().create_timer((end_point - body.global_position).length() / dagger.speed).timeout
-		
+
 		if not _hit:
 			var opponent_pos = Global.bot.get_node("LocalCharacter/Body").global_position
 			var opponent_rad = Global.bot.radius
-			
+
 			if (end_point - opponent_pos).length() < opponent_rad.length():
 				end_point = opponent_pos + ((dagger.global_position - opponent_pos).normalized() * (opponent_rad.length() + radius.length()))
 			end_point = Global.get_inside_position(end_point, name)
@@ -126,7 +126,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 
 
 func teleport() -> void:
-	
+
 	for child in get_node("LocalCharacter").get_children():
 		child._rotate(body.global_rotation)
 		child.locate(end_point)

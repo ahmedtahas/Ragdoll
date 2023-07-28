@@ -42,12 +42,12 @@ func slowdown(time_scale: float, duration: float):
 	await get_tree().create_timer(time_scale * duration).timeout
 	Engine.time_scale = 1
 
-	
+
 @rpc("any_peer", "call_remote", "reliable", 1)
 func set_opponent(selection):
 	CharacterSelection.opponent = selection
-	
-	
+
+
 @rpc("call_local", "any_peer", "reliable")
 func get_opponent_id():
 	if multiplayer_peer.get_unique_id() > 1000:
@@ -93,13 +93,13 @@ func _on_join_pressed() -> void:
 			rpc_id(_peer_,"set_opponent", CharacterSelection.own)
 	)
 	$NetworkInfo/UniquePeerID.text = str(multiplayer.get_unique_id())
-	
-	
+
+
 func add_player_character(peer_id):
 	connected_peer_ids.append(peer_id)
-	
+
 	var player_character
-	
+
 	if peer_id == multiplayer.get_unique_id():
 		player_character = character_dictionary.get(CharacterSelection.own).instantiate()
 	else:
@@ -111,26 +111,26 @@ func add_player_character(peer_id):
 		player_character.transform = $Point1.transform
 	else:
 		player_character.transform = $Point2.transform
-	
-	
+
+
 @rpc("call_remote", "reliable")
 func add_skill(skill_name: String) -> void:
 	var skill = skill_dictionary.get(skill_name).instantiate()
 	$ClientSkill.add_child(skill)
 	skill.set_multiplayer_authority(client_id)
-	
-	
+
+
 @rpc("call_remote", "reliable")
 func remove_skill() -> void:
 	for child in $ClientSkill.get_children():
 		child.queue_free()
-	
-	
-@rpc	
+
+
+@rpc
 func add_newly_connected_player_character(new_peer_id):
 	add_player_character(new_peer_id)
-	
-	
+
+
 @rpc
 func add_previously_connected_player_characters(peer_id) -> void:
 	connected_peer_ids.append(peer_id)

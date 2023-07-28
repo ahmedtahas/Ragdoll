@@ -24,41 +24,41 @@ extends Node2D
 
 func _ready() -> void:
 	name = character_name
-	
+
 	get_node("LocalCharacter").load_skin(character_name)
-	
+
 	character.ignore_self()
-	
+
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
 	joy_stick.button = true
 	character.hit_signal.connect(self.hit_signal)
-	
+
 	max_combo = get_node("/root/Config").get_value("duration", character_name)
 	duration_time = get_node("/root/Config").get_value("cooldown", character_name)
 	damage = get_node("/root/Config").get_value("damage", character_name)
-	
+
 	duration.wait_time = duration_time
 
 	cooldown_bar = character.get_node('LocalUI/CooldownBar')
 	cooldown_text = character.get_node('LocalUI/CooldownBar/Text')
 
 	cooldown_bar.set_value(100)
-	cooldown_text.set_text("[center]ready[/center]")	
-			
+	cooldown_text.set_text("[center]ready[/center]")
+
 	for part in get_node("LocalCharacter").get_children():
 		part.set_power(character_name)
-	
+
 
 func _physics_process(_delta: float) -> void:
 	if not duration.is_stopped():
 		cooldown_bar.set_value((100 * duration.time_left) / duration_time)
 		cooldown_text.set_text("[center]" + str(duration.time_left).pad_decimals(1) + "s[/center]")
-	
+
 	else:
 		cooldown_bar.set_value((100 * hit_count) / max_combo)
 		cooldown_text.set_text("[center]" + str(hit_count) + "x[/center]")
-	
+
 
 func hit_signal(_body: RigidBody2D, _caller: RigidBody2D) -> void:
 	if using or hit_count == max_combo:
@@ -69,10 +69,10 @@ func hit_signal(_body: RigidBody2D, _caller: RigidBody2D) -> void:
 func skill_signal(_using: bool) -> void:
 	if not duration.is_stopped() or hit_count <= 2:
 		return
-	
+
 	if _using:
 		pass
-	
+
 	else:
 		Global.world.slow_motion(0.05, 1)
 		character.damage *= (hit_count / 2)

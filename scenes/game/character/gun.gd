@@ -11,4 +11,4 @@ func gun(character_name) -> void:
 	collision_polygon.reparent.call_deferred(get_parent())
 	if centered:
 		collision_polygon.position -= Vector2(bitmap.get_size()) / 2
-	
+

@@ -25,14 +25,14 @@ extends Node2D
 func _ready() -> void:
 	name = str(get_multiplayer_authority())
 	get_node("LocalCharacter").load_skin(character_name)
-	
+
 	if is_multiplayer_authority():
 		get_node("RemoteCharacter").queue_free()
 		joy_stick.move_signal.connect(character.move_signal)
 		joy_stick.skill_signal.connect(self.skill_signal)
-		
+
 		character.hit_signal.connect(self.hit_signal)
-		
+
 		joy_stick.button = true
 		max_combo = get_node("/root/Config").get_value("duration", character_name)
 		duration_time = get_node("/root/Config").get_value("cooldown", character_name)
@@ -47,20 +47,20 @@ func _ready() -> void:
 		for part in get_node("LocalCharacter").get_children():
 			part.set_power(character_name)
 		character.ignore_local()
-		
+
 	else:
 		get_node("LocalCharacter").queue_free()
 		character.get_node("LocalUI").visible = false
 		Global.camera.add_target(get_node("RemoteCharacter/Body"))
 		character.ignore_remote()
-	
+
 
 
 @rpc("call_remote", "reliable")
 func add_skill(skill_name: String) -> void:
 	Global.world.add_skill(skill_name)
-	
-	
+
+
 @rpc("call_remote", "reliable")
 func remove_skill() -> void:
 	Global.world.remove_skill()
@@ -69,15 +69,15 @@ func remove_skill() -> void:
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
-		
+
 	if not duration.is_stopped():
 		cooldown_bar.set_value((100 * duration.time_left) / duration_time)
 		cooldown_text.set_text("[center]" + str(duration.time_left).pad_decimals(1) + "s[/center]")
-	
+
 	else:
 		cooldown_bar.set_value((100 * hit_count) / max_combo)
 		cooldown_text.set_text("[center]" + str(hit_count) + "x[/center]")
-	
+
 
 func hit_signal(_body: CharacterBody2D, _caller: RigidBody2D) -> void:
 	if using or hit_count == max_combo:
@@ -88,10 +88,10 @@ func hit_signal(_body: CharacterBody2D, _caller: RigidBody2D) -> void:
 func skill_signal(_using: bool) -> void:
 	if not is_multiplayer_authority() or not duration.is_stopped():
 		return
-	
+
 	if _using:
 		pass
-		
+
 	else:
 		character.slow_motion()
 		character.damage *= (hit_count / 2)
