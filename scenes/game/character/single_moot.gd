@@ -94,7 +94,7 @@ func skill_signal(using: bool) -> void:
 		duration.start()
 		await duration.timeout
 		if not is_hit:
-			fire_ball.duration = false
+			fire_ball.queue_free()
 			cooldown.start()
 		else:
 			is_hit = false

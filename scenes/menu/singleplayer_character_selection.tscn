@@ -88,3 +88,11 @@ offset_top = 795.0
 offset_right = 868.0
 offset_bottom = 827.0
 text = "Moot"
+
+[node name="buccarold" type="Button" parent="Buttons"]
+layout_mode = 0
+offset_left = 947.0
+offset_top = 798.0
+offset_right = 1042.0
+offset_bottom = 830.0
+text = "Buccarold"
