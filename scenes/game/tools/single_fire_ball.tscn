@@ -27,8 +27,6 @@ emission_sphere_radius = 150.0
 particle_flag_disable_z = true
 spread = 90.0
 gravity = Vector3(0, 0, 0)
-initial_velocity_min = 100.0
-initial_velocity_max = 250.0
 angular_velocity_max = 720.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
@@ -36,13 +34,10 @@ linear_accel_max = 100.0
 radial_accel_max = 100.0
 tangential_accel_max = 97.44
 angle_max = 90.0
-scale_min = 0.1
-scale_max = 0.1
 scale_curve = SubResource("CurveTexture_1hpg4")
 color_ramp = SubResource("GradientTexture1D_2oaku")
 
 [node name="FireBall" type="CharacterBody2D"]
-scale = Vector2(0.1, 0.1)
 script = ExtResource("1_rtx3d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
