@@ -24,13 +24,14 @@ func get_inside_position(pos: Vector2, player_id: String) -> Vector2:
 	return pos
 
 
-func avoid_enemies(vector) -> Vector2:
+func avoid_enemies(vector: Vector2) -> Vector2:
 	var list: Dictionary = {}
+
 	if multiplayer.is_server():
 		list[spawner.get_node(str(world.client_id) + "/RemoteCharacter/Body").global_position + (spawner.get_node(str(world.client_id)).center.rotated(spawner.get_node(str(world.client_id) + "/RemoteCharacter/Body").global_rotation))] = spawner.get_node(str(world.client_id)).radius
 		if client_skill.get_child_count() > 0:
 			if not client_skill.get_child(0) is CharacterBody2D:
-				list[client_skill.get_node("Clone/RemoteCharacter/Body").global_position + (client_skill.get_node("Clone").center.rotated(client_skill.get_node("Clone/RemoteCharacter/Body").global_rotation))] = client_skill.get_node("Clone").radius
+				list[client_skill.get_child(0).get_node("RemoteCharacter/Body").global_position + (client_skill.get_child(0).center.rotated(client_skill.get_child(0).get_node("RemoteCharacter/Body").global_rotation))] = client_skill.get_child(0).radius
 		for object in list:
 			if ((spawner.get_node(str(world.server_id) + "/LocalCharacter/Body").global_position + vector) - object).length() < list[object].length():
 				print("1")
@@ -41,7 +42,20 @@ func avoid_enemies(vector) -> Vector2:
 		vector = get_inside_position(vector + spawner.get_node(str(world.server_id) + "/LocalCharacter/Body").global_position, str(world.server_id))
 
 	else:
-		pass
+		list[spawner.get_node(str(world.server_id) + "/RemoteCharacter/Body").global_position + (spawner.get_node(str(world.server_id)).center.rotated(spawner.get_node(str(world.server_id) + "/RemoteCharacter/Body").global_rotation))] = spawner.get_node(str(world.server_id)).radius
+
+		if server_skill.get_child_count() > 0:
+			if not server_skill.get_child(0) is CharacterBody2D:
+				list[server_skill.get_child(0).get_node("RemoteCharacter/Body").global_position + (server_skill.get_child(0).center.rotated(server_skill.get_child(0).get_node("RemoteCharacter/Body").global_rotation))] = server_skill.get_child(0).radius
+
+		for object in list:
+			if ((spawner.get_node(str(world.client_id) + "/LocalCharacter/Body").global_position + vector) - object).length() < list[object].length():
+				print("1")
+				vector = vector.normalized() * (vector.length() + list[object].length())
+				if ((spawner.get_node(str(world.client_id) + "/LocalCharacter/Body").global_position + vector) - object).length() < list[object].length():
+					print('2')
+					vector = vector.normalized() * (vector.length() + list[object].length())
+		vector = get_inside_position(vector + spawner.get_node(str(world.client_id) + "/LocalCharacter/Body").global_position, str(world.client_id))
 #
 	return vector
 
