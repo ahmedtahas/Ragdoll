@@ -72,7 +72,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func skill_signal(using: bool) -> void:
-	if not cooldown.is_stopped() and not duration.is_stopped():
+	if not cooldown.is_stopped() or not duration.is_stopped():
 		return
 	if using:
 		pass
