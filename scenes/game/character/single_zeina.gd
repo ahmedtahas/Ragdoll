@@ -77,12 +77,10 @@ func _flicker() -> void:
 	if flicker:
 		for line in dash_preview.get_node("Dash").get_children():
 			line.visible = true
-			dash_timer.start()
-			await dash_timer.timeout
+			await get_tree().create_timer(0.017).timeout
 		for line in dash_preview.get_node("Dash").get_children():
 			line.visible = false
-			dash_timer.start()
-			await dash_timer.timeout
+			await get_tree().create_timer(0.017).timeout
 		_flicker()
 
 

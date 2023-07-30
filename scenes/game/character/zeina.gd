@@ -95,7 +95,6 @@ func _flicker() -> void:
 		return
 
 	if flicker:
-		print(dash_preview.get_node("Dash").global_position)
 		for line in dash_preview.get_node("Dash").get_children():
 			line.visible = true
 			await get_tree().create_timer(0.017).timeout
@@ -145,13 +144,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		await get_tree().create_timer((end_point - body.global_position).length() / dagger.speed).timeout
 
 		if not _hit:
-			var opponent_id = str(Global.world.get_opponent_id())
-			var opponent_pos = get_node("../" + opponent_id + "/RemoteCharacter/Body").global_position
-			var opponent_rad = get_node("../" + opponent_id).radius
-			var opponent_center = get_node("../" + opponent_id).center
-			if (end_point - opponent_pos).length() < opponent_rad.length():
-				end_point = opponent_pos + opponent_center + ((dagger.global_position - opponent_pos).normalized() * (opponent_rad.length() + radius.length()))
-			end_point = Global.get_inside_position(end_point, name)
+			end_point = Global.avoid_enemies(end_point - body.global_position)
 			teleport()
 			if not multiplayer.is_server():
 				rpc_id(Global.world.get_opponent_id(), "remove_skill")
@@ -172,12 +165,7 @@ func hit_signal(hit: Node2D) -> void:
 	_hit = true
 	if hit is RigidBody2D or hit is CharacterBody2D:
 		if hit.get_node("../..") != self and not hit.is_in_group("Skill"):
-			var opponent_id = str(Global.world.get_opponent_id())
-			var opponent_pos = get_node("../" + opponent_id + "/RemoteCharacter/Body").global_position
-			var opponent_rad = get_node("../" + opponent_id).radius
-			var opponent_center = get_node("../" + opponent_id).center
-			end_point = opponent_pos + opponent_center + ((dagger.global_position - body.global_position).normalized() * (opponent_rad.length() + radius.length()))
-			end_point = Global.get_inside_position(end_point, name)
+			end_point = Global.avoid_enemies(end_point - body.global_position)
 			character.stun_opponent()
 			character._invul()
 			if hit.name == "Head":

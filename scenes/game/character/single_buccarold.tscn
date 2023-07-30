@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dwkww34bjmsws"]
+[gd_scene load_steps=24 format=3 uid="uid://dwkww34bjmsws"]
 
 [ext_resource type="Script" path="res://scenes/game/character/single_buccarold.gd" id="1_xhu0v"]
 [ext_resource type="Script" path="res://scenes/game/character/single_load_skin.gd" id="2_lgltn"]
@@ -33,11 +33,34 @@ radius = 55.0091
 [sub_resource type="CircleShape2D" id="CircleShape2D_v6viu"]
 radius = 56.0089
 
+[sub_resource type="Gradient" id="Gradient_hypha"]
+colors = PackedColorArray(0.438158, 0.10682, 4.81308e-08, 0.196078, 0.792157, 0.701961, 0.541176, 0.392157)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_m05yc"]
+gradient = SubResource("Gradient_hypha")
+
+[sub_resource type="Curve" id="Curve_8newf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.578947), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_06prc"]
+curve = SubResource("Curve_8newf")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x545c"]
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
 particle_flag_disable_z = true
-gravity = Vector3(0, 98, 0)
+gravity = Vector3(0, -200, 0)
+angular_velocity_max = 720.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
+linear_accel_max = 100.0
+radial_accel_max = 100.0
+tangential_accel_max = 100.0
+angle_max = 720.0
+scale_curve = SubResource("CurveTexture_06prc")
+color_ramp = SubResource("GradientTexture1D_m05yc")
 
 [node name="Buccarold" type="Node2D"]
 script = ExtResource("1_xhu0v")
@@ -517,6 +540,16 @@ stiffness = 64.0
 node_a = NodePath("../../RLA")
 node_b = NodePath("..")
 
+[node name="Flames" type="GPUParticles2D" parent="LocalCharacter/RF"]
+position = Vector2(-2, -75)
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_x545c")
+texture = ExtResource("12_3qiyw")
+lifetime = 1.5
+local_coords = true
+draw_order = 0
+
 [node name="Extra" type="Node2D" parent="."]
 
 [node name="Center" type="Marker2D" parent="Extra"]
@@ -540,8 +573,3 @@ one_shot = true
 one_shot = true
 
 [node name="Character" parent="Extra" instance=ExtResource("11_6has0")]
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Extra"]
-position = Vector2(426, -75)
-process_material = SubResource("ParticleProcessMaterial_x545c")
-texture = ExtResource("12_3qiyw")

@@ -14,30 +14,34 @@ const room: Vector2 = Vector2(20420, -10180)
 func get_inside_position(pos: Vector2, player_id: String) -> Vector2:
 	var _player = spawner.get_node(player_id)
 	if pos.x > room.x:
-		pos.x = room.x - _player.radius.x
+		pos.x = room.x
 	elif pos.x < _player.radius.x:
-		pos.x = _player.radius.x
+		pos.x = 0
 	if pos.y < room.y:
-		pos.y = room.y + _player.radius.x
+		pos.y = room.y
 	elif pos.y > -_player.radius.x:
-		pos.y -= _player.radius.x
+		pos.y -= 0
 	return pos
 
 
-func avoid_enemy(player_id):
-	pass
-	var teleporting_player = spawner.get_node(player_id)
-	var teleporting_player_body
-	var enemy_locations = {}
-	if teleporting_player.has_node("LocalCharacter"):
-		teleporting_player_body = teleporting_player.get_node("LocalCharacter/Body").global_position
-		for child in spawner.get_children():
-			if child != teleporting_player:
-				enemy_locations[child.center + child.get_node("RemoteCharacter/Body").global_position] = child.radius
-		if server_skill.get_child_count() >= 0:
-			if not server_skill.get_child(0) is CharacterBody2D:
-				pass
+func avoid_enemies(vector) -> Vector2:
+	var list: Dictionary = {}
+	if multiplayer.is_server():
+		list[spawner.get_node(str(world.client_id) + "/RemoteCharacter/Body").global_position + (spawner.get_node(str(world.client_id)).center.rotated(spawner.get_node(str(world.client_id) + "/RemoteCharacter/Body").global_rotation))] = spawner.get_node(str(world.client_id)).radius
+		if client_skill.get_child_count() > 0:
+			if not client_skill.get_child(0) is CharacterBody2D:
+				list[client_skill.get_node("Clone/RemoteCharacter/Body").global_position + (client_skill.get_node("Clone").center.rotated(client_skill.get_node("Clone/RemoteCharacter/Body").global_rotation))] = client_skill.get_node("Clone").radius
+		for object in list:
+			if ((spawner.get_node(str(world.server_id) + "/LocalCharacter/Body").global_position + vector) - object).length() < list[object].length():
+				print("1")
+				vector = vector.normalized() * (vector.length() + list[object].length())
+				if ((spawner.get_node(str(world.server_id) + "/LocalCharacter/Body").global_position + vector) - object).length() < list[object].length():
+					print('2')
+					vector = vector.normalized() * (vector.length() + list[object].length())
+		vector = get_inside_position(vector + spawner.get_node(str(world.server_id) + "/LocalCharacter/Body").global_position, str(world.server_id))
 
 	else:
-		teleporting_player_body = teleporting_player.get_node("RemoteCharacter/Body").global_position
+		pass
+#
+	return vector
 

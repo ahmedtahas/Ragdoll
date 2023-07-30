@@ -17,9 +17,8 @@ func _integrate_forces(state):
 		if state.get_contact_collider_object(0) is CharacterBody2D or state.get_contact_collider_object(0) is RigidBody2D:
 			contact_normal = state.get_contact_local_normal(0).normalized()
 			state.apply_impulse(contact_normal * power)
-			get_parent().freeze_children()
 			for child in get_parent().get_children():
-				child.apply_impulse(contact_normal * power / 2)
+				child.apply_impulse(contact_normal * power)
 	if teleporting:
 		state.transform = Transform2D(rot,  loc)
 		teleporting = false

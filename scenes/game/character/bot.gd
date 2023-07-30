@@ -28,6 +28,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	return
 	if direction_set:
 		return
 	if (body.global_position - player.global_position).length() > (Global.player.radius.length() + radius.length() + 300):

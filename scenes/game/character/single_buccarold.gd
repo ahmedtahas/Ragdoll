@@ -9,6 +9,7 @@ extends Node2D
 
 @onready var character: Node2D = $Extra/Character
 @onready var joy_stick: CanvasLayer = $Extra/DoubleJoyStick
+@onready var flames: GPUParticles2D = $LocalCharacter/RF/Flames
 
 @onready var radius: Vector2 = $Extra/Center/Reach.position
 @onready var center: Vector2 = $Extra/Center.position
@@ -79,7 +80,9 @@ func skill_signal(using: bool) -> void:
 	else:
 		character.damage *= 2
 		duration.start()
+		flames.emitting = true
 		await duration.timeout
+		flames.emitting = false
 		cooldown.start()
 		character.damage /= 2
 

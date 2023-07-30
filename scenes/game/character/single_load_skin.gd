@@ -15,8 +15,10 @@ func load_skin(character_name: String) -> void:
 			get_node("LF/Sprite").weapon_collision(character_name)
 
 
-func freeze_children():
+func freeze_children(direction: Vector2, strength: float):
 	for child in get_children():
 		child.freeze = true
 	for child in get_children():
 		child.freeze = false
+	for child in get_children():
+		child.apply_impulse(direction * strength)
