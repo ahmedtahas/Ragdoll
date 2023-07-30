@@ -5,11 +5,21 @@ extends CharacterBody2D
 @onready var collision: bool
 @onready var duration: bool = true
 @onready var vector: Vector2
+@onready var fire: GPUParticles2D = $Fire
 
 signal hit_signal
 
+func _ready() -> void:
+	fire.process_material.scale_max = 0.1
+	scale.x = 0.1
+	scale.y = 0.1
+
 
 func _physics_process(_delta: float) -> void:
+	if fire.process_material.scale_min < 1:
+		fire.process_material.scale_min += 0.01
+		scale.x += 0.01
+		scale.y += 0.01
 	if duration:
 		vector = vel.rotated((Global.bot.get_node("LocalCharacter/Body").global_position - global_position).angle())
 	velocity = vector * speed

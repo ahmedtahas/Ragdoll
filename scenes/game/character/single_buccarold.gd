@@ -29,7 +29,6 @@ func _ready() -> void:
 	name = character_name
 	get_node("LocalCharacter").load_skin(character_name)
 
-
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
 
