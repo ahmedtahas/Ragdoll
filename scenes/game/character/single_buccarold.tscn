@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dwkww34bjmsws"]
+[gd_scene load_steps=23 format=3 uid="uid://dwkww34bjmsws"]
 
 [ext_resource type="Script" path="res://scenes/game/character/single_buccarold.gd" id="1_xhu0v"]
 [ext_resource type="Script" path="res://scenes/game/character/single_load_skin.gd" id="2_lgltn"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scenes/game/character/pusher.gd" id="7_fwbgc"]
 [ext_resource type="Texture2D" uid="uid://c5n6erj7qp2qo" path="res://assets/sprites/character/equipped/buccarold/RF.png" id="8_sy6kf"]
 [ext_resource type="Script" path="res://scenes/game/modules/single_weapon_collision.gd" id="9_y3mkq"]
+[ext_resource type="Texture2D" uid="uid://ii2517k08sno" path="res://assets/sprites/character/equipped/buccarold/Flame.png" id="10_7lr37"]
 [ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="10_qmqfb"]
 [ext_resource type="PackedScene" uid="uid://c2khg3vqn4pur" path="res://scenes/game/modules/single_character.tscn" id="11_6has0"]
 
@@ -31,6 +32,30 @@ radius = 55.0091
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v6viu"]
 radius = 56.0089
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7j5kh"]
+blend_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_o4thv"]
+colors = PackedColorArray(0.88174, 0.613124, 0, 1, 0.766509, 0.0819623, 0.0767846, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rasmm"]
+gradient = SubResource("Gradient_o4thv")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ukld1"]
+particle_flag_disable_z = true
+direction = Vector3(2.08165e-12, -1, 2.08165e-12)
+spread = 0.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+initial_velocity_min = 250.0
+initial_velocity_max = 250.0
+angular_velocity_max = 720.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_max = 720.0
+scale_min = 0.4
+scale_max = 0.4
+color_ramp = SubResource("GradientTexture1D_rasmm")
 
 [node name="Buccarold" type="Node2D"]
 script = ExtResource("1_xhu0v")
@@ -509,6 +534,17 @@ stiffness = 64.0
 [node name="RF3" type="PinJoint2D" parent="LocalCharacter/RF"]
 node_a = NodePath("../../RLA")
 node_b = NodePath("..")
+
+[node name="Flames" type="GPUParticles2D" parent="LocalCharacter/RF"]
+material = SubResource("CanvasItemMaterial_7j5kh")
+position = Vector2(-4, -87)
+scale = Vector2(2.24693, 2.5147)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_ukld1")
+texture = ExtResource("10_7lr37")
+lifetime = 0.8
+local_coords = true
 
 [node name="Extra" type="Node2D" parent="."]
 

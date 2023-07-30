@@ -22,6 +22,7 @@ extends Node2D
 
 @onready var cooldown_set: bool = false
 
+@onready var flames = $LocalCharacter/RF/Flames
 
 func _ready() -> void:
 	character.ignore_self()
@@ -79,7 +80,9 @@ func skill_signal(using: bool) -> void:
 	else:
 		character.damage *= 2
 		duration.start()
+		flames.emitting = true
 		await duration.timeout
+		flames.emitting = false
 		cooldown.start()
 		character.damage /= 2
 
