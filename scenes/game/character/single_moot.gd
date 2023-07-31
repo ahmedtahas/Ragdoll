@@ -20,6 +20,7 @@ extends Node2D
 @onready var magic: Node2D = $Extra/Center
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var body: RigidBody2D = $LocalCharacter/Body
+@onready var local_character: Node2D = $LocalCharacter
 @onready var duration: Timer = $Extra/SkillDuration
 
 @onready var cooldown_bar: TextureProgressBar
@@ -33,7 +34,6 @@ func _ready() -> void:
 	character.ignore_self()
 	name = character_name
 	get_node("LocalCharacter").load_skin(character_name)
-
 
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
