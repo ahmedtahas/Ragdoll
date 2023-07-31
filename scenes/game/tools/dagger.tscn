@@ -4,10 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dxc53r20j0hpm" path="res://assets/sprites/character/equipped/zeina/LF.png" id="2_0oh2w"]
 [ext_resource type="Script" path="res://scenes/game/tools/dagger_sync.gd" id="2_wxskg"]
 [ext_resource type="Script" path="res://scenes/game/tools/trail.gd" id="3_hl3aj"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_syumm"]
-radius = 38.0
-height = 232.0
+[ext_resource type="Script" path="res://scenes/game/tools/dagger_sprite.gd" id="3_jagvc"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_84tkl"]
 properties/0/path = NodePath("Synchronizer:pos")
@@ -28,14 +25,12 @@ offsets = PackedFloat32Array(0.433993, 0.854786)
 colors = PackedColorArray(0, 0, 0, 1, 0.43778, 0.218179, 0.00178888, 1)
 
 [node name="Dagger" type="CharacterBody2D" groups=["Skill"]]
+position = Vector2(974, 573)
 script = ExtResource("1_s86a6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_0oh2w")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -60)
-shape = SubResource("CapsuleShape2D_syumm")
+script = ExtResource("3_jagvc")
 
 [node name="Synchronizer" type="Node2D" parent="."]
 script = ExtResource("2_wxskg")
@@ -45,7 +40,6 @@ root_path = NodePath("../..")
 replication_config = SubResource("SceneReplicationConfig_84tkl")
 
 [node name="Marker" type="Marker2D" parent="."]
-position = Vector2(0, -140)
 
 [node name="Trail" type="Line2D" parent="Marker"]
 position = Vector2(0, 169)

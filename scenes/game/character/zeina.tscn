@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://17ggmooh46wy"]
+[gd_scene load_steps=26 format=3 uid="uid://17ggmooh46wy"]
 
 [ext_resource type="Script" path="res://scenes/game/character/zeina.gd" id="1_8om6e"]
 [ext_resource type="Texture2D" uid="uid://dm0gceittncr2" path="res://assets/sprites/character/1_.png" id="2_45g4y"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://c7ob3kwj1aii4" path="res://assets/sprites/character/3_.png" id="4_txyjf"]
 [ext_resource type="Script" path="res://scenes/game/modules/weapon_collision.gd" id="5_nahym"]
 [ext_resource type="Texture2D" uid="uid://igtfmvghqyto" path="res://assets/sprites/character/4_.png" id="5_x0new"]
+[ext_resource type="Texture2D" uid="uid://brr0b7cdl14qd" path="res://assets/sprites/character/equipped/zeina/RF.png" id="6_hrplq"]
+[ext_resource type="Texture2D" uid="uid://dxc53r20j0hpm" path="res://assets/sprites/character/equipped/zeina/LF.png" id="8_adr42"]
 [ext_resource type="Texture2D" uid="uid://dddhf8qbmwtuf" path="res://assets/sprites/ui/dash.png" id="8_qcfgh"]
 [ext_resource type="Script" path="res://scenes/game/character/copy_skin.gd" id="10_cmvew"]
 [ext_resource type="Script" path="res://scenes/game/character/positions.gd" id="10_kqkan"]
@@ -303,6 +305,7 @@ script = ExtResource("3_ce3sj")
 shape = SubResource("CircleShape2D_0scub")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/RF"]
+texture = ExtResource("6_hrplq")
 script = ExtResource("5_nahym")
 
 [node name="RF" type="DampedSpringJoint2D" parent="LocalCharacter/RF"]
@@ -409,6 +412,7 @@ contact_monitor = true
 script = ExtResource("3_ce3sj")
 
 [node name="Sprite" type="Sprite2D" parent="LocalCharacter/LF"]
+texture = ExtResource("8_adr42")
 script = ExtResource("5_nahym")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LF"]

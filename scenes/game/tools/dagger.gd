@@ -11,6 +11,7 @@ signal hit_signal
 
 func _ready() -> void:
 	$Sprite2D.texture = load("res://assets/sprites/character/equipped/zeina/RF.png")
+	$Sprite2D.weapon_collision()
 
 
 func _physics_process(_delta: float) -> void:
