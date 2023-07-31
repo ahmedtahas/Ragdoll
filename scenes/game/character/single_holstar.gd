@@ -20,6 +20,7 @@ extends Node2D
 @onready var rla: RigidBody2D = $LocalCharacter/RLA
 @onready var rf: RigidBody2D = $LocalCharacter/RF
 @onready var body: RigidBody2D = $LocalCharacter/Body
+@onready var local_character: Node2D = $LocalCharacter
 
 @onready var ra: CharacterBody2D = $Extra/ShootingArm
 @onready var crosshair: Sprite2D = $Extra/Cross
