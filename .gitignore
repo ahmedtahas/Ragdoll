@@ -11,3 +11,5 @@ data_*/
 .godot/editor
 .godot\shader_cache
 .godot\editor
+.godot\exported
+.godot/exported
