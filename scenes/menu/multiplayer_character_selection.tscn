@@ -75,3 +75,11 @@ offset_top = 721.0
 offset_right = 1031.0
 offset_bottom = 753.0
 text = "Meri"
+
+[node name="moot" type="Button" parent="Buttons"]
+layout_mode = 0
+offset_left = 947.0
+offset_top = 795.0
+offset_right = 1031.0
+offset_bottom = 827.0
+text = "Moot"
