@@ -11,14 +11,14 @@ radius = 80.895
 offsets = PackedFloat32Array(0, 0.431907, 0.929961)
 colors = PackedColorArray(0.262745, 0, 0.054902, 0.196078, 0.635294, 0.427451, 0.196078, 0.196078, 0.654902, 0.560784, 0.419608, 0.196078)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_2oaku"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3dl8i"]
 gradient = SubResource("Gradient_u3a7s")
 
 [sub_resource type="Curve" id="Curve_ktcc4"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_1hpg4"]
+[sub_resource type="CurveTexture" id="CurveTexture_wo2hw"]
 curve = SubResource("Curve_ktcc4")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i2bs8"]
@@ -34,8 +34,12 @@ linear_accel_max = 100.0
 radial_accel_max = 100.0
 tangential_accel_max = 97.44
 angle_max = 90.0
-scale_curve = SubResource("CurveTexture_1hpg4")
-color_ramp = SubResource("GradientTexture1D_2oaku")
+
+scale_min = 0.1
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_wo2hw")
+color_ramp = SubResource("GradientTexture1D_3dl8i")
+
 
 [node name="FireBall" type="CharacterBody2D"]
 script = ExtResource("1_rtx3d")

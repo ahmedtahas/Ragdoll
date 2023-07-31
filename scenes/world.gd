@@ -12,12 +12,14 @@ extends Node2D
 	"roki_roki": preload("res://scenes/game/character/roki_roki.tscn"),
 	"paranoc": preload("res://scenes/game/character/paranoc.tscn"),
 	"kaliber": preload("res://scenes/game/character/kaliber.tscn"),
-	"meri": preload("res://scenes/game/character/meri.tscn")
+	"meri": preload("res://scenes/game/character/meri.tscn"),
+	"moot": preload("res://scenes/game/character/moot.tscn")
 }
 @onready var skill_dictionary: Dictionary = {
 	"dagger": preload("res://scenes/game/tools/dagger.tscn"),
 	"bullet": preload("res://scenes/game/tools/bullet.tscn"),
-	"clone": preload("res://scenes/game/character/clone.tscn")
+	"clone": preload("res://scenes/game/character/clone.tscn"),
+	"meteor": preload("res://scenes/game/tools/meteor.tscn")
 }
 
 
