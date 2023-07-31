@@ -129,7 +129,6 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 
 	else:
 		synchronizer.aim = Vector2.ZERO
-		cooldown.wait_time = 6
 		cooldown.start()
 		character.slow_motion()
 		bullet = bullet_instance.instantiate()

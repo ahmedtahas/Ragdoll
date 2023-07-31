@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://fcab8s80q7w0"]
+
+[ext_resource type="Texture2D" uid="uid://dub0xu7lrwrr" path="res://assets/sprites/character/equipped/holstar/Bullet.png" id="1_1gesv"]
+[ext_resource type="Script" path="res://scenes/game/tools/meteor.gd" id="1_r45te"]
+[ext_resource type="Script" path="res://scenes/game/tools/bullet_sync.gd" id="2_cjq44"]
+[ext_resource type="Texture2D" uid="uid://b124gl6iw7slw" path="res://assets/sprites/character/smoke-particle-texture-115493860252h6z44fmaz-removebg-preview.png" id="4_8n54d"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fg1pl"]
+radius = 12.0
+height = 66.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_irmbn"]
+properties/0/path = NodePath("Synchronizer:pos")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath("Synchronizer:rot")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+properties/2/path = NodePath("Synchronizer:particle_scale")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+properties/3/path = NodePath("Synchronizer:meteor_scale")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
+
+[sub_resource type="Gradient" id="Gradient_m0rmb"]
+offsets = PackedFloat32Array(0, 0.431907, 0.929961)
+colors = PackedColorArray(0.262745, 0, 0.054902, 0.196078, 0.635294, 0.427451, 0.196078, 0.196078, 0.654902, 0.560784, 0.419608, 0.196078)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_loi6k"]
+gradient = SubResource("Gradient_m0rmb")
+
+[sub_resource type="Curve" id="Curve_63f8f"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_6rlls"]
+curve = SubResource("Curve_63f8f")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ff4jp"]
+emission_shape = 1
+emission_sphere_radius = 150.0
+particle_flag_disable_z = true
+spread = 90.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 250.0
+angular_velocity_max = 720.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+linear_accel_max = 100.0
+radial_accel_max = 100.0
+tangential_accel_max = 97.44
+angle_max = 90.0
+scale_min = 0.1
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_6rlls")
+color_ramp = SubResource("GradientTexture1D_loi6k")
+
+[node name="Meteor" type="CharacterBody2D"]
+script = ExtResource("1_r45te")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("1_1gesv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_fg1pl")
+
+[node name="Synchronizer" type="Node2D" parent="."]
+script = ExtResource("2_cjq44")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Synchronizer"]
+root_path = NodePath("../..")
+replication_config = SubResource("SceneReplicationConfig_irmbn")
+
+[node name="Fire" type="GPUParticles2D" parent="."]
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_ff4jp")
+texture = ExtResource("4_8n54d")
