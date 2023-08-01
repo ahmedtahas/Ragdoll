@@ -140,6 +140,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 			Global.client_skill.add_child(bullet, true)
 			rpc_id(Global.world.get_opponent_id(), "add_skill", "bullet")
 		bullet.set_multiplayer_authority(multiplayer.get_unique_id())
+		ignore_skill()
 		bullet.global_position = barrel.global_position
 		bullet.look_at(crosshair.global_position)
 		bullet.fire((crosshair.global_position - barrel.global_position).angle())
@@ -150,6 +151,11 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		rua.visible = true
 		rla.visible = true
 		rf.visible = true
+
+
+func ignore_skill() -> void:
+	for child in local_character.get_children():
+		child.add_collision_exception_with(bullet)
 
 
 func hit_signal(hit: Node2D) -> void:

@@ -128,7 +128,7 @@ func skill_signal(direction: Vector2, is_aiming: bool) -> void:
 		rla.visible = false
 		rf.visible = false
 		ra.look_at(crosshair.global_position)
-		crosshair.global_position += direction * 20
+		crosshair.global_position += direction * 50
 
 	else:
 		aiming = is_aiming
@@ -138,6 +138,7 @@ func skill_signal(direction: Vector2, is_aiming: bool) -> void:
 		Global.world.slow_motion(0.05, 1)
 		bullet = bullet_instance.instantiate()
 		add_sibling(bullet)
+		ignore_skill()
 		bullet.hit_signal.connect(self.hit_signal)
 		bullet.global_position = barrel.global_position
 		bullet.look_at(crosshair.global_position)
@@ -150,6 +151,11 @@ func skill_signal(direction: Vector2, is_aiming: bool) -> void:
 		rua.visible = true
 		rla.visible = true
 		rf.visible = true
+
+
+func ignore_skill() -> void:
+	for child in local_character.get_children():
+		child.add_collision_exception_with(bullet)
 
 
 func hit_signal(hit: Node2D) -> void:

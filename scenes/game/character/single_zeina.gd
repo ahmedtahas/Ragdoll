@@ -23,6 +23,7 @@ extends Node2D
 @onready var dash_preview: Marker2D = $Extra/Center
 @onready var _range: Marker2D = $Extra/Center/Range
 @onready var dash_timer: Timer = $Extra/DashTimer
+@onready var local_character: Node2D = $LocalCharacter
 
 @onready var flicker: bool = false
 @onready var cooldown_set: bool = false
@@ -104,6 +105,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		flicker = false
 		dagger = dagger_instance.instantiate()
 		add_sibling(dagger, true)
+		ignore_skill()
 		dagger.hit_signal.connect(self.hit_signal)
 		Global.world.slow_motion(0.05, 1)
 		dagger.global_position = dash_preview.get_node("Dash").global_position
@@ -121,6 +123,11 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 			teleport()
 		else:
 			_hit = false
+
+
+func ignore_skill() -> void:
+	for child in local_character.get_children():
+		child.add_collision_exception_with(dagger)
 
 
 func teleport() -> void:

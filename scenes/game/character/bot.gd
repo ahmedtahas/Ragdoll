@@ -32,6 +32,7 @@ func _physics_process(_delta: float) -> void:
 	if direction_set:
 		return
 	if (body.global_position - player.global_position).length() > (Global.player.radius.length() + radius.length() + 700):
+
 		character.move_signal((player.global_position - body.global_position).normalized())
 
 	elif (body.global_position - player.global_position).length() <= (Global.player.radius.length() + radius.length() + 700) and (body.global_position - player.global_position).length() > (Global.player.radius.length() + radius.length() + 300):

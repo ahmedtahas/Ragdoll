@@ -19,80 +19,90 @@ offset_bottom = 40.0
 
 [node name="crock" type="Button" parent="Buttons"]
 layout_mode = 0
-offset_left = 782.0
-offset_top = 455.0
-offset_right = 837.0
-offset_bottom = 487.0
+offset_left = 258.0
+offset_top = 248.0
+offset_right = 313.0
+offset_bottom = 280.0
+scale = Vector2(5, 5)
 text = "crock"
 
 [node name="zeina" type="Button" parent="Buttons"]
 layout_mode = 0
-offset_left = 789.0
-offset_top = 552.0
-offset_right = 844.0
-offset_bottom = 584.0
+offset_left = 583.0
+offset_top = 252.0
+offset_right = 638.0
+offset_bottom = 284.0
+scale = Vector2(5, 5)
 text = "zeina"
 
 [node name="holstar" type="Button" parent="Buttons"]
 layout_mode = 0
-offset_left = 944.0
-offset_top = 451.0
-offset_right = 1015.0
-offset_bottom = 483.0
+offset_left = 908.0
+offset_top = 260.0
+offset_right = 979.0
+offset_bottom = 292.0
+scale = Vector2(5, 5)
 text = "holstar"
 
 [node name="tin" type="Button" parent="Buttons"]
 layout_mode = 0
-offset_left = 946.0
-offset_top = 550.0
-offset_right = 1017.0
-offset_bottom = 582.0
+offset_left = 260.0
+offset_top = 433.0
+offset_right = 331.0
+offset_bottom = 465.0
+scale = Vector2(5, 5)
 text = "tin"
 
 [node name="roki_roki" type="Button" parent="Buttons"]
 layout_mode = 0
-offset_left = 778.0
-offset_top = 646.0
-offset_right = 862.0
-offset_bottom = 678.0
+offset_left = 650.0
+offset_top = 437.0
+offset_right = 734.0
+offset_bottom = 469.0
+scale = Vector2(5, 5)
 text = "roki roki"
 
 [node name="paranoc" type="Button" parent="Buttons"]
 layout_mode = 0
-offset_left = 944.0
-offset_top = 644.0
-offset_right = 1028.0
-offset_bottom = 676.0
+offset_left = 269.0
+offset_top = 614.0
+offset_right = 353.0
+offset_bottom = 646.0
+scale = Vector2(5, 5)
 text = "paranoc"
 
 [node name="kaliber" type="Button" parent="Buttons"]
 layout_mode = 0
-offset_left = 777.0
-offset_top = 725.0
-offset_right = 861.0
-offset_bottom = 757.0
+offset_left = 733.0
+offset_top = 627.0
+offset_right = 817.0
+offset_bottom = 659.0
+scale = Vector2(5, 5)
 text = "Kaliber"
 
 [node name="meri" type="Button" parent="Buttons"]
 layout_mode = 0
-offset_left = 947.0
-offset_top = 720.0
-offset_right = 1031.0
-offset_bottom = 752.0
+offset_left = 1116.0
+offset_top = 440.0
+offset_right = 1200.0
+offset_bottom = 472.0
+scale = Vector2(5, 5)
 text = "Meri"
 
 [node name="moot" type="Button" parent="Buttons"]
 layout_mode = 0
-offset_left = 784.0
-offset_top = 795.0
-offset_right = 868.0
-offset_bottom = 827.0
+offset_left = 1183.0
+offset_top = 632.0
+offset_right = 1267.0
+offset_bottom = 664.0
+scale = Vector2(5, 5)
 text = "Moot"
 
 [node name="buccarold" type="Button" parent="Buttons"]
 layout_mode = 0
-offset_left = 947.0
-offset_top = 798.0
-offset_right = 1042.0
-offset_bottom = 830.0
+offset_left = 1300.0
+offset_top = 260.0
+offset_right = 1395.0
+offset_bottom = 292.0
+scale = Vector2(5, 5)
 text = "Buccarold"
