@@ -1,0 +1,173 @@
+[gd_scene load_steps=5 format=3 uid="uid://dufxxfvtqhfml"]
+
+[ext_resource type="Script" path="res://scenes/menu/character_selection_scene.gd" id="1_hdp2c"]
+[ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="2_78u4u"]
+
+[sub_resource type="Theme" id="Theme_jkbq2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ls2vu"]
+font = ExtResource("2_78u4u")
+font_size = 32
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[node name="character selection" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_hdp2c")
+
+[node name="Buttons" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 1888.0
+offset_bottom = 160.0
+
+[node name="ButtonContainer" type="HBoxContainer" parent="Buttons"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="crock" type="Button" parent="Buttons/ButtonContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("2_78u4u")
+theme_override_font_sizes/font_size = 75
+text = "Crock"
+
+[node name="zeina" type="Button" parent="Buttons/ButtonContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("2_78u4u")
+theme_override_font_sizes/font_size = 75
+text = "Zeina"
+
+[node name="holstar" type="Button" parent="Buttons/ButtonContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("2_78u4u")
+theme_override_font_sizes/font_size = 75
+text = "Holstar"
+
+[node name="tin" type="Button" parent="Buttons/ButtonContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("2_78u4u")
+theme_override_font_sizes/font_size = 75
+text = "Tin"
+
+[node name="roki_roki" type="Button" parent="Buttons/ButtonContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("2_78u4u")
+theme_override_font_sizes/font_size = 75
+text = "Roki Roki"
+
+[node name="paranoc" type="Button" parent="Buttons/ButtonContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("2_78u4u")
+theme_override_font_sizes/font_size = 75
+text = "Paranoc"
+
+[node name="kaliber" type="Button" parent="Buttons/ButtonContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("2_78u4u")
+theme_override_font_sizes/font_size = 75
+text = "Kaliber"
+
+[node name="meri" type="Button" parent="Buttons/ButtonContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("2_78u4u")
+theme_override_font_sizes/font_size = 75
+text = "Meri"
+
+[node name="moot" type="Button" parent="Buttons/ButtonContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("2_78u4u")
+theme_override_font_sizes/font_size = 75
+text = "Moot"
+
+[node name="buccarold" type="Button" parent="Buttons/ButtonContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("2_78u4u")
+theme_override_font_sizes/font_size = 75
+text = "Buccarold"
+
+[node name="Stats" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 192.0
+offset_right = 1888.0
+offset_bottom = 320.0
+
+[node name="damage" type="Label" parent="Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 64
+text = "Damage : "
+horizontal_alignment = 1
+
+[node name="health" type="Label" parent="Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 64
+text = "Health : "
+horizontal_alignment = 1
+
+[node name="speed" type="Label" parent="Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 64
+text = "Speed : "
+horizontal_alignment = 1
+
+[node name="skill_name" type="Label" parent="Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 64
+text = "Skill"
+horizontal_alignment = 1
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 352.0
+offset_right = 1344.0
+offset_bottom = 1072.0
+theme = SubResource("Theme_jkbq2")
+autoplay = true
+
+[node name="Select" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1408.0
+offset_top = 896.0
+offset_right = 1888.0
+offset_bottom = 1024.0
+theme_override_font_sizes/font_size = 75
+text = "Select"
+
+[node name="SkillDescription" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1408.0
+offset_top = 384.0
+offset_right = 1888.0
+offset_bottom = 864.0
+label_settings = SubResource("LabelSettings_ls2vu")
+autowrap_mode = 3
+
+[connection signal="pressed" from="Select" to="." method="character_selected"]

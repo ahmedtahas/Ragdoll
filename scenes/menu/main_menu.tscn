@@ -30,11 +30,13 @@ anchors_preset = 0
 script = ExtResource("1_l8f8e")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0.00784314, 0.180392, 0.223529, 1)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1072.0
 theme_override_constants/margin_left = 200
