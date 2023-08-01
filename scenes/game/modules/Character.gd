@@ -185,7 +185,11 @@ func _push_part(direction: Vector2, strength: float, part: String) -> void:
 
 
 func _push_all(direction: Vector2, strength: float) -> void:
-	for part in get_node("/root/Main/Spawner/" + get_node("../..").name + "/LocalCharacter").get_children():
+	for child in get_node("../../LocalCharacter").get_children():
+		child.freeze = true
+	for child in get_node("../../LocalCharacter").get_children():
+		child.freeze = false
+	for part in get_node("../../LocalCharacter").get_children():
 		part.apply_impulse(direction * strength)
 
 

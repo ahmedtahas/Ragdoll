@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bikr4npk11cmf"]
+[gd_scene load_steps=10 format=3 uid="uid://bikr4npk11cmf"]
 
 [ext_resource type="Script" path="res://scenes/game/tools/dagger.gd" id="1_s86a6"]
 [ext_resource type="Texture2D" uid="uid://dxc53r20j0hpm" path="res://assets/sprites/character/equipped/zeina/LF.png" id="2_0oh2w"]
@@ -18,6 +18,9 @@ properties/1/path = NodePath("Synchronizer:rot")
 properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = false
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6kgkq"]
+blend_mode = 1
 
 [sub_resource type="Curve" id="Curve_wbmes"]
 _data = [Vector2(0.0770416, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -48,6 +51,7 @@ replication_config = SubResource("SceneReplicationConfig_84tkl")
 position = Vector2(0, -140)
 
 [node name="Trail" type="Line2D" parent="Marker"]
+material = SubResource("CanvasItemMaterial_6kgkq")
 position = Vector2(0, 169)
 width_curve = SubResource("Curve_wbmes")
 gradient = SubResource("Gradient_pk2au")
