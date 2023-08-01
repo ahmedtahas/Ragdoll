@@ -84,6 +84,7 @@ func skill_signal(using: bool) -> void:
 		pass
 
 	else:
+		duration.start()
 		magic.global_position = body.global_position + center.rotated(body.global_rotation)
 		Global.world.slow_motion(0.05, 1)
 		await get_tree().create_timer(0.05).timeout
@@ -92,7 +93,6 @@ func skill_signal(using: bool) -> void:
 		magic.look_at(Global.bot.get_node("LocalCharacter/Body").global_position)
 		fire_ball.global_position = fire_place.global_position
 		fire_ball.hit_signal.connect(self.hit_signal)
-		duration.start()
 		await duration.timeout
 		if not is_hit:
 			fire_ball.queue_free()
