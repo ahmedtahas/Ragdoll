@@ -37,7 +37,6 @@ linear_accel_max = 100.0
 radial_accel_max = 100.0
 tangential_accel_max = 97.44
 angle_max = 90.0
-
 scale_curve = SubResource("CurveTexture_wo2hw")
 color_ramp = SubResource("GradientTexture1D_3dl8i")
 

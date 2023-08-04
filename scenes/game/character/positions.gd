@@ -20,6 +20,9 @@ extends Node2D
 @export var lf_pos: Vector2 = Vector2.ZERO
 @export var lf_rot: float = 0
 
+@export var stomach_pos: Vector2 = Vector2.ZERO
+@export var stomach_rot: float = 0
+
 @export var hip_pos: Vector2 = Vector2.ZERO
 @export var hip_rot: float = 0
 

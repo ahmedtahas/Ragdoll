@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dv1yrxdqw4npe"]
+[gd_scene load_steps=26 format=3 uid="uid://dv1yrxdqw4npe"]
 
 [ext_resource type="Script" path="res://scenes/game/character/load_skin.gd" id="1_c78uy"]
 [ext_resource type="Script" path="res://scenes/game/character/moot.gd" id="1_lm47w"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://igtfmvghqyto" path="res://assets/sprites/character/4_.png" id="7_xkjw4"]
 [ext_resource type="Script" path="res://scenes/game/character/positions.gd" id="8_umevw"]
 [ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="12_gqbxp"]
+[ext_resource type="Texture2D" uid="uid://bkq6lgd0407mk" path="res://assets/sprites/character/equipped/moot/FireRing.png" id="12_pssqn"]
 [ext_resource type="PackedScene" uid="uid://dfctusw14gxrg" path="res://scenes/game/modules/character.tscn" id="13_3oyqw"]
 [ext_resource type="Script" path="res://scenes/game/character/copy_skin.gd" id="14_03fom"]
 
@@ -682,6 +683,20 @@ one_shot = true
 
 [node name="SkillDuration" type="Timer" parent="Extra"]
 one_shot = true
+
+[node name="FireRing1" type="Sprite2D" parent="Extra"]
+visible = false
+modulate = Color(1, 1, 1, 0.0392157)
+position = Vector2(-2, 305)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("12_pssqn")
+
+[node name="FireRing2" type="Sprite2D" parent="Extra"]
+visible = false
+modulate = Color(1, 1, 1, 0.0392157)
+position = Vector2(-2, 305)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("12_pssqn")
 
 [node name="RemoteCharacter" type="Node2D" parent="."]
 script = ExtResource("14_03fom")
