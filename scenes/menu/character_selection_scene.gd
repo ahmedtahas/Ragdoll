@@ -9,10 +9,10 @@ func _ready() -> void:
 func character_preview(selection: String) -> void:
 	CharacterSelection.own = selection
 	for child in get_node("Stats").get_children():
-		child.text = str(get_node("/root/Config").get_value(child.name, selection))
+		if not child is Sprite2D:
+			child.text = str(get_node("/root/Config").get_value(child.name, selection))
 	get_node("SkillDescription").text = get_node("/root/Config").get_value("skill_description", selection)
 
 
 func character_selected() -> void:
 	get_tree().change_scene_to_file("res://scenes/menu/main_menu.tscn")
-

@@ -1,0 +1,121 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbxr7uapmrssv"]
+
+[ext_resource type="Texture2D" uid="uid://cyiurt5a0htte" path="res://assets/sprites/character/equipped/holstar/Head.png" id="1_jcgsr"]
+[ext_resource type="Texture2D" uid="uid://coh7hcock162a" path="res://assets/sprites/character/equipped/holstar/Stomach.png" id="2_mbxt3"]
+[ext_resource type="Texture2D" uid="uid://c3stqh5p04uso" path="res://assets/sprites/character/equipped/holstar/RUA.png" id="3_qtlfp"]
+[ext_resource type="Texture2D" uid="uid://bkv0c4jkngyic" path="res://assets/sprites/character/equipped/holstar/LLL.png" id="4_j6o44"]
+
+[node name="Run" type="Node2D"]
+position = Vector2(0, 3)
+
+[node name="Body" type="Node2D" parent="."]
+position = Vector2(2367, -1925)
+rotation = 0.523599
+
+[node name="Head" type="Node2D" parent="Body"]
+position = Vector2(64.3967, -106.462)
+rotation = 0.523599
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/Head"]
+modulate = Color(1, 0.701961, 0.278431, 1)
+position = Vector2(0, -105)
+texture = ExtResource("1_jcgsr")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Body"]
+modulate = Color(1, 0.701961, 0.278431, 1)
+position = Vector2(34.3635, -54.481)
+rotation = 0.523599
+texture = ExtResource("2_mbxt3")
+
+[node name="Sprite2D" type="Sprite2D" parent="Body"]
+modulate = Color(1, 0.701961, 0.278431, 1)
+position = Vector2(0, 60)
+texture = ExtResource("2_mbxt3")
+
+[node name="RUA" type="Node2D" parent="Body"]
+rotation = -0.785398
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/RUA"]
+modulate = Color(1, 0.701961, 0.278431, 1)
+position = Vector2(0, 120)
+texture = ExtResource("3_qtlfp")
+
+[node name="RLA" type="Node2D" parent="Body/RUA"]
+position = Vector2(-1.04907e-05, 240)
+rotation = 2.0944
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/RUA/RLA"]
+modulate = Color(1, 0.701961, 0.278431, 1)
+position = Vector2(0, -120)
+texture = ExtResource("3_qtlfp")
+
+[node name="LUA" type="Node2D" parent="Body"]
+rotation = 1.13446
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/LUA"]
+modulate = Color(1, 0.701961, 0.278431, 1)
+position = Vector2(0, 120)
+texture = ExtResource("3_qtlfp")
+
+[node name="LLA" type="Node2D" parent="Body/LUA"]
+position = Vector2(1.04907e-05, 240)
+rotation = -1.39626
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/LUA/LLA"]
+modulate = Color(1, 0.701961, 0.278431, 1)
+position = Vector2(0, 120)
+texture = ExtResource("3_qtlfp")
+
+[node name="Stomach" type="Node2D" parent="Body"]
+position = Vector2(0, 120)
+rotation = -0.0872665
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/Stomach"]
+modulate = Color(1, 0.701961, 0.278431, 1)
+position = Vector2(0, 60)
+texture = ExtResource("2_mbxt3")
+
+[node name="Hip" type="Node2D" parent="Body/Stomach"]
+position = Vector2(0, 120)
+rotation = 0.174533
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/Stomach/Hip"]
+modulate = Color(1, 0.701961, 0.278431, 1)
+position = Vector2(0, 60)
+texture = ExtResource("2_mbxt3")
+
+[node name="LUL" type="Node2D" parent="Body/Stomach/Hip"]
+position = Vector2(0, 120)
+rotation = 0.261799
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/Stomach/Hip/LUL"]
+modulate = Color(1, 0.701961, 0.278431, 1)
+position = Vector2(0, 180)
+texture = ExtResource("4_j6o44")
+
+[node name="LLL" type="Node2D" parent="Body/Stomach/Hip/LUL"]
+position = Vector2(0.115433, 360.2)
+rotation = 1.309
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/Stomach/Hip/LUL/LLL"]
+modulate = Color(1, 0.701961, 0.278431, 1)
+position = Vector2(0, 180)
+texture = ExtResource("4_j6o44")
+
+[node name="RUL" type="Node2D" parent="Body/Stomach/Hip"]
+position = Vector2(0, 120)
+rotation = -1.39626
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/Stomach/Hip/RUL"]
+modulate = Color(1, 0.701961, 0.278431, 1)
+position = Vector2(0, 180)
+texture = ExtResource("4_j6o44")
+
+[node name="RLL" type="Node2D" parent="Body/Stomach/Hip/RUL"]
+position = Vector2(-0.115433, 360.2)
+rotation = 0.349066
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/Stomach/Hip/RUL/RLL"]
+modulate = Color(1, 0.701961, 0.278431, 1)
+position = Vector2(0, 180)
+texture = ExtResource("4_j6o44")

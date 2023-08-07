@@ -40,7 +40,7 @@ func _ready() -> void:
 	name = character_name
 	get_node("LocalCharacter").load_skin(character_name)
 	get_node("Extra/ShootingArm").arm(character_name)
-
+	joy_stick.get_node("SkillStick").texture = load("res://assets/sprites/character/equipped/" + character_name + "/SkillStick.png")
 
 	joy_stick.move_signal.connect(character.move_signal)
 	joy_stick.skill_signal.connect(self.skill_signal)
@@ -80,16 +80,16 @@ func _physics_process(_delta: float) -> void:
 	if aiming:
 		crosshair.rotation += 0.075
 		if growing:
-			if crosshair.scale.x < 3.1:
-				crosshair.scale.x += 0.1
-				crosshair.scale.y += 0.1
-			elif crosshair.scale.x >= 3:
+			if crosshair.scale.x < 1.51:
+				crosshair.scale.x += 0.05
+				crosshair.scale.y += 0.05
+			elif crosshair.scale.x >= 1.5:
 				growing = false
 		else:
-			if crosshair.scale.x > 0.9:
-				crosshair.scale.x -= 0.1
-				crosshair.scale.y -= 0.1
-			elif crosshair.scale.x == 1:
+			if crosshair.scale.x > 0.49:
+				crosshair.scale.x -= 0.05
+				crosshair.scale.y -= 0.05
+			elif crosshair.scale.x == 0.5:
 				growing = true
 	else:
 		crosshair.scale = Vector2(2,2)

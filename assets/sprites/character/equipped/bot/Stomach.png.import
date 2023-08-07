@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://e6q8ogylbeyy"
-path="res://.godot/imported/joystick.png-e25bdd29a68faed670c5fd184207d2b8.ctex"
+uid="uid://cp8ork53tmjei"
+path="res://.godot/imported/Stomach.png-5764ab42af1428207471b190eb7a9b8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ui/joystick.png"
-dest_files=["res://.godot/imported/joystick.png-e25bdd29a68faed670c5fd184207d2b8.ctex"]
+source_file="res://assets/sprites/character/equipped/bot/Stomach.png"
+dest_files=["res://.godot/imported/Stomach.png-5764ab42af1428207471b190eb7a9b8f.ctex"]
 
 [params]
 

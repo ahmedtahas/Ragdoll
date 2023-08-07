@@ -261,6 +261,8 @@ func _physics_process(_delta: float):
 		synchronizer.lf_pos = local_lf.global_position
 		synchronizer.lf_rot = local_lf.global_rotation
 
+		synchronizer.stomach_pos = local_stomach.global_position
+		synchronizer.stomach_rot = local_stomach.global_rotation
 		synchronizer.hip_pos = local_hip.global_position
 		synchronizer.hip_rot = local_hip.global_rotation
 
@@ -314,6 +316,8 @@ func _physics_process(_delta: float):
 		remote_lf.global_position = synchronizer.lf_pos
 		remote_lf.global_rotation = synchronizer.lf_rot
 
+		remote_stomach.global_position = synchronizer.stomach_pos
+		remote_stomach.global_rotation = synchronizer.stomach_rot
 		remote_hip.global_position = synchronizer.hip_pos
 		remote_hip.global_rotation = synchronizer.hip_rot
 

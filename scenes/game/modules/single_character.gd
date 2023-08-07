@@ -53,11 +53,19 @@ func ignore_self() -> void:
 				child_1.add_collision_exception_with(child_2)
 
 
+func death() -> void:
+	for child in Global.bot.get_node("LocalCharacter").get_children():
+		for part in child.get_children():
+			if part is Joint2D:
+				part.queue_free()
+	Global.camera.remove_target(Global.bot.get_node("LocalCharacter/Body"))
+
+
 func damage_bot(amount: float) -> void:
 	if bot_current_health <= amount:
 		bot_current_health = 0
 		bot_health_bar.set_value(bot_current_health)
-		return
+		death()
 	bot_current_health -= amount
 	bot_health_bar.set_value((100 * bot_current_health) / bot_health)
 

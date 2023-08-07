@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dufxxfvtqhfml"]
+[gd_scene load_steps=7 format=3 uid="uid://dufxxfvtqhfml"]
 
 [ext_resource type="Script" path="res://scenes/menu/character_selection_scene.gd" id="1_hdp2c"]
 [ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="2_78u4u"]
+[ext_resource type="Texture2D" uid="uid://b3r7gymybglth" path="res://assets/sprites/ui/unnamed.png" id="3_pkd45"]
+[ext_resource type="Texture2D" uid="uid://jqfinyb6lktd" path="res://assets/sprites/ui/Frame 1 (14).png" id="4_lku5d"]
 
 [sub_resource type="Theme" id="Theme_jkbq2"]
 
@@ -111,9 +113,9 @@ text = "Buccarold"
 [node name="Stats" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 192.0
+offset_top = 160.0
 offset_right = 1888.0
-offset_bottom = 320.0
+offset_bottom = 288.0
 
 [node name="damage" type="Label" parent="Stats"]
 layout_mode = 2
@@ -126,7 +128,7 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 64
-text = "Health : "
+text = "2000"
 horizontal_alignment = 1
 
 [node name="speed" type="Label" parent="Stats"]
@@ -142,6 +144,16 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 64
 text = "Skill"
 horizontal_alignment = 1
+
+[node name="Health" type="Sprite2D" parent="Stats"]
+position = Vector2(540, 70)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_pkd45")
+
+[node name="Speed" type="Sprite2D" parent="Stats"]
+position = Vector2(942, 69)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_lku5d")
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_mode = 0

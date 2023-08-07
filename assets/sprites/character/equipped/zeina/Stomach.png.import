@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnhkrdor3gjqg"
-path="res://.godot/imported/2_p.png-e7a67a832d5feec5ba7d19a4b50430d6.ctex"
+uid="uid://dkgj4wbpy7jwc"
+path="res://.godot/imported/Stomach.png-cb24de1194b8dfe2893370bef461885d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/character/2_p.png"
-dest_files=["res://.godot/imported/2_p.png-e7a67a832d5feec5ba7d19a4b50430d6.ctex"]
+source_file="res://assets/sprites/character/equipped/zeina/Stomach.png"
+dest_files=["res://.godot/imported/Stomach.png-cb24de1194b8dfe2893370bef461885d.ctex"]
 
 [params]
 

@@ -34,6 +34,8 @@ extends Node2D
 @onready var cooldown_text: RichTextLabel
 
 @onready var cooldown_set: bool = false
+@onready var aiming: bool = false
+@onready var growing: bool = false
 
 
 func _ready() -> void:
@@ -92,6 +94,23 @@ func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
 
+	if aiming:
+		crosshair.rotation += 0.075
+		if growing:
+			if crosshair.scale.x < 1.51:
+				crosshair.scale.x += 0.05
+				crosshair.scale.y += 0.05
+			elif crosshair.scale.x >= 1.5:
+				growing = false
+		else:
+			if crosshair.scale.x > 0.49:
+				crosshair.scale.x -= 0.05
+				crosshair.scale.y -= 0.05
+			elif crosshair.scale.x == 0.5:
+				growing = true
+	else:
+		crosshair.scale = Vector2(2,2)
+
 	if cooldown.is_stopped():
 		if not cooldown_set:
 			cooldown_bar.set_value(100)
@@ -116,6 +135,8 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		return
 
 	if is_aiming:
+		aiming = is_aiming
+		growing = true
 		ra.visible = true
 		ra.set_collision_layer_value(1, true)
 		ra.set_collision_mask_value(1, true)
@@ -129,6 +150,8 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		synchronizer.aim = crosshair.global_position
 
 	else:
+		aiming = is_aiming
+		growing = false
 		synchronizer.aim = Vector2.ZERO
 		cooldown.start()
 		character.slow_motion()
