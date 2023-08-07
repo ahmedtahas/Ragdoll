@@ -14,7 +14,8 @@ extends Node2D
 	"kaliber": preload("res://scenes/game/character/single_kaliber.tscn"),
 	"meri": preload("res://scenes/game/character/single_meri.tscn"),
 	"moot": preload("res://scenes/game/character/single_moot.tscn"),
-	"buccarold": preload("res://scenes/game/character/single_buccarold.tscn")
+	"buccarold": preload("res://scenes/game/character/single_buccarold.tscn"),
+	"selim": preload("res://scenes/game/character/single_selim.tscn")
 }
 
 

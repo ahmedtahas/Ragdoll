@@ -110,7 +110,7 @@ func on_body_entered(body: Node2D, caller: RigidBody2D) -> void:
 		if caller.is_in_group("Damager") and body.name == "Head":
 			rpc_id(main_scene.get_opponent_id(), "take_damage", damage * 2)
 
-		elif caller.is_in_group("Damager") and body.is_in_group("Damagable"):
+		elif caller.is_in_group("Damager") and body.is_in_group("Damagable") and not body.is_in_group("Undamagable"):
 			rpc_id(main_scene.get_opponent_id(), "take_damage", damage)
 
 

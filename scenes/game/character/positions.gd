@@ -46,3 +46,5 @@ extends Node2D
 
 @export var shockwave_vis: bool = false
 @export var shockwave_scale: float = 0
+
+@export var shield_scale: float = 0

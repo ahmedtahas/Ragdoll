@@ -27,7 +27,7 @@ polygon = PackedVector2Array(1536, 1024, -1536, 1024, -1536, -1024, 88.9999, -10
 [node name="MTC" parent="." instance=ExtResource("3_otfc2")]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/game/character/zeina.tscn", "res://scenes/game/character/crock.tscn", "res://scenes/game/character/holstar.tscn", "res://scenes/game/character/tin.tscn", "res://scenes/game/character/roki_roki.tscn", "res://scenes/game/character/paranoc.tscn", "res://scenes/game/character/kaliber.tscn", "res://scenes/game/character/meri.tscn", "res://scenes/game/character/moot.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/game/character/zeina.tscn", "res://scenes/game/character/crock.tscn", "res://scenes/game/character/holstar.tscn", "res://scenes/game/character/tin.tscn", "res://scenes/game/character/roki_roki.tscn", "res://scenes/game/character/paranoc.tscn", "res://scenes/game/character/kaliber.tscn", "res://scenes/game/character/meri.tscn", "res://scenes/game/character/moot.tscn", "res://scenes/game/character/selim.tscn")
 spawn_path = NodePath("../Spawner")
 spawn_limit = 1
 
