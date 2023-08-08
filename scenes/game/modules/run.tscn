@@ -1,121 +1,132 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbxr7uapmrssv"]
+[gd_scene load_steps=7 format=3 uid="uid://bbxr7uapmrssv"]
 
-[ext_resource type="Texture2D" uid="uid://cyiurt5a0htte" path="res://assets/sprites/character/equipped/holstar/Head.png" id="1_jcgsr"]
-[ext_resource type="Texture2D" uid="uid://coh7hcock162a" path="res://assets/sprites/character/equipped/holstar/Stomach.png" id="2_mbxt3"]
-[ext_resource type="Texture2D" uid="uid://c3stqh5p04uso" path="res://assets/sprites/character/equipped/holstar/RUA.png" id="3_qtlfp"]
-[ext_resource type="Texture2D" uid="uid://bkv0c4jkngyic" path="res://assets/sprites/character/equipped/holstar/LLL.png" id="4_j6o44"]
+[ext_resource type="Texture2D" uid="uid://cp8ork53tmjei" path="res://assets/sprites/character/equipped/bot/Stomach.png" id="1_hvgdd"]
+[ext_resource type="Texture2D" uid="uid://dic5rfuisqf46" path="res://assets/sprites/character/equipped/bot/Body.png" id="1_wvnx3"]
+[ext_resource type="Script" path="res://scenes/game/character/single_load_skin.gd" id="2_xsg7s"]
+[ext_resource type="Texture2D" uid="uid://cnmxn05eqogqn" path="res://assets/sprites/character/equipped/bot/Head.png" id="4_skmxl"]
+[ext_resource type="Texture2D" uid="uid://duwyok4rfrcpv" path="res://assets/sprites/character/equipped/bot/RUA.png" id="5_183wr"]
+[ext_resource type="Texture2D" uid="uid://g7fjky2m2nfj" path="res://assets/sprites/character/equipped/bot/LUL.png" id="6_mp1ye"]
 
 [node name="Run" type="Node2D"]
 position = Vector2(0, 3)
 
-[node name="Body" type="Node2D" parent="."]
-position = Vector2(2367, -1925)
-rotation = 0.523599
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(0.85098, 0.388235, 0.196078, 1)
+position = Vector2(5103, -3811)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("1_hvgdd")
 
-[node name="Head" type="Node2D" parent="Body"]
-position = Vector2(64.3967, -106.462)
-rotation = 0.523599
+[node name="LocalCharacter" type="Node2D" parent="."]
+position = Vector2(4949, -3835)
+script = ExtResource("2_xsg7s")
 
-[node name="Sprite2D" type="Sprite2D" parent="Body/Head"]
-modulate = Color(1, 0.701961, 0.278431, 1)
-position = Vector2(0, -105)
-texture = ExtResource("1_jcgsr")
+[node name="Body" type="Node2D" parent="LocalCharacter" groups=["Damagable"]]
 
-[node name="Sprite2D2" type="Sprite2D" parent="Body"]
-modulate = Color(1, 0.701961, 0.278431, 1)
-position = Vector2(34.3635, -54.481)
-rotation = 0.523599
-texture = ExtResource("2_mbxt3")
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body"]
+modulate = Color(0.85098, 0.388235, 0.196078, 1)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("1_wvnx3")
 
-[node name="Sprite2D" type="Sprite2D" parent="Body"]
-modulate = Color(1, 0.701961, 0.278431, 1)
-position = Vector2(0, 60)
-texture = ExtResource("2_mbxt3")
+[node name="Head" type="Node2D" parent="LocalCharacter/Body" groups=["Damagable", "Damager"]]
+position = Vector2(0, -144)
 
-[node name="RUA" type="Node2D" parent="Body"]
-rotation = -0.785398
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body/Head"]
+modulate = Color(0.85098, 0.388235, 0.196078, 1)
+position = Vector2(0, -126)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("4_skmxl")
 
-[node name="Sprite2D" type="Sprite2D" parent="Body/RUA"]
-modulate = Color(1, 0.701961, 0.278431, 1)
-position = Vector2(0, 120)
-texture = ExtResource("3_qtlfp")
+[node name="RUA" type="Node2D" parent="LocalCharacter/Body" groups=["Damagable"]]
+rotation = 1.5708
 
-[node name="RLA" type="Node2D" parent="Body/RUA"]
-position = Vector2(-1.04907e-05, 240)
-rotation = 2.0944
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body/RUA"]
+modulate = Color(0.85098, 0.388235, 0.196078, 1)
+position = Vector2(-0.00050354, -144)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_183wr")
 
-[node name="Sprite2D" type="Sprite2D" parent="Body/RUA/RLA"]
-modulate = Color(1, 0.701961, 0.278431, 1)
-position = Vector2(0, -120)
-texture = ExtResource("3_qtlfp")
+[node name="RLA" type="Node2D" parent="LocalCharacter/Body/RUA" groups=["Damagable"]]
+position = Vector2(-0.000976563, -288)
+rotation = -1.309
 
-[node name="LUA" type="Node2D" parent="Body"]
-rotation = 1.13446
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body/RUA/RLA"]
+modulate = Color(0.85098, 0.388235, 0.196078, 1)
+position = Vector2(-0.000534058, -144)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_183wr")
 
-[node name="Sprite2D" type="Sprite2D" parent="Body/LUA"]
-modulate = Color(1, 0.701961, 0.278431, 1)
-position = Vector2(0, 120)
-texture = ExtResource("3_qtlfp")
+[node name="LUA" type="Node2D" parent="LocalCharacter/Body" groups=["Damagable"]]
 
-[node name="LLA" type="Node2D" parent="Body/LUA"]
-position = Vector2(1.04907e-05, 240)
-rotation = -1.39626
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body/LUA"]
+modulate = Color(0.85098, 0.388235, 0.196078, 1)
+position = Vector2(0.000518799, 144)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_183wr")
 
-[node name="Sprite2D" type="Sprite2D" parent="Body/LUA/LLA"]
-modulate = Color(1, 0.701961, 0.278431, 1)
-position = Vector2(0, 120)
-texture = ExtResource("3_qtlfp")
+[node name="LLA" type="Node2D" parent="LocalCharacter/Body/LUA" groups=["Damagable"]]
+position = Vector2(0.0012207, 288)
+rotation = 1.5708
 
-[node name="Stomach" type="Node2D" parent="Body"]
-position = Vector2(0, 120)
-rotation = -0.0872665
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body/LUA/LLA"]
+modulate = Color(0.85098, 0.388235, 0.196078, 1)
+position = Vector2(0.000534058, -144)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_183wr")
 
-[node name="Sprite2D" type="Sprite2D" parent="Body/Stomach"]
-modulate = Color(1, 0.701961, 0.278431, 1)
-position = Vector2(0, 60)
-texture = ExtResource("2_mbxt3")
+[node name="Stomach" type="Node2D" parent="LocalCharacter/Body" groups=["Damagable"]]
+position = Vector2(0, 144)
 
-[node name="Hip" type="Node2D" parent="Body/Stomach"]
-position = Vector2(0, 120)
-rotation = 0.174533
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body/Stomach"]
+modulate = Color(0.85098, 0.388235, 0.196078, 1)
+position = Vector2(0, 72)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("1_hvgdd")
 
-[node name="Sprite2D" type="Sprite2D" parent="Body/Stomach/Hip"]
-modulate = Color(1, 0.701961, 0.278431, 1)
-position = Vector2(0, 60)
-texture = ExtResource("2_mbxt3")
+[node name="Hip" type="Node2D" parent="LocalCharacter/Body/Stomach" groups=["Damagable"]]
+position = Vector2(0, 144)
 
-[node name="LUL" type="Node2D" parent="Body/Stomach/Hip"]
-position = Vector2(0, 120)
-rotation = 0.261799
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body/Stomach/Hip"]
+modulate = Color(0.85098, 0.388235, 0.196078, 1)
+position = Vector2(0, 72)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("1_hvgdd")
 
-[node name="Sprite2D" type="Sprite2D" parent="Body/Stomach/Hip/LUL"]
-modulate = Color(1, 0.701961, 0.278431, 1)
-position = Vector2(0, 180)
-texture = ExtResource("4_j6o44")
-
-[node name="LLL" type="Node2D" parent="Body/Stomach/Hip/LUL"]
-position = Vector2(0.115433, 360.2)
-rotation = 1.309
-
-[node name="Sprite2D" type="Sprite2D" parent="Body/Stomach/Hip/LUL/LLL"]
-modulate = Color(1, 0.701961, 0.278431, 1)
-position = Vector2(0, 180)
-texture = ExtResource("4_j6o44")
-
-[node name="RUL" type="Node2D" parent="Body/Stomach/Hip"]
-position = Vector2(0, 120)
-rotation = -1.39626
-
-[node name="Sprite2D" type="Sprite2D" parent="Body/Stomach/Hip/RUL"]
-modulate = Color(1, 0.701961, 0.278431, 1)
-position = Vector2(0, 180)
-texture = ExtResource("4_j6o44")
-
-[node name="RLL" type="Node2D" parent="Body/Stomach/Hip/RUL"]
-position = Vector2(-0.115433, 360.2)
+[node name="LUL" type="Node2D" parent="LocalCharacter/Body/Stomach/Hip" groups=["Damagable"]]
+position = Vector2(0, 144)
 rotation = 0.349066
 
-[node name="Sprite2D" type="Sprite2D" parent="Body/Stomach/Hip/RUL/RLL"]
-modulate = Color(1, 0.701961, 0.278431, 1)
-position = Vector2(0, 180)
-texture = ExtResource("4_j6o44")
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body/Stomach/Hip/LUL"]
+modulate = Color(0.85098, 0.388235, 0.196078, 1)
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("6_mp1ye")
+
+[node name="LLL" type="Node2D" parent="LocalCharacter/Body/Stomach/Hip/LUL" groups=["Damagable"]]
+position = Vector2(-0.0612793, 431.894)
+rotation = -0.174533
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body/Stomach/Hip/LUL/LLL"]
+modulate = Color(0.85098, 0.388235, 0.196078, 1)
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("6_mp1ye")
+
+[node name="RUL" type="Node2D" parent="LocalCharacter/Body/Stomach/Hip" groups=["Damagable"]]
+position = Vector2(0, 144)
+rotation = -0.349066
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body/Stomach/Hip/RUL"]
+modulate = Color(0.85098, 0.388235, 0.196078, 1)
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("6_mp1ye")
+
+[node name="RLL" type="Node2D" parent="LocalCharacter/Body/Stomach/Hip/RUL" groups=["Damagable"]]
+position = Vector2(0.0615234, 431.894)
+rotation = 0.174533
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body/Stomach/Hip/RUL/RLL"]
+modulate = Color(0.85098, 0.388235, 0.196078, 1)
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("6_mp1ye")

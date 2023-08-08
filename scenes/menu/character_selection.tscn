@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dufxxfvtqhfml"]
+[gd_scene load_steps=8 format=3 uid="uid://dufxxfvtqhfml"]
 
 [ext_resource type="Script" path="res://scenes/menu/character_selection_scene.gd" id="1_hdp2c"]
 [ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="2_78u4u"]
-[ext_resource type="Texture2D" uid="uid://b3r7gymybglth" path="res://assets/sprites/ui/unnamed.png" id="3_pkd45"]
-[ext_resource type="Texture2D" uid="uid://jqfinyb6lktd" path="res://assets/sprites/ui/Frame 1 (14).png" id="4_lku5d"]
+[ext_resource type="Texture2D" uid="uid://b4j6sr1nmlxp7" path="res://assets/sprites/ui/Level.png" id="3_l605i"]
+[ext_resource type="Texture2D" uid="uid://jqfinyb6lktd" path="res://assets/sprites/ui/Speed.png" id="4_0qtc4"]
+[ext_resource type="Texture2D" uid="uid://cy21kskbe4u67" path="res://assets/sprites/ui/Frame 1 (23).png" id="4_f7n6p"]
 
 [sub_resource type="Theme" id="Theme_jkbq2"]
 
@@ -110,20 +111,32 @@ theme_override_fonts/font = ExtResource("2_78u4u")
 theme_override_font_sizes/font_size = 75
 text = "Buccarold"
 
-[node name="selim" type="Button" parent="Buttons/ButtonContainer"]
+[node name="raldorone" type="Button" parent="Buttons/ButtonContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 mouse_filter = 1
 theme_override_fonts/font = ExtResource("2_78u4u")
 theme_override_font_sizes/font_size = 75
-text = "Selim"
+text = "Raldorone"
 
 [node name="Stats" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 160.0
+offset_top = 192.0
 offset_right = 1888.0
-offset_bottom = 288.0
+offset_bottom = 320.0
+
+[node name="Level" type="TextureRect" parent="Stats"]
+layout_mode = 2
+texture = ExtResource("3_l605i")
+expand_mode = 2
+
+[node name="level" type="Label" parent="Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 64
+text = "Level:"
+horizontal_alignment = 1
 
 [node name="damage" type="Label" parent="Stats"]
 layout_mode = 2
@@ -132,12 +145,22 @@ theme_override_font_sizes/font_size = 64
 text = "Damage : "
 horizontal_alignment = 1
 
+[node name="Health" type="TextureRect" parent="Stats"]
+layout_mode = 2
+texture = ExtResource("4_f7n6p")
+expand_mode = 2
+
 [node name="health" type="Label" parent="Stats"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 64
 text = "2000"
 horizontal_alignment = 1
+
+[node name="Speed" type="TextureRect" parent="Stats"]
+layout_mode = 2
+texture = ExtResource("4_0qtc4")
+expand_mode = 2
 
 [node name="speed" type="Label" parent="Stats"]
 layout_mode = 2
@@ -152,16 +175,6 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 64
 text = "Skill"
 horizontal_alignment = 1
-
-[node name="Health" type="Sprite2D" parent="Stats"]
-position = Vector2(540, 70)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_pkd45")
-
-[node name="Speed" type="Sprite2D" parent="Stats"]
-position = Vector2(942, 69)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_lku5d")
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_mode = 0

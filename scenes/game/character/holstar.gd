@@ -49,6 +49,7 @@ func _ready() -> void:
 		joy_stick.move_signal.connect(character.move_signal)
 		joy_stick.skill_signal.connect(self.skill_signal)
 		joy_stick.button = false
+		joy_stick.get_node("SkillStick").texture = load("res://assets/sprites/character/equipped/" + character_name + "/SkillStick.png")
 		cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
 		power = get_node("/root/Config").get_value("power", character_name)
 		damage = get_node("/root/Config").get_value("damage", character_name)

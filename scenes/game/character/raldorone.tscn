@@ -1,0 +1,1074 @@
+[gd_scene load_steps=22 format=3 uid="uid://dngkcnu8o1odh"]
+
+[ext_resource type="Script" path="res://scenes/game/character/raldorone.gd" id="1_08pk0"]
+[ext_resource type="Script" path="res://scenes/game/character/load_skin.gd" id="2_7bf22"]
+[ext_resource type="Script" path="res://scenes/game/character/teleporter.gd" id="3_77556"]
+[ext_resource type="Texture2D" uid="uid://bok5q7sxwnfus" path="res://assets/sprites/character/guidelines/Head.png" id="4_fr322"]
+[ext_resource type="Texture2D" uid="uid://drypq4jdrky7g" path="res://assets/sprites/character/guidelines/3_piece.png" id="5_q0nf3"]
+[ext_resource type="Script" path="res://scenes/game/modules/single_weapon_collision.gd" id="6_x12fh"]
+[ext_resource type="Texture2D" uid="uid://die5me60kg1r5" path="res://assets/sprites/character/guidelines/4_piece.png" id="7_naama"]
+[ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="8_i336b"]
+[ext_resource type="Script" path="res://scenes/game/character/copy_skin.gd" id="9_qo86k"]
+[ext_resource type="Script" path="res://scenes/game/character/positions.gd" id="10_i0hd0"]
+[ext_resource type="PackedScene" uid="uid://dfctusw14gxrg" path="res://scenes/game/modules/character.tscn" id="11_b0mea"]
+[ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="12_nyhqd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ff53i"]
+radius = 165.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kx1kj"]
+radius = 72.0
+height = 434.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xjssl"]
+radius = 72.0
+height = 418.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yyta3"]
+radius = 74.0068
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i1hot"]
+radius = 72.1577
+height = 561.888
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p2q5l"]
+radius = 72.5552
+height = 578.745
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yfcti"]
+radius = 74.0608
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2riof"]
+radius = 72.0
+height = 290.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6lwol"]
+properties/0/path = NodePath(".:head_pos")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath(".:head_rot")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+properties/2/path = NodePath(".:body_pos")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+properties/3/path = NodePath(".:body_rot")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
+properties/4/path = NodePath(".:rua_pos")
+properties/4/spawn = true
+properties/4/sync = true
+properties/4/watch = false
+properties/5/path = NodePath(".:rua_rot")
+properties/5/spawn = true
+properties/5/sync = true
+properties/5/watch = false
+properties/6/path = NodePath(".:rla_pos")
+properties/6/spawn = true
+properties/6/sync = true
+properties/6/watch = false
+properties/7/path = NodePath(".:rla_rot")
+properties/7/spawn = true
+properties/7/sync = true
+properties/7/watch = false
+properties/8/path = NodePath(".:rf_pos")
+properties/8/spawn = true
+properties/8/sync = true
+properties/8/watch = false
+properties/9/path = NodePath(".:rf_rot")
+properties/9/spawn = true
+properties/9/sync = true
+properties/9/watch = false
+properties/10/path = NodePath(".:lua_pos")
+properties/10/spawn = true
+properties/10/sync = true
+properties/10/watch = false
+properties/11/path = NodePath(".:lua_rot")
+properties/11/spawn = true
+properties/11/sync = true
+properties/11/watch = false
+properties/12/path = NodePath(".:lla_pos")
+properties/12/spawn = true
+properties/12/sync = true
+properties/12/watch = false
+properties/13/path = NodePath(".:lla_rot")
+properties/13/spawn = true
+properties/13/sync = true
+properties/13/watch = false
+properties/14/path = NodePath(".:lf_pos")
+properties/14/spawn = true
+properties/14/sync = true
+properties/14/watch = false
+properties/15/path = NodePath(".:lf_rot")
+properties/15/spawn = true
+properties/15/sync = true
+properties/15/watch = false
+properties/16/path = NodePath(".:hip_pos")
+properties/16/spawn = true
+properties/16/sync = true
+properties/16/watch = false
+properties/17/path = NodePath(".:hip_rot")
+properties/17/spawn = true
+properties/17/sync = true
+properties/17/watch = false
+properties/18/path = NodePath(".:rul_pos")
+properties/18/spawn = true
+properties/18/sync = true
+properties/18/watch = false
+properties/19/path = NodePath(".:rul_rot")
+properties/19/spawn = true
+properties/19/sync = true
+properties/19/watch = false
+properties/20/path = NodePath(".:rll_pos")
+properties/20/spawn = true
+properties/20/sync = true
+properties/20/watch = false
+properties/21/path = NodePath(".:rll_rot")
+properties/21/spawn = true
+properties/21/sync = true
+properties/21/watch = false
+properties/22/path = NodePath(".:lul_pos")
+properties/22/spawn = true
+properties/22/sync = true
+properties/22/watch = false
+properties/23/path = NodePath(".:lul_rot")
+properties/23/spawn = true
+properties/23/sync = true
+properties/23/watch = false
+properties/24/path = NodePath(".:lll_pos")
+properties/24/spawn = true
+properties/24/sync = true
+properties/24/watch = false
+properties/25/path = NodePath(".:lll_rot")
+properties/25/spawn = true
+properties/25/sync = true
+properties/25/watch = false
+properties/26/path = NodePath(".:rk_pos")
+properties/26/spawn = true
+properties/26/sync = true
+properties/26/watch = false
+properties/27/path = NodePath(".:rk_rot")
+properties/27/spawn = true
+properties/27/sync = true
+properties/27/watch = false
+properties/28/path = NodePath(".:lk_pos")
+properties/28/spawn = true
+properties/28/sync = true
+properties/28/watch = false
+properties/29/path = NodePath(".:lk_rot")
+properties/29/spawn = true
+properties/29/sync = true
+properties/29/watch = false
+properties/30/path = NodePath(".:health")
+properties/30/spawn = true
+properties/30/sync = true
+properties/30/watch = false
+properties/31/path = NodePath(".:stomach_pos")
+properties/31/spawn = true
+properties/31/sync = true
+properties/31/watch = false
+properties/32/path = NodePath(".:stomach_rot")
+properties/32/spawn = true
+properties/32/sync = true
+properties/32/watch = false
+properties/33/path = NodePath(".:shield_scale")
+properties/33/spawn = true
+properties/33/sync = true
+properties/33/watch = false
+
+[node name="Raldorone" type="Node2D"]
+script = ExtResource("1_08pk0")
+
+[node name="LocalCharacter" type="Node2D" parent="."]
+script = ExtResource("2_7bf22")
+
+[node name="Head" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable", "Damager"]]
+position = Vector2(0, -144)
+mass = 0.1
+gravity_scale = 0.5
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Head"]
+position = Vector2(0, -126)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("4_fr322")
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="LocalCharacter/Head"]
+position = Vector2(0, -162)
+shape = SubResource("CircleShape2D_ff53i")
+
+[node name="HB" type="DampedSpringJoint2D" parent="LocalCharacter/Head"]
+position = Vector2(-65, -1)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="HB2" type="DampedSpringJoint2D" parent="LocalCharacter/Head"]
+position = Vector2(64, -1)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="HB3" type="PinJoint2D" parent="LocalCharacter/Head"]
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+
+[node name="HB4" type="DampedSpringJoint2D" parent="LocalCharacter/Head"]
+position = Vector2(-65, -1)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="HB5" type="DampedSpringJoint2D" parent="LocalCharacter/Head"]
+position = Vector2(64, -1)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="Body" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
+mass = 0.1
+center_of_mass_mode = 1
+center_of_mass = Vector2(0, -107)
+gravity_scale = 0.5
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Body"]
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_q0nf3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/Body"]
+shape = SubResource("CapsuleShape2D_kx1kj")
+
+[node name="RLA" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
+position = Vector2(288, 0)
+rotation = 1.5708
+mass = 0.1
+gravity_scale = 0.5
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/RLA"]
+position = Vector2(-0.000534058, -144)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_q0nf3")
+
+[node name="RRA" type="DampedSpringJoint2D" parent="LocalCharacter/RLA"]
+position = Vector2(64, 1.52588e-05)
+node_a = NodePath("../../RUA")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="RRA2" type="DampedSpringJoint2D" parent="LocalCharacter/RLA"]
+position = Vector2(-64, 1.52588e-05)
+node_a = NodePath("../../RUA")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="RRA3" type="PinJoint2D" parent="LocalCharacter/RLA"]
+position = Vector2(0, 3.05176e-05)
+rotation = -1.5708
+node_a = NodePath("../../RUA")
+node_b = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RLA"]
+position = Vector2(-0.000488281, -136)
+shape = SubResource("CapsuleShape2D_xjssl")
+
+[node name="RRA4" type="DampedSpringJoint2D" parent="LocalCharacter/RLA"]
+position = Vector2(64, 1.52588e-05)
+node_a = NodePath("../../RUA")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="RRA5" type="DampedSpringJoint2D" parent="LocalCharacter/RLA"]
+position = Vector2(-64, 1.52588e-05)
+node_a = NodePath("../../RUA")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="RUA" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
+rotation = 1.5708
+mass = 0.1
+gravity_scale = 0.5
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/RUA"]
+position = Vector2(-0.00050354, -144)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_q0nf3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RUA"]
+position = Vector2(-0.00050354, -144)
+shape = SubResource("CapsuleShape2D_kx1kj")
+
+[node name="BRA" type="DampedSpringJoint2D" parent="LocalCharacter/RUA"]
+position = Vector2(64, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="BRA2" type="DampedSpringJoint2D" parent="LocalCharacter/RUA"]
+position = Vector2(-64, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="BRA3" type="PinJoint2D" parent="LocalCharacter/RUA"]
+position = Vector2(-4.57764e-05, 0)
+rotation = -1.5708
+node_a = NodePath("../../Body")
+node_b = NodePath("..")
+
+[node name="BRA4" type="DampedSpringJoint2D" parent="LocalCharacter/RUA"]
+position = Vector2(64, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="BRA5" type="DampedSpringJoint2D" parent="LocalCharacter/RUA"]
+position = Vector2(-64, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="RF" type="RigidBody2D" parent="LocalCharacter" groups=["Damager"]]
+position = Vector2(576, 0)
+mass = 0.1
+gravity_scale = 0.0
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RF"]
+shape = SubResource("CircleShape2D_yyta3")
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/RF"]
+script = ExtResource("6_x12fh")
+
+[node name="RF" type="DampedSpringJoint2D" parent="LocalCharacter/RF"]
+position = Vector2(0, 64)
+rotation = 1.5708
+node_a = NodePath("..")
+node_b = NodePath("../../RLA")
+length = 1.0
+stiffness = 64.0
+
+[node name="RF2" type="DampedSpringJoint2D" parent="LocalCharacter/RF"]
+position = Vector2(0, -64)
+rotation = 1.5708
+node_a = NodePath("..")
+node_b = NodePath("../../RLA")
+length = 1.0
+stiffness = 64.0
+
+[node name="RF3" type="PinJoint2D" parent="LocalCharacter/RF"]
+node_a = NodePath("../../RLA")
+node_b = NodePath("..")
+
+[node name="RF4" type="DampedSpringJoint2D" parent="LocalCharacter/RF"]
+position = Vector2(0, 64)
+rotation = 1.5708
+node_a = NodePath("..")
+node_b = NodePath("../../RLA")
+length = 1.0
+stiffness = 64.0
+
+[node name="RF5" type="DampedSpringJoint2D" parent="LocalCharacter/RF"]
+position = Vector2(0, -64)
+rotation = 1.5708
+node_a = NodePath("..")
+node_b = NodePath("../../RLA")
+length = 1.0
+stiffness = 64.0
+
+[node name="LLA" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
+position = Vector2(-288, 0)
+rotation = -1.5708
+mass = 0.1
+gravity_scale = 0.5
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/LLA"]
+position = Vector2(0.000534058, -144)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_q0nf3")
+
+[node name="LLA" type="DampedSpringJoint2D" parent="LocalCharacter/LLA"]
+position = Vector2(64, 0)
+node_a = NodePath("../../LUA")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="LLA2" type="DampedSpringJoint2D" parent="LocalCharacter/LLA"]
+position = Vector2(-65, 0)
+node_a = NodePath("../../LUA")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="LLA3" type="PinJoint2D" parent="LocalCharacter/LLA"]
+position = Vector2(6.10352e-05, 0)
+rotation = -1.5708
+node_a = NodePath("../../LUA")
+node_b = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LLA"]
+position = Vector2(0.000549316, -136)
+shape = SubResource("CapsuleShape2D_xjssl")
+
+[node name="LLA4" type="DampedSpringJoint2D" parent="LocalCharacter/LLA"]
+position = Vector2(64, 0)
+node_a = NodePath("../../LUA")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="LLA5" type="DampedSpringJoint2D" parent="LocalCharacter/LLA"]
+position = Vector2(-65, 0)
+node_a = NodePath("../../LUA")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="LUA" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
+rotation = 1.5708
+mass = 0.1
+gravity_scale = 0.5
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/LUA"]
+position = Vector2(0.000518799, 144)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_q0nf3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LUA"]
+position = Vector2(0.000518799, 144)
+shape = SubResource("CapsuleShape2D_kx1kj")
+
+[node name="BLA" type="DampedSpringJoint2D" parent="LocalCharacter/LUA"]
+position = Vector2(63.9998, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="BLA2" type="DampedSpringJoint2D" parent="LocalCharacter/LUA"]
+position = Vector2(-64, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="BLA3" type="PinJoint2D" parent="LocalCharacter/LUA"]
+position = Vector2(-7.62939e-06, 0)
+rotation = -1.5708
+node_a = NodePath("../../Body")
+node_b = NodePath("..")
+
+[node name="BLA4" type="DampedSpringJoint2D" parent="LocalCharacter/LUA"]
+position = Vector2(63.9998, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="BLA5" type="DampedSpringJoint2D" parent="LocalCharacter/LUA"]
+position = Vector2(-64, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="LF" type="RigidBody2D" parent="LocalCharacter" groups=["Damager"]]
+position = Vector2(-576, 0)
+mass = 0.1
+gravity_scale = 0.0
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LF"]
+shape = SubResource("CircleShape2D_yyta3")
+
+[node name="LF" type="PinJoint2D" parent="LocalCharacter/LF"]
+node_a = NodePath("../../LLA")
+node_b = NodePath("..")
+
+[node name="LLL" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
+position = Vector2(-216, 806)
+rotation = 0.523599
+mass = 0.1
+gravity_scale = 0.5
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/LLL"]
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("7_naama")
+
+[node name="LLL" type="DampedSpringJoint2D" parent="LocalCharacter/LLL"]
+position = Vector2(-64.9668, -0.526001)
+node_a = NodePath("..")
+node_b = NodePath("../../LUL")
+length = 1.0
+stiffness = 64.0
+
+[node name="LLL2" type="DampedSpringJoint2D" parent="LocalCharacter/LLL"]
+position = Vector2(63.662, 0.265991)
+node_a = NodePath("..")
+node_b = NodePath("../../LUL")
+length = 1.0
+stiffness = 64.0
+
+[node name="LLL3" type="PinJoint2D" parent="LocalCharacter/LLL"]
+node_a = NodePath("../../LUL")
+node_b = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LLL"]
+position = Vector2(-0.0359192, 207.938)
+shape = SubResource("CapsuleShape2D_i1hot")
+
+[node name="LLL4" type="DampedSpringJoint2D" parent="LocalCharacter/LLL"]
+position = Vector2(-64.9668, -0.526001)
+node_a = NodePath("..")
+node_b = NodePath("../../LUL")
+length = 1.0
+stiffness = 64.0
+
+[node name="LLL5" type="DampedSpringJoint2D" parent="LocalCharacter/LLL"]
+position = Vector2(63.662, 0.265991)
+node_a = NodePath("..")
+node_b = NodePath("../../LUL")
+length = 1.0
+stiffness = 64.0
+
+[node name="LUL" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
+position = Vector2(0, 432)
+rotation = 0.523599
+mass = 0.1
+gravity_scale = 0.5
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/LUL"]
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("7_naama")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LUL"]
+position = Vector2(0, 216)
+shape = SubResource("CapsuleShape2D_p2q5l")
+
+[node name="HLL" type="DampedSpringJoint2D" parent="LocalCharacter/LUL"]
+position = Vector2(-64.4667, 0.339996)
+node_a = NodePath("../../Hip")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="HLL2" type="DampedSpringJoint2D" parent="LocalCharacter/LUL"]
+position = Vector2(63.6621, 0.265991)
+node_a = NodePath("../../Hip")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="HLL3" type="PinJoint2D" parent="LocalCharacter/LUL"]
+node_a = NodePath("../../Hip")
+node_b = NodePath("..")
+
+[node name="HLL4" type="DampedSpringJoint2D" parent="LocalCharacter/LUL"]
+position = Vector2(-64.4667, 0.339996)
+node_a = NodePath("../../Hip")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="HLL5" type="DampedSpringJoint2D" parent="LocalCharacter/LUL"]
+position = Vector2(63.6621, 0.265991)
+node_a = NodePath("../../Hip")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="LK" type="RigidBody2D" parent="LocalCharacter" groups=["Damager"]]
+position = Vector2(-432, 1180)
+mass = 0.1
+gravity_scale = 0.0
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LK"]
+shape = SubResource("CircleShape2D_yfcti")
+
+[node name="LK" type="PinJoint2D" parent="LocalCharacter/LK"]
+node_a = NodePath("../../LLL")
+node_b = NodePath("..")
+
+[node name="RLL" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
+position = Vector2(216, 806)
+rotation = -0.523599
+mass = 0.1
+gravity_scale = 0.5
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/RLL"]
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("7_naama")
+
+[node name="RRL" type="DampedSpringJoint2D" parent="LocalCharacter/RLL"]
+position = Vector2(-65.0281, 0.632019)
+node_a = NodePath("..")
+node_b = NodePath("../../RUL")
+length = 1.0
+stiffness = 64.0
+
+[node name="RRL2" type="DampedSpringJoint2D" parent="LocalCharacter/RLL"]
+position = Vector2(64.4667, 0.339996)
+node_a = NodePath("..")
+node_b = NodePath("../../RUL")
+length = 1.0
+stiffness = 64.0
+
+[node name="RRL3" type="PinJoint2D" parent="LocalCharacter/RLL"]
+node_a = NodePath("../../RUL")
+node_b = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RLL"]
+position = Vector2(-0.0359192, 207.938)
+shape = SubResource("CapsuleShape2D_i1hot")
+
+[node name="RRL4" type="DampedSpringJoint2D" parent="LocalCharacter/RLL"]
+position = Vector2(-65.0281, 0.632019)
+node_a = NodePath("..")
+node_b = NodePath("../../RUL")
+length = 1.0
+stiffness = 64.0
+
+[node name="RRL5" type="DampedSpringJoint2D" parent="LocalCharacter/RLL"]
+position = Vector2(64.4667, 0.339996)
+node_a = NodePath("..")
+node_b = NodePath("../../RUL")
+length = 1.0
+stiffness = 64.0
+
+[node name="RUL" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
+position = Vector2(0, 432)
+rotation = -0.523599
+mass = 0.1
+gravity_scale = 0.5
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/RUL"]
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("7_naama")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RUL"]
+position = Vector2(0, 216)
+shape = SubResource("CapsuleShape2D_p2q5l")
+
+[node name="HRL" type="DampedSpringJoint2D" parent="LocalCharacter/RUL"]
+position = Vector2(-64.5281, -0.234009)
+node_a = NodePath("../../Hip")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="HRL2" type="DampedSpringJoint2D" parent="LocalCharacter/RUL"]
+position = Vector2(63.6007, -0.160004)
+node_a = NodePath("../../Hip")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="HRL3" type="PinJoint2D" parent="LocalCharacter/RUL"]
+node_a = NodePath("../../Hip")
+node_b = NodePath("..")
+
+[node name="HRL4" type="DampedSpringJoint2D" parent="LocalCharacter/RUL"]
+position = Vector2(-64.5281, -0.234009)
+node_a = NodePath("../../Hip")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="HRL5" type="DampedSpringJoint2D" parent="LocalCharacter/RUL"]
+position = Vector2(63.6007, -0.160004)
+node_a = NodePath("../../Hip")
+node_b = NodePath("..")
+length = 1.0
+stiffness = 64.0
+
+[node name="RK" type="RigidBody2D" parent="LocalCharacter" groups=["Damager"]]
+position = Vector2(432, 1180)
+mass = 0.1
+gravity_scale = 0.0
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RK"]
+shape = SubResource("CircleShape2D_yfcti")
+
+[node name="RK" type="PinJoint2D" parent="LocalCharacter/RK"]
+node_a = NodePath("../../RLL")
+node_b = NodePath("..")
+
+[node name="Stomach" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
+position = Vector2(0, 144)
+mass = 0.1
+gravity_scale = 0.5
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Stomach"]
+position = Vector2(0, 72)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("8_i336b")
+
+[node name="BH" type="DampedSpringJoint2D" parent="LocalCharacter/Stomach"]
+position = Vector2(-54, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="BH2" type="DampedSpringJoint2D" parent="LocalCharacter/Stomach"]
+position = Vector2(54, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="BH3" type="PinJoint2D" parent="LocalCharacter/Stomach"]
+node_a = NodePath("../../Body")
+node_b = NodePath("..")
+
+[node name="BH4" type="DampedSpringJoint2D" parent="LocalCharacter/Stomach"]
+position = Vector2(-54, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="BH5" type="DampedSpringJoint2D" parent="LocalCharacter/Stomach"]
+position = Vector2(54, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Body")
+length = 1.0
+stiffness = 64.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/Stomach"]
+position = Vector2(0, 72)
+shape = SubResource("CapsuleShape2D_2riof")
+
+[node name="Hip" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
+position = Vector2(0, 288)
+mass = 0.1
+gravity_scale = 0.5
+continuous_cd = 2
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_77556")
+
+[node name="Sprite" type="Sprite2D" parent="LocalCharacter/Hip"]
+position = Vector2(0, 72)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("8_i336b")
+
+[node name="BH" type="DampedSpringJoint2D" parent="LocalCharacter/Hip"]
+position = Vector2(-54, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Stomach")
+length = 1.0
+stiffness = 64.0
+
+[node name="BH2" type="DampedSpringJoint2D" parent="LocalCharacter/Hip"]
+position = Vector2(54, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Stomach")
+length = 1.0
+stiffness = 64.0
+
+[node name="BH3" type="PinJoint2D" parent="LocalCharacter/Hip"]
+node_a = NodePath("../../Stomach")
+node_b = NodePath("..")
+
+[node name="BH4" type="DampedSpringJoint2D" parent="LocalCharacter/Hip"]
+position = Vector2(-54, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Stomach")
+length = 1.0
+stiffness = 64.0
+
+[node name="BH5" type="DampedSpringJoint2D" parent="LocalCharacter/Hip"]
+position = Vector2(54, 0)
+node_a = NodePath("..")
+node_b = NodePath("../../Stomach")
+length = 1.0
+stiffness = 64.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/Hip"]
+position = Vector2(0, 72)
+shape = SubResource("CapsuleShape2D_2riof")
+
+[node name="RemoteCharacter" type="Node2D" parent="."]
+position = Vector2(1321, -6)
+script = ExtResource("9_qo86k")
+
+[node name="Head" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable", "Damager"]]
+position = Vector2(0, -144)
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Head"]
+position = Vector2(0, -126)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("4_fr322")
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="RemoteCharacter/Head"]
+position = Vector2(0, -162)
+shape = SubResource("CircleShape2D_ff53i")
+
+[node name="Body" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Body"]
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_q0nf3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/Body"]
+shape = SubResource("CapsuleShape2D_kx1kj")
+
+[node name="RLA" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
+position = Vector2(288, 0)
+rotation = 1.5708
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RLA"]
+position = Vector2(-0.000534058, -144)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_q0nf3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/RLA"]
+position = Vector2(-0.000488281, -136)
+shape = SubResource("CapsuleShape2D_xjssl")
+
+[node name="RUA" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
+rotation = 1.5708
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RUA"]
+position = Vector2(-0.00050354, -144)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_q0nf3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/RUA"]
+position = Vector2(-0.00050354, -144)
+shape = SubResource("CapsuleShape2D_kx1kj")
+
+[node name="RF" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damager"]]
+position = Vector2(576, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/RF"]
+shape = SubResource("CircleShape2D_yyta3")
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RF"]
+script = ExtResource("6_x12fh")
+
+[node name="LLA" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
+position = Vector2(-288, 0)
+rotation = -1.5708
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LLA"]
+position = Vector2(0.000534058, -144)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_q0nf3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/LLA"]
+position = Vector2(0.000549316, -136)
+shape = SubResource("CapsuleShape2D_xjssl")
+
+[node name="LUA" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
+rotation = 1.5708
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LUA"]
+position = Vector2(0.000518799, 144)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_q0nf3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/LUA"]
+position = Vector2(0.000518799, 144)
+shape = SubResource("CapsuleShape2D_kx1kj")
+
+[node name="LF" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damager"]]
+position = Vector2(-576, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/LF"]
+shape = SubResource("CircleShape2D_yyta3")
+
+[node name="LLL" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
+position = Vector2(-216, 806)
+rotation = 0.523599
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LLL"]
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("7_naama")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/LLL"]
+position = Vector2(-0.0359192, 207.938)
+shape = SubResource("CapsuleShape2D_i1hot")
+
+[node name="LUL" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
+position = Vector2(0, 432)
+rotation = 0.523599
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LUL"]
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("7_naama")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/LUL"]
+position = Vector2(0, 216)
+shape = SubResource("CapsuleShape2D_p2q5l")
+
+[node name="LK" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damager"]]
+position = Vector2(-432, 1180)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/LK"]
+shape = SubResource("CircleShape2D_yfcti")
+
+[node name="RLL" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
+position = Vector2(216, 806)
+rotation = -0.523599
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RLL"]
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("7_naama")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/RLL"]
+position = Vector2(-0.0359192, 207.938)
+shape = SubResource("CapsuleShape2D_i1hot")
+
+[node name="RUL" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
+position = Vector2(0, 432)
+rotation = -0.523599
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RUL"]
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("7_naama")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/RUL"]
+position = Vector2(0, 216)
+shape = SubResource("CapsuleShape2D_p2q5l")
+
+[node name="RK" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damager"]]
+position = Vector2(432, 1180)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/RK"]
+shape = SubResource("CircleShape2D_yfcti")
+
+[node name="Stomach" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
+position = Vector2(0, 144)
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Stomach"]
+position = Vector2(0, 72)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("8_i336b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/Stomach"]
+position = Vector2(0, 72)
+shape = SubResource("CapsuleShape2D_2riof")
+
+[node name="Hip" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
+position = Vector2(0, 288)
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Hip"]
+position = Vector2(0, 72)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("8_i336b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/Hip"]
+position = Vector2(0, 72)
+shape = SubResource("CapsuleShape2D_2riof")
+
+[node name="Extra" type="Node2D" parent="."]
+script = ExtResource("10_i0hd0")
+
+[node name="Center" type="Marker2D" parent="Extra"]
+position = Vector2(0, 305)
+
+[node name="Reach" type="Marker2D" parent="Extra/Center"]
+position = Vector2(900, 0)
+
+[node name="HitCooldown" type="Timer" parent="Extra"]
+one_shot = true
+
+[node name="SkillCooldown" type="Timer" parent="Extra"]
+one_shot = true
+
+[node name="SkillDuration" type="Timer" parent="Extra"]
+wait_time = 3.0
+one_shot = true
+
+[node name="Character" parent="Extra" instance=ExtResource("11_b0mea")]
+
+[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("12_nyhqd")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Extra"]
+replication_config = SubResource("SceneReplicationConfig_6lwol")
+
+[node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
+one_shot = true

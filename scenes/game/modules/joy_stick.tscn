@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/game/modules/joy_stick.gd" id="1_1fgen"]
 [ext_resource type="Texture2D" uid="uid://dqp2brr12b3wp" path="res://assets/sprites/ui/MovementArea.png" id="2_2pwhi"]
-[ext_resource type="Texture2D" uid="uid://r007avxaks8u" path="res://assets/sprites/ui/Frame 1 (13).png" id="3_wf6lk"]
+[ext_resource type="Texture2D" uid="uid://r007avxaks8u" path="res://assets/sprites/ui/Movement.png" id="3_hr4a6"]
 [ext_resource type="Texture2D" uid="uid://dl216oppgvk0c" path="res://assets/sprites/ui/SkillArea.png" id="4_gs0kl"]
 [ext_resource type="Texture2D" uid="uid://dddhf8qbmwtuf" path="res://assets/sprites/ui/dash.png" id="5_vjnd5"]
 
@@ -16,7 +16,7 @@ texture_normal = ExtResource("2_2pwhi")
 [node name="MovementStick" type="Sprite2D" parent="."]
 position = Vector2(1664, 824)
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_wf6lk")
+texture = ExtResource("3_hr4a6")
 
 [node name="SkillArea" type="TouchScreenButton" parent="."]
 position = Vector2(128, 696)

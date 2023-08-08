@@ -23,12 +23,18 @@ signal move_signal
 signal skill_signal
 
 func _ready() -> void:
+	if not is_multiplayer_authority():
+		visible = false
 	movement_radius = movement_area.texture_normal.get_size().x / 2
 	skill_radius = skill_area.texture_normal.get_size().x / 2
 	movement_area.global_position = movement_area_position
 	movement_stick.global_position = movement_stick_position
 	skill_area.global_position = skill_area_position
 	skill_stick.global_position = skill_stick_position
+	movement_area.modulate.a = 0.2
+	movement_stick.modulate.a = 0.2
+	skill_area.modulate.a = 0.2
+	skill_stick.modulate.a = 0.2
 
 
 func _input(event: InputEvent) -> void:
