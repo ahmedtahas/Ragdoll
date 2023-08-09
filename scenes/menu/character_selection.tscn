@@ -17,6 +17,7 @@ outline_size = 1
 outline_color = Color(0, 0, 0, 1)
 
 [node name="character selection" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_hdp2c")
@@ -216,6 +217,7 @@ label_settings = SubResource("LabelSettings_ls2vu")
 autowrap_mode = 3
 
 [node name="Back" type="Button" parent="."]
+layout_mode = 0
 offset_left = 1408.0
 offset_top = 774.0
 offset_right = 1888.0

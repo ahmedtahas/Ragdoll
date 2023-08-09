@@ -129,10 +129,10 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_3evrp")
 text = "Exıt"
 
 [node name="Back Button" type="Button" parent="Pause"]
-offset_left = 200.0
-offset_top = 75.0
-offset_right = 264.0
-offset_bottom = 139.0
+offset_left = 897.0
+offset_top = 81.0
+offset_right = 1025.0
+offset_bottom = 145.0
 text = "< Back"
 
 [connection signal="button_up" from="Pause/PauseScreen/VBoxContainer/VBoxContainer/MarginContainer/Resume" to="." method="pause"]
