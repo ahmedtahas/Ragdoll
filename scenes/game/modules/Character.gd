@@ -102,7 +102,7 @@ func ignore_remote() -> void:
 
 
 func on_body_entered(body: Node2D, caller: RigidBody2D) -> void:
-	if body is CharacterBody2D and not body.is_in_group("Skill"):
+	if body is CharacterBody2D and not body.is_in_group("Skill") and body.get_node("../..") != get_node("../.."):
 		emit_signal("hit_signal", body, caller)
 		hit_stun()
 		rpc("slow_motion")

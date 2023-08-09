@@ -11,7 +11,8 @@ config_version=5
 [application]
 
 config/name="Ragsters"
-run/main_scene="res://scenes/menu/character_selection.tscn"
+run/main_scene="res://scenes/menu/main_menu.tscn"
+config/quit_on_go_back=false
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.png"
 

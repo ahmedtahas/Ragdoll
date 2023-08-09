@@ -11,37 +11,61 @@
 [ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="9_668i8"]
 [ext_resource type="PackedScene" uid="uid://c2khg3vqn4pur" path="res://scenes/game/modules/single_character.tscn" id="10_kvr6v"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_byein"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_dwfet"]
 radius = 137.015
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4qcmr"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4kjne"]
 radius = 60.0
 height = 362.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1jaaw"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nq777"]
 radius = 60.0
 height = 348.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6eoxm"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_46op0"]
 radius = 62.0322
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_qrfw4"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_nsgf0"]
 radius = 62.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5hbm"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlkvi"]
 radius = 60.0
 height = 242.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rpixa"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ge3a6"]
 radius = 60.0333
 height = 461.142
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1u11r"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xas6k"]
 radius = 60.3683
 height = 481.231
 
 [node name="Kaliber" type="Node2D"]
 script = ExtResource("1_awp2s")
+
+[node name="Extra" type="Node2D" parent="."]
+
+[node name="Center" type="Marker2D" parent="Extra"]
+position = Vector2(0, 305)
+
+[node name="Reach" type="Marker2D" parent="Extra/Center"]
+position = Vector2(750, 0)
+
+[node name="HitCooldown" type="Timer" parent="Extra"]
+one_shot = true
+
+[node name="SkillCooldown" type="Timer" parent="Extra"]
+one_shot = true
+
+[node name="SkillDuration" type="Timer" parent="Extra"]
+one_shot = true
+
+[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("9_668i8")]
+
+[node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
+one_shot = true
+
+[node name="Character" parent="Extra" instance=ExtResource("10_kvr6v")]
 
 [node name="LocalCharacter" type="Node2D" parent="."]
 script = ExtResource("1_4t1br")
@@ -61,7 +85,7 @@ texture = ExtResource("3_vruwn")
 
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="LocalCharacter/Head"]
 position = Vector2(0, -135)
-shape = SubResource("CircleShape2D_byein")
+shape = SubResource("CircleShape2D_dwfet")
 
 [node name="HB" type="DampedSpringJoint2D" parent="LocalCharacter/Head"]
 position = Vector2(-57, 0)
@@ -109,7 +133,7 @@ script = ExtResource("2_x436c")
 texture = ExtResource("4_bfxln")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/Body"]
-shape = SubResource("CapsuleShape2D_4qcmr")
+shape = SubResource("CapsuleShape2D_4kjne")
 
 [node name="RLA" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
 position = Vector2(240, 0)
@@ -160,7 +184,7 @@ stiffness = 64.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RLA"]
 position = Vector2(-0.000396729, -113)
-shape = SubResource("CapsuleShape2D_1jaaw")
+shape = SubResource("CapsuleShape2D_nq777")
 
 [node name="RUA" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
 rotation = 1.5708
@@ -177,7 +201,7 @@ texture = ExtResource("4_bfxln")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RUA"]
 position = Vector2(-0.000442505, -120)
-shape = SubResource("CapsuleShape2D_4qcmr")
+shape = SubResource("CapsuleShape2D_4kjne")
 
 [node name="BRA" type="DampedSpringJoint2D" parent="LocalCharacter/RUA"]
 position = Vector2(57, -1.14441e-05)
@@ -222,7 +246,7 @@ contact_monitor = true
 script = ExtResource("2_x436c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RF"]
-shape = SubResource("CircleShape2D_6eoxm")
+shape = SubResource("CircleShape2D_46op0")
 
 [node name="RF" type="PinJoint2D" parent="LocalCharacter/RF"]
 node_a = NodePath("../../RLA")
@@ -313,7 +337,7 @@ stiffness = 64.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LLA"]
 position = Vector2(0.000473022, -113)
-shape = SubResource("CapsuleShape2D_1jaaw")
+shape = SubResource("CapsuleShape2D_nq777")
 
 [node name="LUA" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
 rotation = 1.5708
@@ -330,7 +354,7 @@ texture = ExtResource("4_bfxln")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LUA"]
 position = Vector2(0.000442505, 120)
-shape = SubResource("CapsuleShape2D_4qcmr")
+shape = SubResource("CapsuleShape2D_4kjne")
 
 [node name="BLA" type="DampedSpringJoint2D" parent="LocalCharacter/LUA"]
 position = Vector2(57.0001, -1.14441e-05)
@@ -375,7 +399,7 @@ contact_monitor = true
 script = ExtResource("2_x436c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LF"]
-shape = SubResource("CircleShape2D_6eoxm")
+shape = SubResource("CircleShape2D_46op0")
 
 [node name="LF" type="PinJoint2D" parent="LocalCharacter/LF"]
 node_a = NodePath("../../LLA")
@@ -426,7 +450,7 @@ contact_monitor = true
 script = ExtResource("2_x436c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LK"]
-shape = SubResource("CircleShape2D_qrfw4")
+shape = SubResource("CircleShape2D_nsgf0")
 
 [node name="LK" type="PinJoint2D" parent="LocalCharacter/LK"]
 node_a = NodePath("../../LLL")
@@ -481,7 +505,7 @@ stiffness = 64.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/Hip"]
 position = Vector2(0, 60)
-shape = SubResource("CapsuleShape2D_b5hbm")
+shape = SubResource("CapsuleShape2D_qlkvi")
 
 [node name="RLL" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
 position = Vector2(180, 672)
@@ -499,7 +523,7 @@ texture = ExtResource("6_ehqs1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RLL"]
 position = Vector2(0, 170)
-shape = SubResource("CapsuleShape2D_rpixa")
+shape = SubResource("CapsuleShape2D_ge3a6")
 
 [node name="RRL" type="DampedSpringJoint2D" parent="LocalCharacter/RLL"]
 position = Vector2(59, 0)
@@ -549,7 +573,7 @@ texture = ExtResource("6_ehqs1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RUL"]
 position = Vector2(0, 180)
-shape = SubResource("CapsuleShape2D_1u11r")
+shape = SubResource("CapsuleShape2D_xas6k")
 
 [node name="HRL" type="DampedSpringJoint2D" parent="LocalCharacter/RUL"]
 position = Vector2(59, 0)
@@ -593,7 +617,7 @@ contact_monitor = true
 script = ExtResource("2_x436c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/RK"]
-shape = SubResource("CircleShape2D_qrfw4")
+shape = SubResource("CircleShape2D_nsgf0")
 
 [node name="RK" type="PinJoint2D" parent="LocalCharacter/RK"]
 node_a = NodePath("../../RLL")
@@ -648,7 +672,7 @@ stiffness = 64.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/Stomach"]
 position = Vector2(0, 60)
-shape = SubResource("CapsuleShape2D_b5hbm")
+shape = SubResource("CapsuleShape2D_qlkvi")
 
 [node name="LLL" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
 position = Vector2(-180, 672)
@@ -666,7 +690,7 @@ texture = ExtResource("6_ehqs1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LLL"]
 position = Vector2(0, 170)
-shape = SubResource("CapsuleShape2D_rpixa")
+shape = SubResource("CapsuleShape2D_ge3a6")
 
 [node name="RRL" type="DampedSpringJoint2D" parent="LocalCharacter/LLL"]
 position = Vector2(59, 0)
@@ -716,7 +740,7 @@ texture = ExtResource("6_ehqs1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/LUL"]
 position = Vector2(0, 180)
-shape = SubResource("CapsuleShape2D_1u11r")
+shape = SubResource("CapsuleShape2D_xas6k")
 
 [node name="HRL" type="DampedSpringJoint2D" parent="LocalCharacter/LUL"]
 position = Vector2(59, 0)
@@ -749,27 +773,3 @@ node_a = NodePath("../../Hip")
 node_b = NodePath("..")
 length = 1.0
 stiffness = 64.0
-
-[node name="Extra" type="Node2D" parent="."]
-
-[node name="Center" type="Marker2D" parent="Extra"]
-position = Vector2(0, 305)
-
-[node name="Reach" type="Marker2D" parent="Extra/Center"]
-position = Vector2(750, 0)
-
-[node name="HitCooldown" type="Timer" parent="Extra"]
-one_shot = true
-
-[node name="SkillCooldown" type="Timer" parent="Extra"]
-one_shot = true
-
-[node name="SkillDuration" type="Timer" parent="Extra"]
-one_shot = true
-
-[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("9_668i8")]
-
-[node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
-one_shot = true
-
-[node name="Character" parent="Extra" instance=ExtResource("10_kvr6v")]

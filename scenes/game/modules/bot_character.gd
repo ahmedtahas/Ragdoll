@@ -28,7 +28,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func on_body_entered(body: Node2D, caller: RigidBody2D) -> void:
-	if body is RigidBody2D:
+	if body is RigidBody2D and body.get_node("../..") != get_node("../.."):
 		hit_stun()
 		Global.world.slow_motion(0.05, 1)
 		if caller.is_in_group("Damager") and body.name == "Head":

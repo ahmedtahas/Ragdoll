@@ -291,7 +291,7 @@ stiffness = 64.0
 
 [node name="Flames" type="GPUParticles2D" parent="LocalCharacter/RF"]
 material = SubResource("CanvasItemMaterial_7j5kh")
-position = Vector2(-56, -87)
+position = Vector2(0, -87)
 scale = Vector2(2.24693, 2.5147)
 emitting = false
 amount = 10

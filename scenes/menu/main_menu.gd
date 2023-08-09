@@ -2,11 +2,13 @@ extends Control
 
 
 func multi_player() -> void:
-	get_tree().change_scene_to_file("res://scenes/menu/world.tscn")
+	CharacterSelection.mode = "world"
+	get_tree().change_scene_to_file("res://scenes/menu/character_selection.tscn")
 
 
 func single_player() -> void:
-	get_tree().change_scene_to_file("res://scenes/menu/singleplayer_world.tscn")
+	CharacterSelection.mode = "singleplayer_world"
+	get_tree().change_scene_to_file("res://scenes/menu/character_selection.tscn")
 
 
 func options() -> void:

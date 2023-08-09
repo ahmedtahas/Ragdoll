@@ -15,4 +15,4 @@ func character_preview(selection: String) -> void:
 
 
 func character_selected() -> void:
-	get_tree().change_scene_to_file("res://scenes/menu/main_menu.tscn")
+	get_tree().change_scene_to_file("res://scenes/menu/" + CharacterSelection.mode +".tscn")

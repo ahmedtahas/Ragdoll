@@ -32,9 +32,31 @@ func _ready() -> void:
 	bot.transform = $Point2.transform
 	Global.camera.add_target(player.get_node("LocalCharacter/Body"))
 	Global.camera.add_target(bot.get_node("LocalCharacter/Body"))
+	$Pause.get_child(0).hide()
 
 
 func slow_motion(time_scale: float, duration: float):
 	Engine.time_scale = time_scale
 	await get_tree().create_timer(time_scale * duration).timeout
 	Engine.time_scale = 1
+
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_WM_GO_BACK_REQUEST:
+			pause()
+
+
+func pause() -> void:
+	if get_tree().paused:
+		get_tree().paused = false
+		$Pause.get_child(0).hide()
+		$Pause.get_child(1).show()
+	else:
+		get_tree().paused = true
+		$Pause.get_child(0).show()
+		$Pause.get_child(1).hide()
+
+
+func change_character() -> void:
+	get_tree().change_scene_to_file("res://scenes/menu/character_selection.tscn")
