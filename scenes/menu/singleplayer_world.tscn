@@ -110,7 +110,23 @@ theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_6my5u")
 theme_override_styles/hover = SubResource("StyleBoxFlat_rd8jp")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3evrp")
-text = "ChangeCharacter"
+text = "Change Character"
+
+[node name="MarginContainer3" type="MarginContainer" parent="Pause/PauseScreen/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Exıt" type="Button" parent="Pause/PauseScreen/VBoxContainer/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("4_fdaja")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_6my5u")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rd8jp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3evrp")
+text = "Exıt"
 
 [node name="Back Button" type="Button" parent="Pause"]
 offset_left = 200.0

@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://dufxxfvtqhfml"]
+[gd_scene load_steps=10 format=3 uid="uid://dufxxfvtqhfml"]
 
 [ext_resource type="Script" path="res://scenes/menu/character_selection_scene.gd" id="1_hdp2c"]
 [ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="2_78u4u"]
 [ext_resource type="Texture2D" uid="uid://b4j6sr1nmlxp7" path="res://assets/sprites/ui/Level.png" id="3_l605i"]
 [ext_resource type="Texture2D" uid="uid://jqfinyb6lktd" path="res://assets/sprites/ui/Speed.png" id="4_0qtc4"]
-[ext_resource type="Texture2D" uid="uid://cy21kskbe4u67" path="res://assets/sprites/ui/Frame 1 (23).png" id="4_f7n6p"]
+[ext_resource type="Texture2D" uid="uid://cu77x8exijha" path="res://assets/sprites/ui/Frame 1 (30).png" id="4_asgil"]
+[ext_resource type="Texture2D" uid="uid://dd7vi4ngs4pa1" path="res://assets/sprites/ui/Frame 6.png" id="5_mud43"]
+[ext_resource type="Texture2D" uid="uid://dl216oppgvk0c" path="res://assets/sprites/ui/SkillArea.png" id="7_vkpix"]
 
 [sub_resource type="Theme" id="Theme_jkbq2"]
 
@@ -22,9 +24,9 @@ script = ExtResource("1_hdp2c")
 [node name="Buttons" type="ScrollContainer" parent="."]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 32.0
+offset_top = 920.0
 offset_right = 1888.0
-offset_bottom = 160.0
+offset_bottom = 1048.0
 
 [node name="ButtonContainer" type="HBoxContainer" parent="Buttons"]
 layout_mode = 2
@@ -122,9 +124,9 @@ text = "Raldorone"
 [node name="Stats" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 32.0
-offset_top = 192.0
+offset_top = 32.0
 offset_right = 1888.0
-offset_bottom = 320.0
+offset_bottom = 160.0
 
 [node name="Level" type="TextureRect" parent="Stats"]
 layout_mode = 2
@@ -135,19 +137,24 @@ expand_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 64
-text = "Level:"
+text = "99"
 horizontal_alignment = 1
+
+[node name="Damage" type="TextureRect" parent="Stats"]
+layout_mode = 2
+texture = ExtResource("4_asgil")
+expand_mode = 2
 
 [node name="damage" type="Label" parent="Stats"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 64
-text = "Damage : "
+text = "999"
 horizontal_alignment = 1
 
 [node name="Health" type="TextureRect" parent="Stats"]
 layout_mode = 2
-texture = ExtResource("4_f7n6p")
+texture = ExtResource("5_mud43")
 expand_mode = 2
 
 [node name="health" type="Label" parent="Stats"]
@@ -166,8 +173,13 @@ expand_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 64
-text = "Speed : "
+text = "60"
 horizontal_alignment = 1
+
+[node name="Skill" type="TextureRect" parent="Stats"]
+layout_mode = 2
+texture = ExtResource("7_vkpix")
+expand_mode = 2
 
 [node name="skill_name" type="Label" parent="Stats"]
 layout_mode = 2
@@ -179,28 +191,38 @@ horizontal_alignment = 1
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_mode = 0
 offset_left = 64.0
-offset_top = 352.0
+offset_top = 192.0
 offset_right = 1344.0
-offset_bottom = 1072.0
+offset_bottom = 912.0
 theme = SubResource("Theme_jkbq2")
 autoplay = true
 
 [node name="Select" type="Button" parent="."]
 layout_mode = 0
 offset_left = 1408.0
-offset_top = 896.0
+offset_top = 656.0
 offset_right = 1888.0
-offset_bottom = 1024.0
+offset_bottom = 770.0
 theme_override_font_sizes/font_size = 75
 text = "Select"
 
 [node name="SkillDescription" type="Label" parent="."]
 layout_mode = 0
 offset_left = 1408.0
-offset_top = 384.0
+offset_top = 176.0
 offset_right = 1888.0
-offset_bottom = 864.0
+offset_bottom = 656.0
 label_settings = SubResource("LabelSettings_ls2vu")
 autowrap_mode = 3
 
+[node name="Back" type="Button" parent="."]
+offset_left = 1408.0
+offset_top = 774.0
+offset_right = 1888.0
+offset_bottom = 888.0
+theme_override_font_sizes/font_size = 75
+text = "Back
+"
+
 [connection signal="pressed" from="Select" to="." method="character_selected"]
+[connection signal="button_up" from="Back" to="." method="back"]
