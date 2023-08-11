@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo5suxwlj5m4p"
-path="res://.godot/imported/SkillStick.png-7986ee4f4f02eeba2e35564c79001985.ctex"
+uid="uid://b7s7mpemc5o88"
+path="res://.godot/imported/SkillIcon.png-2658405b4a6db6b365441b6dbd2e4902.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/character/equipped/holstar/SkillStick.png"
-dest_files=["res://.godot/imported/SkillStick.png-7986ee4f4f02eeba2e35564c79001985.ctex"]
+source_file="res://assets/sprites/character/equipped/meri/SkillIcon.png"
+dest_files=["res://.godot/imported/SkillIcon.png-2658405b4a6db6b365441b6dbd2e4902.ctex"]
 
 [params]
 

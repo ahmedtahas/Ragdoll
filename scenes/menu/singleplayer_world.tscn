@@ -137,4 +137,5 @@ text = "< Back"
 
 [connection signal="button_up" from="Pause/PauseScreen/VBoxContainer/VBoxContainer/MarginContainer/Resume" to="." method="pause"]
 [connection signal="button_up" from="Pause/PauseScreen/VBoxContainer/VBoxContainer/MarginContainer2/ChangeCharacter" to="." method="change_character"]
+[connection signal="button_up" from="Pause/PauseScreen/VBoxContainer/VBoxContainer/MarginContainer3/Exıt" to="." method="main_menu"]
 [connection signal="button_up" from="Pause/Back Button" to="." method="pause"]

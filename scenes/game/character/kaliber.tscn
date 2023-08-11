@@ -515,7 +515,7 @@ script = ExtResource("6_t5cju")
 [node name="RRA" type="DampedSpringJoint2D" parent="LocalCharacter/LF"]
 position = Vector2(0, -59)
 rotation = 1.5708
-node_a = NodePath("../../RLA")
+node_a = NodePath("../../LLA")
 node_b = NodePath("..")
 length = 1.0
 stiffness = 64.0
@@ -523,7 +523,7 @@ stiffness = 64.0
 [node name="RRA2" type="DampedSpringJoint2D" parent="LocalCharacter/LF"]
 position = Vector2(0, 59)
 rotation = 1.5708
-node_a = NodePath("../../RLA")
+node_a = NodePath("../../LLA")
 node_b = NodePath("..")
 length = 1.0
 stiffness = 64.0
@@ -531,7 +531,7 @@ stiffness = 64.0
 [node name="RRA4" type="DampedSpringJoint2D" parent="LocalCharacter/LF"]
 position = Vector2(0, -59)
 rotation = 1.5708
-node_a = NodePath("../../RLA")
+node_a = NodePath("../../LLA")
 node_b = NodePath("..")
 length = 1.0
 stiffness = 64.0
@@ -539,7 +539,7 @@ stiffness = 64.0
 [node name="RRA5" type="DampedSpringJoint2D" parent="LocalCharacter/LF"]
 position = Vector2(0, 59)
 rotation = 1.5708
-node_a = NodePath("../../RLA")
+node_a = NodePath("../../LLA")
 node_b = NodePath("..")
 length = 1.0
 stiffness = 64.0

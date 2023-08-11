@@ -10,6 +10,7 @@ func load_skin(character_name: String) -> void:
 			child.get_node("Sprite").texture = null
 			child.get_node("Sprite").texture = load("res://assets/sprites/character/equipped/" + character_name + "/" + child.name + ".png")
 	if character_name != "bot":
+		get_tree().paused = true
 		if get_node("RF").has_node("Sprite"):
 			get_node("RF/Sprite").weapon_collision(character_name)
 		if get_node("LF").has_node("Sprite"):

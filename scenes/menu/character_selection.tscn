@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://jqfinyb6lktd" path="res://assets/sprites/ui/Speed.png" id="4_0qtc4"]
 [ext_resource type="Texture2D" uid="uid://cu77x8exijha" path="res://assets/sprites/ui/Frame 1 (30).png" id="4_asgil"]
 [ext_resource type="Texture2D" uid="uid://dd7vi4ngs4pa1" path="res://assets/sprites/ui/Frame 6.png" id="5_mud43"]
-[ext_resource type="Texture2D" uid="uid://dl216oppgvk0c" path="res://assets/sprites/ui/SkillArea.png" id="7_vkpix"]
+[ext_resource type="Texture2D" uid="uid://b7s7mpemc5o88" path="res://assets/sprites/character/equipped/meri/SkillIcon.png" id="7_pexx1"]
 
 [sub_resource type="Theme" id="Theme_jkbq2"]
 
@@ -179,7 +179,7 @@ horizontal_alignment = 1
 
 [node name="Skill" type="TextureRect" parent="Stats"]
 layout_mode = 2
-texture = ExtResource("7_vkpix")
+texture = ExtResource("7_pexx1")
 expand_mode = 2
 
 [node name="skill_name" type="Label" parent="Stats"]

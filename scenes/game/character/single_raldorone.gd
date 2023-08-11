@@ -86,8 +86,8 @@ func skill_signal(using: bool) -> void:
 
 	else:
 		duration.start()
-		shield.scale.x = 2
-		shield.scale.y = 2
+		shield.scale.x = 1.5
+		shield.scale.y = 1.5
 		for part in arm.get_children():
 			if part is CollisionPolygon2D:
 				part.queue_free()

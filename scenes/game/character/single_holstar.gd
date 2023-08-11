@@ -41,7 +41,7 @@ func _ready() -> void:
 	name = character_name
 	get_node("LocalCharacter").load_skin(character_name)
 	get_node("Extra/ShootingArm").arm(character_name)
-	skill_joy_stick.get_node("SkillStick").texture = load("res://assets/sprites/character/equipped/" + character_name + "/SkillStick.png")
+	skill_joy_stick.get_node("SkillStick").texture = load("res://assets/sprites/character/equipped/" + character_name + "/SkillIcon.png")
 
 	movement_joy_stick.move_signal.connect(character.move_signal)
 	skill_joy_stick.skill_signal.connect(self.skill_signal)
