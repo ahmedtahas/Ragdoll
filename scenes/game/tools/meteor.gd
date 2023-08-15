@@ -23,15 +23,19 @@ func _physics_process(_delta: float) -> void:
 			scale.x += 0.01
 			scale.y += 0.01
 		if duration:
-			vector = vel.rotated((Global.spawner.get_node(str(Global.world.get_opponent_id())+ "/RemoteCharacter/Body").global_position - global_position).angle())
+			if CharacterSelection.mode == "world":
+				vector = vel.rotated((Global.spawner.get_node(str(Global.world.get_opponent_id())+ "/RemoteCharacter/Body").global_position - global_position).angle())
+			else:
+				vector = vel.rotated((Global.bot.get_node("LocalCharacter/Body").global_position - global_position).angle())
 		velocity = vector * speed
 		collision = move_and_slide()
 		if collision:
 			emit_signal("hit_signal", get_last_slide_collision().get_collider())
-		sync.pos = global_position
-		sync.rot = global_rotation
-		sync.particle_scale = fire.process_material.scale_min
-		sync.meteor_scale = scale.x
+		if CharacterSelection.mode == "world":
+			sync.pos = global_position
+			sync.rot = global_rotation
+			sync.particle_scale = fire.process_material.scale_min
+			sync.meteor_scale = scale.x
 	else:
 		global_position = sync.pos
 		global_rotation = sync.rot

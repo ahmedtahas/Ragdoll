@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var character_name = "moot"
 
-@onready var meteor_instance = preload("res://scenes/game/tools/single_meteor.tscn")
+@onready var meteor_instance = preload("res://scenes/game/tools/meteor.tscn")
 
 @onready var duration_time: float
 @onready var cooldown_time: float
