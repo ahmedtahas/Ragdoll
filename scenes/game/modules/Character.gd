@@ -202,7 +202,11 @@ func _invul() -> void:
 func _blackout(duration: float) -> void:
 	var opponent = get_node("/root/Main/Spawner/" + str(main_scene.get_opponent_id()) + "/RemoteCharacter/Body")
 	Global.camera.remove_target(opponent)
+	Global.camera.get_node("BlackScreen").visible = true
+	Global.camera.get_node("Fog").emitting = true
 	await get_tree().create_timer(duration).timeout
+	Global.camera.get_node("BlackScreen").visible = false
+	Global.camera.get_node("Fog").emitting = false
 	Global.camera.add_target(opponent)
 
 

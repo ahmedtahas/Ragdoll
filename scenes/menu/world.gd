@@ -39,19 +39,19 @@ func _ready() -> void:
 	Global.camera = $MTC
 	Global.server_skill = $ServerSkill
 	Global.client_skill = $ClientSkill
-	upnp = UPNP.new()
-	discover_result = upnp.discover()
-	if discover_result == UPNP.UPNP_RESULT_SUCCESS:
-		if upnp.get_gateway() and upnp.get_gateway().is_valid_gateway():
-			var mapresudp = upnp.add_port_mapping(9999, 9999, "godot_udp", "UDP", 0)
-			var maprestcp = upnp.add_port_mapping(9999, 9999, "godot_tcp", "TCP", 0)
-
-			if not mapresudp == UPNP.UPNP_RESULT_SUCCESS:
-				upnp.add_port_mapping(9999, 9999, "", "UDP")
-			if not maprestcp == UPNP.UPNP_RESULT_SUCCESS:
-				upnp.add_port_mapping(9999, 9999, "", "TCP")
-	if multiplayer.is_server():
-		external_ip = upnp.query_external_address()
+#	upnp = UPNP.new()
+#	discover_result = upnp.discover()
+#	if discover_result == UPNP.UPNP_RESULT_SUCCESS:
+#		if upnp.get_gateway() and upnp.get_gateway().is_valid_gateway():
+#			var mapresudp = upnp.add_port_mapping(9999, 9999, "godot_udp", "UDP", 0)
+#			var maprestcp = upnp.add_port_mapping(9999, 9999, "godot_tcp", "TCP", 0)
+#
+#			if not mapresudp == UPNP.UPNP_RESULT_SUCCESS:
+#				upnp.add_port_mapping(9999, 9999, "", "UDP")
+#			if not maprestcp == UPNP.UPNP_RESULT_SUCCESS:
+#				upnp.add_port_mapping(9999, 9999, "", "TCP")
+#	if multiplayer.is_server():
+#		external_ip = upnp.query_external_address()
 
 
 

@@ -138,6 +138,14 @@ properties/30/path = NodePath(".:health")
 properties/30/spawn = true
 properties/30/sync = true
 properties/30/watch = false
+properties/31/path = NodePath(".:stomach_pos")
+properties/31/spawn = true
+properties/31/sync = true
+properties/31/watch = false
+properties/32/path = NodePath(".:stomach_rot")
+properties/32/spawn = true
+properties/32/sync = true
+properties/32/watch = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2m0r4"]
 radius = 110.003
@@ -604,7 +612,7 @@ length = 1.0
 stiffness = 64.0
 
 [node name="BH3" type="PinJoint2D" parent="LocalCharacter/Hip"]
-node_a = NodePath("../../Body")
+node_a = NodePath("../../Stomach")
 node_b = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/Hip"]
@@ -655,7 +663,6 @@ length = 1.0
 stiffness = 64.0
 
 [node name="LLL3" type="PinJoint2D" parent="LocalCharacter/LLL"]
-position = Vector2(3.05176e-05, 144)
 node_a = NodePath("../../LUL")
 node_b = NodePath("..")
 
