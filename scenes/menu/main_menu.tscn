@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxuo5p3a2yde3"]
+[gd_scene load_steps=8 format=3 uid="uid://dxuo5p3a2yde3"]
 
 [ext_resource type="Script" path="res://scenes/menu/main_menu.gd" id="1_l8f8e"]
+[ext_resource type="Script" path="res://scenes/menu/Swiper.gd" id="2_lcs8g"]
 [ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="3_svfnv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rrtya"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0a230"]
 bg_color = Color(0, 0, 0, 0.392157)
@@ -34,7 +37,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l8f8e")
 
+[node name="Swiper" type="TouchScreenButton" parent="."]
+position = Vector2(960, 540)
+scale = Vector2(96, 54)
+shape = SubResource("RectangleShape2D_rrtya")
+shape_centered = false
+script = ExtResource("2_lcs8g")
+
 [node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0.00784314, 0.180392, 0.223529, 1)
@@ -53,31 +64,27 @@ theme_override_constants/margin_bottom = 100
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_svfnv")
+theme_override_font_sizes/font_size = 80
+text = "Player Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("3_svfnv")
 theme_override_font_sizes/font_size = 120
 text = "Ragdoll Legends"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("3_svfnv")
-theme_override_font_sizes/font_size = 80
-text = "Player Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -149,4 +156,6 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_7fssr")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_fkkdk")
 text = "Options"
 
+[connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/Button" to="." method="store"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/Button" to="." method="play"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3/Button" to="." method="options"]

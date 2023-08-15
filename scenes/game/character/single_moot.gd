@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var character_name = "moot"
 
-@onready var fire_ball_instance = preload("res://scenes/game/tools/single_fire_ball.tscn")
+@onready var meteor_instance = preload("res://scenes/game/tools/single_meteor.tscn")
 
 @onready var duration_time: float
 @onready var cooldown_time: float
@@ -11,7 +11,7 @@ extends Node2D
 
 @onready var character: Node2D = $Extra/Character
 @onready var joy_stick: CanvasLayer = $Extra/DoubleJoyStick
-@onready var fire_ball: CharacterBody2D
+@onready var meteor: CharacterBody2D
 
 @onready var radius: Vector2 = $Extra/Center/Reach.position
 @onready var center: Vector2 = $Extra/Center.position
@@ -22,6 +22,7 @@ extends Node2D
 @onready var body: RigidBody2D = $LocalCharacter/Body
 @onready var local_character: Node2D = $LocalCharacter
 @onready var duration: Timer = $Extra/SkillDuration
+@onready var fire_ring: GPUParticles2D = $LocalCharacter/Body/FireRing
 
 @onready var cooldown_bar: TextureProgressBar
 @onready var cooldown_text: RichTextLabel
@@ -84,18 +85,19 @@ func skill_signal(using: bool) -> void:
 		pass
 
 	else:
+		fire_ring.emitting = true
 		duration.start()
+		await get_tree().create_timer(1).timeout
 		magic.global_position = body.global_position + center.rotated(body.global_rotation)
-		Global.world.slow_motion(0.05, 1)
-		await get_tree().create_timer(0.05).timeout
-		fire_ball = fire_ball_instance.instantiate()
-		add_sibling(fire_ball)
+		fire_ring.emitting = false
+		meteor = meteor_instance.instantiate()
+		add_sibling(meteor)
 		magic.look_at(Global.bot.get_node("LocalCharacter/Body").global_position)
-		fire_ball.global_position = fire_place.global_position
-		fire_ball.hit_signal.connect(self.hit_signal)
+		meteor.global_position = fire_place.global_position
+		meteor.hit_signal.connect(self.hit_signal)
 		await duration.timeout
 		if not is_hit:
-			fire_ball.queue_free()
+			meteor.duration = false
 			cooldown.start()
 		else:
 			is_hit = false
@@ -106,13 +108,13 @@ func hit_signal(hit: Node2D) -> void:
 	if hit is RigidBody2D:
 		if hit.get_node("../..") != self:
 			Global.bot.character.hit_stun()
-			character.push_all((Global.bot.get_node("LocalCharacter/Body").global_position - fire_ball.global_position).normalized(), power)
+			character.push_all((Global.bot.get_node("LocalCharacter/Body").global_position - meteor.global_position).normalized(), power)
 			if hit.name == "Head":
 				character.damage_bot(damage * 3)
 			else:
 				character.damage_bot(damage * 1.5)
 		else:
 			character.take_damage(damage)
-	fire_ball.queue_free()
+	meteor.queue_free()
 	duration.stop()
 	cooldown.start()

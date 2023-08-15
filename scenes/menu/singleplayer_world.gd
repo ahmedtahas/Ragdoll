@@ -50,9 +50,11 @@ func _notification(what: int) -> void:
 
 func pause() -> void:
 	if get_tree().paused:
+		player.joy_stick.disconnect("skill_signal", player.skill_signal)
 		get_tree().paused = false
 		$Pause.get_child(0).hide()
 		$Pause.get_child(1).show()
+		player.joy_stick.skill_signal.connect(player.skill_signal)
 	else:
 		get_tree().paused = true
 		$Pause.get_child(0).show()

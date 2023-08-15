@@ -29,11 +29,11 @@ radius = 62.0322
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7j5kh"]
 blend_mode = 1
 
-[sub_resource type="Gradient" id="Gradient_o4thv"]
+[sub_resource type="Gradient" id="Gradient_wo1n6"]
 colors = PackedColorArray(0.88174, 0.613124, 0, 1, 0.766509, 0.0819623, 0.0767846, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_rasmm"]
-gradient = SubResource("Gradient_o4thv")
+gradient = SubResource("Gradient_wo1n6")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ukld1"]
 particle_flag_disable_z = true

@@ -4,8 +4,8 @@
 [ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="2_78u4u"]
 [ext_resource type="Texture2D" uid="uid://b4j6sr1nmlxp7" path="res://assets/sprites/ui/Level.png" id="3_l605i"]
 [ext_resource type="Texture2D" uid="uid://jqfinyb6lktd" path="res://assets/sprites/ui/Speed.png" id="4_0qtc4"]
-[ext_resource type="Texture2D" uid="uid://cu77x8exijha" path="res://assets/sprites/ui/Frame 1 (30).png" id="4_asgil"]
-[ext_resource type="Texture2D" uid="uid://dd7vi4ngs4pa1" path="res://assets/sprites/ui/Frame 6.png" id="5_mud43"]
+[ext_resource type="Texture2D" uid="uid://cu77x8exijha" path="res://assets/sprites/ui/Damage.png" id="4_ojy41"]
+[ext_resource type="Texture2D" uid="uid://dd7vi4ngs4pa1" path="res://assets/sprites/ui/HP.png" id="5_eymu3"]
 [ext_resource type="Texture2D" uid="uid://b7s7mpemc5o88" path="res://assets/sprites/character/equipped/meri/SkillIcon.png" id="7_pexx1"]
 
 [sub_resource type="Theme" id="Theme_jkbq2"]
@@ -143,7 +143,7 @@ horizontal_alignment = 1
 
 [node name="Damage" type="TextureRect" parent="Stats"]
 layout_mode = 2
-texture = ExtResource("4_asgil")
+texture = ExtResource("4_ojy41")
 expand_mode = 2
 
 [node name="damage" type="Label" parent="Stats"]
@@ -155,7 +155,7 @@ horizontal_alignment = 1
 
 [node name="Health" type="TextureRect" parent="Stats"]
 layout_mode = 2
-texture = ExtResource("5_mud43")
+texture = ExtResource("5_eymu3")
 expand_mode = 2
 
 [node name="health" type="Label" parent="Stats"]
@@ -201,9 +201,9 @@ autoplay = true
 [node name="Select" type="Button" parent="."]
 layout_mode = 0
 offset_left = 1408.0
-offset_top = 656.0
+offset_top = 670.0
 offset_right = 1888.0
-offset_bottom = 770.0
+offset_bottom = 784.0
 theme_override_font_sizes/font_size = 75
 text = "Select"
 
@@ -219,9 +219,9 @@ autowrap_mode = 3
 [node name="Back" type="Button" parent="."]
 layout_mode = 0
 offset_left = 1408.0
-offset_top = 774.0
+offset_top = 788.0
 offset_right = 1888.0
-offset_bottom = 888.0
+offset_bottom = 902.0
 theme_override_font_sizes/font_size = 75
 text = "Back
 "

@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0gtvbmidh5pw"]
+
+[ext_resource type="Script" path="res://scenes/menu/store.gd" id="1_neg87"]
+[ext_resource type="Script" path="res://scenes/menu/Swiper.gd" id="2_0y0uj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cew8f"]
+
+[node name="Store" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_neg87")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+layout_mode = 0
+offset_left = 628.0
+offset_top = 327.0
+offset_right = 869.0
+offset_bottom = 375.0
+text = "STORE"
+
+[node name="Swiper" type="TouchScreenButton" parent="."]
+position = Vector2(960, 540)
+scale = Vector2(96, 54)
+shape = SubResource("RectangleShape2D_cew8f")
+shape_centered = false
+script = ExtResource("2_0y0uj")

@@ -26,10 +26,12 @@ extends Node2D
 
 @onready var multiplayer_peer = ENetMultiplayerPeer.new()
 
-const PORT = 7777
+const PORT = 9999
 const ADDRESS = "127.0.0.1"
 const clientaddr = "192.168.0.21"
-
+var upnp
+var discover_result
+var external_ip
 
 func _ready() -> void:
 	Global.world = self
@@ -37,6 +39,20 @@ func _ready() -> void:
 	Global.camera = $MTC
 	Global.server_skill = $ServerSkill
 	Global.client_skill = $ClientSkill
+	upnp = UPNP.new()
+	discover_result = upnp.discover()
+	if discover_result == UPNP.UPNP_RESULT_SUCCESS:
+		if upnp.get_gateway() and upnp.get_gateway().is_valid_gateway():
+			var mapresudp = upnp.add_port_mapping(9999, 9999, "godot_udp", "UDP", 0)
+			var maprestcp = upnp.add_port_mapping(9999, 9999, "godot_tcp", "TCP", 0)
+
+			if not mapresudp == UPNP.UPNP_RESULT_SUCCESS:
+				upnp.add_port_mapping(9999, 9999, "", "UDP")
+			if not maprestcp == UPNP.UPNP_RESULT_SUCCESS:
+				upnp.add_port_mapping(9999, 9999, "", "TCP")
+	if multiplayer.is_server():
+		external_ip = upnp.query_external_address()
+
 
 
 @rpc("any_peer", "reliable", "call_local")
@@ -86,7 +102,7 @@ func _on_host_pressed() -> void:
 func _on_join_pressed() -> void:
 	$NetworkInfo/NetworkSideDisplay.text = "Client"
 	$Menu.visible = false
-	multiplayer_peer.create_client(ADDRESS, PORT)
+	multiplayer_peer.create_client(clientaddr, PORT)
 	multiplayer.multiplayer_peer = multiplayer_peer
 	multiplayer_peer.peer_connected.connect(
 		func(_peer_):

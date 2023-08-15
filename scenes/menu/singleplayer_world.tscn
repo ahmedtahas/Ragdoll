@@ -55,13 +55,19 @@ polygon = PackedVector2Array(1536, 1024, -1536, 1024, -1536, -1024, 88.9999, -10
 process_mode = 3
 
 [node name="PauseScreen" type="MarginContainer" parent="Pause"]
-offset_right = 1920.0
-offset_bottom = 1072.0
+offset_left = 235.0
+offset_top = 108.0
+offset_right = 1684.0
+offset_bottom = 972.0
 theme_override_constants/margin_left = 200
 theme_override_constants/margin_top = 75
 theme_override_constants/margin_right = 200
 theme_override_constants/margin_bottom = 100
 script = ExtResource("4_lnlo2")
+
+[node name="ColorRect" type="ColorRect" parent="Pause/PauseScreen"]
+layout_mode = 2
+color = Color(0, 0.576471, 0.784314, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Pause/PauseScreen"]
 layout_mode = 2
@@ -71,7 +77,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("4_fdaja")
 theme_override_font_sizes/font_size = 120
-text = "Ragdoll Legends"
+text = "Single Player"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -126,14 +132,14 @@ theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_6my5u")
 theme_override_styles/hover = SubResource("StyleBoxFlat_rd8jp")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3evrp")
-text = "Exıt"
+text = "Exit"
 
 [node name="Back Button" type="Button" parent="Pause"]
-offset_left = 897.0
-offset_top = 81.0
-offset_right = 1025.0
-offset_bottom = 145.0
-text = "< Back"
+offset_left = 896.0
+offset_top = 82.0
+offset_right = 1024.0
+offset_bottom = 146.0
+text = "Pause"
 
 [connection signal="button_up" from="Pause/PauseScreen/VBoxContainer/VBoxContainer/MarginContainer/Resume" to="." method="pause"]
 [connection signal="button_up" from="Pause/PauseScreen/VBoxContainer/VBoxContainer/MarginContainer2/ChangeCharacter" to="." method="change_character"]
