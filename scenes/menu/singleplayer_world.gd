@@ -31,7 +31,7 @@ func _ready() -> void:
 	Global.spawner.add_child(bot)
 	bot.transform = $Point2.transform
 	Global.camera.add_target(player.get_node("LocalCharacter/Body"))
-#	Global.camera.add_target(bot.get_node("LocalCharacter/Body"))
+	Global.camera.add_target(bot.get_node("LocalCharacter/Body"))
 	$Pause.get_child(0).hide()
 	get_tree().paused = false
 

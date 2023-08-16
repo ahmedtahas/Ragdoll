@@ -10,6 +10,8 @@ const room: Vector2 = Vector2(20420, -10180)
 @onready var player: Node2D
 @onready var bot: Node2D
 
+signal black_out
+
 
 func get_inside_position(pos: Vector2, player_id: String) -> Vector2:
 	var _player = spawner.get_node(player_id)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://clldoe6ogwf02"]
+[gd_scene load_steps=25 format=3 uid="uid://clldoe6ogwf02"]
 
 [ext_resource type="Script" path="res://scenes/game/character/single_tin.gd" id="1_ymtsx"]
 [ext_resource type="Script" path="res://scenes/game/character/single_load_skin.gd" id="2_xkg28"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bwyvpwv74252p" path="res://assets/sprites/character/equipped/tin/Shockwave.png" id="9_nul6u"]
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="9_ywmd3"]
 [ext_resource type="Script" path="res://scenes/game/character/shockwave.gd" id="10_4qxqn"]
+[ext_resource type="Texture2D" uid="uid://dngvv20yikci7" path="res://assets/sprites/character/equipped/tin/Particle.png" id="10_os383"]
 [ext_resource type="PackedScene" uid="uid://c2khg3vqn4pur" path="res://scenes/game/modules/single_character.tscn" id="12_cbjje"]
 [ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="12_k8u3m"]
 
@@ -19,6 +20,32 @@ radius = 165.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bm0c8"]
 radius = 72.0
 height = 434.0
+
+[sub_resource type="Gradient" id="Gradient_di8fq"]
+offsets = PackedFloat32Array(0, 0.185185, 0.995833, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 0.205117, 0.205117, 0.205117, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yxrts"]
+gradient = SubResource("Gradient_di8fq")
+width = 100
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vmp5v"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 7500.0
+emission_ring_inner_radius = 5500.0
+particle_flag_align_y = true
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = -10000.0
+radial_accel_max = -10000.0
+scale_min = 10.0
+scale_max = 10.0
+color_ramp = SubResource("GradientTexture1D_yxrts")
+hue_variation_max = 1.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xg6it"]
 radius = 72.0
@@ -143,6 +170,12 @@ texture = ExtResource("5_ilrtb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LocalCharacter/Body"]
 shape = SubResource("CapsuleShape2D_bm0c8")
+
+[node name="Gravity" type="GPUParticles2D" parent="LocalCharacter/Body"]
+emitting = false
+amount = 1000
+process_material = SubResource("ParticleProcessMaterial_vmp5v")
+texture = ExtResource("10_os383")
 
 [node name="RLA" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
 position = Vector2(288, 0)

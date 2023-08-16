@@ -138,15 +138,6 @@ func stun_opponent(wait_time: float = 0.5) -> void:
 	rpc_id(main_scene.get_opponent_id(), "stun", wait_time)
 
 
-func blackout_opponent(duration: float) -> void:
-	rpc_id(main_scene.get_opponent_id(), "blackout", duration)
-
-
-@rpc("call_remote", "any_peer", "reliable", 1)
-func blackout(duration: float) -> void:
-	get_node("/root/Main/Spawner/" + str(multiplayer.get_unique_id())).character._blackout(duration)
-
-
 @rpc("call_remote", "any_peer", "reliable", 1)
 func push_part(direction: Vector2, strength: float, part: String) -> void:
 	get_node("/root/Main/Spawner/" + str(multiplayer.get_unique_id())).character._push_part(direction, strength, part)
@@ -158,8 +149,8 @@ func push_all(direction: Vector2, strength: float) -> void:
 
 
 @rpc("any_peer", "call_local", "reliable")
-func slow_motion():
-	main_scene.rpc("slowdown", 0.05, 1)
+func slow_motion(time_scale: float = 0.05, duration: float = 0.75):
+	main_scene.rpc("slowdown", time_scale, duration)
 
 
 @rpc("call_remote", "any_peer", "reliable", 1)
@@ -197,17 +188,6 @@ func _push_all(direction: Vector2, strength: float) -> void:
 
 func _invul() -> void:
 	invul_cooldown.start()
-
-
-func _blackout(duration: float) -> void:
-	var opponent = get_node("/root/Main/Spawner/" + str(main_scene.get_opponent_id()) + "/RemoteCharacter/Body")
-	Global.camera.remove_target(opponent)
-	Global.camera.get_node("BlackScreen").visible = true
-	Global.camera.get_node("Fog").emitting = true
-	await get_tree().create_timer(duration).timeout
-	Global.camera.get_node("BlackScreen").visible = false
-	Global.camera.get_node("Fog").emitting = false
-	Global.camera.add_target(opponent)
 
 
 func _freeze_local(duration: float) -> void:

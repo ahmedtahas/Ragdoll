@@ -85,6 +85,12 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 
 
+@rpc("call_remote", "reliable", "any_peer", 1)
+func black_out(dur: float) -> void:
+	print("called   ::  ", multiplayer.get_unique_id())
+	Global.emit_signal("black_out", dur)
+
+
 func skill_signal(using: bool) -> void:
 	if not is_multiplayer_authority() or not cooldown.is_stopped() or not duration.is_stopped():
 		return
@@ -94,6 +100,6 @@ func skill_signal(using: bool) -> void:
 
 	else:
 		duration.start()
-		character.blackout_opponent(duration_time)
+		rpc("black_out", duration_time)
 		await duration.timeout
 		cooldown.start()

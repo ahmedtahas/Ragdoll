@@ -10,9 +10,14 @@ extends Camera2D
 @onready var position_vectors: Vector2
 @onready var rect: Rect2
 @onready var zoom_amount: float
+@onready var smoke: GPUParticles2D = $Smoke
+@onready var black_screen: ColorRect = $BlackScreen
 
 @onready var screen_size = get_viewport_rect().size
 
+
+func _ready() -> void:
+	Global.black_out.connect(self.black_out)
 
 func _physics_process(_delta: float) -> void:
 	if targets.size() < 1:
@@ -41,9 +46,24 @@ func _physics_process(_delta: float) -> void:
 	zoom = lerp(zoom, Vector2.ONE * (1 / zoom_amount), zoom_speed)
 
 
+func black_out(duration: float):
+	for target in targets:
+		if target is CharacterBody2D:
+			remove_target(target)
+			smoke.emitting = true
+			black_screen.visible = true
+			await get_tree().create_timer(duration).timeout
+			add_target(target)
+			smoke.emitting = false
+			black_screen.visible = false
+
+
+
+
 func add_target(target) -> void:
 	if not target in targets:
 		targets.append(target)
+
 
 func remove_target(target) -> void:
 	if target in targets:

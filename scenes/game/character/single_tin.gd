@@ -23,6 +23,7 @@ extends Node2D
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var duration: Timer = $Extra/ChargeUp
 @onready var shockwave: Sprite2D = $Extra/Shockwave
+@onready var gravity: GPUParticles2D = $LocalCharacter/Body/Gravity
 
 
 func _ready() -> void:
@@ -79,6 +80,9 @@ func _physics_process(_delta: float) -> void:
 		shockwave.scale.y = 0.1
 
 	if charging:
+		if shockwave.scale.x <= 30.2  and shockwave.scale.x >= 29.8:
+			gravity.emitting = true
+
 		if not duration.is_stopped():
 			cooldown_bar.set_value((100 * duration.time_left) / duration_time)
 			cooldown_text.set_text("[center]charge[/center]")
@@ -120,6 +124,7 @@ func skill_signal(is_charging: bool) -> void:
 		duration.start()
 
 	else:
+		gravity.emitting = false
 		body.freeze = false
 		shocking = false
 		charging = false
