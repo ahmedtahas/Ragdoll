@@ -10,7 +10,6 @@ extends Camera2D
 @onready var position_vectors: Vector2
 @onready var rect: Rect2
 @onready var zoom_amount: float
-@onready var smoke: GPUParticles2D = $Smoke
 @onready var black_screen: ColorRect = $BlackScreen
 
 @onready var screen_size = get_viewport_rect().size
@@ -50,11 +49,9 @@ func black_out(duration: float):
 	for target in targets:
 		if target is CharacterBody2D:
 			remove_target(target)
-			smoke.emitting = true
 			black_screen.visible = true
 			await get_tree().create_timer(duration).timeout
 			add_target(target)
-			smoke.emitting = false
 			black_screen.visible = false
 
 

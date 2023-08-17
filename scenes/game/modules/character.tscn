@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfctusw14gxrg"]
+[gd_scene load_steps=8 format=3 uid="uid://dfctusw14gxrg"]
 
 [ext_resource type="Script" path="res://scenes/game/modules/character.gd" id="1_cv1eo"]
-[ext_resource type="AudioStream" uid="uid://b0vtmq7c5xl46" path="res://assets/sound_effects/slowdown-92003.mp3" id="2_f1ees"]
 [ext_resource type="Texture2D" uid="uid://jltqbope05cf" path="res://assets/sprites/ui/Cooldown BG.png" id="3_caryo"]
 [ext_resource type="Texture2D" uid="uid://bumpc88wfjml2" path="res://assets/sprites/ui/Cooldown.png" id="4_2gtml"]
 [ext_resource type="Texture2D" uid="uid://dyju5egibkyf7" path="res://assets/sprites/ui/Health BG.png" id="5_hbrie"]
@@ -11,9 +10,6 @@
 
 [node name="Character" type="Node2D"]
 script = ExtResource("1_cv1eo")
-
-[node name="hit" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_f1ees")
 
 [node name="LocalUI" type="CanvasLayer" parent="."]
 scale = Vector2(0.25, 0.25)

@@ -332,10 +332,6 @@ func hit_stun(wait_time: float = 0.5) -> void:
 	hit_cooldown.start()
 
 
-func play_audio() -> void:
-	$hit.play()
-
-
 func _exit_tree() -> void:
 	if is_multiplayer_authority():
 		Global.camera.remove_target(local_body)

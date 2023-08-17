@@ -358,7 +358,7 @@ node_b = NodePath("../../Body")
 length = 1.0
 stiffness = 64.0
 
-[node name="RF" type="RigidBody2D" parent="LocalCharacter" groups=["Damager"]]
+[node name="RF" type="RigidBody2D" parent="LocalCharacter" groups=["Damager", "Undamagable"]]
 position = Vector2(576, 0)
 mass = 0.1
 gravity_scale = 0.0
@@ -916,7 +916,7 @@ texture = ExtResource("5_q0nf3")
 position = Vector2(-0.00050354, -144)
 shape = SubResource("CapsuleShape2D_kx1kj")
 
-[node name="RF" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damager"]]
+[node name="RF" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damager", "Undamagable"]]
 position = Vector2(576, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/RF"]

@@ -133,10 +133,14 @@ properties/29/path = NodePath(".:lk_rot")
 properties/29/spawn = true
 properties/29/sync = true
 properties/29/watch = false
-properties/30/path = NodePath(".:health")
+properties/30/path = NodePath(".:stomach_pos")
 properties/30/spawn = true
 properties/30/sync = true
 properties/30/watch = false
+properties/31/path = NodePath(".:stomach_rot")
+properties/31/spawn = true
+properties/31/sync = true
+properties/31/watch = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_55l7n"]
 radius = 137.015

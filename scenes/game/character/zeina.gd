@@ -169,7 +169,7 @@ func teleport() -> void:
 func hit_signal(hit: Node2D) -> void:
 	_hit = true
 	if hit is RigidBody2D or hit is CharacterBody2D:
-		if hit.get_node("../..") != self and not hit.is_in_group("Skill"):
+		if not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
 			end_point = Global.avoid_enemies(end_point - body.global_position)
 			character.stun_opponent()
 			character._invul()

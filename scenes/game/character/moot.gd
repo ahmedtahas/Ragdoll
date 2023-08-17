@@ -138,7 +138,7 @@ func skill_signal(using: bool) -> void:
 
 func hit_signal(hit: Node2D) -> void:
 	is_hit = true
-	if (hit is RigidBody2D or hit is CharacterBody2D) and not hit.is_in_group("Skill"):
+	if (hit is RigidBody2D or hit is CharacterBody2D) and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
 		if hit.get_node("../..") != self:
 			character.push_opponent_part((hit.global_position - meteor.global_position).normalized(), power, hit.name)
 			character.push_opponent((hit.global_position - meteor.global_position).normalized(), power / 2)
