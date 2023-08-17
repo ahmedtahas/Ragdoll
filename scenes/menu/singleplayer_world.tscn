@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://do6hn0yeh44qc"]
+[gd_scene load_steps=17 format=3 uid="uid://do6hn0yeh44qc"]
 
 [ext_resource type="Script" path="res://scenes/menu/singleplayer_world.gd" id="1_qwkbm"]
 [ext_resource type="Texture2D" uid="uid://byhujj4da0tn2" path="res://assets/sprites/environment/StarsSpriteSheet.png" id="2_mdw7t"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cx3kn7dvehly2" path="res://assets/sprites/environment/BASE.png" id="4_2dqwk"]
 [ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="4_fdaja"]
 [ext_resource type="Script" path="res://scenes/menu/PauseScreen.gd" id="4_lnlo2"]
+[ext_resource type="Texture2D" uid="uid://dkihg8h8axe0i" path="res://assets/sprites/environment/TOP.png" id="4_xls6t"]
 [ext_resource type="Texture2D" uid="uid://bqeoluim7n6os" path="res://assets/sprites/environment/RIGHT.png" id="5_ewpb1"]
 [ext_resource type="Texture2D" uid="uid://bui0xqp6eodm2" path="res://assets/sprites/environment/LEFT.png" id="6_ihvfp"]
 
@@ -98,10 +99,10 @@ position = Vector2(15315, -5105)
 [node name="Wall" type="StaticBody2D" parent="."]
 position = Vector2(10210, -5090)
 
-[node name="Base2" type="Sprite2D" parent="Wall"]
+[node name="Top" type="Sprite2D" parent="Wall"]
 position = Vector2(13.4998, -7665)
 scale = Vector2(2.33337, 1.98077)
-texture = ExtResource("4_2dqwk")
+texture = ExtResource("4_xls6t")
 
 [node name="Right" type="Sprite2D" parent="Wall"]
 position = Vector2(12784, -2573)
