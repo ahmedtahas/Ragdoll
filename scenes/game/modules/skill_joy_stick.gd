@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 @onready var half_screen: float = get_viewport().size.x / 2
 @onready var skill_area: TouchScreenButton = $SkillArea
@@ -13,7 +13,6 @@ extends CanvasLayer
 @onready var moving: bool = false
 @onready var using: bool = false
 
-signal move_signal
 signal skill_signal
 
 func _ready() -> void:
@@ -26,7 +25,7 @@ func _ready() -> void:
 	skill_stick.modulate.a = 0.2
 
 
-func _input(event: InputEvent) -> void:
+func _gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.is_pressed():
 		if event.position.x < half_screen:
 			using = true

@@ -4,7 +4,12 @@
 [ext_resource type="Script" path="res://scenes/game/modules/movement_joy_stick.gd" id="1_t30lp"]
 [ext_resource type="Texture2D" uid="uid://r007avxaks8u" path="res://assets/sprites/ui/Movement.png" id="2_66vp5"]
 
-[node name="MovementJoyStick" type="CanvasLayer"]
+[node name="MovementJoyStick" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 960.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 script = ExtResource("1_t30lp")
 
 [node name="MovementArea" type="TouchScreenButton" parent="."]

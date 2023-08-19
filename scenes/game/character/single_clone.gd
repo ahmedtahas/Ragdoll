@@ -24,7 +24,11 @@ func _ready() -> void:
 		part.locate(meri.get_node("LocalCharacter/" + part.name).global_position)
 		part.rotate(meri.get_node("LocalCharacter/" + part.name).global_rotation)
 		part.teleport()
+		part.freeze = true
+		part.freeze = false
+
 	meri.move_signal.connect(character.move_signal)
+	print("-------------------------")
 
 
 func ignore_local_meri() -> void:

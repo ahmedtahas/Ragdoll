@@ -15,7 +15,8 @@ extends Node2D
 @onready var center: Vector2 = $Extra/Center.position
 
 @onready var character: Node2D = $Extra/Character
-@onready var joy_stick: CanvasLayer = $Extra/DoubleJoyStick
+@onready var skill_joy_stick: Control = $Extra/JoyStick/SkillJoyStick
+@onready var movement_stick: Control = $Extra/JoyStick/MovementJoyStick
 @onready var body: RigidBody2D = $LocalCharacter/Body
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var duration: Timer = $Extra/SkillDuration
@@ -33,9 +34,9 @@ func _ready() -> void:
 
 	character.ignore_self()
 
-	joy_stick.move_signal.connect(character.move_signal)
-	joy_stick.skill_signal.connect(self.skill_signal)
-	joy_stick.button = false
+	movement_stick.move_signal.connect(character.move_signal)
+	skill_joy_stick.skill_signal.connect(self.skill_signal)
+	skill_joy_stick.button = false
 
 	cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
 	duration_time = get_node("/root/Config").get_value("duration", character_name)
@@ -73,6 +74,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func skill_signal(vector: Vector2, using: bool) -> void:
+	print("AAAAA")
 	if not cooldown.is_stopped():
 		return
 
@@ -83,7 +85,6 @@ func skill_signal(vector: Vector2, using: bool) -> void:
 			duration.start()
 			cloned = true
 			clone = clone_instance.instantiate()
-			print(cloned, "AAAAAAAAA")
 			add_sibling(clone)
 		else:
 			await duration.timeout

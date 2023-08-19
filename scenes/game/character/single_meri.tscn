@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dq38cdwsf8r1q"]
+[gd_scene load_steps=19 format=3 uid="uid://dq38cdwsf8r1q"]
 
 [ext_resource type="Script" path="res://scenes/game/character/single_load_skin.gd" id="1_cv33l"]
 [ext_resource type="Script" path="res://scenes/game/character/single_meri.gd" id="1_edba5"]
@@ -7,8 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://drypq4jdrky7g" path="res://assets/sprites/character/guidelines/3_piece.png" id="4_d7wck"]
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="6_1co3t"]
 [ext_resource type="Texture2D" uid="uid://die5me60kg1r5" path="res://assets/sprites/character/guidelines/4_piece.png" id="6_qwc4p"]
-[ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="8_lf0pk"]
 [ext_resource type="PackedScene" uid="uid://c2khg3vqn4pur" path="res://scenes/game/modules/single_character.tscn" id="9_8ystm"]
+[ext_resource type="PackedScene" uid="uid://b5s5nff032il4" path="res://scenes/game/modules/skill_joy_stick.tscn" id="9_gi4oj"]
+[ext_resource type="PackedScene" uid="uid://xv24ne73swcs" path="res://scenes/game/modules/movement_joy_stick.tscn" id="10_wox06"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f2hee"]
 radius = 137.015
@@ -696,9 +697,13 @@ one_shot = true
 [node name="SkillDuration" type="Timer" parent="Extra"]
 one_shot = true
 
-[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("8_lf0pk")]
-
 [node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
 one_shot = true
 
 [node name="Character" parent="Extra" instance=ExtResource("9_8ystm")]
+
+[node name="JoyStick" type="CanvasLayer" parent="Extra"]
+
+[node name="SkillJoyStick" parent="Extra/JoyStick" instance=ExtResource("9_gi4oj")]
+
+[node name="MovementJoyStick" parent="Extra/JoyStick" instance=ExtResource("10_wox06")]

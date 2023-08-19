@@ -4,7 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://dl216oppgvk0c" path="res://assets/sprites/ui/SkillArea.png" id="1_gwaua"]
 [ext_resource type="Texture2D" uid="uid://dddhf8qbmwtuf" path="res://assets/sprites/ui/dash.png" id="2_2o3et"]
 
-[node name="SkillJoyStick" type="CanvasLayer"]
+[node name="SkillJoyStick" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 960.0
+offset_bottom = 1080.0
 script = ExtResource("1_8xw7p")
 
 [node name="SkillArea" type="TouchScreenButton" parent="."]

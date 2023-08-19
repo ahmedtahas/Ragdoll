@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 @onready var half_screen: float = get_viewport().size.x / 2
 @onready var movement_area: TouchScreenButton = $MovementArea
@@ -24,9 +24,9 @@ func _ready() -> void:
 	movement_stick.modulate.a = 0.2
 
 
-func _input(event: InputEvent) -> void:
+func _gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.is_pressed():
-		if event.position.x > half_screen:
+		if event.position.x < half_screen:
 			moving = true
 			movement_area.modulate.a = 1
 			movement_stick.modulate.a = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c7lb72dgv6tmn"]
+[gd_scene load_steps=25 format=3 uid="uid://c7lb72dgv6tmn"]
 
 [ext_resource type="Script" path="res://scenes/game/character/single_load_skin.gd" id="1_55dyd"]
 [ext_resource type="Script" path="res://scenes/game/character/single_holstar.gd" id="1_422q7"]
@@ -13,7 +13,8 @@
 [ext_resource type="Script" path="res://scenes/game/character/gun.gd" id="10_sbbac"]
 [ext_resource type="Texture2D" uid="uid://cl632h1uij8mx" path="res://assets/sprites/character/equipped/holstar/RF.png" id="12_jew7f"]
 [ext_resource type="Texture2D" uid="uid://b5ctcu202xbwj" path="res://assets/sprites/character/equipped/holstar/Crosshair.png" id="13_582o4"]
-[ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="14_b87jy"]
+[ext_resource type="PackedScene" uid="uid://b5s5nff032il4" path="res://scenes/game/modules/skill_joy_stick.tscn" id="14_0tams"]
+[ext_resource type="PackedScene" uid="uid://xv24ne73swcs" path="res://scenes/game/modules/movement_joy_stick.tscn" id="15_l1hdy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7b0io"]
 radius = 137.015
@@ -773,4 +774,8 @@ position = Vector2(696, -80)
 position = Vector2(607, -74)
 texture = ExtResource("13_582o4")
 
-[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("14_b87jy")]
+[node name="JoyStick" type="CanvasLayer" parent="Extra"]
+
+[node name="SkillJoyStick" parent="Extra/JoyStick" instance=ExtResource("14_0tams")]
+
+[node name="MovementJoyStick" parent="Extra/JoyStick" instance=ExtResource("15_l1hdy")]

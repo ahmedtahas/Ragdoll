@@ -33,6 +33,7 @@ func _ready() -> void:
 	Global.camera.add_target(player.get_node("LocalCharacter/Body"))
 	Global.camera.add_target(bot.get_node("LocalCharacter/Body"))
 	$Pause.get_child(0).hide()
+	$Pause.get_child(1).hide()
 	get_tree().paused = false
 
 
@@ -49,16 +50,19 @@ func _notification(what: int) -> void:
 
 
 func pause() -> void:
+	print("PAAAASSS")
 	if get_tree().paused:
-		player.joy_stick.disconnect("skill_signal", player.skill_signal)
+		player.skill_joy_stick.disconnect("skill_signal", player.skill_signal)
 		get_tree().paused = false
 		$Pause.get_child(0).hide()
-		$Pause.get_child(1).show()
-		player.joy_stick.skill_signal.connect(player.skill_signal)
+		$Pause.get_child(1).hide()
+		$Pause.get_child(2).show()
+		player.skill_joy_stick.skill_signal.connect(player.skill_signal)
 	else:
 		get_tree().paused = true
 		$Pause.get_child(0).show()
-		$Pause.get_child(1).hide()
+		$Pause.get_child(1).show()
+		$Pause.get_child(2).hide()
 
 
 func change_character() -> void:
