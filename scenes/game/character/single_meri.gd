@@ -74,7 +74,6 @@ func _physics_process(_delta: float) -> void:
 
 
 func skill_signal(vector: Vector2, using: bool) -> void:
-	print("AAAAA")
 	if not cooldown.is_stopped():
 		return
 
@@ -86,6 +85,7 @@ func skill_signal(vector: Vector2, using: bool) -> void:
 			cloned = true
 			clone = clone_instance.instantiate()
 			add_sibling(clone)
+			get_tree().paused = false
 		else:
 			await duration.timeout
 			clone.queue_free()
