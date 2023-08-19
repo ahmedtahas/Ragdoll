@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @onready var vel: Vector2 = Vector2.RIGHT
-@onready var speed: float = 2500
+@onready var speed: float = 1500
 @onready var collision: bool
 @onready var duration: bool = true
 @onready var vector: Vector2
@@ -11,17 +11,18 @@ extends CharacterBody2D
 signal hit_signal
 
 func _ready() -> void:
-	fire.process_material.scale_max = 0.1
+	fire.process_material.scale_max = 4
 	scale.x = 0.1
 	scale.y = 0.1
 
 
 func _physics_process(_delta: float) -> void:
 	if is_multiplayer_authority():
-		if fire.process_material.scale_min < 1:
-			fire.process_material.scale_min += 0.01
+		if fire.process_material.scale_min < 8:
+			fire.process_material.scale_min += 0.04
 			scale.x += 0.01
 			scale.y += 0.01
+			speed += 7
 		if duration:
 			if CharacterSelection.mode == "world":
 				vector = vel.rotated((Global.spawner.get_node(str(Global.world.get_opponent_id())+ "/RemoteCharacter/Body").global_position - global_position).angle())

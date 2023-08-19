@@ -18,7 +18,8 @@ extends Node2D
 @onready var center: Vector2 = $Extra/Center.position
 
 @onready var character: Node2D = $Extra/Character
-@onready var joy_stick: CanvasLayer = $Extra/DoubleJoyStick
+@onready var skill_joy_stick: Control = $Extra/JoyStick/SkillJoyStick
+@onready var movement_joy_stick: Control = $Extra/JoyStick/MovementJoyStick
 @onready var body: RigidBody2D = $LocalCharacter/Body
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var duration: Timer = $Extra/ChargeUp
@@ -33,9 +34,9 @@ func _ready() -> void:
 
 	shockwave.visible = false
 
-	joy_stick.move_signal.connect(character.move_signal)
-	joy_stick.skill_signal.connect(self.skill_signal)
-	joy_stick.button = true
+	movement_joy_stick.move_signal.connect(character.move_signal)
+	skill_joy_stick.skill_signal.connect(self.skill_signal)
+	skill_joy_stick.button = true
 
 	cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
 	duration_time = get_node("/root/Config").get_value("duration", character_name)
@@ -125,9 +126,9 @@ func skill_signal(is_charging: bool) -> void:
 
 	else:
 		gravity.emitting = false
-		body.freeze = false
 		shocking = false
 		charging = false
+		body.freeze = false
 		var multiplier = duration_time - duration.time_left
 		var skill_range = shockwave.scale.x * 250
 		duration.stop()
@@ -136,5 +137,6 @@ func skill_signal(is_charging: bool) -> void:
 		var opponent_pos = Global.bot.get_node("LocalCharacter/Body").global_position
 
 		if (opponent_pos - body.global_position).length() < skill_range:
+			Global.bot.character.hit_stun()
 			character.push_all((body.global_position - opponent_pos).normalized(), power)
 			character.damage_bot(multiplier * character.damage)

@@ -130,8 +130,6 @@ func skill_signal(using: bool) -> void:
 		await duration.timeout
 		if not is_hit:
 			meteor.duration = false
-			if not multiplayer.is_server():
-				rpc_id(Global.world.get_opponent_id(), "remove_skill")
 			cooldown.start()
 		else:
 			is_hit = false

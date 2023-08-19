@@ -1,9 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://clldoe6ogwf02"]
+[gd_scene load_steps=26 format=3 uid="uid://clldoe6ogwf02"]
 
 [ext_resource type="Script" path="res://scenes/game/character/single_tin.gd" id="1_ymtsx"]
 [ext_resource type="Script" path="res://scenes/game/character/single_load_skin.gd" id="2_xkg28"]
 [ext_resource type="Texture2D" uid="uid://bok5q7sxwnfus" path="res://assets/sprites/character/guidelines/Head.png" id="4_vb56w"]
+[ext_resource type="PackedScene" uid="uid://b5s5nff032il4" path="res://scenes/game/modules/skill_joy_stick.tscn" id="5_5vk3t"]
 [ext_resource type="Texture2D" uid="uid://drypq4jdrky7g" path="res://assets/sprites/character/guidelines/3_piece.png" id="5_ilrtb"]
+[ext_resource type="PackedScene" uid="uid://xv24ne73swcs" path="res://scenes/game/modules/movement_joy_stick.tscn" id="6_0wh5c"]
 [ext_resource type="Script" path="res://scenes/game/modules/single_weapon_collision.gd" id="7_2lcsk"]
 [ext_resource type="Texture2D" uid="uid://die5me60kg1r5" path="res://assets/sprites/character/guidelines/4_piece.png" id="7_xe7hg"]
 [ext_resource type="Script" path="res://scenes/game/character/teleporter.gd" id="9_8ngrk"]
@@ -12,7 +14,6 @@
 [ext_resource type="Script" path="res://scenes/game/character/shockwave.gd" id="10_4qxqn"]
 [ext_resource type="Texture2D" uid="uid://dngvv20yikci7" path="res://assets/sprites/character/equipped/tin/Particle.png" id="10_os383"]
 [ext_resource type="PackedScene" uid="uid://c2khg3vqn4pur" path="res://scenes/game/modules/single_character.tscn" id="12_cbjje"]
-[ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="12_k8u3m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5w08s"]
 radius = 165.0
@@ -94,12 +95,16 @@ one_shot = true
 texture = ExtResource("9_nul6u")
 script = ExtResource("10_4qxqn")
 
-[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("12_k8u3m")]
-
 [node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
 one_shot = true
 
 [node name="Character" parent="Extra" instance=ExtResource("12_cbjje")]
+
+[node name="JoyStick" type="CanvasLayer" parent="Extra"]
+
+[node name="SkillJoyStick" parent="Extra/JoyStick" instance=ExtResource("5_5vk3t")]
+
+[node name="MovementJoyStick" parent="Extra/JoyStick" instance=ExtResource("6_0wh5c")]
 
 [node name="LocalCharacter" type="Node2D" parent="."]
 script = ExtResource("2_xkg28")

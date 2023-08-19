@@ -102,7 +102,7 @@ func _on_host_pressed() -> void:
 func _on_join_pressed() -> void:
 	$NetworkInfo/NetworkSideDisplay.text = "Client"
 	$Menu.visible = false
-	multiplayer_peer.create_client(clientaddr, PORT)
+	multiplayer_peer.create_client(ADDRESS, PORT)
 	multiplayer.multiplayer_peer = multiplayer_peer
 	multiplayer_peer.peer_connected.connect(
 		func(_peer_):

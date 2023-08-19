@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/game/tools/meteor.gd" id="1_r45te"]
 [ext_resource type="Texture2D" uid="uid://blqjaqno01nan" path="res://assets/sprites/character/equipped/moot/fireball.png" id="2_3p4r0"]
 [ext_resource type="Script" path="res://scenes/game/tools/bullet_sync.gd" id="2_cjq44"]
-[ext_resource type="Texture2D" uid="uid://b124gl6iw7slw" path="res://assets/sprites/character/smoke-particle-texture-115493860252h6z44fmaz-removebg-preview.png" id="4_8n54d"]
+[ext_resource type="Texture2D" uid="uid://bxptvxqf04n31" path="res://assets/sprites/ui/images-removebg-preview (1).png" id="4_hcck1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7gtdm"]
 radius = 80.025
@@ -28,17 +28,21 @@ properties/3/watch = false
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1twgw"]
 blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 3
+particles_anim_loop = false
 
 [sub_resource type="Gradient" id="Gradient_m0rmb"]
 offsets = PackedFloat32Array(0, 0.431907, 0.929961)
-colors = PackedColorArray(0.262745, 0, 0.054902, 0.196078, 0.635294, 0.427451, 0.196078, 0.196078, 0.654902, 0.560784, 0.419608, 0.196078)
+colors = PackedColorArray(0.938389, 0.501086, 0.290442, 0.392157, 0.756863, 0, 0.231373, 0.392157, 0.545098, 0.176471, 0.192157, 0.392157)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_loi6k"]
 gradient = SubResource("Gradient_m0rmb")
 
 [sub_resource type="Curve" id="Curve_63f8f"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 1), 0.0, -1.26699, 0, 0, Vector2(0.483384, 0.431579), -5.22632, -5.22632, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_6rlls"]
 curve = SubResource("Curve_63f8f")
@@ -58,8 +62,11 @@ linear_accel_max = 100.0
 radial_accel_max = 100.0
 tangential_accel_max = 97.44
 angle_max = 90.0
+scale_min = 4.0
+scale_max = 4.0
 scale_curve = SubResource("CurveTexture_6rlls")
 color_ramp = SubResource("GradientTexture1D_loi6k")
+anim_offset_max = 1.0
 
 [node name="Meteor" type="CharacterBody2D"]
 script = ExtResource("1_r45te")
@@ -84,4 +91,4 @@ replication_config = SubResource("SceneReplicationConfig_irmbn")
 material = SubResource("CanvasItemMaterial_1twgw")
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_ff4jp")
-texture = ExtResource("4_8n54d")
+texture = ExtResource("4_hcck1")

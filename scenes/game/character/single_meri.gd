@@ -16,7 +16,7 @@ extends Node2D
 
 @onready var character: Node2D = $Extra/Character
 @onready var skill_joy_stick: Control = $Extra/JoyStick/SkillJoyStick
-@onready var movement_stick: Control = $Extra/JoyStick/MovementJoyStick
+@onready var movement_joy_stick: Control = $Extra/JoyStick/MovementJoyStick
 @onready var body: RigidBody2D = $LocalCharacter/Body
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var duration: Timer = $Extra/SkillDuration
@@ -34,7 +34,7 @@ func _ready() -> void:
 
 	character.ignore_self()
 
-	movement_stick.move_signal.connect(character.move_signal)
+	movement_joy_stick.move_signal.connect(character.move_signal)
 	skill_joy_stick.skill_signal.connect(self.skill_signal)
 	skill_joy_stick.button = false
 

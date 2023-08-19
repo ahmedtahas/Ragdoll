@@ -10,7 +10,7 @@ extends Node2D
 
 @onready var character: Node2D = $Extra/Character
 @onready var skill_joy_stick: Control = $Extra/JoyStick/SkillJoyStick
-@onready var movement_stick: Control = $Extra/JoyStick/MovementJoyStick
+@onready var movement_joy_stick: Control = $Extra/JoyStick/MovementJoyStick
 @onready var bullet: CharacterBody2D
 
 @onready var radius: Vector2 = $Extra/Center/Reach.position
@@ -43,7 +43,7 @@ func _ready() -> void:
 	get_node("Extra/ShootingArm").arm(character_name)
 	skill_joy_stick.get_node("SkillStick").texture = load("res://assets/sprites/character/equipped/" + character_name + "/SkillIcon.png")
 
-	movement_stick.move_signal.connect(character.move_signal)
+	movement_joy_stick.move_signal.connect(character.move_signal)
 	skill_joy_stick.skill_signal.connect(self.skill_signal)
 
 	skill_joy_stick.button = false

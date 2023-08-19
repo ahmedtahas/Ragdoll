@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bn0rlapy8ytg5"]
+[gd_scene load_steps=26 format=3 uid="uid://bn0rlapy8ytg5"]
 
 [ext_resource type="Script" path="res://scenes/game/character/single_moot.gd" id="1_xa180"]
 [ext_resource type="Script" path="res://scenes/game/character/single_load_skin.gd" id="2_s1tag"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bok5q7sxwnfus" path="res://assets/sprites/character/guidelines/Head.png" id="4_cpee1"]
 [ext_resource type="Texture2D" uid="uid://drypq4jdrky7g" path="res://assets/sprites/character/guidelines/3_piece.png" id="5_dljt4"]
 [ext_resource type="Texture2D" uid="uid://die5me60kg1r5" path="res://assets/sprites/character/guidelines/4_piece.png" id="6_20m7o"]
-[ext_resource type="Texture2D" uid="uid://ii2517k08sno" path="res://assets/sprites/character/equipped/buccarold/Flame.png" id="8_4is4g"]
+[ext_resource type="Texture2D" uid="uid://bxptvxqf04n31" path="res://assets/sprites/ui/images-removebg-preview (1).png" id="8_difoc"]
 [ext_resource type="Script" path="res://scenes/game/modules/single_weapon_collision.gd" id="9_067pa"]
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="9_luf3u"]
 [ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="10_26g1d"]
@@ -19,9 +19,16 @@ radius = 137.015
 radius = 60.0
 height = 362.0
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_u5tso"]
+blend_mode = 1
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 3
+particles_anim_loop = false
+
 [sub_resource type="Gradient" id="Gradient_wo1n6"]
 offsets = PackedFloat32Array(0, 0.734266, 1)
-colors = PackedColorArray(0.88174, 0.613124, 0, 1, 0.776179, 0.126535, 0.0703411, 1, 0.764706, 0.0823529, 0.0784314, 0)
+colors = PackedColorArray(0.88174, 0.613124, 0, 1, 0.612305, 0.351739, 0, 1, 0.764706, 0.0823529, 0.0784314, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_glu58"]
 gradient = SubResource("Gradient_wo1n6")
@@ -51,10 +58,11 @@ linear_accel_max = 100.0
 radial_accel_max = 100.0
 tangential_accel_max = 100.0
 angle_max = 720.0
-scale_min = 0.1
-scale_max = 0.2
+scale_min = 0.5
+scale_max = 0.7
 scale_curve = SubResource("CurveTexture_b8bp6")
 color_ramp = SubResource("GradientTexture1D_glu58")
+anim_offset_max = 1.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s5orv"]
 radius = 60.0
@@ -87,7 +95,7 @@ script = ExtResource("1_xa180")
 position = Vector2(0, 400)
 
 [node name="Reach" type="Marker2D" parent="Extra/Center"]
-position = Vector2(750, 0)
+position = Vector2(850, 0)
 
 [node name="HitCooldown" type="Timer" parent="Extra"]
 one_shot = true
@@ -174,13 +182,14 @@ texture = ExtResource("5_dljt4")
 shape = SubResource("CapsuleShape2D_43pqx")
 
 [node name="FireRing" type="GPUParticles2D" parent="LocalCharacter/Body"]
-position = Vector2(7.10543e-15, 305)
+material = SubResource("CanvasItemMaterial_u5tso")
+position = Vector2(0, 400)
 scale = Vector2(3.5, 3.5)
 emitting = false
 amount = 1000
 sub_emitter = NodePath(".")
 process_material = SubResource("ParticleProcessMaterial_m6gxl")
-texture = ExtResource("8_4is4g")
+texture = ExtResource("8_difoc")
 local_coords = true
 
 [node name="RLA" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]

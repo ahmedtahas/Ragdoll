@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dv1yrxdqw4npe"]
+[gd_scene load_steps=30 format=3 uid="uid://dv1yrxdqw4npe"]
 
 [ext_resource type="Script" path="res://scenes/game/character/load_skin.gd" id="1_c78uy"]
 [ext_resource type="Script" path="res://scenes/game/character/moot.gd" id="1_lm47w"]
@@ -10,7 +10,6 @@
 [ext_resource type="Script" path="res://scenes/game/modules/single_weapon_collision.gd" id="10_psoc7"]
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="11_4kw3o"]
 [ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="12_gqbxp"]
-[ext_resource type="Texture2D" uid="uid://bkq6lgd0407mk" path="res://assets/sprites/character/equipped/moot/FireRing.png" id="12_pssqn"]
 [ext_resource type="PackedScene" uid="uid://dfctusw14gxrg" path="res://scenes/game/modules/character.tscn" id="13_3oyqw"]
 [ext_resource type="Script" path="res://scenes/game/character/copy_skin.gd" id="14_03fom"]
 
@@ -218,7 +217,7 @@ one_shot = true
 position = Vector2(0, 305)
 
 [node name="Reach" type="Marker2D" parent="Extra/Center"]
-position = Vector2(750, 0)
+position = Vector2(850, 0)
 
 [node name="DoubleJoyStick" parent="Extra" instance=ExtResource("12_gqbxp")]
 
@@ -232,20 +231,6 @@ one_shot = true
 
 [node name="SkillDuration" type="Timer" parent="Extra"]
 one_shot = true
-
-[node name="FireRing1" type="Sprite2D" parent="Extra"]
-visible = false
-modulate = Color(1, 1, 1, 0.0392157)
-position = Vector2(-2, 305)
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("12_pssqn")
-
-[node name="FireRing2" type="Sprite2D" parent="Extra"]
-visible = false
-modulate = Color(1, 1, 1, 0.0392157)
-position = Vector2(-2, 305)
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("12_pssqn")
 
 [node name="LocalCharacter" type="Node2D" parent="."]
 script = ExtResource("1_c78uy")
