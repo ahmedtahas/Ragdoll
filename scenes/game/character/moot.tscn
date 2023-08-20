@@ -1,15 +1,16 @@
-[gd_scene load_steps=30 format=3 uid="uid://dv1yrxdqw4npe"]
+[gd_scene load_steps=31 format=3 uid="uid://dv1yrxdqw4npe"]
 
 [ext_resource type="Script" path="res://scenes/game/character/load_skin.gd" id="1_c78uy"]
 [ext_resource type="Script" path="res://scenes/game/character/moot.gd" id="1_lm47w"]
 [ext_resource type="Script" path="res://scenes/game/character/teleporter.gd" id="2_06svr"]
 [ext_resource type="Texture2D" uid="uid://bok5q7sxwnfus" path="res://assets/sprites/character/guidelines/Head.png" id="3_xy65x"]
 [ext_resource type="Texture2D" uid="uid://drypq4jdrky7g" path="res://assets/sprites/character/guidelines/3_piece.png" id="4_dfwr6"]
+[ext_resource type="PackedScene" uid="uid://b5s5nff032il4" path="res://scenes/game/modules/skill_joy_stick.tscn" id="4_gltfl"]
+[ext_resource type="PackedScene" uid="uid://xv24ne73swcs" path="res://scenes/game/modules/movement_joy_stick.tscn" id="5_2303m"]
 [ext_resource type="Texture2D" uid="uid://die5me60kg1r5" path="res://assets/sprites/character/guidelines/4_piece.png" id="7_xkjw4"]
 [ext_resource type="Script" path="res://scenes/game/character/positions.gd" id="8_umevw"]
 [ext_resource type="Script" path="res://scenes/game/modules/single_weapon_collision.gd" id="10_psoc7"]
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="11_4kw3o"]
-[ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="12_gqbxp"]
 [ext_resource type="PackedScene" uid="uid://dfctusw14gxrg" path="res://scenes/game/modules/character.tscn" id="13_3oyqw"]
 [ext_resource type="Script" path="res://scenes/game/character/copy_skin.gd" id="14_03fom"]
 
@@ -219,8 +220,6 @@ position = Vector2(0, 305)
 [node name="Reach" type="Marker2D" parent="Extra/Center"]
 position = Vector2(850, 0)
 
-[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("12_gqbxp")]
-
 [node name="Character" parent="Extra" instance=ExtResource("13_3oyqw")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Extra"]
@@ -231,6 +230,12 @@ one_shot = true
 
 [node name="SkillDuration" type="Timer" parent="Extra"]
 one_shot = true
+
+[node name="JoyStick" type="CanvasLayer" parent="Extra"]
+
+[node name="SkillJoyStick" parent="Extra/JoyStick" instance=ExtResource("4_gltfl")]
+
+[node name="MovementJoyStick" parent="Extra/JoyStick" instance=ExtResource("5_2303m")]
 
 [node name="LocalCharacter" type="Node2D" parent="."]
 script = ExtResource("1_c78uy")

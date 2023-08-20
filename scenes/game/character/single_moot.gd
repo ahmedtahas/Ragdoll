@@ -10,7 +10,8 @@ extends Node2D
 @onready var damage: float
 
 @onready var character: Node2D = $Extra/Character
-@onready var joy_stick: CanvasLayer = $Extra/DoubleJoyStick
+@onready var skill_joy_stick: Control = $Extra/JoyStick/SkillJoyStick
+@onready var movement_joy_stick: Control = $Extra/JoyStick/MovementJoyStick
 @onready var meteor: CharacterBody2D
 
 @onready var radius: Vector2 = $Extra/Center/Reach.position
@@ -36,10 +37,10 @@ func _ready() -> void:
 	name = character_name
 	get_node("LocalCharacter").load_skin(character_name)
 
-	joy_stick.move_signal.connect(character.move_signal)
-	joy_stick.skill_signal.connect(self.skill_signal)
+	movement_joy_stick.move_signal.connect(character.move_signal)
+	skill_joy_stick.skill_signal.connect(self.skill_signal)
 
-	joy_stick.button = true
+	skill_joy_stick.button = true
 	cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
 	power = get_node("/root/Config").get_value("power", character_name)
 	damage = get_node("/root/Config").get_value("damage", character_name)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cqspmmvt74co0"]
+[gd_scene load_steps=27 format=3 uid="uid://cqspmmvt74co0"]
 
 [ext_resource type="Script" path="res://scenes/game/character/holstar.gd" id="1_s3rep"]
 [ext_resource type="Texture2D" uid="uid://bok5q7sxwnfus" path="res://assets/sprites/character/guidelines/Head.png" id="2_3ativ"]
@@ -12,9 +12,10 @@
 [ext_resource type="Script" path="res://scenes/game/character/positions.gd" id="7_iqwvg"]
 [ext_resource type="Script" path="res://scenes/game/character/copy_skin.gd" id="10_onqdk"]
 [ext_resource type="Script" path="res://scenes/game/character/gun.gd" id="10_rgx5j"]
-[ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="12_hig8o"]
 [ext_resource type="Texture2D" uid="uid://b5ctcu202xbwj" path="res://assets/sprites/character/equipped/holstar/Crosshair.png" id="13_77j40"]
 [ext_resource type="PackedScene" uid="uid://dfctusw14gxrg" path="res://scenes/game/modules/character.tscn" id="13_v7jx3"]
+[ext_resource type="PackedScene" uid="uid://b5s5nff032il4" path="res://scenes/game/modules/skill_joy_stick.tscn" id="15_7twjb"]
+[ext_resource type="PackedScene" uid="uid://xv24ne73swcs" path="res://scenes/game/modules/movement_joy_stick.tscn" id="16_wtfjv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dnvhu"]
 radius = 137.015
@@ -1072,8 +1073,6 @@ position = Vector2(0, 305)
 [node name="Reach" type="Marker2D" parent="Extra/Center"]
 position = Vector2(750, 0)
 
-[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("12_hig8o")]
-
 [node name="Character" parent="Extra" instance=ExtResource("13_v7jx3")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Extra"]
@@ -1081,3 +1080,9 @@ replication_config = SubResource("SceneReplicationConfig_mugim")
 
 [node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
 one_shot = true
+
+[node name="JoyStick" type="CanvasLayer" parent="Extra"]
+
+[node name="SkillJoyStick" parent="Extra/JoyStick" instance=ExtResource("15_7twjb")]
+
+[node name="MovementJoyStick" parent="Extra/JoyStick" instance=ExtResource("16_wtfjv")]

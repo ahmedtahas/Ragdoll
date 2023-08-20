@@ -27,24 +27,22 @@ func _ready() -> void:
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch and event.is_pressed():
-		if event.position.x < half_screen:
-			using = true
-			skill_area.modulate.a = 1
-			skill_stick.modulate.a = 1
-			if not button:
-				skill_center = event.position
-				skill_area.position = skill_center - Vector2(skill_radius, skill_radius)
-				skill_stick.position = event.position
+		skill_area.modulate.a = 1
+		skill_stick.modulate.a = 1
+		if not button:
+			skill_center = event.position
+			skill_area.position = skill_center - Vector2(skill_radius, skill_radius)
+			skill_stick.position = event.position
 
-			else:
-				skill_center = event.position
-				skill_area.position = skill_center - Vector2(skill_radius, skill_radius)
-				skill_stick.position = event.position
-				emit_signal("skill_signal", true)
+		else:
+			skill_center = event.position
+			skill_area.position = skill_center - Vector2(skill_radius, skill_radius)
+			skill_stick.position = event.position
+			emit_signal("skill_signal", true)
 
 
 	elif event is InputEventScreenDrag:
-		if using and not button:
+		if not button:
 			skill_stick.position = event.position
 			if event.position.distance_to(skill_center) > skill_radius:
 				var temp: Vector2 = event.position - skill_center
@@ -54,14 +52,12 @@ func _gui_input(event: InputEvent) -> void:
 
 
 	elif event is InputEventScreenTouch and not event.is_pressed():
-		if using:
-			using = false
-			skill_area.global_position = skill_area_position
-			skill_stick.global_position = skill_stick_position
-			skill_area.modulate.a = 0.2
-			skill_stick.modulate.a = 0.2
-			if button:
-				emit_signal("skill_signal", false)
-			else:
-				emit_signal("skill_signal", Vector2.ZERO, false)
+		skill_area.global_position = skill_area_position
+		skill_stick.global_position = skill_stick_position
+		skill_area.modulate.a = 0.2
+		skill_stick.modulate.a = 0.2
+		if button:
+			emit_signal("skill_signal", false)
+		else:
+			emit_signal("skill_signal", Vector2.ZERO, false)
 

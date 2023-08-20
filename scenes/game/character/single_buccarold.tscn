@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dwkww34bjmsws"]
+[gd_scene load_steps=25 format=3 uid="uid://dwkww34bjmsws"]
 
 [ext_resource type="Script" path="res://scenes/game/character/single_buccarold.gd" id="1_xhu0v"]
 [ext_resource type="Script" path="res://scenes/game/character/single_load_skin.gd" id="2_lgltn"]
@@ -9,8 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="8_302go"]
 [ext_resource type="Script" path="res://scenes/game/modules/single_weapon_collision.gd" id="9_y3mkq"]
 [ext_resource type="Texture2D" uid="uid://ii2517k08sno" path="res://assets/sprites/character/equipped/buccarold/Flame.png" id="10_7lr37"]
-[ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="10_qmqfb"]
 [ext_resource type="PackedScene" uid="uid://c2khg3vqn4pur" path="res://scenes/game/modules/single_character.tscn" id="11_6has0"]
+[ext_resource type="PackedScene" uid="uid://b5s5nff032il4" path="res://scenes/game/modules/skill_joy_stick.tscn" id="11_erygp"]
+[ext_resource type="PackedScene" uid="uid://xv24ne73swcs" path="res://scenes/game/modules/movement_joy_stick.tscn" id="12_f6o8j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n7h57"]
 radius = 137.015
@@ -768,9 +769,13 @@ one_shot = true
 [node name="SkillDuration" type="Timer" parent="Extra"]
 one_shot = true
 
-[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("10_qmqfb")]
-
 [node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
 one_shot = true
 
 [node name="Character" parent="Extra" instance=ExtResource("11_6has0")]
+
+[node name="JoyStick" type="CanvasLayer" parent="Extra"]
+
+[node name="SkillJoyStick" parent="Extra/JoyStick" instance=ExtResource("11_erygp")]
+
+[node name="MovementJoyStick" parent="Extra/JoyStick" instance=ExtResource("12_f6o8j")]

@@ -1,15 +1,16 @@
-[gd_scene load_steps=26 format=3 uid="uid://bn0rlapy8ytg5"]
+[gd_scene load_steps=27 format=3 uid="uid://bn0rlapy8ytg5"]
 
 [ext_resource type="Script" path="res://scenes/game/character/single_moot.gd" id="1_xa180"]
 [ext_resource type="Script" path="res://scenes/game/character/single_load_skin.gd" id="2_s1tag"]
+[ext_resource type="PackedScene" uid="uid://b5s5nff032il4" path="res://scenes/game/modules/skill_joy_stick.tscn" id="3_7lreb"]
 [ext_resource type="Script" path="res://scenes/game/character/teleporter.gd" id="3_nvr42"]
 [ext_resource type="Texture2D" uid="uid://bok5q7sxwnfus" path="res://assets/sprites/character/guidelines/Head.png" id="4_cpee1"]
+[ext_resource type="PackedScene" uid="uid://xv24ne73swcs" path="res://scenes/game/modules/movement_joy_stick.tscn" id="4_h21w0"]
 [ext_resource type="Texture2D" uid="uid://drypq4jdrky7g" path="res://assets/sprites/character/guidelines/3_piece.png" id="5_dljt4"]
 [ext_resource type="Texture2D" uid="uid://die5me60kg1r5" path="res://assets/sprites/character/guidelines/4_piece.png" id="6_20m7o"]
-[ext_resource type="Texture2D" uid="uid://bxptvxqf04n31" path="res://assets/sprites/ui/images-removebg-preview (1).png" id="8_difoc"]
 [ext_resource type="Script" path="res://scenes/game/modules/single_weapon_collision.gd" id="9_067pa"]
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="9_luf3u"]
-[ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="10_26g1d"]
+[ext_resource type="Texture2D" uid="uid://bxptvxqf04n31" path="res://assets/sprites/particle/FireSpriteSheet.png" id="9_pctcn"]
 [ext_resource type="PackedScene" uid="uid://c2khg3vqn4pur" path="res://scenes/game/modules/single_character.tscn" id="11_m8iib"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_25o0j"]
@@ -106,12 +107,16 @@ one_shot = true
 [node name="SkillDuration" type="Timer" parent="Extra"]
 one_shot = true
 
-[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("10_26g1d")]
-
 [node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
 one_shot = true
 
 [node name="Character" parent="Extra" instance=ExtResource("11_m8iib")]
+
+[node name="JoyStick" type="CanvasLayer" parent="Extra"]
+
+[node name="SkillJoyStick" parent="Extra/JoyStick" instance=ExtResource("3_7lreb")]
+
+[node name="MovementJoyStick" parent="Extra/JoyStick" instance=ExtResource("4_h21w0")]
 
 [node name="LocalCharacter" type="Node2D" parent="."]
 script = ExtResource("2_s1tag")
@@ -189,7 +194,7 @@ emitting = false
 amount = 1000
 sub_emitter = NodePath(".")
 process_material = SubResource("ParticleProcessMaterial_m6gxl")
-texture = ExtResource("8_difoc")
+texture = ExtResource("9_pctcn")
 local_coords = true
 
 [node name="RLA" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]

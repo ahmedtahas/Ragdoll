@@ -17,7 +17,8 @@ extends Node2D
 @onready var center: Vector2 = $Extra/Center.position
 
 @onready var character: Node2D = $Extra/Character
-@onready var joy_stick: CanvasLayer = $"Extra/DoubleJoyStick"
+@onready var skill_joy_stick: Control = $Extra/JoyStick/SkillJoyStick
+@onready var movement_joy_stick: Control = $Extra/JoyStick/MovementJoyStick
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var body: RigidBody2D = $LocalCharacter/Body
 @onready var dash_preview: Marker2D = $Extra/Center
@@ -37,10 +38,10 @@ func _ready() -> void:
 
 	if is_multiplayer_authority():
 		get_node("RemoteCharacter").queue_free()
-		joy_stick.move_signal.connect(character.move_signal)
-		joy_stick.skill_signal.connect(self.skill_signal)
+		movement_joy_stick.move_signal.connect(character.move_signal)
+		skill_joy_stick.skill_signal.connect(self.skill_signal)
 
-		joy_stick.button = false
+		skill_joy_stick.button = false
 		cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
 		power = get_node("/root/Config").get_value("power", character_name)
 		damage = get_node("/root/Config").get_value("damage", character_name)

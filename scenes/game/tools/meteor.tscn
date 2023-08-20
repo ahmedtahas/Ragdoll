@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/game/tools/meteor.gd" id="1_r45te"]
 [ext_resource type="Texture2D" uid="uid://blqjaqno01nan" path="res://assets/sprites/character/equipped/moot/fireball.png" id="2_3p4r0"]
 [ext_resource type="Script" path="res://scenes/game/tools/bullet_sync.gd" id="2_cjq44"]
-[ext_resource type="Texture2D" uid="uid://bxptvxqf04n31" path="res://assets/sprites/ui/images-removebg-preview (1).png" id="4_hcck1"]
+[ext_resource type="Texture2D" uid="uid://bxptvxqf04n31" path="res://assets/sprites/particle/FireSpriteSheet.png" id="4_11k8d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7gtdm"]
 radius = 80.025
@@ -91,4 +91,4 @@ replication_config = SubResource("SceneReplicationConfig_irmbn")
 material = SubResource("CanvasItemMaterial_1twgw")
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_ff4jp")
-texture = ExtResource("4_hcck1")
+texture = ExtResource("4_11k8d")

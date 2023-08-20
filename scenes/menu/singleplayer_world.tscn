@@ -154,6 +154,14 @@ color = Color(0, 0.576471, 0.784314, 1)
 [node name="VBoxContainer" type="VBoxContainer" parent="Pause/PauseScreen"]
 layout_mode = 2
 
+[node name="Label3" type="Label" parent="Pause/PauseScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("4_fdaja")
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Label" type="Label" parent="Pause/PauseScreen/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -215,6 +223,14 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_6my5u")
 theme_override_styles/hover = SubResource("StyleBoxFlat_rd8jp")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3evrp")
 text = "Exit"
+
+[node name="Label2" type="Label" parent="Pause/PauseScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("4_fdaja")
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Back Button" type="Button" parent="Pause"]
 anchors_preset = 5

@@ -1,8 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://17ggmooh46wy"]
+[gd_scene load_steps=24 format=3 uid="uid://17ggmooh46wy"]
 
 [ext_resource type="Script" path="res://scenes/game/character/zeina.gd" id="1_8om6e"]
 [ext_resource type="Script" path="res://scenes/game/character/load_skin.gd" id="3_7aati"]
 [ext_resource type="Script" path="res://scenes/game/character/teleporter.gd" id="3_ce3sj"]
+[ext_resource type="PackedScene" uid="uid://b5s5nff032il4" path="res://scenes/game/modules/skill_joy_stick.tscn" id="5_8m36p"]
+[ext_resource type="PackedScene" uid="uid://xv24ne73swcs" path="res://scenes/game/modules/movement_joy_stick.tscn" id="6_cbfqr"]
 [ext_resource type="Texture2D" uid="uid://bok5q7sxwnfus" path="res://assets/sprites/character/guidelines/Head.png" id="8_cb3hr"]
 [ext_resource type="Texture2D" uid="uid://dddhf8qbmwtuf" path="res://assets/sprites/ui/dash.png" id="8_qcfgh"]
 [ext_resource type="Texture2D" uid="uid://drypq4jdrky7g" path="res://assets/sprites/character/guidelines/3_piece.png" id="9_2eiic"]
@@ -12,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="11_2uji4"]
 [ext_resource type="PackedScene" uid="uid://dfctusw14gxrg" path="res://scenes/game/modules/character.tscn" id="11_re7em"]
 [ext_resource type="Texture2D" uid="uid://die5me60kg1r5" path="res://assets/sprites/character/guidelines/4_piece.png" id="12_spl2h"]
-[ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="12_wpn55"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0q55a"]
 properties/0/path = NodePath(".:head_pos")
@@ -282,10 +283,14 @@ replication_config = SubResource("SceneReplicationConfig_0q55a")
 
 [node name="Character" parent="Extra" instance=ExtResource("11_re7em")]
 
-[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("12_wpn55")]
-
 [node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
 one_shot = true
+
+[node name="JoyStick" type="CanvasLayer" parent="Extra"]
+
+[node name="SkillJoyStick" parent="Extra/JoyStick" instance=ExtResource("5_8m36p")]
+
+[node name="MovementJoyStick" parent="Extra/JoyStick" instance=ExtResource("6_cbfqr")]
 
 [node name="LocalCharacter" type="Node2D" parent="."]
 script = ExtResource("3_7aati")

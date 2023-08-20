@@ -1,15 +1,16 @@
-[gd_scene load_steps=24 format=3 uid="uid://mcb75yleyg6g"]
+[gd_scene load_steps=25 format=3 uid="uid://mcb75yleyg6g"]
 
 [ext_resource type="Script" path="res://scenes/game/character/tin.gd" id="1_ewb0n"]
 [ext_resource type="Script" path="res://scenes/game/character/load_skin.gd" id="2_swrqo"]
 [ext_resource type="Script" path="res://scenes/game/character/teleporter.gd" id="3_mkq22"]
+[ext_resource type="PackedScene" uid="uid://b5s5nff032il4" path="res://scenes/game/modules/skill_joy_stick.tscn" id="6_kcpjc"]
+[ext_resource type="PackedScene" uid="uid://xv24ne73swcs" path="res://scenes/game/modules/movement_joy_stick.tscn" id="7_vjtnr"]
 [ext_resource type="Script" path="res://scenes/game/character/positions.gd" id="8_p0k4v"]
 [ext_resource type="PackedScene" uid="uid://dfctusw14gxrg" path="res://scenes/game/modules/character.tscn" id="9_1cfyx"]
 [ext_resource type="Script" path="res://scenes/game/character/shockwave.gd" id="9_5dlv0"]
 [ext_resource type="Texture2D" uid="uid://bok5q7sxwnfus" path="res://assets/sprites/character/guidelines/Head.png" id="9_ltkln"]
 [ext_resource type="Script" path="res://scenes/game/character/copy_skin.gd" id="9_vj2bs"]
 [ext_resource type="Texture2D" uid="uid://bwyvpwv74252p" path="res://assets/sprites/character/equipped/tin/Shockwave.png" id="9_vlpwg"]
-[ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="10_ak2ar"]
 [ext_resource type="Texture2D" uid="uid://drypq4jdrky7g" path="res://assets/sprites/character/guidelines/3_piece.png" id="10_dlglx"]
 [ext_resource type="Script" path="res://scenes/game/modules/single_weapon_collision.gd" id="11_ll7r0"]
 [ext_resource type="Texture2D" uid="uid://die5me60kg1r5" path="res://assets/sprites/character/guidelines/4_piece.png" id="12_124ff"]
@@ -206,13 +207,17 @@ script = ExtResource("9_5dlv0")
 
 [node name="Character" parent="Extra" instance=ExtResource("9_1cfyx")]
 
-[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("10_ak2ar")]
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Extra"]
 replication_config = SubResource("SceneReplicationConfig_bdkiw")
 
 [node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
 one_shot = true
+
+[node name="JoyStick" type="CanvasLayer" parent="Extra"]
+
+[node name="SkillJoyStick" parent="Extra/JoyStick" instance=ExtResource("6_kcpjc")]
+
+[node name="MovementJoyStick" parent="Extra/JoyStick" instance=ExtResource("7_vjtnr")]
 
 [node name="LocalCharacter" type="Node2D" parent="."]
 script = ExtResource("2_swrqo")

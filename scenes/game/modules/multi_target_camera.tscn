@@ -7,7 +7,7 @@ script = ExtResource("1_tavw6")
 
 [node name="BlackScreen" type="ColorRect" parent="."]
 visible = false
-offset_left = -1920.0
-offset_top = -1080.0
+offset_left = -19200.0
+offset_top = -10800.0
 scale = Vector2(2, 2)
 color = Color(0, 0, 0, 0.752941)
