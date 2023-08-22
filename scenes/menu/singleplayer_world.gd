@@ -50,7 +50,6 @@ func _notification(what: int) -> void:
 
 
 func pause() -> void:
-	print("PAAAASSS")
 	if get_tree().paused:
 		player.skill_joy_stick.disconnect("skill_signal", player.skill_signal)
 		get_tree().paused = false

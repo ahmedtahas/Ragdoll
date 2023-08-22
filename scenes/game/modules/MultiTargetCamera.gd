@@ -11,15 +11,18 @@ extends Camera2D
 @onready var rect: Rect2
 @onready var zoom_amount: float
 @onready var black_screen: ColorRect = $BlackScreen
-
+@onready var game_started: bool = false
 @onready var screen_size = get_viewport_rect().size
 
 
 func _ready() -> void:
 	Global.black_out.connect(self.black_out)
+	Global.two_players_joined.connect(self.start)
 
 func _physics_process(_delta: float) -> void:
 	if targets.size() < 1:
+		return
+	if not game_started:
 		return
 	position_vectors = Vector2.ZERO
 	for target in targets:
@@ -62,6 +65,8 @@ func black_out(duration: float):
 	black_screen.visible = false
 
 
+func start() -> void:
+	game_started = true
 
 
 func add_target(target) -> void:

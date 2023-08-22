@@ -61,6 +61,9 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+	if fire_ring.emitting:
+		fire_ring.rotation += 1
+
 	if not duration.is_stopped():
 		cooldown_bar.set_value((100 * duration.time_left) / duration_time)
 		cooldown_text.set_text("[center]" + str(duration.time_left).pad_decimals(1) + "s[/center]")

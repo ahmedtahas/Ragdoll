@@ -64,7 +64,7 @@ script = ExtResource("8_x8hje")
 position = Vector2(0, 305)
 
 [node name="Reach" type="Marker2D" parent="Extra/Center"]
-position = Vector2(750, 0)
+position = Vector2(850, 0)
 
 [node name="HitCooldown" type="Timer" parent="Extra"]
 one_shot = true

@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://bok5q7sxwnfus" path="res://assets/sprites/character/guidelines/Head.png" id="4_6j87v"]
 [ext_resource type="Texture2D" uid="uid://drypq4jdrky7g" path="res://assets/sprites/character/guidelines/3_piece.png" id="5_x2an7"]
 [ext_resource type="Texture2D" uid="uid://die5me60kg1r5" path="res://assets/sprites/character/guidelines/4_piece.png" id="6_57p3i"]
+[ext_resource type="Texture2D" uid="uid://ii2517k08sno" path="res://assets/sprites/particle/Flame.png" id="7_um18o"]
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="8_302go"]
 [ext_resource type="Script" path="res://scenes/game/modules/single_weapon_collision.gd" id="9_y3mkq"]
-[ext_resource type="Texture2D" uid="uid://ii2517k08sno" path="res://assets/sprites/character/equipped/buccarold/Flame.png" id="10_7lr37"]
 [ext_resource type="PackedScene" uid="uid://b5s5nff032il4" path="res://scenes/game/modules/skill_joy_stick.tscn" id="11_erygp"]
 [ext_resource type="PackedScene" uid="uid://dfctusw14gxrg" path="res://scenes/game/modules/character.tscn" id="12_3a1es"]
 [ext_resource type="PackedScene" uid="uid://xv24ne73swcs" path="res://scenes/game/modules/movement_joy_stick.tscn" id="12_f6o8j"]
@@ -297,7 +297,7 @@ scale = Vector2(2.24693, 2.5147)
 emitting = false
 amount = 10
 process_material = SubResource("ParticleProcessMaterial_ukld1")
-texture = ExtResource("10_7lr37")
+texture = ExtResource("7_um18o")
 lifetime = 0.8
 local_coords = true
 

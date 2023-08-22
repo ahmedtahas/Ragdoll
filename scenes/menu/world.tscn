@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dspift8ih848t"]
+[gd_scene load_steps=5 format=3 uid="uid://dspift8ih848t"]
 
 [ext_resource type="Script" path="res://scenes/menu/world.gd" id="1_ky2sx"]
 [ext_resource type="Texture2D" uid="uid://bnxtduxbf131" path="res://assets/sprites/environment/Wall.png" id="2_wo5i0"]
+[ext_resource type="Script" path="res://scenes/menu/spawner.gd" id="3_b2un2"]
 [ext_resource type="PackedScene" uid="uid://do44fi2m8e00e" path="res://scenes/game/modules/mtc.tscn" id="3_jormy"]
 
 [node name="Main" type="Node2D"]
@@ -25,6 +26,7 @@ scale = Vector2(10, 10)
 polygon = PackedVector2Array(1536, 1024, -1536, 1024, -1536, -1024, 88.9999, -1024, 89.6, -508.9, 2.40002, -509, -1021, -509, -1021, 509, 1021, 509, 1021, -509, 89.6, -508.9, 89, -1024, 1536, -1024)
 
 [node name="Spawner" type="Node2D" parent="."]
+script = ExtResource("3_b2un2")
 
 [node name="ServerSkill" type="Node2D" parent="."]
 
@@ -39,32 +41,37 @@ _spawnable_scenes = PackedStringArray("res://scenes/game/character/clone.tscn", 
 spawn_path = NodePath("../ServerSkill")
 
 [node name="MTC" parent="." instance=ExtResource("3_jormy")]
+position = Vector2(10210, -5090)
+zoom = Vector2(0.1, 0.1)
 
 [node name="Menu" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -4.0
-offset_top = -9.0
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_left = 3426.0
+offset_top = -8931.0
+offset_right = 17235.0
+offset_bottom = -581.0
 
 [node name="Host" type="Button" parent="Menu"]
 layout_mode = 0
-offset_left = 400.0
-offset_top = 171.0
-offset_right = 519.0
-offset_bottom = 219.0
+offset_left = 3152.0
+offset_top = 515.0
+offset_right = 9672.0
+offset_bottom = 2439.0
+theme_override_font_sizes/font_size = 1000
 text = "Host
 "
 
 [node name="Join" type="Button" parent="Menu"]
 layout_mode = 0
-offset_left = 407.0
-offset_top = 257.0
-offset_right = 526.0
-offset_bottom = 305.0
+offset_left = 3359.0
+offset_top = 2825.0
+offset_right = 9731.0
+offset_bottom = 4577.0
+theme_override_font_sizes/font_size = 1000
 text = "Join
 "
 
+[connection signal="child_entered_tree" from="Spawner" to="Spawner" method="_on_child_entered_tree"]
 [connection signal="button_up" from="Menu/Host" to="." method="_on_host_pressed"]
 [connection signal="button_up" from="Menu/Join" to="." method="_on_join_pressed"]

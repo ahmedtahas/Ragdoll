@@ -1,94 +1,88 @@
-[gd_scene load_steps=17 format=3 uid="uid://do6hn0yeh44qc"]
+[gd_scene load_steps=16 format=3 uid="uid://do6hn0yeh44qc"]
 
 [ext_resource type="Script" path="res://scenes/menu/singleplayer_world.gd" id="1_qwkbm"]
-[ext_resource type="Texture2D" uid="uid://byhujj4da0tn2" path="res://assets/sprites/environment/StarsSpriteSheet.png" id="2_mdw7t"]
-[ext_resource type="PackedScene" uid="uid://chqdqglpyhnp" path="res://scenes/game/modules/multi_target_camera.tscn" id="3_2oovi"]
-[ext_resource type="Texture2D" uid="uid://cx3kn7dvehly2" path="res://assets/sprites/environment/BASE.png" id="4_2dqwk"]
-[ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="4_fdaja"]
-[ext_resource type="Script" path="res://scenes/menu/PauseScreen.gd" id="4_lnlo2"]
-[ext_resource type="Texture2D" uid="uid://dkihg8h8axe0i" path="res://assets/sprites/environment/TOP.png" id="4_xls6t"]
-[ext_resource type="Texture2D" uid="uid://bqeoluim7n6os" path="res://assets/sprites/environment/RIGHT.png" id="5_ewpb1"]
-[ext_resource type="Texture2D" uid="uid://bui0xqp6eodm2" path="res://assets/sprites/environment/LEFT.png" id="6_ihvfp"]
+[ext_resource type="Texture2D" uid="uid://byhujj4da0tn2" path="res://assets/sprites/particle/StarsSpriteSheet.png" id="2_kw765"]
+[ext_resource type="Texture2D" uid="uid://bnxtduxbf131" path="res://assets/sprites/environment/Wall.png" id="2_y20wj"]
+[ext_resource type="Script" path="res://scenes/menu/spawner.gd" id="3_ua7ki"]
+[ext_resource type="PackedScene" uid="uid://do44fi2m8e00e" path="res://scenes/game/modules/mtc.tscn" id="4_w3lye"]
+[ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="6_4w4fx"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_y8evc"]
-blend_mode = 1
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pt37y"]
 particles_animation = true
 particles_anim_h_frames = 6
 particles_anim_v_frames = 3
 particles_anim_loop = false
 
-[sub_resource type="Gradient" id="Gradient_y1ji3"]
-offsets = PackedFloat32Array(0, 0.117479, 0.481375, 0.762178, 1)
-colors = PackedColorArray(0.894118, 0.705882, 0.878431, 0, 0.581107, 0.848495, 0.953431, 1, 0.825404, 0.821217, 0.467071, 1, 0.898412, 0.754832, 0.862138, 1, 1, 1, 1, 0)
+[sub_resource type="Gradient" id="Gradient_n7uky"]
+offsets = PackedFloat32Array(0, 0.101449, 0.903382, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 0.869565, 0.869565, 0.869565, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_ikrkr"]
-gradient = SubResource("Gradient_y1ji3")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8sp0x"]
+gradient = SubResource("Gradient_n7uky")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fsd88"]
+[sub_resource type="Curve" id="Curve_iwpri"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.168067, 1), 0.0, 0.0, 0, 0, Vector2(0.991597, 0.0315789), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gsios"]
+curve = SubResource("Curve_iwpri")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wmvgd"]
 lifetime_randomness = 1.0
 emission_shape = 3
-emission_box_extents = Vector3(20, 10, 1)
-particle_flag_align_y = true
+emission_box_extents = Vector3(1, 1, 1)
 particle_flag_disable_z = true
 direction = Vector3(0, 0, 0)
 gravity = Vector3(0, 0, 0)
 orbit_velocity_min = 0.0
-orbit_velocity_max = 0.01
+orbit_velocity_max = 0.02
 scale_max = 5.0
-color_ramp = SubResource("GradientTexture1D_ikrkr")
+scale_curve = SubResource("CurveTexture_gsios")
+color_initial_ramp = SubResource("GradientTexture1D_8sp0x")
 hue_variation_min = -1.0
 hue_variation_max = 1.0
 anim_offset_max = 1.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6my5u"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y7fgf"]
 bg_color = Color(0, 0, 0, 0.392157)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rd8jp"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oq8oj"]
 bg_color = Color(0, 0, 0, 0.588235)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3evrp"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h8bl0"]
 bg_color = Color(0, 0, 0, 0.784314)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="Main" type="Node2D"]
+[node name="singleplayer_world" type="Node2D"]
 script = ExtResource("1_qwkbm")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -17212.0
-offset_top = -20616.0
-offset_right = -15292.0
-offset_bottom = -19536.0
-scale = Vector2(30, 30)
-color = Color(0.00784314, 0.180392, 0.223529, 1)
+offset_left = -14528.0
+offset_top = -24877.0
+offset_right = 35472.0
+offset_bottom = 15123.0
+color = Color(0, 0.376782, 0.743278, 0.392157)
 
 [node name="Stars" type="GPUParticles2D" parent="."]
-material = SubResource("CanvasItemMaterial_y8evc")
+material = SubResource("CanvasItemMaterial_pt37y")
 position = Vector2(10210, -5090)
-scale = Vector2(1000, 1000)
-amount = 69
-process_material = SubResource("ParticleProcessMaterial_fsd88")
-texture = ExtResource("2_mdw7t")
-lifetime = 4.0
-
-[node name="MTC" parent="." instance=ExtResource("3_2oovi")]
-
-[node name="ColorRect" type="ColorRect" parent="MTC"]
-visible = false
-offset_left = -1920.0
-offset_top = -1080.0
-scale = Vector2(2, 2)
-color = Color(0, 0, 0, 0.752941)
+scale = Vector2(20000, 20000)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_wmvgd")
+texture = ExtResource("2_kw765")
+lifetime = 5.0
+randomness = 1.0
 
 [node name="Point1" type="Marker2D" parent="."]
 position = Vector2(5105, -5105)
@@ -99,151 +93,112 @@ position = Vector2(15315, -5105)
 [node name="Wall" type="StaticBody2D" parent="."]
 position = Vector2(10210, -5090)
 
-[node name="Top" type="Sprite2D" parent="Wall"]
-position = Vector2(13.4998, -7665)
-scale = Vector2(2.33337, 1.98077)
-texture = ExtResource("4_xls6t")
-
-[node name="Right" type="Sprite2D" parent="Wall"]
-position = Vector2(12784, -2573)
-scale = Vector2(1.97692, 1.75063)
-texture = ExtResource("5_ewpb1")
-
-[node name="Left" type="Sprite2D" parent="Wall"]
-position = Vector2(-12782, 2036.5)
-scale = Vector2(1.98, 1.87486)
-texture = ExtResource("6_ihvfp")
-
-[node name="Base" type="Sprite2D" parent="Wall"]
-position = Vector2(-10.0007, 7665.5)
-scale = Vector2(2.33143, 1.98038)
-texture = ExtResource("4_2dqwk")
+[node name="Sprite2D" type="Sprite2D" parent="Wall"]
+scale = Vector2(10, 10)
+texture = ExtResource("2_y20wj")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wall"]
 scale = Vector2(10, 10)
 polygon = PackedVector2Array(1536, 1024, -1536, 1024, -1536, -1024, 88.9999, -1024, 89.6, -508.9, 2.40002, -509, -1021, -509, -1021, 509, 1021, 509, 1021, -509, 89.6, -508.9, 89, -1024, 1536, -1024)
 
 [node name="Spawner" type="Node2D" parent="."]
+script = ExtResource("3_ua7ki")
+
+[node name="MTC" parent="." instance=ExtResource("4_w3lye")]
+position = Vector2(10210, -5090)
+zoom = Vector2(0.1, 0.1)
 
 [node name="Pause" type="CanvasLayer" parent="."]
 process_mode = 3
 
 [node name="ColorRect" type="ColorRect" parent="Pause"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(1, 1, 1, 0.384314)
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.0431373, 0.431373, 0.517647, 0.392157)
 
-[node name="PauseScreen" type="MarginContainer" parent="Pause"]
-offset_left = 235.0
-offset_top = 108.0
-offset_right = 1684.0
-offset_bottom = 972.0
+[node name="MarginContainer" type="MarginContainer" parent="Pause"]
+offset_right = 1920.0
+offset_bottom = 1072.0
 theme_override_constants/margin_left = 200
 theme_override_constants/margin_top = 75
 theme_override_constants/margin_right = 200
 theme_override_constants/margin_bottom = 100
-script = ExtResource("4_lnlo2")
 
-[node name="ColorRect" type="ColorRect" parent="Pause/PauseScreen"]
-layout_mode = 2
-color = Color(0, 0.576471, 0.784314, 1)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Pause/PauseScreen"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/MarginContainer"]
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="Pause/PauseScreen/VBoxContainer"]
+[node name="Label" type="Label" parent="Pause/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("4_fdaja")
-theme_override_font_sizes/font_size = 10
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label" type="Label" parent="Pause/PauseScreen/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("4_fdaja")
+theme_override_fonts/font = ExtResource("6_4w4fx")
 theme_override_font_sizes/font_size = 120
-text = "Single Player"
+text = "Ragdoll Legends"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Pause/PauseScreen/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="MarginContainer" type="MarginContainer" parent="Pause/PauseScreen/VBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Pause/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_right = 50
 
-[node name="Resume" type="Button" parent="Pause/PauseScreen/VBoxContainer/VBoxContainer/MarginContainer"]
+[node name="Button" type="Button" parent="Pause/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 focus_mode = 0
-theme_override_fonts/font = ExtResource("4_fdaja")
+theme_override_fonts/font = ExtResource("6_4w4fx")
 theme_override_font_sizes/font_size = 60
-theme_override_styles/normal = SubResource("StyleBoxFlat_6my5u")
-theme_override_styles/hover = SubResource("StyleBoxFlat_rd8jp")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_3evrp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_y7fgf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oq8oj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h8bl0")
 text = "Resume"
 
-[node name="MarginContainer2" type="MarginContainer" parent="Pause/PauseScreen/VBoxContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="Pause/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_right = 50
 
-[node name="ChangeCharacter" type="Button" parent="Pause/PauseScreen/VBoxContainer/VBoxContainer/MarginContainer2"]
+[node name="Button" type="Button" parent="Pause/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 focus_mode = 0
-theme_override_fonts/font = ExtResource("4_fdaja")
+theme_override_fonts/font = ExtResource("6_4w4fx")
 theme_override_font_sizes/font_size = 60
-theme_override_styles/normal = SubResource("StyleBoxFlat_6my5u")
-theme_override_styles/hover = SubResource("StyleBoxFlat_rd8jp")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_3evrp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_y7fgf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oq8oj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h8bl0")
 text = "Change Character"
 
-[node name="MarginContainer3" type="MarginContainer" parent="Pause/PauseScreen/VBoxContainer/VBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="Pause/MarginContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_right = 50
 
-[node name="Exıt" type="Button" parent="Pause/PauseScreen/VBoxContainer/VBoxContainer/MarginContainer3"]
+[node name="Button" type="Button" parent="Pause/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 focus_mode = 0
-theme_override_fonts/font = ExtResource("4_fdaja")
+theme_override_fonts/font = ExtResource("6_4w4fx")
 theme_override_font_sizes/font_size = 60
-theme_override_styles/normal = SubResource("StyleBoxFlat_6my5u")
-theme_override_styles/hover = SubResource("StyleBoxFlat_rd8jp")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_3evrp")
+theme_override_styles/normal = SubResource("StyleBoxFlat_y7fgf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_oq8oj")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h8bl0")
 text = "Exit"
 
-[node name="Label2" type="Label" parent="Pause/PauseScreen/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("4_fdaja")
-theme_override_font_sizes/font_size = 10
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Back Button" type="Button" parent="Pause"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -64.0
+[node name="Pause" type="Button" parent="Pause"]
+offset_left = 928.0
 offset_top = 64.0
-offset_right = 64.0
+offset_right = 1056.0
 offset_bottom = 128.0
-grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
 text = "Pause"
 
-[connection signal="button_up" from="Pause/PauseScreen/VBoxContainer/VBoxContainer/MarginContainer/Resume" to="." method="pause"]
-[connection signal="button_up" from="Pause/PauseScreen/VBoxContainer/VBoxContainer/MarginContainer2/ChangeCharacter" to="." method="change_character"]
-[connection signal="button_up" from="Pause/PauseScreen/VBoxContainer/VBoxContainer/MarginContainer3/Exıt" to="." method="main_menu"]
-[connection signal="button_up" from="Pause/Back Button" to="." method="pause"]
+[connection signal="child_entered_tree" from="Spawner" to="Spawner" method="_on_child_entered_tree"]
+[connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/Button" to="." method="pause"]
+[connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/Button" to="." method="change_character"]
+[connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3/Button" to="." method="main_menu"]
+[connection signal="pressed" from="Pause/Pause" to="." method="pause"]
