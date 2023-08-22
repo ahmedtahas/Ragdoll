@@ -63,12 +63,12 @@ func _ready() -> void:
 		character.ignore_remote()
 
 
-@rpc("call_remote", "reliable")
-func add_skill(skill_name: String) -> void:
-	Global.world.add_skill(skill_name)
+@rpc("reliable")
+func add_skill(skill_name: String, pos: Vector2) -> void:
+	Global.world.add_skill(skill_name, pos)
 
 
-@rpc("call_remote", "reliable")
+@rpc("reliable")
 func remove_skill() -> void:
 	Global.world.remove_skill()
 
@@ -123,7 +123,9 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		dash_preview.visible = false
 		end_point = _range.global_position
 		# check if hits character update endpoint
-		end_point = Global.get_inside_position(end_point, str(multiplayer.get_unique_id()))
+		print(end_point)
+		end_point = Global.get_inside_position_player(end_point, str(multiplayer.get_unique_id()))
+		print(end_point)
 
 		cooldown.start()
 		flicker = false
@@ -136,7 +138,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 			Global.server_skill.add_child(dagger, true)
 		else:
 			Global.client_skill.add_child(dagger, true)
-			rpc_id(Global.world.get_opponent_id(), "add_skill", "dagger")
+			rpc("add_skill", "dagger", dash_preview.get_node("Dash").global_position)
 		ignore_skill()
 		dagger.set_multiplayer_authority(multiplayer.get_unique_id())
 		character.slow_motion()
@@ -149,7 +151,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 			end_point = Global.avoid_enemies(end_point - body.global_position)
 			teleport()
 			if not multiplayer.is_server():
-				rpc_id(Global.world.get_opponent_id(), "remove_skill")
+				rpc("remove_skill")
 		else:
 			_hit = false
 
@@ -162,31 +164,25 @@ func ignore_skill() -> void:
 func teleport() -> void:
 
 	for child in get_node("LocalCharacter").get_children():
-		child._rotate(body.global_rotation)
+		child._rotate(child.global_rotation)
 		child.locate(end_point)
 		child.teleport()
 		dagger.queue_free()
 
 func hit_signal(hit: Node2D) -> void:
 	_hit = true
-	if hit is RigidBody2D or hit is CharacterBody2D:
-		if not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
-			end_point = Global.avoid_enemies(end_point - body.global_position)
-			character.stun_opponent()
-			character._invul()
-			if hit.name == "Head":
-				character.damage_opponent(damage * 2)
-
-			else:
-				character.damage_opponent(damage * 1)
-			character.invul_opponent()
-
-		else:
-			cooldown.stop()
-
-	else:
+	if hit is CharacterBody2D and not hit.is_in_group("Skill"):
+		end_point = Global.avoid_enemies(end_point - body.global_position)
+		character.stun_opponent()
+		character._invul()
+		if hit.name == "Head":
+			character.damage_opponent(damage * 2)
+		elif not hit.is_in_group("Undamagable"):
+			character.damage_opponent(damage * 1)
+		character.invul_opponent()
+	elif hit is StaticBody2D:
 		end_point = dagger.global_position
 	teleport()
 
 	if multiplayer.get_unique_id() != 1:
-		rpc_id(Global.world.get_opponent_id(), "remove_skill")
+		rpc("remove_skill")

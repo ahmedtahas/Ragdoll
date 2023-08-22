@@ -56,17 +56,6 @@ func _ready() -> void:
 		character.ignore_remote()
 
 
-
-@rpc("call_remote", "reliable")
-func add_skill(skill_name: String) -> void:
-	Global.world.add_skill(skill_name)
-
-
-@rpc("call_remote", "reliable")
-func remove_skill() -> void:
-	Global.world.remove_skill()
-
-
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
 		return

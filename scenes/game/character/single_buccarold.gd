@@ -26,30 +26,59 @@ extends Node2D
 @onready var flames = $LocalCharacter/RF/Flames
 
 func _ready() -> void:
-	character.ignore_self()
-	name = character_name
+	name = str(get_multiplayer_authority())
 	get_node("LocalCharacter").load_skin(character_name)
 
-	movement_joy_stick.move_signal.connect(character.move_signal)
-	skill_joy_stick.skill_signal.connect(self.skill_signal)
+	if is_multiplayer_authority():
+		movement_joy_stick.move_signal.connect(character.move_signal)
+		skill_joy_stick.skill_signal.connect(self.skill_signal)
 
-	skill_joy_stick.button = true
-	cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
-	power = get_node("/root/Config").get_value("power", character_name)
-	damage = get_node("/root/Config").get_value("damage", character_name)
-	duration_time = get_node("/root/Config").get_value("duration", character_name)
+		skill_joy_stick.button = true
+		duration_time = get_node("/root/Config").get_value("duration", character_name)
+		cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
 
-	cooldown.wait_time = cooldown_time
-	duration.wait_time = duration_time
+		cooldown.wait_time = cooldown_time
+		duration.wait_time = duration_time
+		cooldown_bar = character.get_node('LocalUI/CooldownBar')
+		cooldown_text = character.get_node('LocalUI/CooldownBar/Text')
+		cooldown_bar.set_value(100)
+		cooldown_text.set_text("[center]ready[/center]")
+		character.get_node("RemoteUI").visible = false
+		Global.camera.add_target(body)
+#		get_node("RemoteCharacter").queue_free()
+		for part in get_node("LocalCharacter").get_children():
+			part.set_power(character_name)
+		character.ignore_local()
 
-	cooldown_bar = character.get_node('LocalUI/CooldownBar')
-	cooldown_text = character.get_node('LocalUI/CooldownBar/Text')
-
-	cooldown_bar.set_value(100)
-	cooldown_text.set_text("[center]ready[/center]")
-
-	for part in get_node("LocalCharacter").get_children():
-		part.set_power(character_name)
+	else:
+		character.get_node("LocalUI").visible = false
+		Global.camera.add_target(body)
+#		get_node("LocalCharacter").queue_free()
+#		character.ignore_remote()
+#	character.ignore_self()
+#	name = str(get_multiplayer_authority())
+#	get_node("LocalCharacter").load_skin(character_name)
+#
+#	movement_joy_stick.move_signal.connect(character.move_signal)
+#	skill_joy_stick.skill_signal.connect(self.skill_signal)
+#
+#	skill_joy_stick.button = true
+#	cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
+#	power = get_node("/root/Config").get_value("power", character_name)
+#	damage = get_node("/root/Config").get_value("damage", character_name)
+#	duration_time = get_node("/root/Config").get_value("duration", character_name)
+#
+#	cooldown.wait_time = cooldown_time
+#	duration.wait_time = duration_time
+#
+#	cooldown_bar = character.get_node('LocalUI/CooldownBar')
+#	cooldown_text = character.get_node('LocalUI/CooldownBar/Text')
+#
+#	cooldown_bar.set_value(100)
+#	cooldown_text.set_text("[center]ready[/center]")
+#
+#	for part in get_node("LocalCharacter").get_children():
+#		part.set_power(character_name)
 
 
 

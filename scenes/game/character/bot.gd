@@ -28,6 +28,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
+
 	if direction_set:
 		return
 

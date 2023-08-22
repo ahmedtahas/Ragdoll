@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="8_302go"]
 [ext_resource type="Script" path="res://scenes/game/modules/single_weapon_collision.gd" id="9_y3mkq"]
 [ext_resource type="Texture2D" uid="uid://ii2517k08sno" path="res://assets/sprites/character/equipped/buccarold/Flame.png" id="10_7lr37"]
-[ext_resource type="PackedScene" uid="uid://c2khg3vqn4pur" path="res://scenes/game/modules/single_character.tscn" id="11_6has0"]
 [ext_resource type="PackedScene" uid="uid://b5s5nff032il4" path="res://scenes/game/modules/skill_joy_stick.tscn" id="11_erygp"]
+[ext_resource type="PackedScene" uid="uid://dfctusw14gxrg" path="res://scenes/game/modules/character.tscn" id="12_3a1es"]
 [ext_resource type="PackedScene" uid="uid://xv24ne73swcs" path="res://scenes/game/modules/movement_joy_stick.tscn" id="12_f6o8j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n7h57"]
@@ -772,10 +772,10 @@ one_shot = true
 [node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
 one_shot = true
 
-[node name="Character" parent="Extra" instance=ExtResource("11_6has0")]
-
 [node name="JoyStick" type="CanvasLayer" parent="Extra"]
 
 [node name="SkillJoyStick" parent="Extra/JoyStick" instance=ExtResource("11_erygp")]
 
 [node name="MovementJoyStick" parent="Extra/JoyStick" instance=ExtResource("12_f6o8j")]
+
+[node name="Character" parent="Extra" instance=ExtResource("12_3a1es")]

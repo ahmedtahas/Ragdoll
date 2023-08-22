@@ -43,7 +43,6 @@ func _ready() -> void:
 	name = str(get_multiplayer_authority())
 	get_node("LocalCharacter").load_skin(character_name)
 	get_node("Extra/ShootingArm").arm(character_name)
-	character.gunner()
 	_ignore_self()
 	if is_multiplayer_authority():
 		get_node("RemoteCharacter").queue_free()
@@ -78,12 +77,12 @@ func _ready() -> void:
 	crosshair.visible = false
 
 
-@rpc("call_remote", "reliable")
-func add_skill(skill_name: String) -> void:
-	Global.world.add_skill(skill_name)
+@rpc("reliable")
+func add_skill(skill_name: String, pos: Vector2) -> void:
+	Global.world.add_skill(skill_name, pos)
 
 
-@rpc("call_remote", "reliable")
+@rpc("reliable")
 func remove_skill() -> void:
 	Global.world.remove_skill()
 
@@ -146,12 +145,14 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		rua.visible = false
 		rla.visible = false
 		rf.visible = false
+		rpc("aiming_arm", true)
 		ra.look_at(crosshair.global_position)
 		crosshair.global_position += direction * 20
 		crosshair.rotation += 0.075
 		synchronizer.aim = crosshair.global_position
 
 	else:
+		rpc("aiming_arm", false)
 		aiming = is_aiming
 		growing = false
 		synchronizer.aim = Vector2.ZERO
@@ -163,7 +164,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 			Global.server_skill.add_child(bullet, true)
 		else:
 			Global.client_skill.add_child(bullet, true)
-			rpc_id(Global.world.get_opponent_id(), "add_skill", "bullet")
+			rpc("add_skill", "bullet", barrel.global_position)
 		bullet.set_multiplayer_authority(multiplayer.get_unique_id())
 		ignore_skill()
 		bullet.global_position = barrel.global_position
@@ -183,6 +184,25 @@ func ignore_skill() -> void:
 		child.add_collision_exception_with(bullet)
 
 
+@rpc("reliable")
+func aiming_arm(show_arm: bool) -> void:
+	if show_arm:
+		ra.visible = true
+		ra.set_collision_layer_value(1, true)
+		ra.set_collision_mask_value(1, true)
+		ra.look_at(synchronizer.aim)
+		rrua.visible = false
+		rrla.visible = false
+		rrf.visible = false
+	else:
+		ra.visible = false
+		ra.set_collision_layer_value(1, false)
+		ra.set_collision_mask_value(1, false)
+		rrua.visible = true
+		rrla.visible = true
+		rrf.visible = true
+
+
 func hit_signal(hit: Node2D) -> void:
 	if (hit is RigidBody2D or hit is CharacterBody2D) and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
 		if not hit.is_in_group("Skill"):
@@ -197,4 +217,4 @@ func hit_signal(hit: Node2D) -> void:
 			cooldown.stop()
 	bullet.queue_free()
 	if not multiplayer.is_server():
-		rpc_id(Global.world.get_opponent_id(), "remove_skill")
+		rpc("remove_skill")

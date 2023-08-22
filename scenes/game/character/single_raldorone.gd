@@ -17,7 +17,8 @@ extends Node2D
 @onready var center: Vector2 = $Extra/Center.position
 
 @onready var character: Node2D = $Extra/Character
-@onready var joy_stick: CanvasLayer = $Extra/DoubleJoyStick
+@onready var skill_joy_stick: Control = $Extra/JoyStick/SkillJoyStick
+@onready var movement_joy_stick: Control = $Extra/JoyStick/MovementJoyStick
 @onready var body: RigidBody2D = $LocalCharacter/Body
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var duration: Timer = $Extra/SkillDuration
@@ -29,9 +30,9 @@ func _ready() -> void:
 	name = character_name
 	get_node("LocalCharacter").load_skin(character_name)
 	character.ignore_self()
-	joy_stick.move_signal.connect(character.move_signal)
-	joy_stick.skill_signal.connect(self.skill_signal)
-	joy_stick.button = true
+	movement_joy_stick.move_signal.connect(character.move_signal)
+	skill_joy_stick.skill_signal.connect(self.skill_signal)
+	skill_joy_stick.button = true
 
 	cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
 	duration_time = get_node("/root/Config").get_value("duration", character_name)
@@ -78,7 +79,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func skill_signal(using: bool) -> void:
-	if not cooldown.is_stopped():
+	if not cooldown.is_stopped() or not duration.is_stopped():
 		return
 
 	if using:
@@ -86,8 +87,8 @@ func skill_signal(using: bool) -> void:
 
 	else:
 		duration.start()
-		shield.scale.x = 1.5
-		shield.scale.y = 1.5
+		shield.scale.x = 2
+		shield.scale.y = 2
 		for part in arm.get_children():
 			if part is CollisionPolygon2D:
 				part.queue_free()

@@ -12,3 +12,6 @@ func weapon_collision(character_name: String) -> void:
 	collision_polygon.reparent.call_deferred(get_parent())
 	if centered:
 		collision_polygon.position -= Vector2(bitmap.get_size()) / 2
+	if CharacterSelection.mode == "world" and get_node("../../..").has_node("RemoteCharacter") and not get_parent() is CharacterBody2D:
+		var collision_copy: CollisionPolygon2D = collision_polygon.duplicate()
+		get_node("../../../RemoteCharacter/" + get_parent().name).add_child(collision_copy)

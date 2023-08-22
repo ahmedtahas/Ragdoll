@@ -120,7 +120,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 
 			if (end_point - opponent_pos).length() < opponent_rad.length():
 				end_point = opponent_pos + ((dagger.global_position - opponent_pos).normalized() * (opponent_rad.length() + radius.length()))
-			end_point = Global.get_inside_position(end_point, name)
+			end_point = Global.get_inside_position_player(end_point, name)
 			teleport()
 		else:
 			_hit = false
@@ -145,7 +145,7 @@ func hit_signal(hit: Node2D) -> void:
 	if hit is RigidBody2D:
 		if hit.get_node("../..") != self:
 			end_point = Global.bot.get_node("LocalCharacter/Body").global_position + ((dagger.global_position - body.global_position).normalized() * (Global.bot.radius.length() + radius.length()))
-			end_point = Global.get_inside_position(end_point, name)
+			end_point = Global.get_inside_position_player(end_point, name)
 			Global.bot.character.hit_stun()
 			if hit.name == "Head":
 				character.damage_bot(damage * 2)

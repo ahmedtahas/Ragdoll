@@ -13,7 +13,8 @@ extends Node2D
 @onready var center: Vector2 = $Extra/Center.position
 
 @onready var character: Node2D = $Extra/Character
-@onready var joy_stick: CanvasLayer = $Extra/DoubleJoyStick
+@onready var skill_joy_stick: Control = $Extra/JoyStick/SkillJoyStick
+@onready var movement_joy_stick: Control = $Extra/JoyStick/MovementJoyStick
 @onready var body: RigidBody2D = $LocalCharacter/Body
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var duration: Timer = $Extra/SkillDuration
@@ -27,10 +28,10 @@ func _ready() -> void:
 
 	if is_multiplayer_authority():
 		get_node("RemoteCharacter").queue_free()
-		joy_stick.move_signal.connect(character.move_signal)
-		joy_stick.skill_signal.connect(self.skill_signal)
+		movement_joy_stick.move_signal.connect(character.move_signal)
+		skill_joy_stick.skill_signal.connect(self.skill_signal)
 
-		joy_stick.button = true
+		skill_joy_stick.button = true
 		duration_time = get_node("/root/Config").get_value("duration", character_name)
 		cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
 
@@ -51,18 +52,6 @@ func _ready() -> void:
 		character.get_node("LocalUI").visible = false
 		Global.camera.add_target(get_node("RemoteCharacter/Body"))
 		character.ignore_remote()
-
-
-@rpc("call_remote", "reliable")
-func add_skill(skill_name: String) -> void:
-	Global.world.add_skill(skill_name)
-
-
-@rpc("call_remote", "reliable")
-func remove_skill() -> void:
-	Global.world.remove_skill()
-
-
 
 
 func _physics_process(_delta: float) -> void:

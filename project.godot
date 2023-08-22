@@ -21,6 +21,7 @@ config/icon="res://icon.png"
 Config="*res://global/Config.gd"
 CharacterSelection="*res://global/character_selection.gd"
 Global="*res://global/global.gd"
+GameManager="*res://global/GameManager.gd"
 
 [display]
 

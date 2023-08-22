@@ -12,17 +12,27 @@ const room: Vector2 = Vector2(20420, -10180)
 
 signal black_out
 
+func get_inside_position(pos: Vector2) -> Vector2:
+	if pos.x > room.x:
+		pos.x = room.x - 30
+	elif pos.x < 0:
+		pos.x = 30
+	if pos.y < room.y:
+		pos.y = room.y + 30
+	elif pos.y > 0:
+		pos.y -= 30
+	return pos
 
-func get_inside_position(pos: Vector2, player_id: String) -> Vector2:
+func get_inside_position_player(pos: Vector2, player_id: String) -> Vector2:
 	var _player = spawner.get_node(player_id)
 	if pos.x > room.x:
-		pos.x = room.x
+		pos.x = room.x - 30
 	elif pos.x < _player.radius.x:
-		pos.x = 0
+		pos.x = 30
 	if pos.y < room.y:
-		pos.y = room.y
+		pos.y = room.y + 30
 	elif pos.y > -_player.radius.x:
-		pos.y -= 0
+		pos.y -= 30
 	return pos
 
 
@@ -41,8 +51,16 @@ func avoid_enemies(vector: Vector2) -> Vector2:
 				if ((spawner.get_node(str(world.server_id) + "/LocalCharacter/Body").global_position + vector) - object).length() < list[object].length():
 					print('2')
 					vector = vector.normalized() * (vector.length() + list[object].length())
-		vector = get_inside_position(vector + spawner.get_node(str(world.server_id) + "/LocalCharacter/Body").global_position, str(world.server_id))
-
+		vector = get_inside_position_player(vector + spawner.get_node(str(world.server_id) + "/LocalCharacter/Body").global_position, str(world.server_id))
+		for object in list:
+			if ((spawner.get_node(str(world.server_id) + "/LocalCharacter/Body").global_position + vector) - object).length() < list[object].length():
+				print("1")
+				print(vector)
+				vector = vector.normalized() * (vector.length() - list[object].length())
+				print(vector)
+				if ((spawner.get_node(str(world.server_id) + "/LocalCharacter/Body").global_position + vector) - object).length() < list[object].length():
+					print('2')
+					vector = vector.normalized() * (vector.length() - list[object].length())
 	else:
 		list[spawner.get_node(str(world.server_id) + "/RemoteCharacter/Body").global_position + (spawner.get_node(str(world.server_id)).center.rotated(spawner.get_node(str(world.server_id) + "/RemoteCharacter/Body").global_rotation))] = spawner.get_node(str(world.server_id)).radius
 
@@ -57,7 +75,15 @@ func avoid_enemies(vector: Vector2) -> Vector2:
 				if ((spawner.get_node(str(world.client_id) + "/LocalCharacter/Body").global_position + vector) - object).length() < list[object].length():
 					print('2')
 					vector = vector.normalized() * (vector.length() + list[object].length())
-		vector = get_inside_position(vector + spawner.get_node(str(world.client_id) + "/LocalCharacter/Body").global_position, str(world.client_id))
-#
+		vector = get_inside_position_player(vector + spawner.get_node(str(world.client_id) + "/LocalCharacter/Body").global_position, str(world.client_id))
+		for object in list:
+			if ((spawner.get_node(str(world.client_id) + "/LocalCharacter/Body").global_position + vector) - object).length() < list[object].length():
+				print("1")
+				print(vector)
+				vector = vector.normalized() * (vector.length() - list[object].length())
+				print(vector)
+				if ((spawner.get_node(str(world.client_id) + "/LocalCharacter/Body").global_position + vector) - object).length() < list[object].length():
+					print('2')
+					vector = vector.normalized() * (vector.length() - list[object].length())
 	return vector
 

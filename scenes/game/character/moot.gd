@@ -23,10 +23,10 @@ extends Node2D
 @onready var skill_joy_stick: Control = $Extra/JoyStick/SkillJoyStick
 @onready var movement_joy_stick: Control = $Extra/JoyStick/MovementJoyStick
 @onready var body: RigidBody2D = $LocalCharacter/Body
+@onready var remote_body: CharacterBody2D = $RemoteCharacter/Body
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var duration: Timer = $Extra/SkillDuration
-@onready var fire_ring_1: Sprite2D = $Extra/FireRing1
-@onready var fire_ring_2: Sprite2D = $Extra/FireRing2
+@onready var fire_ring: GPUParticles2D = $Extra/FireRing
 
 
 @onready var cooldown_set: bool = false
@@ -66,25 +66,25 @@ func _ready() -> void:
 		character.ignore_remote()
 
 
-@rpc("call_remote", "reliable")
-func add_skill(skill_name: String) -> void:
-	Global.world.add_skill(skill_name)
+@rpc("reliable")
+func add_skill(skill_name: String, pos: Vector2) -> void:
+	Global.world.add_skill(skill_name, pos)
 
 
-@rpc("call_remote", "reliable")
+@rpc("reliable")
 func remove_skill() -> void:
 	Global.world.remove_skill()
 
 
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
+		fire_ring.global_position = remote_body.global_position + Vector2(0, 400).rotated(remote_body.global_rotation)
 		return
 
+
+	fire_ring.global_position = body.global_position + Vector2(0, 400).rotated(body.global_rotation)
+
 	if not duration.is_stopped():
-		fire_ring_1.global_position = body.global_position + center.rotated(body.global_rotation)
-		fire_ring_2.global_position = body.global_position + center.rotated(body.global_rotation)
-		fire_ring_1.global_rotation += 0.5
-		fire_ring_2.global_rotation -= 0.5
 
 		cooldown_bar.set_value((100 * duration.time_left) / duration_time)
 		cooldown_text.set_text("[center]" + str(duration.time_left).pad_decimals(1) + "s[/center]")
@@ -110,20 +110,17 @@ func skill_signal(using: bool) -> void:
 		pass
 
 	else:
-		fire_ring_1.visible = true
-		fire_ring_2.visible = true
+		fire_ring.emitting = true
 		duration.start()
 		magic.global_position = body.global_position + center.rotated(body.global_rotation)
-		character.slow_motion()
-		await get_tree().create_timer(0.05).timeout
-		fire_ring_1.visible = false
-		fire_ring_2.visible = false
+		await get_tree().create_timer(0.5).timeout
+		fire_ring.emitting = false
 		meteor = meteor_instance.instantiate()
 		if multiplayer.is_server():
 			Global.server_skill.add_child(meteor, true)
 		else:
 			Global.client_skill.add_child(meteor, true)
-			rpc_id(Global.world.get_opponent_id(), "add_skill", "meteor")
+			rpc("add_skill", "meteor", fire_place.global_position)
 		meteor.set_multiplayer_authority(multiplayer.get_unique_id())
 		magic.look_at(Global.spawner.get_node(str(Global.world.get_opponent_id()) + "/RemoteCharacter/Body").global_position)
 		meteor.global_position = fire_place.global_position
@@ -152,4 +149,4 @@ func hit_signal(hit: Node2D) -> void:
 	duration.stop()
 	cooldown.start()
 	if not multiplayer.is_server():
-		rpc_id(Global.world.get_opponent_id(), "remove_skill")
+		rpc("remove_skill")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://df0d3mwjs7go2"]
+[gd_scene load_steps=20 format=3 uid="uid://df0d3mwjs7go2"]
 
 [ext_resource type="Script" path="res://scenes/game/character/single_raldorone.gd" id="1_bunn0"]
 [ext_resource type="Script" path="res://scenes/game/character/single_load_skin.gd" id="2_b58rn"]
@@ -8,8 +8,9 @@
 [ext_resource type="Script" path="res://scenes/game/modules/single_weapon_collision.gd" id="6_lad0r"]
 [ext_resource type="Texture2D" uid="uid://die5me60kg1r5" path="res://assets/sprites/character/guidelines/4_piece.png" id="7_d00fj"]
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="8_lssvo"]
-[ext_resource type="PackedScene" uid="uid://cfps4j761fr03" path="res://scenes/game/modules/joy_stick.tscn" id="9_485uo"]
 [ext_resource type="PackedScene" uid="uid://c2khg3vqn4pur" path="res://scenes/game/modules/single_character.tscn" id="10_ic2bv"]
+[ext_resource type="PackedScene" uid="uid://b5s5nff032il4" path="res://scenes/game/modules/skill_joy_stick.tscn" id="10_si6y4"]
+[ext_resource type="PackedScene" uid="uid://xv24ne73swcs" path="res://scenes/game/modules/movement_joy_stick.tscn" id="11_3oyk0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6dkfg"]
 radius = 165.0
@@ -252,22 +253,6 @@ stiffness = 64.0
 [node name="RF3" type="PinJoint2D" parent="LocalCharacter/RF"]
 node_a = NodePath("../../RLA")
 node_b = NodePath("..")
-
-[node name="RF4" type="DampedSpringJoint2D" parent="LocalCharacter/RF"]
-position = Vector2(0, 64)
-rotation = 1.5708
-node_a = NodePath("..")
-node_b = NodePath("../../RLA")
-length = 1.0
-stiffness = 64.0
-
-[node name="RF5" type="DampedSpringJoint2D" parent="LocalCharacter/RF"]
-position = Vector2(0, -64)
-rotation = 1.5708
-node_a = NodePath("..")
-node_b = NodePath("../../RLA")
-length = 1.0
-stiffness = 64.0
 
 [node name="LLA" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
 position = Vector2(-288, 0)
@@ -744,9 +729,13 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
-[node name="DoubleJoyStick" parent="Extra" instance=ExtResource("9_485uo")]
-
 [node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
 one_shot = true
 
 [node name="Character" parent="Extra" instance=ExtResource("10_ic2bv")]
+
+[node name="JoyStick" type="CanvasLayer" parent="Extra"]
+
+[node name="SkillJoyStick" parent="Extra/JoyStick" instance=ExtResource("10_si6y4")]
+
+[node name="MovementJoyStick" parent="Extra/JoyStick" instance=ExtResource("11_3oyk0")]

@@ -14,7 +14,8 @@ extends Node2D
 	"kaliber": preload("res://scenes/game/character/kaliber.tscn"),
 	"meri": preload("res://scenes/game/character/meri.tscn"),
 	"moot": preload("res://scenes/game/character/moot.tscn"),
-	"raldorone": preload("res://scenes/game/character/raldorone.tscn")
+	"raldorone": preload("res://scenes/game/character/raldorone.tscn"),
+	"buccarold": preload("res://scenes/game/character/single_buccarold.tscn")
 }
 @onready var skill_dictionary: Dictionary = {
 	"dagger": preload("res://scenes/game/tools/dagger.tscn"),
@@ -25,13 +26,11 @@ extends Node2D
 
 
 @onready var multiplayer_peer = ENetMultiplayerPeer.new()
+@onready var addr
+@onready var client_addr
+@onready var new_peer
 
-const PORT = 9999
-const ADDRESS = "127.0.0.1"
-const clientaddr = "192.168.0.21"
-var upnp
-var discover_result
-var external_ip
+const PORT = 8910
 
 func _ready() -> void:
 	Global.world = self
@@ -39,20 +38,33 @@ func _ready() -> void:
 	Global.camera = $MTC
 	Global.server_skill = $ServerSkill
 	Global.client_skill = $ClientSkill
-#	upnp = UPNP.new()
-#	discover_result = upnp.discover()
-#	if discover_result == UPNP.UPNP_RESULT_SUCCESS:
-#		if upnp.get_gateway() and upnp.get_gateway().is_valid_gateway():
-#			var mapresudp = upnp.add_port_mapping(9999, 9999, "godot_udp", "UDP", 0)
-#			var maprestcp = upnp.add_port_mapping(9999, 9999, "godot_tcp", "TCP", 0)
-#
-#			if not mapresudp == UPNP.UPNP_RESULT_SUCCESS:
-#				upnp.add_port_mapping(9999, 9999, "", "UDP")
-#			if not maprestcp == UPNP.UPNP_RESULT_SUCCESS:
-#				upnp.add_port_mapping(9999, 9999, "", "TCP")
-#	if multiplayer.is_server():
-#		external_ip = upnp.query_external_address()
+	var addrs = IP.get_local_addresses()
+	addr = addrs[3]
+	client_addr = addrs[7]
+	multiplayer.peer_connected.connect(peer_connected)
+	multiplayer.peer_disconnected.connect(peer_disconnected)
+	multiplayer.connected_to_server.connect(connected_to_server)
+	multiplayer.connection_failed.connect(connection_failed)
 
+
+#called on every peer
+func peer_connected(id):
+	print("peer connected  ::  ", id)
+
+
+#called on every peer
+func peer_disconnected(id):
+	print("peer disconnected  ::  ", id)
+
+
+#called only on client
+func connected_to_server():
+	print("connected to server")
+
+
+#called only on client
+func connection_failed():
+	print("connection failed")
 
 
 @rpc("any_peer", "reliable", "call_local")
@@ -78,11 +90,9 @@ func get_opponent_id():
 
 
 func _on_host_pressed() -> void:
-	$NetworkInfo/NetworkSideDisplay.text = "Server"
-	$Menu.visible = false
+	$Menu.hide()
 	multiplayer_peer.create_server(PORT)
 	multiplayer.multiplayer_peer = multiplayer_peer
-	$NetworkInfo/UniquePeerID.text = str(multiplayer.get_unique_id())
 	add_player_character(1)
 	server_id = multiplayer.get_unique_id()
 	get_node("Spawner/1/LocalCharacter/Head").freeze = true
@@ -100,9 +110,8 @@ func _on_host_pressed() -> void:
 
 
 func _on_join_pressed() -> void:
-	$NetworkInfo/NetworkSideDisplay.text = "Client"
-	$Menu.visible = false
-	multiplayer_peer.create_client(ADDRESS, PORT)
+	$Menu.hide()
+	multiplayer_peer.create_client(addr, PORT)
 	multiplayer.multiplayer_peer = multiplayer_peer
 	multiplayer_peer.peer_connected.connect(
 		func(_peer_):
@@ -111,7 +120,6 @@ func _on_join_pressed() -> void:
 			await get_tree().create_timer(2).timeout
 			rpc_id(_peer_,"set_opponent", CharacterSelection.own)
 	)
-	$NetworkInfo/UniquePeerID.text = str(multiplayer.get_unique_id())
 
 
 func add_player_character(peer_id):
@@ -133,9 +141,10 @@ func add_player_character(peer_id):
 
 
 @rpc("call_remote", "reliable")
-func add_skill(skill_name: String) -> void:
+func add_skill(skill_name: String, pos: Vector2) -> void:
 	var skill = skill_dictionary.get(skill_name).instantiate()
 	$ClientSkill.add_child(skill)
+	skill.global_position = pos
 	skill.set_multiplayer_authority(client_id)
 
 

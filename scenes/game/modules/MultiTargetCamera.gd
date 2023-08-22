@@ -46,14 +46,19 @@ func _physics_process(_delta: float) -> void:
 
 
 func black_out(duration: float):
-	var opponent: CharacterBody2D
+	var objects = []
 	for target in targets:
-		if target is CharacterBody2D:
-			opponent = target
-	remove_target(opponent)
+		if target is CharacterBody2D and target.has_node(".."):
+			var wr = weakref(target)
+			objects.append(wr)
+	for target in objects:
+		if target.get_ref():
+			remove_target(target.get_ref())
 	black_screen.visible = true
 	await get_tree().create_timer(duration).timeout
-	add_target(opponent)
+	for target in objects:
+		if target.get_ref():
+			add_target(target.get_ref())
 	black_screen.visible = false
 
 

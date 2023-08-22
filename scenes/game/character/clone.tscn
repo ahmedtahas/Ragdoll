@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b3gsumju84qld"]
+[gd_scene load_steps=22 format=3 uid="uid://b3gsumju84qld"]
 
 [ext_resource type="Script" path="res://scenes/game/character/clone.gd" id="1_pye2w"]
 [ext_resource type="Script" path="res://scenes/game/character/load_skin.gd" id="2_t2asy"]
@@ -11,136 +11,13 @@
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="9_0ck8v"]
 [ext_resource type="Texture2D" uid="uid://die5me60kg1r5" path="res://assets/sprites/character/guidelines/4_piece.png" id="10_j02e1"]
 [ext_resource type="PackedScene" uid="uid://dfctusw14gxrg" path="res://scenes/game/modules/character.tscn" id="10_ubvtg"]
+[ext_resource type="Script" path="res://scenes/game/character/caster.gd" id="12_rjhgy"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3yowm"]
-properties/0/path = NodePath(".:head_pos")
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_cqy6t"]
+properties/0/path = NodePath(".:part_dict")
 properties/0/spawn = true
 properties/0/sync = true
 properties/0/watch = false
-properties/1/path = NodePath(".:head_rot")
-properties/1/spawn = true
-properties/1/sync = true
-properties/1/watch = false
-properties/2/path = NodePath(".:body_pos")
-properties/2/spawn = true
-properties/2/sync = true
-properties/2/watch = false
-properties/3/path = NodePath(".:body_rot")
-properties/3/spawn = true
-properties/3/sync = true
-properties/3/watch = false
-properties/4/path = NodePath(".:rua_pos")
-properties/4/spawn = true
-properties/4/sync = true
-properties/4/watch = false
-properties/5/path = NodePath(".:rua_rot")
-properties/5/spawn = true
-properties/5/sync = true
-properties/5/watch = false
-properties/6/path = NodePath(".:rla_pos")
-properties/6/spawn = true
-properties/6/sync = true
-properties/6/watch = false
-properties/7/path = NodePath(".:rla_rot")
-properties/7/spawn = true
-properties/7/sync = true
-properties/7/watch = false
-properties/8/path = NodePath(".:rf_pos")
-properties/8/spawn = true
-properties/8/sync = true
-properties/8/watch = false
-properties/9/path = NodePath(".:rf_rot")
-properties/9/spawn = true
-properties/9/sync = true
-properties/9/watch = false
-properties/10/path = NodePath(".:lua_pos")
-properties/10/spawn = true
-properties/10/sync = true
-properties/10/watch = false
-properties/11/path = NodePath(".:lua_rot")
-properties/11/spawn = true
-properties/11/sync = true
-properties/11/watch = false
-properties/12/path = NodePath(".:lla_pos")
-properties/12/spawn = true
-properties/12/sync = true
-properties/12/watch = false
-properties/13/path = NodePath(".:lla_rot")
-properties/13/spawn = true
-properties/13/sync = true
-properties/13/watch = false
-properties/14/path = NodePath(".:lf_pos")
-properties/14/spawn = true
-properties/14/sync = true
-properties/14/watch = false
-properties/15/path = NodePath(".:lf_rot")
-properties/15/spawn = true
-properties/15/sync = true
-properties/15/watch = false
-properties/16/path = NodePath(".:hip_pos")
-properties/16/spawn = true
-properties/16/sync = true
-properties/16/watch = false
-properties/17/path = NodePath(".:hip_rot")
-properties/17/spawn = true
-properties/17/sync = true
-properties/17/watch = false
-properties/18/path = NodePath(".:rul_pos")
-properties/18/spawn = true
-properties/18/sync = true
-properties/18/watch = false
-properties/19/path = NodePath(".:rul_rot")
-properties/19/spawn = true
-properties/19/sync = true
-properties/19/watch = false
-properties/20/path = NodePath(".:rll_pos")
-properties/20/spawn = true
-properties/20/sync = true
-properties/20/watch = false
-properties/21/path = NodePath(".:rll_rot")
-properties/21/spawn = true
-properties/21/sync = true
-properties/21/watch = false
-properties/22/path = NodePath(".:lul_pos")
-properties/22/spawn = true
-properties/22/sync = true
-properties/22/watch = false
-properties/23/path = NodePath(".:lul_rot")
-properties/23/spawn = true
-properties/23/sync = true
-properties/23/watch = false
-properties/24/path = NodePath(".:lll_pos")
-properties/24/spawn = true
-properties/24/sync = true
-properties/24/watch = false
-properties/25/path = NodePath(".:lll_rot")
-properties/25/spawn = true
-properties/25/sync = true
-properties/25/watch = false
-properties/26/path = NodePath(".:rk_pos")
-properties/26/spawn = true
-properties/26/sync = true
-properties/26/watch = false
-properties/27/path = NodePath(".:rk_rot")
-properties/27/spawn = true
-properties/27/sync = true
-properties/27/watch = false
-properties/28/path = NodePath(".:lk_pos")
-properties/28/spawn = true
-properties/28/sync = true
-properties/28/watch = false
-properties/29/path = NodePath(".:lk_rot")
-properties/29/spawn = true
-properties/29/sync = true
-properties/29/watch = false
-properties/30/path = NodePath(".:stomach_pos")
-properties/30/spawn = true
-properties/30/sync = true
-properties/30/watch = false
-properties/31/path = NodePath(".:stomach_rot")
-properties/31/spawn = true
-properties/31/sync = true
-properties/31/watch = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_55l7n"]
 radius = 137.015
@@ -188,11 +65,11 @@ one_shot = true
 
 [node name="Character" parent="Extra" instance=ExtResource("10_ubvtg")]
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Extra"]
-replication_config = SubResource("SceneReplicationConfig_3yowm")
-
 [node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
 one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Extra"]
+replication_config = SubResource("SceneReplicationConfig_cqy6t")
 
 [node name="LocalCharacter" type="Node2D" parent="."]
 script = ExtResource("2_t2asy")
@@ -907,6 +784,7 @@ script = ExtResource("7_x3w6n")
 
 [node name="Head" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable", "Damager"]]
 position = Vector2(0, -120)
+script = ExtResource("12_rjhgy")
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Head"]
 position = Vector2(0, -105)
@@ -917,6 +795,7 @@ position = Vector2(0, -135)
 shape = SubResource("CircleShape2D_55l7n")
 
 [node name="Body" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
+script = ExtResource("12_rjhgy")
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Body"]
 texture = ExtResource("7_xahoh")
@@ -927,6 +806,7 @@ shape = SubResource("CapsuleShape2D_ji4wa")
 [node name="RLA" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
 position = Vector2(240, 0)
 rotation = 1.5708
+script = ExtResource("12_rjhgy")
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RLA"]
 position = Vector2(-0.000427246, -120)
@@ -938,6 +818,7 @@ shape = SubResource("CapsuleShape2D_setkv")
 
 [node name="RUA" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
 rotation = 1.5708
+script = ExtResource("12_rjhgy")
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RUA"]
 position = Vector2(-0.000442505, -120)
@@ -949,6 +830,7 @@ shape = SubResource("CapsuleShape2D_ji4wa")
 
 [node name="RF" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damager"]]
 position = Vector2(480, 0)
+script = ExtResource("12_rjhgy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/RF"]
 shape = SubResource("CircleShape2D_8tc8w")
@@ -959,6 +841,7 @@ script = ExtResource("8_hcxbu")
 [node name="LLA" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
 position = Vector2(-240, 0)
 rotation = -1.5708
+script = ExtResource("12_rjhgy")
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LLA"]
 position = Vector2(0.000473022, -120)
@@ -970,6 +853,7 @@ shape = SubResource("CapsuleShape2D_setkv")
 
 [node name="LUA" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
 rotation = 1.5708
+script = ExtResource("12_rjhgy")
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LUA"]
 position = Vector2(0.000442505, 120)
@@ -981,6 +865,7 @@ shape = SubResource("CapsuleShape2D_ji4wa")
 
 [node name="LF" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damager"]]
 position = Vector2(-480, 0)
+script = ExtResource("12_rjhgy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/LF"]
 shape = SubResource("CircleShape2D_8tc8w")
@@ -990,6 +875,7 @@ script = ExtResource("8_hcxbu")
 
 [node name="Hip" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
 position = Vector2(0, 240)
+script = ExtResource("12_rjhgy")
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Hip"]
 position = Vector2(0, 60)
@@ -1002,6 +888,7 @@ shape = SubResource("CapsuleShape2D_tcpd6")
 [node name="RLL" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
 position = Vector2(180, 672)
 rotation = -0.506145
+script = ExtResource("12_rjhgy")
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RLL"]
 position = Vector2(0, 180)
@@ -1014,6 +901,7 @@ shape = SubResource("CapsuleShape2D_v3bs8")
 [node name="RUL" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
 position = Vector2(0, 360)
 rotation = -0.523599
+script = ExtResource("12_rjhgy")
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RUL"]
 position = Vector2(0, 180)
@@ -1025,6 +913,7 @@ shape = SubResource("CapsuleShape2D_tglub")
 
 [node name="RK" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damager"]]
 position = Vector2(355, 987)
+script = ExtResource("12_rjhgy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/RK"]
 shape = SubResource("CircleShape2D_thvni")
@@ -1033,6 +922,7 @@ shape = SubResource("CircleShape2D_thvni")
 
 [node name="Stomach" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
 position = Vector2(0, 120)
+script = ExtResource("12_rjhgy")
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Stomach"]
 position = Vector2(0, 60)
@@ -1045,6 +935,7 @@ shape = SubResource("CapsuleShape2D_tcpd6")
 [node name="LLL" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
 position = Vector2(-180, 672)
 rotation = 0.523599
+script = ExtResource("12_rjhgy")
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LLL"]
 position = Vector2(0, 180)
@@ -1057,6 +948,7 @@ shape = SubResource("CapsuleShape2D_v3bs8")
 [node name="LUL" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damagable"]]
 position = Vector2(0, 360)
 rotation = 0.523599
+script = ExtResource("12_rjhgy")
 
 [node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LUL"]
 position = Vector2(0, 180)
@@ -1068,6 +960,7 @@ shape = SubResource("CapsuleShape2D_tglub")
 
 [node name="LK" type="CharacterBody2D" parent="RemoteCharacter" groups=["Damager"]]
 position = Vector2(-360, 984)
+script = ExtResource("12_rjhgy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RemoteCharacter/LK"]
 shape = SubResource("CircleShape2D_thvni")

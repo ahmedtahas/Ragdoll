@@ -17,7 +17,8 @@ extends Node2D
 @onready var center: Vector2 = $Extra/Center.position
 
 @onready var character: Node2D = $Extra/Character
-@onready var joy_stick: CanvasLayer = $Extra/DoubleJoyStick
+@onready var skill_joy_stick: Control = $Extra/JoyStick/SkillJoyStick
+@onready var movement_joy_stick: Control = $Extra/JoyStick/MovementJoyStick
 @onready var body: RigidBody2D = $LocalCharacter/Body
 @onready var remote_body: CharacterBody2D = $RemoteCharacter/Body
 @onready var cooldown: Timer = $Extra/SkillCooldown
@@ -26,6 +27,7 @@ extends Node2D
 @onready var remote_shield: Sprite2D = $RemoteCharacter/RF/Sprite
 @onready var syncronizer: Node2D = $Extra
 @onready var arm: RigidBody2D = $LocalCharacter/RF
+@onready var remote_arm: CharacterBody2D = $RemoteCharacter/RF
 
 
 func _ready() -> void:
@@ -33,10 +35,10 @@ func _ready() -> void:
 	get_node("LocalCharacter").load_skin(character_name)
 	if is_multiplayer_authority():
 		get_node("RemoteCharacter").queue_free()
-		joy_stick.move_signal.connect(character.move_signal)
-		joy_stick.skill_signal.connect(self.skill_signal)
+		movement_joy_stick.move_signal.connect(character.move_signal)
+		skill_joy_stick.skill_signal.connect(self.skill_signal)
 
-		joy_stick.button = true
+		skill_joy_stick.button = true
 		duration_time = get_node("/root/Config").get_value("duration", character_name)
 		cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
 
@@ -58,16 +60,6 @@ func _ready() -> void:
 		character.get_node("LocalUI").visible = false
 		Global.camera.add_target(get_node("RemoteCharacter/Body"))
 		character.ignore_remote()
-
-
-@rpc("call_remote", "reliable")
-func add_skill(skill_name: String) -> void:
-	Global.world.add_skill(skill_name)
-
-
-@rpc("call_remote", "reliable")
-func remove_skill() -> void:
-	Global.world.remove_skill()
 
 
 func _physics_process(_delta: float) -> void:
@@ -95,6 +87,16 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 
 
+@rpc("reliable")
+func scale_shield(_scale: float) -> void:
+	remote_shield.scale.x = _scale
+	remote_shield.scale.y = _scale
+	for part in remote_arm.get_children():
+		if part is CollisionPolygon2D:
+			part.queue_free()
+	remote_shield.weapon_collision(character_name)
+
+
 func skill_signal(using: bool) -> void:
 	if not cooldown.is_stopped() or not is_multiplayer_authority() or not duration.is_stopped():
 		return
@@ -104,12 +106,13 @@ func skill_signal(using: bool) -> void:
 
 	else:
 		duration.start()
-		shield.scale.x = 1.5
-		shield.scale.y = 1.5
+		shield.scale.x = 2
+		shield.scale.y = 2
 		for part in arm.get_children():
 			if part is CollisionPolygon2D:
 				part.queue_free()
 		shield.weapon_collision(character_name)
+		rpc("scale_shield", 2)
 		await duration.timeout
 		shield.scale.x = 1
 		shield.scale.y = 1
@@ -117,4 +120,5 @@ func skill_signal(using: bool) -> void:
 			if part is CollisionPolygon2D:
 				part.queue_free()
 		shield.weapon_collision(character_name)
+		rpc("scale_shield", 1)
 		cooldown.start()

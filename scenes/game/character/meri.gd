@@ -16,7 +16,8 @@ extends Node2D
 @onready var center: Vector2 = $Extra/Center.position
 
 @onready var character: Node2D = $Extra/Character
-@onready var joy_stick: CanvasLayer = $Extra/DoubleJoyStick
+@onready var skill_joy_stick: Control = $Extra/JoyStick/SkillJoyStick
+@onready var movement_joy_stick: Control = $Extra/JoyStick/MovementJoyStick
 @onready var body: RigidBody2D = $LocalCharacter/Body
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var duration: Timer = $Extra/SkillDuration
@@ -33,10 +34,10 @@ func _ready() -> void:
 
 	if is_multiplayer_authority():
 		get_node("RemoteCharacter").queue_free()
-		joy_stick.move_signal.connect(character.move_signal)
-		joy_stick.skill_signal.connect(self.skill_signal)
+		movement_joy_stick.move_signal.connect(character.move_signal)
+		skill_joy_stick.skill_signal.connect(self.skill_signal)
 
-		joy_stick.button = false
+		skill_joy_stick.button = false
 		duration_time = get_node("/root/Config").get_value("duration", character_name)
 		cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
 
@@ -59,12 +60,12 @@ func _ready() -> void:
 		character.ignore_remote()
 
 
-@rpc("call_remote", "reliable")
-func add_skill(skill_name: String) -> void:
-	Global.world.add_skill(skill_name)
+@rpc("reliable")
+func add_skill(skill_name: String, pos: Vector2) -> void:
+	Global.world.add_skill(skill_name, pos)
 
 
-@rpc("call_remote", "reliable")
+@rpc("reliable")
 func remove_skill() -> void:
 	Global.world.remove_skill()
 
@@ -107,12 +108,12 @@ func skill_signal(_vector: Vector2, using: bool) -> void:
 				Global.server_skill.add_child(clone, true)
 			else:
 				Global.client_skill.add_child(clone, true)
-				rpc_id(Global.world.get_opponent_id(), "add_skill", "clone")
+				rpc("add_skill", "clone", body.global_position)
 				clone.set_multiplayer_authority(multiplayer.get_unique_id())
 		else:
 			await duration.timeout
 			clone.queue_free()
 			if not multiplayer.is_server():
-				rpc_id(Global.world.get_opponent_id(), "remove_skill")
+				rpc("remove_skill")
 			cooldown.start()
 			cloned = false

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/menu/world.gd" id="1_ky2sx"]
 [ext_resource type="Texture2D" uid="uid://bnxtduxbf131" path="res://assets/sprites/environment/Wall.png" id="2_wo5i0"]
-[ext_resource type="PackedScene" uid="uid://chqdqglpyhnp" path="res://scenes/game/modules/multi_target_camera.tscn" id="3_otfc2"]
+[ext_resource type="PackedScene" uid="uid://do44fi2m8e00e" path="res://scenes/game/modules/mtc.tscn" id="3_jormy"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ky2sx")
@@ -24,49 +24,47 @@ texture = ExtResource("2_wo5i0")
 scale = Vector2(10, 10)
 polygon = PackedVector2Array(1536, 1024, -1536, 1024, -1536, -1024, 88.9999, -1024, 89.6, -508.9, 2.40002, -509, -1021, -509, -1021, 509, 1021, 509, 1021, -509, 89.6, -508.9, 89, -1024, 1536, -1024)
 
-[node name="MTC" parent="." instance=ExtResource("3_otfc2")]
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/game/character/zeina.tscn", "res://scenes/game/character/crock.tscn", "res://scenes/game/character/holstar.tscn", "res://scenes/game/character/tin.tscn", "res://scenes/game/character/roki_roki.tscn", "res://scenes/game/character/paranoc.tscn", "res://scenes/game/character/kaliber.tscn", "res://scenes/game/character/meri.tscn", "res://scenes/game/character/moot.tscn", "res://scenes/game/character/raldorone.tscn")
-spawn_path = NodePath("../Spawner")
-spawn_limit = 1
-
-[node name="NetworkInfo" type="VBoxContainer" parent="."]
-offset_left = 410.0
-offset_top = 4.0
-offset_right = 450.0
-offset_bottom = 56.0
-
-[node name="NetworkSideDisplay" type="Label" parent="NetworkInfo"]
-layout_mode = 2
-
-[node name="UniquePeerID" type="Label" parent="NetworkInfo"]
-layout_mode = 2
-
-[node name="Menu" type="VBoxContainer" parent="."]
-offset_left = 406.0
-offset_top = 248.0
-offset_right = 446.0
-offset_bottom = 288.0
-
-[node name="Host" type="Button" parent="Menu"]
-layout_mode = 2
-text = "HOST"
-
-[node name="Join" type="Button" parent="Menu"]
-layout_mode = 2
-text = "JOIN"
-
 [node name="Spawner" type="Node2D" parent="."]
 
 [node name="ServerSkill" type="Node2D" parent="."]
 
 [node name="ClientSkill" type="Node2D" parent="."]
 
-[node name="ServerSkillSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/game/tools/bullet.tscn", "res://scenes/game/tools/dagger.tscn", "res://scenes/game/character/clone.tscn", "res://scenes/game/tools/meteor.tscn")
-spawn_path = NodePath("../ServerSkill")
-spawn_limit = 1
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/game/character/crock.tscn", "res://scenes/game/character/holstar.tscn", "res://scenes/game/character/kaliber.tscn", "res://scenes/game/character/meri.tscn", "res://scenes/game/character/moot.tscn", "res://scenes/game/character/paranoc.tscn", "res://scenes/game/character/raldorone.tscn", "res://scenes/game/character/roki_roki.tscn", "res://scenes/game/character/tin.tscn", "res://scenes/game/character/zeina.tscn")
+spawn_path = NodePath("../Spawner")
 
-[connection signal="pressed" from="Menu/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="Menu/Join" to="." method="_on_join_pressed"]
+[node name="ServerSkillSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/game/character/clone.tscn", "res://scenes/game/tools/bullet.tscn", "res://scenes/game/tools/dagger.tscn", "res://scenes/game/tools/meteor.tscn")
+spawn_path = NodePath("../ServerSkill")
+
+[node name="MTC" parent="." instance=ExtResource("3_jormy")]
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -4.0
+offset_top = -9.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Host" type="Button" parent="Menu"]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 171.0
+offset_right = 519.0
+offset_bottom = 219.0
+text = "Host
+"
+
+[node name="Join" type="Button" parent="Menu"]
+layout_mode = 0
+offset_left = 407.0
+offset_top = 257.0
+offset_right = 526.0
+offset_bottom = 305.0
+text = "Join
+"
+
+[connection signal="button_up" from="Menu/Host" to="." method="_on_host_pressed"]
+[connection signal="button_up" from="Menu/Join" to="." method="_on_join_pressed"]

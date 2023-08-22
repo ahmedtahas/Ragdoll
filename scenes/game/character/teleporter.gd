@@ -6,10 +6,16 @@ extends RigidBody2D
 @onready var teleporting: bool = false
 @onready var power: float
 @onready var contact_normal: Vector2
+@onready var sync: Node2D = $"../../Extra"
 
 
 func set_power(character_name: String) -> void:
 	power = get_node("/root/Config").get_value("power", character_name)
+
+
+func _physics_process(_delta: float) -> void:
+	if is_multiplayer_authority() and CharacterSelection.mode == "world":
+		sync.part_dict[name] = Vector3(global_position.x, global_position.y, global_rotation)
 
 
 func _integrate_forces(state):
@@ -20,7 +26,7 @@ func _integrate_forces(state):
 			for child in get_parent().get_children():
 				child.apply_impulse(contact_normal * power)
 	if teleporting:
-		state.transform = Transform2D(rot,  loc)
+		state.transform = Transform2D(rot, loc)
 		teleporting = false
 
 
