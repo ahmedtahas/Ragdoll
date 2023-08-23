@@ -13,11 +13,71 @@
 [ext_resource type="PackedScene" uid="uid://dfctusw14gxrg" path="res://scenes/game/modules/character.tscn" id="10_ubvtg"]
 [ext_resource type="Script" path="res://scenes/game/character/caster.gd" id="12_rjhgy"]
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_cqy6t"]
-properties/0/path = NodePath(".:part_dict")
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_d5gqt"]
+properties/0/path = NodePath(".:Head")
 properties/0/spawn = true
 properties/0/sync = true
 properties/0/watch = false
+properties/1/path = NodePath(".:Body")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+properties/2/path = NodePath(".:RUA")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+properties/3/path = NodePath(".:RLA")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
+properties/4/path = NodePath(".:RF")
+properties/4/spawn = true
+properties/4/sync = true
+properties/4/watch = false
+properties/5/path = NodePath(".:LUA")
+properties/5/spawn = true
+properties/5/sync = true
+properties/5/watch = false
+properties/6/path = NodePath(".:LLA")
+properties/6/spawn = true
+properties/6/sync = true
+properties/6/watch = false
+properties/7/path = NodePath(".:LF")
+properties/7/spawn = true
+properties/7/sync = true
+properties/7/watch = false
+properties/8/path = NodePath(".:Stomach")
+properties/8/spawn = true
+properties/8/sync = true
+properties/8/watch = false
+properties/9/path = NodePath(".:Hip")
+properties/9/spawn = true
+properties/9/sync = true
+properties/9/watch = false
+properties/10/path = NodePath(".:RUL")
+properties/10/spawn = true
+properties/10/sync = true
+properties/10/watch = false
+properties/11/path = NodePath(".:RLL")
+properties/11/spawn = true
+properties/11/sync = true
+properties/11/watch = false
+properties/12/path = NodePath(".:RK")
+properties/12/spawn = true
+properties/12/sync = true
+properties/12/watch = false
+properties/13/path = NodePath(".:LUL")
+properties/13/spawn = true
+properties/13/sync = true
+properties/13/watch = false
+properties/14/path = NodePath(".:LLL")
+properties/14/spawn = true
+properties/14/sync = true
+properties/14/watch = false
+properties/15/path = NodePath(".:LK")
+properties/15/spawn = true
+properties/15/sync = true
+properties/15/watch = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_55l7n"]
 radius = 137.015
@@ -69,7 +129,7 @@ one_shot = true
 one_shot = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Extra"]
-replication_config = SubResource("SceneReplicationConfig_cqy6t")
+replication_config = SubResource("SceneReplicationConfig_d5gqt")
 
 [node name="LocalCharacter" type="Node2D" parent="."]
 script = ExtResource("2_t2asy")

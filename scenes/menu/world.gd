@@ -5,7 +5,7 @@ extends Node2D
 @onready var client_id
 @onready var server_id
 @onready var server_ip = $Menu/Label
-@onready var client_ip
+@onready var client_ip = "192.168.0.21"
 @onready var character_dictionary: Dictionary = {
 	"crock": preload("res://scenes/game/character/crock.tscn"),
 	"zeina": preload("res://scenes/game/character/zeina.tscn"),
