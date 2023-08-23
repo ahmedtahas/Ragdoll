@@ -45,12 +45,22 @@ position = Vector2(10210, -5090)
 zoom = Vector2(0.1, 0.1)
 
 [node name="Menu" type="Control" parent="."]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 offset_left = 3426.0
 offset_top = -8931.0
 offset_right = 17235.0
 offset_bottom = -581.0
+
+[node name="Label" type="Label" parent="Menu"]
+layout_mode = 0
+offset_left = 2044.0
+offset_top = -869.0
+offset_right = 10991.0
+offset_bottom = 218.0
+theme_override_font_sizes/font_size = 1000
+text = "asd"
 
 [node name="Host" type="Button" parent="Menu"]
 layout_mode = 0
@@ -72,6 +82,15 @@ theme_override_font_sizes/font_size = 1000
 text = "Join
 "
 
+[node name="LineEdit" type="LineEdit" parent="Menu"]
+layout_mode = 0
+offset_left = 4537.0
+offset_top = 5358.0
+offset_right = 9035.0
+offset_bottom = 6816.0
+theme_override_font_sizes/font_size = 800
+
 [connection signal="child_entered_tree" from="Spawner" to="Spawner" method="_on_child_entered_tree"]
 [connection signal="button_up" from="Menu/Host" to="." method="_on_host_pressed"]
 [connection signal="button_up" from="Menu/Join" to="." method="_on_join_pressed"]
+[connection signal="text_changed" from="Menu/LineEdit" to="." method="_on_line_edit_text_changed"]

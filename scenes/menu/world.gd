@@ -4,6 +4,8 @@ extends Node2D
 @onready var connected_peer_ids = []
 @onready var client_id
 @onready var server_id
+@onready var server_ip = $Menu/Label
+@onready var client_ip
 @onready var character_dictionary: Dictionary = {
 	"crock": preload("res://scenes/game/character/crock.tscn"),
 	"zeina": preload("res://scenes/game/character/zeina.tscn"),
@@ -27,7 +29,6 @@ extends Node2D
 
 @onready var multiplayer_peer = ENetMultiplayerPeer.new()
 @onready var addr
-@onready var client_addr
 @onready var new_peer
 
 const PORT = 8910
@@ -38,9 +39,7 @@ func _ready() -> void:
 	Global.camera = $MTC
 	Global.server_skill = $ServerSkill
 	Global.client_skill = $ClientSkill
-	var addrs = IP.get_local_addresses()
-	addr = addrs[3]
-	client_addr = addrs[7]
+	server_ip.text = IP.get_local_addresses()[9]
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
@@ -111,7 +110,7 @@ func _on_host_pressed() -> void:
 
 func _on_join_pressed() -> void:
 	$Menu.hide()
-	multiplayer_peer.create_client(addr, PORT)
+	multiplayer_peer.create_client(client_ip, PORT)
 	multiplayer.multiplayer_peer = multiplayer_peer
 	multiplayer_peer.peer_connected.connect(
 		func(_peer_):
@@ -163,3 +162,8 @@ func add_newly_connected_player_character(new_peer_id):
 func add_previously_connected_player_characters(peer_id) -> void:
 	connected_peer_ids.append(peer_id)
 
+
+
+func _on_line_edit_text_changed(new_text: String) -> void:
+	client_ip = new_text
+	print(client_ip)

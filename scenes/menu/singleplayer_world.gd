@@ -70,3 +70,7 @@ func change_character() -> void:
 
 func main_menu() -> void:
 	get_tree().change_scene_to_file("res://scenes/menu/main_menu.tscn")
+
+
+func _exit_tree() -> void:
+	get_tree().paused = false
