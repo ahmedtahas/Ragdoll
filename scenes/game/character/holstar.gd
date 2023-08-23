@@ -147,7 +147,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		rf.visible = false
 		rpc("aiming_arm", true)
 		ra.look_at(crosshair.global_position)
-		crosshair.global_position += direction * 20
+		crosshair.global_position += direction * 100
 		crosshair.rotation += 0.075
 		synchronizer.aim = crosshair.global_position
 

@@ -112,8 +112,8 @@ func skill_signal(using: bool) -> void:
 	else:
 		fire_ring.emitting = true
 		duration.start()
-		magic.global_position = body.global_position + center.rotated(body.global_rotation)
 		await get_tree().create_timer(0.5).timeout
+		magic.global_position = body.global_position + center.rotated(body.global_rotation)
 		fire_ring.emitting = false
 		meteor = meteor_instance.instantiate()
 		if multiplayer.is_server():

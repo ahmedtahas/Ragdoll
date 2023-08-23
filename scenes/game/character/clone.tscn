@@ -257,41 +257,6 @@ node_a = NodePath("../../RLA")
 node_b = NodePath("..")
 bias = 0.9
 
-[node name="Sprite" type="Sprite2D" parent="LocalCharacter/RF"]
-script = ExtResource("8_hcxbu")
-
-[node name="RRA" type="DampedSpringJoint2D" parent="LocalCharacter/RF"]
-position = Vector2(0, -59)
-rotation = 1.5708
-node_a = NodePath("../../RLA")
-node_b = NodePath("..")
-length = 1.0
-stiffness = 64.0
-
-[node name="RRA2" type="DampedSpringJoint2D" parent="LocalCharacter/RF"]
-position = Vector2(0, 59)
-rotation = 1.5708
-node_a = NodePath("../../RLA")
-node_b = NodePath("..")
-length = 1.0
-stiffness = 64.0
-
-[node name="RRA4" type="DampedSpringJoint2D" parent="LocalCharacter/RF"]
-position = Vector2(0, -59)
-rotation = 1.5708
-node_a = NodePath("../../RLA")
-node_b = NodePath("..")
-length = 1.0
-stiffness = 64.0
-
-[node name="RRA5" type="DampedSpringJoint2D" parent="LocalCharacter/RF"]
-position = Vector2(0, 59)
-rotation = 1.5708
-node_a = NodePath("../../RLA")
-node_b = NodePath("..")
-length = 1.0
-stiffness = 64.0
-
 [node name="LLA" type="RigidBody2D" parent="LocalCharacter" groups=["Damagable"]]
 position = Vector2(-240, 0)
 rotation = -1.5708
@@ -408,41 +373,6 @@ shape = SubResource("CircleShape2D_8tc8w")
 [node name="LF" type="PinJoint2D" parent="LocalCharacter/LF"]
 node_a = NodePath("../../LLA")
 node_b = NodePath("..")
-
-[node name="Sprite" type="Sprite2D" parent="LocalCharacter/LF"]
-script = ExtResource("8_hcxbu")
-
-[node name="RRA" type="DampedSpringJoint2D" parent="LocalCharacter/LF"]
-position = Vector2(0, -59)
-rotation = 1.5708
-node_a = NodePath("../../RLA")
-node_b = NodePath("..")
-length = 1.0
-stiffness = 64.0
-
-[node name="RRA2" type="DampedSpringJoint2D" parent="LocalCharacter/LF"]
-position = Vector2(0, 59)
-rotation = 1.5708
-node_a = NodePath("../../RLA")
-node_b = NodePath("..")
-length = 1.0
-stiffness = 64.0
-
-[node name="RRA4" type="DampedSpringJoint2D" parent="LocalCharacter/LF"]
-position = Vector2(0, -59)
-rotation = 1.5708
-node_a = NodePath("../../RLA")
-node_b = NodePath("..")
-length = 1.0
-stiffness = 64.0
-
-[node name="RRA5" type="DampedSpringJoint2D" parent="LocalCharacter/LF"]
-position = Vector2(0, 59)
-rotation = 1.5708
-node_a = NodePath("../../RLA")
-node_b = NodePath("..")
-length = 1.0
-stiffness = 64.0
 
 [node name="LK" type="RigidBody2D" parent="LocalCharacter" groups=["Damager"]]
 position = Vector2(-360, 984)

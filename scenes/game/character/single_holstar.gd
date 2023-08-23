@@ -129,7 +129,7 @@ func skill_signal(direction: Vector2, is_aiming: bool) -> void:
 		rla.visible = false
 		rf.visible = false
 		ra.look_at(crosshair.global_position)
-		crosshair.global_position += direction * 50
+		crosshair.global_position += direction * 100
 
 	else:
 		aiming = is_aiming
