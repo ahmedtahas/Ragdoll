@@ -32,10 +32,10 @@ func _physics_process(_delta: float) -> void:
 	if direction_set:
 		return
 
-	if (body.global_position - player.global_position).length() > (Global.player.radius.length() + radius.length() + 700):
+	if (body.global_position - player.global_position).length() > (Global.player.radius.length() + radius.length() + 500):
 		character.move_signal((player.global_position - body.global_position).normalized())
 
-	elif (body.global_position - player.global_position).length() <= (Global.player.radius.length() + radius.length() + 700) and (body.global_position - player.global_position).length() > (Global.player.radius.length() + radius.length() + 300):
+	elif (body.global_position - player.global_position).length() <= (Global.player.radius.length() + radius.length() + 500) and (body.global_position - player.global_position).length() > (Global.player.radius.length() + radius.length() + 200):
 		if Global.player.get_node("LocalCharacter/Body").global_position.y < (Global.room.y / 2):
 			character.move_signal((player.global_position - body.global_position).normalized().rotated(((player.global_position - body.global_position) + Vector2.DOWN).angle()))
 		else:

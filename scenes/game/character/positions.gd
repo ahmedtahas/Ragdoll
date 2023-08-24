@@ -1,23 +1,38 @@
 extends Node2D
 
 
-
-@export var Head: Vector3 = Vector3.ZERO
-@export var Body: Vector3 = Vector3.ZERO
-@export var RUA: Vector3 = Vector3.ZERO
-@export var RLA: Vector3 = Vector3.ZERO
-@export var RF: Vector3 = Vector3.ZERO
-@export var LUA: Vector3 = Vector3.ZERO
-@export var LLA: Vector3 = Vector3.ZERO
-@export var LF: Vector3 = Vector3.ZERO
-@export var Stomach: Vector3 = Vector3.ZERO
-@export var Hip: Vector3 = Vector3.ZERO
-@export var RUL: Vector3 = Vector3.ZERO
-@export var RLL: Vector3 = Vector3.ZERO
-@export var RK: Vector3 = Vector3.ZERO
-@export var LUL: Vector3 = Vector3.ZERO
-@export var LLL: Vector3 = Vector3.ZERO
-@export var LK: Vector3 = Vector3.ZERO
+@export var head_pos: Vector2 = Vector2.ZERO
+@export var body_pos: Vector2 = Vector2.ZERO
+@export var rua_pos: Vector2 = Vector2.ZERO
+@export var rla_pos: Vector2 = Vector2.ZERO
+@export var rf_pos: Vector2 = Vector2.ZERO
+@export var lua_pos: Vector2 = Vector2.ZERO
+@export var lla_pos: Vector2 = Vector2.ZERO
+@export var lf_pos: Vector2 = Vector2.ZERO
+@export var stomach_pos: Vector2 = Vector2.ZERO
+@export var hip_pos: Vector2 = Vector2.ZERO
+@export var rul_pos: Vector2 = Vector2.ZERO
+@export var rll_pos: Vector2 = Vector2.ZERO
+@export var rk_pos: Vector2 = Vector2.ZERO
+@export var lul_pos: Vector2 = Vector2.ZERO
+@export var lll_pos: Vector2 = Vector2.ZERO
+@export var lk_pos: Vector2 = Vector2.ZERO
+@export var head_rot: float = 0
+@export var body_rot: float = 0
+@export var rua_rot: float = 0
+@export var rla_rot: float = 0
+@export var rf_rot: float = 0
+@export var lua_rot: float = 0
+@export var lla_rot: float = 0
+@export var lf_rot: float = 0
+@export var stomach_rot: float = 0
+@export var hip_rot: float = 0
+@export var rul_rot: float = 0
+@export var rll_rot: float = 0
+@export var rk_rot: float = 0
+@export var lul_rot: float = 0
+@export var lll_rot: float = 0
+@export var lk_rot: float = 0
 
 
 @export var health: float = 0

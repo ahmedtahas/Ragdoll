@@ -33,7 +33,7 @@ script = ExtResource("3_b2un2")
 [node name="ClientSkill" type="Node2D" parent="."]
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/game/character/crock.tscn", "res://scenes/game/character/holstar.tscn", "res://scenes/game/character/kaliber.tscn", "res://scenes/game/character/meri.tscn", "res://scenes/game/character/moot.tscn", "res://scenes/game/character/paranoc.tscn", "res://scenes/game/character/raldorone.tscn", "res://scenes/game/character/roki_roki.tscn", "res://scenes/game/character/tin.tscn", "res://scenes/game/character/zeina.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/game/character/crock.tscn", "res://scenes/game/character/holstar.tscn", "res://scenes/game/character/kaliber.tscn", "res://scenes/game/character/meri.tscn", "res://scenes/game/character/moot.tscn", "res://scenes/game/character/paranoc.tscn", "res://scenes/game/character/raldorone.tscn", "res://scenes/game/character/roki_roki.tscn", "res://scenes/game/character/tin.tscn", "res://scenes/game/character/zeina.tscn", "res://scenes/game/character/dummy.tscn")
 spawn_path = NodePath("../Spawner")
 
 [node name="ServerSkillSpawner" type="MultiplayerSpawner" parent="."]

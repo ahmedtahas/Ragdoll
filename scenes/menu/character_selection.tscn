@@ -122,6 +122,14 @@ theme_override_fonts/font = ExtResource("2_78u4u")
 theme_override_font_sizes/font_size = 75
 text = "Raldorone"
 
+[node name="dummy" type="Button" parent="Buttons/ButtonContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+mouse_filter = 1
+theme_override_fonts/font = ExtResource("2_78u4u")
+theme_override_font_sizes/font_size = 75
+text = "Dummy"
+
 [node name="Stats" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 32.0

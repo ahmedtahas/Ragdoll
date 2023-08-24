@@ -17,7 +17,7 @@ extends Node2D
 	"meri": preload("res://scenes/game/character/meri.tscn"),
 	"moot": preload("res://scenes/game/character/moot.tscn"),
 	"raldorone": preload("res://scenes/game/character/raldorone.tscn"),
-	"buccarold": preload("res://scenes/game/character/single_buccarold.tscn")
+	"dummy": preload("res://scenes/game/character/dummy.tscn")
 }
 @onready var skill_dictionary: Dictionary = {
 	"dagger": preload("res://scenes/game/tools/dagger.tscn"),
