@@ -1,9 +1,13 @@
 extends Node2D
 
-@onready var character_name: String = "paranoc"
+@onready var character_name = "buccarold"
 
 @onready var duration_time: float
 @onready var cooldown_time: float
+@onready var power: float
+@onready var damage: float
+
+@onready var cooldown_set: bool = false
 
 @onready var cooldown_text: RichTextLabel = $Extra/UI/CooldownBar/Text
 @onready var cooldown_bar: TextureProgressBar = $Extra/UI/CooldownBar
@@ -19,7 +23,7 @@ extends Node2D
 
 @onready var body: RigidBody2D = $Character/Body
 
-@onready var cooldown_set: bool = false
+@onready var flames = $Character/RF/Flames
 
 
 func _ready() -> void:
@@ -45,9 +49,6 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if not is_multiplayer_authority():
-		return
-
 	if not duration.is_stopped():
 		cooldown_bar.set_value((100 * duration.time_left) / duration_time)
 		cooldown_text.set_text("[center]" + str(duration.time_left).pad_decimals(1) + "s[/center]")
@@ -66,21 +67,25 @@ func _physics_process(_delta: float) -> void:
 
 
 @rpc("reliable")
-func black_out(_duration) -> void:
-	Global.black_out.emit(_duration)
+func emit_particles(emit) -> void:
+	flames.emitting = emit
 
 
 func skill_signal(using: bool) -> void:
 	if not is_multiplayer_authority() or not cooldown.is_stopped() or not duration.is_stopped():
 		return
-
 	if using:
 		pass
 
 	else:
+		character.damage *= 2
 		duration.start()
-		black_out.rpc(duration_time)
-		if Global.mode == "single":
-			Global.opponent.get_paralyzed(duration_time)
+		flames.emitting = true
+		emit_particles.rpc(true)
 		await duration.timeout
+		flames.emitting = false
+		emit_particles.rpc(false)
 		cooldown.start()
+		character.damage /= 2
+
+

@@ -2,56 +2,51 @@ extends Node2D
 
 @onready var character_name: String = "bot"
 
-@onready var radius: Vector2 = $Extra/Center/Reach.position
-@onready var center: Vector2 = $Extra/Center.position
-
-@onready var character: Node2D = $Extra/Character
-@onready var body: RigidBody2D = $LocalCharacter/Body
+@onready var radius: Marker2D = $Character/Hip/Center/Radius
+@onready var center: Marker2D = $Character/Hip/Center
+@onready var character: Node2D = $Character
 @onready var direction_cooldown: Timer = $Extra/DirectionCooldown
-
-@onready var player: RigidBody2D
-
-@onready var direction_set: bool = false
+@onready var paralyzed: Timer = $Extra/ParalyzeCooldown
+@onready var dead: bool = false
 
 
 func _ready() -> void:
-	name = character_name
-
-	player = Global.player.get_node("LocalCharacter/Body")
-
-	get_node("LocalCharacter").load_skin(character_name)
-
-	_ignore_self()
-
-	for part in get_node("LocalCharacter").get_children():
-		part.set_power(character_name)
+	Global.opponent = self
+	Global.camera.add_target(center)
+	character.setup(character_name)
+	paralyzed.start()
+	Global.bot_died.connect(death)
 
 
 func _physics_process(_delta: float) -> void:
-
-	if direction_set:
+	if not direction_cooldown.is_stopped() or not paralyzed.is_stopped() or dead:
 		return
-
-	if (body.global_position - player.global_position).length() > (Global.player.radius.length() + radius.length() + 500):
-		character.move_signal((player.global_position - body.global_position).normalized())
-
-	elif (body.global_position - player.global_position).length() <= (Global.player.radius.length() + radius.length() + 500) and (body.global_position - player.global_position).length() > (Global.player.radius.length() + radius.length() + 200):
-		if Global.player.get_node("LocalCharacter/Body").global_position.y < (Global.room.y / 2):
-			character.move_signal((player.global_position - body.global_position).normalized().rotated(((player.global_position - body.global_position) + Vector2.DOWN).angle()))
+	if (center.global_position - Global.player.center.global_position).length() > (Global.player.radius.position.x + radius.position.x + 500):
+		character.move((Global.player.center.global_position - center.global_position).normalized())
+	elif (center.global_position - Global.player.center.global_position).length() <= (Global.player.radius.position.x + radius.position.x + 500) and (center.global_position - Global.player.center.global_position).length() > (Global.player.radius.position.x + radius.position.x + 200):
+		if Global.player.center.global_position.y < (Global.room.y / 2):
+			character.move((Global.player.center.global_position - center.global_position).normalized().rotated(((Global.player.center.global_position - center.global_position) + Vector2.UP).angle()))
 		else:
-
-			character.move_signal((player.global_position - body.global_position).normalized().rotated(((player.global_position - body.global_position) + Vector2.UP).angle()))
+			character.move((Global.player.center.global_position - center.global_position).normalized().rotated(((Global.player.center.global_position - center.global_position) + Vector2.DOWN).angle()))
 	else:
-		character.move_signal((body.global_position - player.global_position).normalized())
-		direction_set = true
+		character.move((center.global_position - Global.player.center.global_position).normalized())
 		direction_cooldown.start()
-		await direction_cooldown.timeout
-		direction_set = false
 
 
-func _ignore_self() -> void:
-	for child_1 in get_node("LocalCharacter").get_children():
-		child_1.body_entered.connect(character.on_body_entered.bind(child_1))
-		for child_2 in get_node("LocalCharacter").get_children():
-			if child_1 != child_2:
-				child_1.add_collision_exception_with(child_2)
+func get_paralyzed(duration) -> void:
+	paralyzed.wait_time = duration
+	paralyzed.start()
+
+
+func death() -> void:
+	dead = true
+	for child in character.get_children():
+		for part in Global.player.character.get_children():
+			child.add_collision_exception_with(part)
+	for child in character.get_children():
+		for joint in child.get_children():
+			if joint is Joint2D:
+				joint.queue_free()
+	await get_tree().create_timer(4).timeout
+	Global.camera.remove_target(center)
+

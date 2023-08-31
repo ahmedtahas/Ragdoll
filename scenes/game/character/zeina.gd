@@ -2,28 +2,25 @@ extends Node2D
 
 @onready var character_name: String = "zeina"
 
-@onready var dagger_instance: PackedScene = preload("res://scenes/game/tools/dagger.tscn")
+@onready var dagger: PackedScene = preload("res://scenes/game/tools/dagger.tscn")
 
 @onready var cooldown_time: float
-@onready var power: float
 @onready var damage: float
 @onready var end_point: Vector2
 
-@onready var cooldown_bar: TextureProgressBar
-@onready var cooldown_text: RichTextLabel
-@onready var dagger: CharacterBody2D
+@onready var cooldown_text: RichTextLabel = $Extra/UI/CooldownBar/Text
+@onready var cooldown_bar: TextureProgressBar = $Extra/UI/CooldownBar
 
-@onready var radius: Vector2 = $Extra/Center/Reach.position
-@onready var center: Vector2 = $Extra/Center.position
+@onready var dagger_instance: CharacterBody2D
 
-@onready var character: Node2D = $Extra/Character
-@onready var skill_joy_stick: Control = $Extra/JoyStick/SkillJoyStick
-@onready var movement_joy_stick: Control = $Extra/JoyStick/MovementJoyStick
+@onready var radius: Marker2D = $Character/Hip/Center/Radius
+@onready var center: Marker2D = $Character/Hip/Center
+@onready var character: Node2D = $Character
+@onready var health: CanvasLayer = $Extra/Health
+@onready var skill_joy_stick: Control = $Extra/UI/SkillJoyStick
 @onready var cooldown: Timer = $Extra/SkillCooldown
-@onready var body: RigidBody2D = $LocalCharacter/Body
-@onready var dash_preview: Marker2D = $Extra/Center
-@onready var _range: Marker2D = $Extra/Center/Range
-@onready var local_character: Node2D = $LocalCharacter
+@onready var body: RigidBody2D = $Character/Body
+@onready var _range: Marker2D = $Character/Hip/Center/Range
 
 @onready var flicker: bool = false
 @onready var cooldown_set: bool = false
@@ -31,36 +28,24 @@ extends Node2D
 
 func _ready() -> void:
 	name = str(get_multiplayer_authority())
-
-	get_node("LocalCharacter").load_skin(character_name)
-
-	dash_preview.visible = false
+	character.setup(character_name)
+	Global.camera.add_target(center)
+	health.set_health(Config.get_value("health", character_name))
+	center.visible = false
 
 	if is_multiplayer_authority():
-		get_node("RemoteCharacter").queue_free()
-		movement_joy_stick.move_signal.connect(character.move_signal)
+		Global.player = self
 		skill_joy_stick.skill_signal.connect(self.skill_signal)
-
 		skill_joy_stick.button = false
-		cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
-		power = get_node("/root/Config").get_value("power", character_name)
-		damage = get_node("/root/Config").get_value("damage", character_name)
+		cooldown_time = Config.get_value("cooldown", character_name)
+		damage = Config.get_value("damage", character_name)
 		cooldown.wait_time = cooldown_time
-		cooldown_bar = character.get_node('LocalUI/CooldownBar')
-		cooldown_text = character.get_node('LocalUI/CooldownBar/Text')
 		cooldown_bar.set_value(100)
 		cooldown_text.set_text("[center]ready[/center]")
-		character.get_node("RemoteUI").visible = false
-		Global.camera.add_target(body)
-		for part in get_node("LocalCharacter").get_children():
-			part.set_power(character_name)
-		character.ignore_local()
 
 	else:
-		get_node("LocalCharacter").queue_free()
-		character.get_node("LocalUI").visible = false
-		Global.camera.add_target(get_node("RemoteCharacter/Body"))
-		character.ignore_remote()
+		get_node("Extra/UI").hide()
+		Global.opponent = self
 
 
 @rpc("reliable")
@@ -77,8 +62,6 @@ func remove_skill() -> void:
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
-	if flicker:
-		dash_preview.global_position = body.global_position + center.rotated(body.global_rotation)
 
 	if cooldown.is_stopped():
 		if not cooldown_set:
@@ -97,10 +80,10 @@ func _flicker() -> void:
 		return
 
 	if flicker:
-		for line in dash_preview.get_node("Dash").get_children():
+		for line in center.get_node("Dash").get_children():
 			line.visible = true
 			await get_tree().create_timer(0.017).timeout
-		for line in dash_preview.get_node("Dash").get_children():
+		for line in center.get_node("Dash").get_children():
 			line.visible = false
 			await get_tree().create_timer(0.017).timeout
 		_flicker()
@@ -109,80 +92,79 @@ func _flicker() -> void:
 func skill_signal(direction: Vector2, is_aiming) -> void:
 	if not cooldown.is_stopped() or not is_multiplayer_authority():
 		return
-
 	if is_aiming:
-		dash_preview.visible = true
-		dash_preview.global_rotation = direction.angle()
+		center.visible = true
+		center.global_rotation = direction.angle()
 		if not flicker:
 			flicker = true
-			for line in dash_preview.get_node("Dash").get_children():
+			for line in center.get_node("Dash").get_children():
 				line.visible = true
 			_flicker()
 
 	else:
-		dash_preview.visible = false
+		Global.camera.remove_target(body)
+		center.visible = false
 		end_point = _range.global_position
-		# check if hits character update endpoint
-		print(end_point)
-		end_point = Global.get_inside_position_player(end_point, str(multiplayer.get_unique_id()))
-		print(end_point)
-
+		end_point = Global.get_inside_coordinates(end_point)
 		cooldown.start()
 		flicker = false
-#		for line in dash_preview.get_node("Dash").get_children():
-#			line.visible = false
-
-		dagger = dagger_instance.instantiate()
-		dagger.hit_signal.connect(self.hit_signal)
+		dagger_instance = dagger.instantiate()
+		dagger_instance.hit_signal.connect(self.hit_signal)
 		if multiplayer.is_server():
-			Global.server_skill.add_child(dagger, true)
+			Global.server_skill.add_child(dagger_instance, true)
 		else:
-			Global.client_skill.add_child(dagger, true)
-			rpc("add_skill", "dagger", dash_preview.get_node("Dash").global_position)
+			dagger_instance.set_multiplayer_authority(multiplayer.get_unique_id())
+			Global.client_skill.add_child(dagger_instance, true)
+			add_skill.rpc("dagger", center.get_node("Dash").global_position)
 		ignore_skill()
-		dagger.set_multiplayer_authority(multiplayer.get_unique_id())
 		character.slow_motion()
-		dagger.global_position = dash_preview.get_node("Dash").global_position
-		dagger.fire((end_point - dash_preview.get_node("Dash").global_position).angle())
-
-		await get_tree().create_timer((end_point - body.global_position).length() / dagger.speed).timeout
-
+		dagger_instance.global_position = center.get_node("Dash").global_position
+		dagger_instance.fire((end_point - center.get_node("Dash").global_position).angle())
+		await get_tree().create_timer((end_point - body.global_position).length() / dagger_instance.speed).timeout
 		if not _hit:
 			end_point = Global.avoid_enemies(end_point - body.global_position)
 			teleport()
 			if not multiplayer.is_server():
-				rpc("remove_skill")
+				remove_skill.rpc()
 		else:
 			_hit = false
 
 
 func ignore_skill() -> void:
-	for child in local_character.get_children():
-		child.add_collision_exception_with(dagger)
+	for child in character.get_children():
+		child.add_collision_exception_with(dagger_instance)
 
 
 func teleport() -> void:
-
-	for child in get_node("LocalCharacter").get_children():
-		child._rotate(child.global_rotation)
+	for child in character.get_children():
 		child.locate(end_point)
+		child.rotate(child.global_rotation)
 		child.teleport()
-		dagger.queue_free()
+		dagger_instance.queue_free()
+	Global.camera.add_target(body)
+
+
 
 func hit_signal(hit: Node2D) -> void:
 	_hit = true
-	if hit is CharacterBody2D and not hit.is_in_group("Skill"):
+	if hit is RigidBody2D and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
 		end_point = Global.avoid_enemies(end_point - body.global_position)
-		character.stun_opponent()
-		character._invul()
+		Global.stunned.emit()
+		character.slow_motion()
+		if Global.mode == "single":
+			if hit.name == "Head":
+				health.damage_bot(damage * 3)
+			else:
+				health.damage_bot(damage * 1.5)
 		if hit.name == "Head":
-			character.damage_opponent(damage * 2)
+			Global.damaged.emit(damage * 2)
 		elif not hit.is_in_group("Undamagable"):
-			character.damage_opponent(damage * 1)
-		character.invul_opponent()
+			Global.damaged.emit(damage)
+		Global.invuled.emit()
+		character.invul_local()
 	elif hit is StaticBody2D:
-		end_point = dagger.global_position
+		end_point = dagger_instance.global_position
+		end_point = Global.get_inside_coordinates(end_point - body.global_position)
 	teleport()
-
-	if multiplayer.get_unique_id() != 1:
-		rpc("remove_skill")
+	if not multiplayer.is_server():
+		remove_skill.rpc()

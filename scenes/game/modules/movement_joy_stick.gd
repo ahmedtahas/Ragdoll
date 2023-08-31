@@ -14,9 +14,8 @@ extends Control
 
 signal move_signal
 
+
 func _ready() -> void:
-	if not is_multiplayer_authority():
-		visible = false
 	movement_radius = movement_area.texture_normal.get_size().x / 2
 	movement_area.global_position = movement_area_position
 	movement_stick.global_position = movement_stick_position
@@ -39,7 +38,7 @@ func _gui_input(event: InputEvent) -> void:
 			var temp: Vector2 = event.position - movement_center
 			temp *= movement_radius / event.position.distance_to(movement_center)
 			movement_stick.position = temp + movement_center
-		emit_signal("move_signal", (event.position - movement_center).normalized(), true)
+		move_signal.emit((event.position - movement_center).normalized())
 
 
 	elif event is InputEventScreenTouch and not event.is_pressed():
@@ -47,5 +46,5 @@ func _gui_input(event: InputEvent) -> void:
 		movement_stick.global_position = movement_stick_position
 		movement_area.modulate.a = 0.2
 		movement_stick.modulate.a = 0.2
-		emit_signal("move_signal", Vector2.ZERO, false)
+		move_signal.emit(Vector2.ZERO)
 

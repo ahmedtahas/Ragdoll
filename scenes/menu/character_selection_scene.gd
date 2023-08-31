@@ -4,7 +4,7 @@ extends Control
 func _ready() -> void:
 	for child in get_node("Buttons/ButtonContainer").get_children():
 		child.pressed.connect(self.character_preview.bind(child.name))
-	CharacterSelection.own = "crock"
+	Global.player_selection = "crock"
 	for child in get_node("Stats").get_children():
 		if child is Label:
 			child.text = str(get_node("/root/Config").get_value(child.name, "crock"))
@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 func character_preview(selection: String) -> void:
-	CharacterSelection.own = selection
+	Global.player_selection = selection
 	for child in get_node("Stats").get_children():
 		if child is Label:
 			child.text = str(get_node("/root/Config").get_value(child.name, selection))
@@ -20,7 +20,7 @@ func character_preview(selection: String) -> void:
 
 
 func character_selected() -> void:
-	get_tree().change_scene_to_file("res://scenes/menu/" + CharacterSelection.mode + ".tscn")
+	get_tree().change_scene_to_file("res://scenes/menu/world.tscn")
 
 
 func back() -> void:

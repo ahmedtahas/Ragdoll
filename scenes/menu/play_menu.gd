@@ -1,13 +1,14 @@
 extends Control
 
 
-func multi_player() -> void:
-	CharacterSelection.mode = "world"
-	get_tree().change_scene_to_file("res://scenes/menu/character_selection.tscn")
+func _ready() -> void:
+	$MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/Multi.button_up.connect(mode_selected.bind("multi"))
+	$MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/Single.button_up.connect(mode_selected.bind("single"))
+	$MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3/Back.button_up.connect(back)
 
 
-func single_player() -> void:
-	CharacterSelection.mode = "singleplayer_world"
+func mode_selected(mode: String) -> void:
+	Global.mode = mode
 	get_tree().change_scene_to_file("res://scenes/menu/character_selection.tscn")
 
 

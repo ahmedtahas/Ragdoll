@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmj0xfyl2c61u"]
+
+[ext_resource type="Script" path="res://scenes/game/character/health.gd" id="1_xehc7"]
+[ext_resource type="Texture2D" uid="uid://dyju5egibkyf7" path="res://assets/sprites/ui/Health BG.png" id="2_d3lnd"]
+[ext_resource type="Texture2D" uid="uid://bkcq5v378b4wd" path="res://assets/sprites/ui/Health.png" id="3_73fx5"]
+[ext_resource type="Texture2D" uid="uid://52kd4mjbkxkk" path="res://assets/sprites/ui/Enemy Health BG.png" id="4_h8n6c"]
+[ext_resource type="Texture2D" uid="uid://das337on0gr6x" path="res://assets/sprites/ui/EnemyHealth.png" id="5_73il1"]
+
+[node name="Health" type="CanvasLayer"]
+script = ExtResource("1_xehc7")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 1056.0
+offset_bottom = 1056.0
+scale = Vector2(0.2, 0.2)
+value = 50.0
+fill_mode = 4
+texture_under = ExtResource("2_d3lnd")
+texture_progress = ExtResource("3_73fx5")
+radial_initial_angle = 150.0
+radial_fill_degrees = 180.0
+
+[node name="Text" type="RichTextLabel" parent="HealthBar"]
+clip_contents = false
+layout_direction = 1
+layout_mode = 2
+offset_top = 512.0
+offset_right = 1024.0
+offset_bottom = 792.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+theme_override_colors/default_color = Color(1, 0.376471, 0.376471, 1)
+theme_override_font_sizes/normal_font_size = 200
+bbcode_enabled = true
+text = "[center]9999[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="RemoteHealthBar" type="TextureProgressBar" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -544.0
+offset_top = 32.0
+offset_right = -32.0
+offset_bottom = 64.0
+grow_horizontal = 0
+value = 50.0
+fill_mode = 1
+texture_under = ExtResource("4_h8n6c")
+texture_progress = ExtResource("5_73il1")

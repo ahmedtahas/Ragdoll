@@ -2,37 +2,30 @@ extends Node2D
 
 @onready var character_name = "holstar"
 
-@onready var bullet_instance: PackedScene = preload("res://scenes/game/tools/bullet.tscn")
+@onready var bullet: PackedScene = preload("res://scenes/game/tools/bullet.tscn")
 
 @onready var cooldown_time: float
 @onready var power: float
 @onready var damage: float
 
-@onready var character: Node2D = $Extra/Character
-@onready var skill_joy_stick: Control = $Extra/JoyStick/SkillJoyStick
-@onready var movement_joy_stick: Control = $Extra/JoyStick/MovementJoyStick
-@onready var bullet: CharacterBody2D
+@onready var character: Node2D = $Character
+@onready var skill_joy_stick: Control = $Extra/UI/SkillJoyStick
+@onready var bullet_instance: CharacterBody2D
 
-@onready var radius: Vector2 = $Extra/Center/Reach.position
-@onready var center: Vector2 = $Extra/Center.position
+@onready var radius: Marker2D = $Character/Hip/Center/Radius
+@onready var center: Marker2D = $Character/Hip/Center
 
-@onready var synchronizer: Node2D = $Extra
 @onready var cooldown: Timer = $Extra/SkillCooldown
-@onready var rua: RigidBody2D = $LocalCharacter/RUA
-@onready var rla: RigidBody2D = $LocalCharacter/RLA
-@onready var rf: RigidBody2D = $LocalCharacter/RF
-@onready var rrua: CharacterBody2D = $RemoteCharacter/RUA
-@onready var rrla: CharacterBody2D = $RemoteCharacter/RLA
-@onready var rrf: CharacterBody2D = $RemoteCharacter/RF
-@onready var body: RigidBody2D = $LocalCharacter/Body
-@onready var local_character = $LocalCharacter
-
-@onready var ra: CharacterBody2D = $Extra/ShootingArm
+@onready var rua: RigidBody2D = $Character/RUA
+@onready var rla: RigidBody2D = $Character/RLA
+@onready var rf: RigidBody2D = $Character/RF
+@onready var body: RigidBody2D = $Character/Body
+@onready var health: CanvasLayer = $Extra/Health
+@onready var ra: CharacterBody2D = $Character/Body/RF
 @onready var crosshair: Sprite2D = $Extra/Cross
-@onready var barrel: Marker2D = $Extra/ShootingArm/Barrel
-
-@onready var cooldown_bar: TextureProgressBar
-@onready var cooldown_text: RichTextLabel
+@onready var barrel: Marker2D = $Character/Body/RF/Barrel
+@onready var cooldown_text: RichTextLabel = $Extra/UI/CooldownBar/Text
+@onready var cooldown_bar: TextureProgressBar = $Extra/UI/CooldownBar
 
 @onready var cooldown_set: bool = false
 @onready var aiming: bool = false
@@ -41,34 +34,25 @@ extends Node2D
 
 func _ready() -> void:
 	name = str(get_multiplayer_authority())
-	get_node("LocalCharacter").load_skin(character_name)
-	get_node("Extra/ShootingArm").arm(character_name)
-	_ignore_self()
+	character.setup(character_name)
+	ignore_self()
+	Global.camera.add_target(center)
+	health.set_health(Config.get_value("health", character_name))
+	ra.arm(character_name)
 	if is_multiplayer_authority():
-		get_node("RemoteCharacter").queue_free()
-		movement_joy_stick.move_signal.connect(character.move_signal)
+		Global.player = self
 		skill_joy_stick.skill_signal.connect(self.skill_signal)
 		skill_joy_stick.button = false
-		skill_joy_stick.get_node("SkillStick").texture = load("res://assets/sprites/character/equipped/" + character_name + "/SkillIcon.png")
-		cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
-		power = get_node("/root/Config").get_value("power", character_name)
-		damage = get_node("/root/Config").get_value("damage", character_name)
+		cooldown_time = Config.get_value("cooldown", character_name)
+		damage = Config.get_value("damage", character_name)
+		power = Config.get_value("power", character_name)
 		cooldown.wait_time = cooldown_time
-		cooldown_bar = character.get_node('LocalUI/CooldownBar')
-		cooldown_text = character.get_node('LocalUI/CooldownBar/Text')
 		cooldown_bar.set_value(100)
 		cooldown_text.set_text("[center]ready[/center]")
-		character.get_node("RemoteUI").visible = false
-		Global.camera.add_target(body)
-		for part in get_node("LocalCharacter").get_children():
-			part.set_power(character_name)
-		character.ignore_local()
 
 	else:
-		get_node("LocalCharacter").queue_free()
-		character.get_node("LocalUI").visible = false
-		Global.camera.add_target(get_node("RemoteCharacter/Body"))
-		character.ignore_remote()
+		get_node("Extra/UI").hide()
+		Global.opponent = self
 
 	ra.visible = false
 	ra.set_collision_layer_value(1, false)
@@ -88,9 +72,6 @@ func remove_skill() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-
-	if not ra.visible:
-		crosshair.global_position = barrel.global_position
 
 	if not is_multiplayer_authority():
 		return
@@ -124,64 +105,51 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 
 
-func _ignore_self() -> void:
-	for child in get_node("LocalCharacter").get_children():
-		child.add_collision_exception_with(ra)
-	for child in get_node("RemoteCharacter").get_children():
+func ignore_self() -> void:
+	for child in character.get_children():
 		child.add_collision_exception_with(ra)
 
 
 func skill_signal(direction: Vector2, is_aiming) -> void:
 	if not cooldown.is_stopped() or not is_multiplayer_authority():
 		return
-
+	if not aiming:
+		crosshair.global_position = barrel.global_position
 	if is_aiming:
 		aiming = is_aiming
 		growing = true
-		ra.visible = true
-		ra.set_collision_layer_value(1, true)
-		ra.set_collision_mask_value(1, true)
-		crosshair.visible = true
-		rua.visible = false
-		rla.visible = false
-		rf.visible = false
-		rpc("aiming_arm", true)
+		aiming_arm(true)
+		aiming_arm.rpc(true)
 		ra.look_at(crosshair.global_position)
+		crosshair.visible = true
 		crosshair.global_position += direction * 100
 		crosshair.rotation += 0.075
-		synchronizer.aim = crosshair.global_position
 
 	else:
-		rpc("aiming_arm", false)
+		aiming_arm(false)
+		aiming_arm.rpc(false)
 		aiming = is_aiming
 		growing = false
-		synchronizer.aim = Vector2.ZERO
 		cooldown.start()
 		character.slow_motion()
-		bullet = bullet_instance.instantiate()
-		bullet.hit_signal.connect(self.hit_signal)
+		bullet_instance = bullet.instantiate()
+		bullet_instance.hit_signal.connect(self.hit_signal)
 		if multiplayer.is_server():
-			Global.server_skill.add_child(bullet, true)
+			Global.server_skill.add_child(bullet_instance, true)
 		else:
-			Global.client_skill.add_child(bullet, true)
-			rpc("add_skill", "bullet", barrel.global_position)
-		bullet.set_multiplayer_authority(multiplayer.get_unique_id())
+			bullet_instance.set_multiplayer_authority(multiplayer.get_unique_id())
+			Global.client_skill.add_child(bullet_instance, true)
+			add_skill.rpc("bullet", barrel.global_position)
 		ignore_skill()
-		bullet.global_position = barrel.global_position
-		bullet.look_at(crosshair.global_position)
-		bullet.fire((crosshair.global_position - barrel.global_position).angle())
+		bullet_instance.global_position = barrel.global_position
+		bullet_instance.look_at(crosshair.global_position)
+		bullet_instance.fire((crosshair.global_position - barrel.global_position).angle())
 		crosshair.visible = false
-		ra.visible = false
-		ra.set_collision_layer_value(1, false)
-		ra.set_collision_mask_value(1, false)
-		rua.visible = true
-		rla.visible = true
-		rf.visible = true
 
 
 func ignore_skill() -> void:
-	for child in local_character.get_children():
-		child.add_collision_exception_with(bullet)
+	for child in character.get_children():
+		child.add_collision_exception_with(bullet_instance)
 
 
 @rpc("reliable")
@@ -190,31 +158,32 @@ func aiming_arm(show_arm: bool) -> void:
 		ra.visible = true
 		ra.set_collision_layer_value(1, true)
 		ra.set_collision_mask_value(1, true)
-		ra.look_at(synchronizer.aim)
-		rrua.visible = false
-		rrla.visible = false
-		rrf.visible = false
+		rua.visible = false
+		rla.visible = false
+		rf.visible = false
+
 	else:
 		ra.visible = false
 		ra.set_collision_layer_value(1, false)
 		ra.set_collision_mask_value(1, false)
-		rrua.visible = true
-		rrla.visible = true
-		rrf.visible = true
+		rua.visible = true
+		rla.visible = true
+		rf.visible = true
 
 
 func hit_signal(hit: Node2D) -> void:
-	if (hit is RigidBody2D or hit is CharacterBody2D) and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
-		if not hit.is_in_group("Skill"):
-			character.push_opponent_part((hit.global_position - barrel.global_position).normalized(), power, hit.name)
-			character.push_opponent((hit.global_position - barrel.global_position).normalized(), power / 2)
-			character.stun_opponent()
+	if hit is RigidBody2D and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
+		Global.pushed.emit((hit.global_position - barrel.global_position).normalized() * power)
+		Global.stunned.emit()
+		if Global.mode == "single":
 			if hit.name == "Head":
-				character.damage_opponent(damage * 3)
+				health.damage_bot(damage * 3)
 			else:
-				character.damage_opponent(damage * 1.5)
+				health.damage_bot(damage * 1.5)
+		if hit.name == "Head":
+			Global.damaged.emit(damage * 3)
 		else:
-			cooldown.stop()
-	bullet.queue_free()
+			Global.damaged.emit(damage * 1.5)
+	bullet_instance.queue_free()
 	if not multiplayer.is_server():
-		rpc("remove_skill")
+		remove_skill.rpc()

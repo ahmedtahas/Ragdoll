@@ -1,11 +1,14 @@
 extends Node2D
 
+@onready var container: HBoxContainer = $Menu/ScrollContainer/HBoxContainer
+@onready var connected_peer_ids: Array = []
+@onready var client_id: int
+@onready var server_id: int
+@onready var server_ip: Label = $Menu/ScrollContainer/HBoxContainer/Label
+@onready var client_ip: String = "192.168.0.21"
 
-@onready var connected_peer_ids = []
-@onready var client_id
-@onready var server_id
-@onready var server_ip = $Menu/Label
-@onready var client_ip = "192.168.0.21"
+@onready var bot: PackedScene = preload("res://scenes/game/character/bot.tscn")
+
 @onready var character_dictionary: Dictionary = {
 	"crock": preload("res://scenes/game/character/crock.tscn"),
 	"zeina": preload("res://scenes/game/character/zeina.tscn"),
@@ -16,8 +19,8 @@ extends Node2D
 	"kaliber": preload("res://scenes/game/character/kaliber.tscn"),
 	"meri": preload("res://scenes/game/character/meri.tscn"),
 	"moot": preload("res://scenes/game/character/moot.tscn"),
+	"buccarold": preload("res://scenes/game/character/buccarold.tscn"),
 	"raldorone": preload("res://scenes/game/character/raldorone.tscn"),
-	"dummy": preload("res://scenes/game/character/dummy.tscn")
 }
 @onready var skill_dictionary: Dictionary = {
 	"dagger": preload("res://scenes/game/tools/dagger.tscn"),
@@ -26,12 +29,12 @@ extends Node2D
 	"meteor": preload("res://scenes/game/tools/meteor.tscn")
 }
 
-
 @onready var multiplayer_peer = ENetMultiplayerPeer.new()
 @onready var addr
 @onready var new_peer
 
 const PORT = 8910
+
 
 func _ready() -> void:
 	Global.world = self
@@ -39,11 +42,31 @@ func _ready() -> void:
 	Global.camera = $MTC
 	Global.server_skill = $ServerSkill
 	Global.client_skill = $ClientSkill
-	server_ip.text = IP.get_local_addresses()[9]
-	multiplayer.peer_connected.connect(peer_connected)
-	multiplayer.peer_disconnected.connect(peer_disconnected)
-	multiplayer.connected_to_server.connect(connected_to_server)
-	multiplayer.connection_failed.connect(connection_failed)
+	Global.bot_died.connect(bot_died)
+	if Global.mode == "single":
+		var bot_instance = bot.instantiate()
+		var player_instance = character_dictionary.get(Global.player_selection).instantiate()
+		$Spawner.add_child(bot_instance)
+		bot_instance.transform = $Point2.transform
+		$Spawner.add_child(player_instance)
+		player_instance.transform = $Point1.transform
+
+		$Menu.hide()
+	$Pause.get_child(0).hide()
+	$Pause.get_child(1).hide()
+	$Exit.hide()
+	get_tree().paused = false
+	if Global.mode == "multi":
+		$Pause.get_child(2).hide()
+		server_ip.text = IP.get_local_addresses()[9]
+		for i in range(IP.get_local_addresses().size()):
+			var label = server_ip.duplicate()
+			label.text = IP.get_local_addresses()[i] + "  //  "
+			container.add_child(label)
+		multiplayer.peer_connected.connect(peer_connected)
+		multiplayer.peer_disconnected.connect(peer_disconnected)
+		multiplayer.connected_to_server.connect(connected_to_server)
+		multiplayer.connection_failed.connect(connection_failed)
 
 
 #called on every peer
@@ -75,7 +98,7 @@ func slowdown(time_scale: float, duration: float):
 
 @rpc("any_peer", "call_remote", "reliable", 1)
 func set_opponent(selection):
-	CharacterSelection.opponent = selection
+	Global.opponent_selection = selection
 
 
 @rpc("call_local", "any_peer", "reliable")
@@ -94,13 +117,13 @@ func _on_host_pressed() -> void:
 	multiplayer.multiplayer_peer = multiplayer_peer
 	add_player_character(1)
 	server_id = multiplayer.get_unique_id()
-	get_node("Spawner/1/LocalCharacter/Head").freeze = true
+	get_node("Spawner/1/Character/Head").freeze = true
 	multiplayer_peer.peer_connected.connect(
 		func(new_peer_id):
 			client_id = new_peer_id
 			await get_tree().create_timer(3).timeout
-			get_node("Spawner/1/LocalCharacter/Head").freeze = false
-			rpc_id(new_peer_id,"set_opponent", CharacterSelection.own)
+			get_node("Spawner/1/Character/Head").freeze = false
+			rpc_id(new_peer_id,"set_opponent", Global.player_selection)
 			rpc("add_newly_connected_player_character", new_peer_id)
 #			add_newly_connected_player_character(new_peer_id)
 			rpc_id(new_peer_id, "add_previously_connected_player_characters", 1)
@@ -117,7 +140,7 @@ func _on_join_pressed() -> void:
 			client_id = multiplayer.get_unique_id()
 			server_id = _peer_
 			await get_tree().create_timer(2).timeout
-			rpc_id(_peer_,"set_opponent", CharacterSelection.own)
+			rpc_id(_peer_,"set_opponent", Global.player_selection)
 	)
 
 
@@ -127,9 +150,9 @@ func add_player_character(peer_id):
 	var player_character
 
 	if peer_id == multiplayer.get_unique_id():
-		player_character = character_dictionary.get(CharacterSelection.own).instantiate()
+		player_character = character_dictionary.get(Global.player_selection).instantiate()
 	else:
-		player_character = character_dictionary.get(CharacterSelection.opponent).instantiate()
+		player_character = character_dictionary.get(Global.opponent_selection).instantiate()
 
 	player_character.set_multiplayer_authority(peer_id)
 	$Spawner.add_child(player_character, true)
@@ -139,12 +162,11 @@ func add_player_character(peer_id):
 		player_character.transform = $Point2.transform
 
 
-@rpc("call_remote", "reliable")
 func add_skill(skill_name: String, pos: Vector2) -> void:
 	var skill = skill_dictionary.get(skill_name).instantiate()
+	skill.set_multiplayer_authority(client_id)
 	$ClientSkill.add_child(skill)
 	skill.global_position = pos
-	skill.set_multiplayer_authority(client_id)
 
 
 @rpc("call_remote", "reliable")
@@ -166,4 +188,56 @@ func add_previously_connected_player_characters(peer_id) -> void:
 
 func _on_line_edit_text_changed(new_text: String) -> void:
 	client_ip = new_text
-	print(client_ip)
+
+
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_WM_GO_BACK_REQUEST:
+			if Global.mode == "single":
+				pause()
+			else:
+				surrender()
+
+
+func pause() -> void:
+	if get_tree().paused:
+		Global.player.skill_joy_stick.skill_signal.disconnect(Global.player.skill_signal)
+		get_tree().paused = false
+		$Pause.get_child(0).hide()
+		$Pause.get_child(1).hide()
+		$Pause.get_child(2).show()
+		Global.player.skill_joy_stick.skill_signal.connect(Global.player.skill_signal)
+	else:
+		get_tree().paused = true
+		$Pause.get_child(0).show()
+		$Pause.get_child(1).show()
+		$Pause.get_child(2).hide()
+
+
+func change_character() -> void:
+	get_tree().change_scene_to_file("res://scenes/menu/character_selection.tscn")
+
+
+func main_menu() -> void:
+	get_tree().change_scene_to_file("res://scenes/menu/main_menu.tscn")
+
+
+func _exit_tree() -> void:
+	get_tree().paused = false
+
+
+func surrender() -> void:
+	if $Exit.visible:
+		Global.player.skill_joy_stick.disconnect("skill_signal", Global.player.skill_signal)
+		$Exit.hide()
+		Global.player.skill_joy_stick.skill_signal.connect(Global.player.skill_signal)
+	else:
+		Global.player.skill_joy_stick.disconnect("skill_signal", Global.player.skill_signal)
+		$Exit.show()
+		Global.player.skill_joy_stick.skill_signal.connect(Global.player.skill_signal)
+
+
+func bot_died() -> void:
+	await get_tree().create_timer(6).timeout
+	change_character()

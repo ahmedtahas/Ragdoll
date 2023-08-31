@@ -127,16 +127,8 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_wvnx3")
 
 [node name="RemoteCharacter" type="Node2D" parent="."]
-position = Vector2(1321, -6)
+position = Vector2(3387, -142)
 script = ExtResource("1_i50sb")
-
-[node name="Head" type="Node2D" parent="RemoteCharacter" groups=["Damagable", "Damager"]]
-position = Vector2(0, -144)
-
-[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Head"]
-position = Vector2(0, -126)
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("4_skmxl")
 
 [node name="Body" type="Node2D" parent="RemoteCharacter" groups=["Damagable"]]
 
@@ -144,88 +136,102 @@ texture = ExtResource("4_skmxl")
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_wvnx3")
 
-[node name="RUA" type="Node2D" parent="RemoteCharacter" groups=["Damagable"]]
+[node name="RUA" type="Node2D" parent="RemoteCharacter/Body" groups=["Damagable"]]
 rotation = 2.0944
 
-[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RUA"]
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Body/RUA"]
 position = Vector2(-0.00050354, -144)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_wvnx3")
 
-[node name="RLA" type="Node2D" parent="RemoteCharacter/RUA" groups=["Damagable"]]
+[node name="RLA" type="Node2D" parent="RemoteCharacter/Body/RUA" groups=["Damagable"]]
 position = Vector2(-0.0010426, -288)
 rotation = 1.5708
 
-[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RUA/RLA"]
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Body/RUA/RLA"]
 position = Vector2(-0.000534058, -144)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_wvnx3")
 
-[node name="LUA" type="Node2D" parent="RemoteCharacter" groups=["Damagable"]]
+[node name="LUA" type="Node2D" parent="RemoteCharacter/Body" groups=["Damagable"]]
 rotation = 1.0472
 
-[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LUA"]
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Body/LUA"]
 position = Vector2(0.000518799, 144)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_wvnx3")
 
-[node name="LLA" type="Node2D" parent="RemoteCharacter/LUA" groups=["Damagable"]]
+[node name="LLA" type="Node2D" parent="RemoteCharacter/Body/LUA" groups=["Damagable"]]
 position = Vector2(0.0010426, 288)
 rotation = 1.5708
 
-[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LUA/LLA"]
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Body/LUA/LLA"]
 position = Vector2(0.000534058, -144)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_wvnx3")
 
-[node name="LLL" type="Node2D" parent="RemoteCharacter" groups=["Damagable"]]
-position = Vector2(-216, 806)
-rotation = 0.523599
+[node name="Stomach" type="Node2D" parent="RemoteCharacter/Body" groups=["Damagable"]]
+position = Vector2(0, 144)
+rotation = 2.87456
 
-[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LLL"]
-position = Vector2(0, 216)
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Body/Stomach"]
+position = Vector2(0, 72)
 scale = Vector2(1.2, 1.2)
-texture = ExtResource("4_syq8g")
+texture = ExtResource("1_hvgdd")
 
-[node name="LUL" type="Node2D" parent="RemoteCharacter" groups=["Damagable"]]
-position = Vector2(0, 432)
-rotation = 0.523599
-
-[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/LUL"]
-position = Vector2(0, 216)
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("4_syq8g")
-
-[node name="RLL" type="Node2D" parent="RemoteCharacter" groups=["Damagable"]]
-position = Vector2(216, 806)
-rotation = -0.523599
-
-[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RLL"]
-position = Vector2(0, 216)
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("4_syq8g")
-
-[node name="RUL" type="Node2D" parent="RemoteCharacter" groups=["Damagable"]]
-position = Vector2(0, 432)
-rotation = -0.523599
-
-[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/RUL"]
-position = Vector2(0, 216)
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("4_syq8g")
-
-[node name="Stomach" type="Node2D" parent="RemoteCharacter" groups=["Damagable"]]
+[node name="Hip" type="Node2D" parent="RemoteCharacter/Body/Stomach" groups=["Damagable"]]
 position = Vector2(0, 144)
 
-[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Stomach"]
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Body/Stomach/Hip"]
 position = Vector2(0, 72)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("1_hvgdd")
 
-[node name="Hip" type="Node2D" parent="RemoteCharacter" groups=["Damagable"]]
-position = Vector2(0, 288)
+[node name="LUL" type="Node2D" parent="RemoteCharacter/Body/Stomach/Hip" groups=["Damagable"]]
+position = Vector2(0, 144)
+rotation = 0.523599
 
-[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Hip"]
-position = Vector2(0, 72)
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Body/Stomach/Hip/LUL"]
+position = Vector2(0, 216)
 scale = Vector2(1.2, 1.2)
-texture = ExtResource("1_hvgdd")
+texture = ExtResource("4_syq8g")
+
+[node name="LLL" type="Node2D" parent="RemoteCharacter/Body/Stomach/Hip/LUL" groups=["Damagable"]]
+position = Vector2(-0.0612793, 431.894)
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Body/Stomach/Hip/LUL/LLL"]
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("4_syq8g")
+
+[node name="RUL" type="Node2D" parent="RemoteCharacter/Body/Stomach/Hip" groups=["Damagable"]]
+position = Vector2(0, 144)
+rotation = -0.523599
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Body/Stomach/Hip/RUL"]
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("4_syq8g")
+
+[node name="RLL" type="Node2D" parent="RemoteCharacter/Body/Stomach/Hip/RUL" groups=["Damagable"]]
+position = Vector2(0.0612793, 431.893)
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Body/Stomach/Hip/RUL/RLL"]
+position = Vector2(0, 216)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("4_syq8g")
+
+[node name="Marker2D" type="Marker2D" parent="RemoteCharacter/Body/Stomach/Hip"]
+position = Vector2(0, 120)
+rotation = 1.65806
+
+[node name="Marker2D" type="Marker2D" parent="RemoteCharacter/Body/Stomach/Hip/Marker2D"]
+position = Vector2(1100, 0)
+
+[node name="Head" type="Node2D" parent="RemoteCharacter/Body" groups=["Damagable", "Damager"]]
+position = Vector2(0, -144)
+
+[node name="Sprite" type="Sprite2D" parent="RemoteCharacter/Body/Head"]
+position = Vector2(0, -126)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("4_skmxl")

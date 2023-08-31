@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1sal3rtbhiur"]
+
+[ext_resource type="PackedScene" uid="uid://b5s5nff032il4" path="res://scenes/game/modules/skill_joy_stick.tscn" id="1_pu38r"]
+[ext_resource type="PackedScene" uid="uid://xv24ne73swcs" path="res://scenes/game/modules/movement_joy_stick.tscn" id="2_wyn3x"]
+[ext_resource type="Texture2D" uid="uid://jltqbope05cf" path="res://assets/sprites/ui/Cooldown BG.png" id="3_rpjfa"]
+[ext_resource type="Texture2D" uid="uid://bumpc88wfjml2" path="res://assets/sprites/ui/Cooldown.png" id="4_h3a41"]
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="SkillJoyStick" parent="." instance=ExtResource("1_pu38r")]
+
+[node name="MovementJoyStick" parent="." instance=ExtResource("2_wyn3x")]
+
+[node name="CooldownBar" type="TextureProgressBar" parent="."]
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 1056.0
+offset_bottom = 1056.0
+scale = Vector2(0.2, 0.2)
+value = 50.0
+fill_mode = 5
+texture_under = ExtResource("3_rpjfa")
+texture_progress = ExtResource("4_h3a41")
+radial_initial_angle = 150.0
+radial_fill_degrees = 180.0
+
+[node name="Text" type="RichTextLabel" parent="CooldownBar"]
+clip_contents = false
+layout_direction = 1
+layout_mode = 0
+offset_top = 230.0
+offset_right = 1024.0
+offset_bottom = 510.0
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+theme_override_colors/default_color = Color(0.54902, 0.596078, 1, 1)
+theme_override_font_sizes/normal_font_size = 200
+bbcode_enabled = true
+text = "[center]Ready[/center]"
+fit_content = true
+scroll_active = false

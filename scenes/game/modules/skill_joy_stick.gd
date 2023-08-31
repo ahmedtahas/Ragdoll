@@ -15,9 +15,8 @@ extends Control
 
 signal skill_signal
 
+
 func _ready() -> void:
-	if not is_multiplayer_authority():
-		visible = false
 	skill_radius = skill_area.texture_normal.get_size().x / 2
 	skill_area.global_position = skill_area_position
 	skill_stick.global_position = skill_stick_position
@@ -38,7 +37,7 @@ func _gui_input(event: InputEvent) -> void:
 			skill_center = event.position
 			skill_area.position = skill_center - Vector2(skill_radius, skill_radius)
 			skill_stick.position = event.position
-			emit_signal("skill_signal", true)
+			skill_signal.emit(true)
 
 
 	elif event is InputEventScreenDrag:
@@ -48,7 +47,7 @@ func _gui_input(event: InputEvent) -> void:
 				var temp: Vector2 = event.position - skill_center
 				temp *= skill_radius / event.position.distance_to(skill_center)
 				skill_stick.position = temp + skill_center
-			emit_signal("skill_signal", (event.position - skill_center).normalized(), true)
+			skill_signal.emit((event.position - skill_center).normalized(), true)
 
 
 	elif event is InputEventScreenTouch and not event.is_pressed():
@@ -57,7 +56,7 @@ func _gui_input(event: InputEvent) -> void:
 		skill_area.modulate.a = 0.2
 		skill_stick.modulate.a = 0.2
 		if button:
-			emit_signal("skill_signal", false)
+			skill_signal.emit(false)
 		else:
-			emit_signal("skill_signal", Vector2.ZERO, false)
+			skill_signal.emit(Vector2.ZERO, false)
 

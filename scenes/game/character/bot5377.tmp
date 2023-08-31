@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://ftf8cb4yxirx"]
 
 [ext_resource type="Script" path="res://scenes/game/character/bot.gd" id="1_kij6b"]
-[ext_resource type="Script" path="res://scenes/game/character/bot_character.gd" id="2_4fkgr"]
+[ext_resource type="Script" path="res://scenes/game/character/load_skin.gd" id="2_7uodn"]
 [ext_resource type="Script" path="res://scenes/game/character/teleporter.gd" id="3_fg21l"]
 [ext_resource type="Texture2D" uid="uid://bok5q7sxwnfus" path="res://assets/sprites/character/guidelines/Head.png" id="4_4jp0i"]
 [ext_resource type="Texture2D" uid="uid://drypq4jdrky7g" path="res://assets/sprites/character/guidelines/3_piece.png" id="5_6i0vn"]
@@ -42,7 +42,7 @@ height = 481.231
 script = ExtResource("1_kij6b")
 
 [node name="Character" type="Node2D" parent="."]
-script = ExtResource("2_4fkgr")
+script = ExtResource("2_7uodn")
 
 [node name="Head" type="RigidBody2D" parent="Character" groups=["Damagable", "Damager"]]
 position = Vector2(0, -120)

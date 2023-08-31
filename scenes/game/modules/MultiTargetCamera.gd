@@ -13,6 +13,8 @@ extends Camera2D
 @onready var black_screen: ColorRect = $BlackScreen
 @onready var game_started: bool = false
 @onready var screen_size = get_viewport_rect().size
+@onready var blacking_out: bool = false
+@onready var objects = []
 
 
 func _ready() -> void:
@@ -49,9 +51,10 @@ func _physics_process(_delta: float) -> void:
 
 
 func black_out(duration: float):
-	var objects = []
+	blacking_out = true
+	objects = []
 	for target in targets:
-		if target is CharacterBody2D and target.has_node(".."):
+		if target is CharacterBody2D or (target is Marker2D and target == Global.opponent.center):
 			var wr = weakref(target)
 			objects.append(wr)
 	for target in objects:
@@ -59,10 +62,12 @@ func black_out(duration: float):
 			remove_target(target.get_ref())
 	black_screen.visible = true
 	await get_tree().create_timer(duration).timeout
+	blacking_out = false
 	for target in objects:
 		if target.get_ref():
 			add_target(target.get_ref())
 	black_screen.visible = false
+
 
 
 func start() -> void:
@@ -70,6 +75,10 @@ func start() -> void:
 
 
 func add_target(target) -> void:
+	if blacking_out:
+		var wr = weakref(target)
+		objects.append(wr)
+		return
 	if not target in targets:
 		targets.append(target)
 

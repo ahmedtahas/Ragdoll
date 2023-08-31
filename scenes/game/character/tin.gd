@@ -12,84 +12,71 @@ extends Node2D
 @onready var power: float
 @onready var damage: float
 
-@onready var cooldown_bar: TextureProgressBar
-@onready var cooldown_text: RichTextLabel
+@onready var multiplier: float
+@onready var skill_range: float
 
-@onready var radius: Vector2 = $Extra/Center/Reach.position
-@onready var center: Vector2 = $Extra/Center.position
+@onready var radius: Marker2D = $Character/Hip/Center/Radius
+@onready var center: Marker2D = $Character/Hip/Center
 
-@onready var character: Node2D = $Extra/Character
-@onready var skill_joy_stick: Control = $Extra/JoyStick/SkillJoyStick
-@onready var movement_joy_stick: Control = $Extra/JoyStick/MovementJoyStick
-@onready var body: RigidBody2D = $LocalCharacter/Body
-@onready var remote_body: CharacterBody2D = $RemoteCharacter/Body
+@onready var character: Node2D = $Character
+@onready var cooldown_text: RichTextLabel = $Extra/UI/CooldownBar/Text
+@onready var cooldown_bar: TextureProgressBar = $Extra/UI/CooldownBar
+@onready var skill_joy_stick: Control = $Extra/UI/SkillJoyStick
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var duration: Timer = $Extra/ChargeUp
-@onready var shockwave: Sprite2D = $Extra/Shockwave
-@onready var gravity: GPUParticles2D = $Extra/Gravity
+@onready var body: RigidBody2D = $Character/Body
+@onready var health: CanvasLayer = $Extra/Health
+@onready var shockwave: Sprite2D = $Character/Body/Shockwave
+@onready var gravity: GPUParticles2D = $Character/Body/Gravity
 
 
 func _ready() -> void:
 	name = str(get_multiplayer_authority())
-	get_node("LocalCharacter").load_skin(character_name)
+	character.setup(character_name)
 	shockwave.visible = false
+	Global.camera.add_target(center)
+	health.set_health(Config.get_value("health", character_name))
 	if is_multiplayer_authority():
-		get_node("RemoteCharacter").queue_free()
-		movement_joy_stick.move_signal.connect(character.move_signal)
+		Global.player = self
 		skill_joy_stick.skill_signal.connect(self.skill_signal)
-
 		skill_joy_stick.button = true
-		duration_time = get_node("/root/Config").get_value("duration", character_name)
-		cooldown_time = get_node("/root/Config").get_value("cooldown", character_name)
-		power = get_node("/root/Config").get_value("power", character_name)
-		damage = get_node("/root/Config").get_value("damage", character_name)
-
+		duration_time = Config.get_value("duration", character_name)
+		cooldown_time = Config.get_value("cooldown", character_name)
+		damage = Config.get_value("damage", character_name)
+		power = Config.get_value("power", character_name)
 		cooldown.wait_time = cooldown_time
 		duration.wait_time = duration_time
-
-		cooldown_bar = character.get_node('LocalUI/CooldownBar')
-		cooldown_text = character.get_node('LocalUI/CooldownBar/Text')
 		cooldown_bar.set_value(100)
 		cooldown_text.set_text("[center]ready[/center]")
-		character.get_node("RemoteUI").visible = false
-		Global.camera.add_target(body)
-		for part in get_node("LocalCharacter").get_children():
-			part.set_power(character_name)
-		character.ignore_local()
 
 	else:
-		get_node("LocalCharacter").queue_free()
-		character.get_node("LocalUI").visible = false
-		Global.camera.add_target(get_node("RemoteCharacter/Body"))
-		character.ignore_remote()
+		get_node("Extra/UI").hide()
+		Global.opponent = self
 
 
 func _physics_process(_delta: float) -> void:
-	if is_multiplayer_authority():
-		gravity.global_position = body.global_position
-		shockwave.global_position = body.global_position
-	else:
-		gravity.global_position = remote_body.global_position
-		shockwave.global_position = remote_body.global_position
-
-	if shocking and shockwave.scale.x <= 30:
-		_scale_shockwave(+0.25)
-
-	elif not shocking and shockwave.scale.x > 0.25 and shockwave.visible:
-		_scale_shockwave(-2)
-
-	elif shockwave.scale.x <= 0.25:
-		shockwave.visible = false
-		shockwave.scale.x = 0.1
-		shockwave.scale.y = 0.1
-
 	if not is_multiplayer_authority():
 		return
+
+	if shocking and shockwave.scale.x <= 30:
+		scale_shockwave(+0.25)
+		scale_shockwave.rpc(+0.25)
+
+	elif not shocking and shockwave.scale.x > 0.25 and shockwave.visible:
+		scale_shockwave(-2)
+		scale_shockwave.rpc(-2)
+
+	elif shockwave.scale.x <= 0.25:
+		show_shockwave(false)
+		show_shockwave.rpc(false)
+		shockwave.scale.x = 0.1
+		shockwave.scale.y = 0.1
 
 	if charging:
 
 		if shockwave.scale.x <= 30.2  and shockwave.scale.x >= 29.8:
-			gravity.emitting = true
+			gravity_particles(true)
+			gravity_particles.rpc(true)
 
 		if not duration.is_stopped():
 			cooldown_bar.set_value((100 * duration.time_left) / duration_time)
@@ -114,9 +101,20 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 
 
-func _scale_shockwave(value: float) -> void:
+@rpc("reliable")
+func scale_shockwave(value: float) -> void:
 	shockwave.scale.x += value
 	shockwave.scale.y += value
+
+
+@rpc("reliable")
+func gravity_particles(emitting: bool) -> void:
+	gravity.emitting = emitting
+
+
+@rpc("reliable")
+func show_shockwave(_show: bool) -> void:
+	shockwave.visible = _show
 
 
 func skill_signal(is_charging: bool) -> void:
@@ -124,24 +122,25 @@ func skill_signal(is_charging: bool) -> void:
 		return
 
 	if is_charging:
-		shockwave.visible = true
+		show_shockwave(true)
+		show_shockwave.rpc(true)
 		charging = true
 		shocking = true
 		body.freeze = true
 		duration.start()
 
 	else:
-		gravity.emitting = false
+		gravity_particles(false)
+		gravity_particles.rpc(false)
 		body.freeze = false
 		shocking = false
 		charging = false
-		var multiplier = duration_time - duration.time_left
-		var skill_range = shockwave.scale.x * 250
+		multiplier = duration_time - duration.time_left
+		skill_range = shockwave.scale.x * 250
 		duration.stop()
 		cooldown.start()
-
-		var opponent_pos = get_node("../" + str(Global.world.get_opponent_id()) + "/RemoteCharacter/Body").global_position
-
-		if (opponent_pos - body.global_position).length() < skill_range:
-			character.push_opponent((body.global_position - opponent_pos).normalized(), power)
-			character.damage_opponent(multiplier * damage)
+		if (body.global_position - Global.opponent.center.global_position).length() < skill_range:
+			if Global.mode == "single":
+				health.damage_bot(multiplier * damage)
+			Global.pushed.emit((body.global_position - Global.opponent.center.global_position).normalized() * power * multiplier / 2)
+			Global.damaged.emit(multiplier * damage)

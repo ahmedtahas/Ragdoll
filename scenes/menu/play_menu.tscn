@@ -68,7 +68,7 @@ size_flags_vertical = 3
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_right = 50
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer"]
+[node name="Multi" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_brmdw")
@@ -84,7 +84,7 @@ size_flags_vertical = 3
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_right = 50
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2"]
+[node name="Single" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_brmdw")
@@ -100,7 +100,7 @@ size_flags_vertical = 3
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_right = 50
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3"]
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_brmdw")
@@ -110,7 +110,3 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_7g3th")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_5w2ud")
 text = "Back
 "
-
-[connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/Button" to="." method="multi_player"]
-[connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/Button" to="." method="single_player"]
-[connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3/Button" to="." method="back"]
