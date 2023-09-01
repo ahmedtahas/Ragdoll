@@ -611,6 +611,7 @@ amount = 1000
 process_material = SubResource("ParticleProcessMaterial_757fr")
 texture = ExtResource("8_nxik3")
 lifetime = 0.5
+local_coords = true
 
 [node name="RLL" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 position = Vector2(180, 672)

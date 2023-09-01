@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ftf8cb4yxirx"]
+[gd_scene load_steps=16 format=3 uid="uid://ftf8cb4yxirx"]
 
 [ext_resource type="Script" path="res://scenes/game/character/bot.gd" id="1_kij6b"]
 [ext_resource type="Script" path="res://scenes/game/character/bot_character.gd" id="2_4fkgr"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://drypq4jdrky7g" path="res://assets/sprites/character/guidelines/3_piece.png" id="5_6i0vn"]
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="6_p8ue1"]
 [ext_resource type="Texture2D" uid="uid://die5me60kg1r5" path="res://assets/sprites/character/guidelines/4_piece.png" id="7_se28o"]
-[ext_resource type="PackedScene" uid="uid://b1sal3rtbhiur" path="res://scenes/game/modules/ui.tscn" id="8_is4cu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j18wc"]
 radius = 137.015
@@ -697,6 +696,3 @@ one_shot = true
 
 [node name="ParalyzeCooldown" type="Timer" parent="Extra"]
 one_shot = true
-
-[node name="UI" parent="Extra" instance=ExtResource("8_is4cu")]
-visible = false

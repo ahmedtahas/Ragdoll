@@ -16,6 +16,7 @@ func _ready() -> void:
 	Global.freezed.connect(self.freezed)
 	Global.stunned.connect(self.stunned)
 	Global.invuled.connect(self.invuled)
+	Global.opponent_died.connect(died)
 
 
 func setup(_character_name: String) -> void:
@@ -106,3 +107,7 @@ func hit_stun(wait_time: float = 0.5) -> void:
 func invul_local(wait_time: float = 0.5) -> void:
 	invulnerability.wait_time = wait_time
 	invulnerability.start()
+
+
+func died() -> void:
+	pass

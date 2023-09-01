@@ -15,7 +15,7 @@ func _ready() -> void:
 	Global.camera.add_target(center)
 	character.setup(character_name)
 	paralyzed.start()
-	Global.bot_died.connect(death)
+	Global.opponent_died.connect(death)
 
 
 func _physics_process(_delta: float) -> void:
@@ -49,4 +49,13 @@ func death() -> void:
 				joint.queue_free()
 	await get_tree().create_timer(4).timeout
 	Global.camera.remove_target(center)
+	for child in character.get_children():
+		child.set_collision_layer_value(1, false)
+		child.set_collision_mask_value(1, false)
+		child.set_collision_layer_value(2, true)
+		child.set_collision_mask_value(2, true)
+		child.body_entered.disconnect(character.on_body_entered)
+		child.set_script(null)
+	character.set_script(null)
+	set_script(null)
 

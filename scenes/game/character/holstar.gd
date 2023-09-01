@@ -173,7 +173,7 @@ func aiming_arm(show_arm: bool) -> void:
 
 func hit_signal(hit: Node2D) -> void:
 	if hit is RigidBody2D and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
-		Global.pushed.emit((hit.global_position - barrel.global_position).normalized() * power)
+		Global.pushed.emit((hit.global_position - barrel.global_position).normalized() * power * 2)
 		Global.stunned.emit()
 		if Global.mode == "single":
 			if hit.name == "Head":

@@ -42,10 +42,12 @@ func _ready() -> void:
 	Global.camera = $MTC
 	Global.server_skill = $ServerSkill
 	Global.client_skill = $ClientSkill
-	Global.bot_died.connect(bot_died)
+	Global.opponent_died.connect(opponent_died)
+	Global.player_died.connect(player_died)
+	Global.bots_defeated = 0
 	if Global.mode == "single":
-		var bot_instance = bot.instantiate()
 		var player_instance = character_dictionary.get(Global.player_selection).instantiate()
+		var bot_instance = bot.instantiate()
 		$Spawner.add_child(bot_instance)
 		bot_instance.transform = $Point2.transform
 		$Spawner.add_child(player_instance)
@@ -55,6 +57,8 @@ func _ready() -> void:
 	$Pause.get_child(0).hide()
 	$Pause.get_child(1).hide()
 	$Exit.hide()
+	$Won.hide()
+	$Lost.hide()
 	get_tree().paused = false
 	if Global.mode == "multi":
 		$Pause.get_child(2).hide()
@@ -238,6 +242,26 @@ func surrender() -> void:
 		Global.player.skill_joy_stick.skill_signal.connect(Global.player.skill_signal)
 
 
-func bot_died() -> void:
-	await get_tree().create_timer(6).timeout
-	change_character()
+func player_died() -> void:
+	await get_tree().create_timer(2).timeout
+	$Lost.show()
+	if Global.mode == "single":
+		$Lost/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/Label.text = "You defeated " + str(Global.bots_defeated) + " enemies"
+	await get_tree().create_timer(10).timeout
+	main_menu()
+
+
+func opponent_died() -> void:
+	if Global.mode == "single":
+		Global.bots_defeated += 1
+		await get_tree().create_timer(6).timeout
+		var bot_instance = bot.instantiate()
+		$Spawner.add_child(bot_instance)
+		if Global.player.center.global_position.x > Global.room.x / 2:
+			bot_instance.transform = $Point1.transform
+		else:
+			bot_instance.transform = $Point2.transform
+		Global.player.health.damage_bot(0)
+	else:
+		await get_tree().create_timer(2).timeout
+		$Won.show()

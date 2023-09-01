@@ -16,7 +16,7 @@ signal hit_signal
 
 func _ready() -> void:
 	movement_stick.move_signal.connect(self.move)
-	health.died.connect(death)
+	Global.player_died.connect(death)
 	if not is_multiplayer_authority():
 		Global.pushed.connect(self.pushed)
 		Global.freezed.connect(self.freezed)

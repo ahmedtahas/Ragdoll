@@ -12,6 +12,7 @@ const room: Vector2 = Vector2(20420, -10180)
 @onready var player_selection: String
 @onready var opponent_selection: String
 @onready var mode: String
+@onready var bots_defeated: int = 0
 
 signal black_out
 signal two_players_joined
@@ -22,6 +23,8 @@ signal damaged
 signal stunned
 signal invuled
 signal bot_died
+signal player_died
+signal opponent_died
 
 
 func is_inside(pos: Vector2) -> bool:

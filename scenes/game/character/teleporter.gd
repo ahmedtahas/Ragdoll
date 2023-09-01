@@ -13,7 +13,6 @@ extends RigidBody2D
 
 
 func set_power(character_name: String) -> void:
-
 	power = Config.get_value("power", character_name)
 
 

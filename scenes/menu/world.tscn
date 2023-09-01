@@ -327,6 +327,128 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_mmnmk")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_gf355")
 text = "Exit"
 
+[node name="Won" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="ColorRect" type="ColorRect" parent="Won"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.0431373, 0.431373, 0.517647, 0.392157)
+
+[node name="MarginContainer" type="MarginContainer" parent="Won"]
+offset_right = 1920.0
+offset_bottom = 1072.0
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 75
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Won/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Won/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("6_452tl")
+theme_override_font_sizes/font_size = 120
+text = "YOU WON"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Won/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="MarginContainer" type="MarginContainer" parent="Won/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Label" type="Label" parent="Won/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "+100 Credits"
+horizontal_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="Won/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Button" type="Button" parent="Won/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("6_452tl")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_lbrgh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mmnmk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gf355")
+text = "Exit"
+
+[node name="Lost" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="ColorRect" type="ColorRect" parent="Lost"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.0431373, 0.431373, 0.517647, 0.392157)
+
+[node name="MarginContainer" type="MarginContainer" parent="Lost"]
+offset_right = 1920.0
+offset_bottom = 1072.0
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 75
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lost/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Lost/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("6_452tl")
+theme_override_font_sizes/font_size = 120
+text = "YOU LOST"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lost/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="MarginContainer" type="MarginContainer" parent="Lost/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Label" type="Label" parent="Lost/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "-100 Credits"
+horizontal_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="Lost/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Button" type="Button" parent="Lost/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+focus_mode = 0
+theme_override_fonts/font = ExtResource("6_452tl")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_lbrgh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mmnmk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gf355")
+text = "Exit"
+
 [connection signal="child_entered_tree" from="Spawner" to="Spawner" method="_on_child_entered_tree"]
 [connection signal="button_up" from="Menu/Host" to="." method="_on_host_pressed"]
 [connection signal="button_up" from="Menu/Join" to="." method="_on_join_pressed"]
@@ -337,3 +459,5 @@ text = "Exit"
 [connection signal="pressed" from="Pause/Pause" to="." method="pause"]
 [connection signal="pressed" from="Exit/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/Button" to="." method="surrender"]
 [connection signal="pressed" from="Exit/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3/Button" to="." method="main_menu"]
+[connection signal="pressed" from="Won/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3/Button" to="." method="main_menu"]
+[connection signal="pressed" from="Lost/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3/Button" to="." method="main_menu"]

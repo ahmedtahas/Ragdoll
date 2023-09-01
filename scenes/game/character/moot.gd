@@ -126,7 +126,7 @@ func hit_signal(hit: Node2D) -> void:
 	is_hit = true
 	if hit is RigidBody2D and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
 		if hit.get_node("../..") != self:
-			Global.pushed.emit((hit.global_position - meteor_instance.global_position).normalized() * power)
+			Global.pushed.emit((hit.global_position - meteor_instance.global_position).normalized() * power * 3)
 			Global.stunned.emit()
 			if Global.mode == "multi":
 				if hit.name == "Head":

@@ -27,6 +27,7 @@ extends Node2D
 func _ready() -> void:
 	name = str(get_multiplayer_authority())
 	character.setup(character_name)
+	character.hit_signal.connect(hit_signal)
 	Global.camera.add_target(center)
 	health.set_health(Config.get_value("health", character_name))
 

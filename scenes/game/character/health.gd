@@ -52,7 +52,7 @@ func take_damage(amount: float) -> void:
 			update_remote_health.rpc(current_health)
 		health_bar.set_value(current_health)
 		health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
-		died.emit()
+		Global.player_died.emit()
 		return
 	current_health -= amount
 	if Global.mode == "multi":
@@ -64,7 +64,7 @@ func take_damage(amount: float) -> void:
 @rpc("reliable")
 func update_remote_health(current: float) -> void:
 	if current == 0:
-		died.emit()
+		Global.opponent_died.emit()
 	remote_health_bar.set_value((100 * current) / max_health)
 
 
@@ -72,7 +72,8 @@ func damage_bot(amount: float) -> void:
 	if bot_current_health <=amount:
 		bot_current_health = 0
 		remote_health_bar.set_value(bot_current_health)
-		Global.bot_died.emit()
+		Global.opponent_died.emit()
+		bot_current_health = bot_max_health
 		return
 	bot_current_health -= amount
 	remote_health_bar.set_value((100 * bot_current_health) / bot_max_health)
