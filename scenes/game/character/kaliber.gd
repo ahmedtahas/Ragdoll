@@ -27,7 +27,6 @@ extends Node2D
 func _ready() -> void:
 	name = str(get_multiplayer_authority())
 	character.setup(character_name)
-	character.hit_signal.connect(hit_signal)
 	Global.camera.add_target(center)
 	health.set_health(Config.get_value("health", character_name))
 
@@ -61,7 +60,8 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("[center]" + str(hit_count) + "x[/center]")
 
 
-func hit_signal(_body: CharacterBody2D, _caller: RigidBody2D) -> void:
+func hit_signal(_body: RigidBody2D, _caller: RigidBody2D) -> void:
+	print(_body, _caller)
 	if using or hit_count == max_combo:
 		return
 	hit_count += 1

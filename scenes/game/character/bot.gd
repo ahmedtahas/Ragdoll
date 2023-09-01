@@ -57,5 +57,6 @@ func death() -> void:
 		child.body_entered.disconnect(character.on_body_entered)
 		child.set_script(null)
 	character.set_script(null)
+	Global.opponent_died.disconnect(death)
 	set_script(null)
 

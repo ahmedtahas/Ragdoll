@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dspift8ih848t"]
+[gd_scene load_steps=22 format=3 uid="uid://dspift8ih848t"]
 
 [ext_resource type="Script" path="res://scenes/menu/world.gd" id="1_ky2sx"]
 [ext_resource type="Texture2D" uid="uid://cp6e17rktm0ld" path="res://assets/sprites/particle/StarsSpriteSheet.png" id="2_aawil"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://scenes/menu/spawner.gd" id="3_b2un2"]
 [ext_resource type="PackedScene" uid="uid://do44fi2m8e00e" path="res://scenes/game/modules/mtc.tscn" id="3_jormy"]
 [ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="6_452tl"]
+[ext_resource type="Texture2D" uid="uid://dngvv20yikci7" path="res://assets/sprites/character/equipped/tin/Particle.png" id="7_qltj8"]
+[ext_resource type="Texture2D" uid="uid://ii2517k08sno" path="res://assets/sprites/particle/Flame.png" id="8_v8vs7"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_skwqx"]
 particles_animation = true
@@ -63,6 +65,37 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8qy3f"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_0jweu"]
+offsets = PackedFloat32Array(0, 0.185185, 0.913257, 0.995833)
+colors = PackedColorArray(0, 0, 0, 0, 0.4, 0, 0, 0.678431, 0.4, 0, 0, 1, 0.379968, 0.38449, 0.372621, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l0ug3"]
+gradient = SubResource("Gradient_0jweu")
+width = 100
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dg50i"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 240.0
+emission_ring_inner_radius = 69.0
+particle_flag_align_y = true
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = 700.0
+radial_accel_max = 2000.0
+scale_min = 0.1
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_l0ug3")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ky2sx")
@@ -448,6 +481,39 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_lbrgh")
 theme_override_styles/hover = SubResource("StyleBoxFlat_mmnmk")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_gf355")
 text = "Exit"
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="Clash" type="GPUParticles2D" parent="Particles"]
+material = SubResource("CanvasItemMaterial_8qy3f")
+position = Vector2(-414, -437)
+emitting = false
+amount = 69
+process_material = SubResource("ParticleProcessMaterial_dg50i")
+texture = ExtResource("7_qltj8")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.69
+
+[node name="Hit" type="GPUParticles2D" parent="Particles"]
+position = Vector2(-414, -437)
+emitting = false
+amount = 69
+process_material = SubResource("ParticleProcessMaterial_dg50i")
+texture = ExtResource("8_v8vs7")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.69
+
+[node name="Head" type="GPUParticles2D" parent="Particles"]
+position = Vector2(-414, -437)
+emitting = false
+amount = 300
+process_material = SubResource("ParticleProcessMaterial_dg50i")
+texture = ExtResource("8_v8vs7")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.69
 
 [connection signal="child_entered_tree" from="Spawner" to="Spawner" method="_on_child_entered_tree"]
 [connection signal="button_up" from="Menu/Host" to="." method="_on_host_pressed"]

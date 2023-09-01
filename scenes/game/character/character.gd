@@ -56,9 +56,10 @@ func on_body_entered(hit: PhysicsBody2D, caller: RigidBody2D) -> void:
 	if dead:
 		return
 	if hit is RigidBody2D and not hit.is_in_group("Skill"):
-		emit_signal("hit_signal", hit, caller)
+		hit_signal.emit(hit, caller)
 		hit_stun()
 		slow_motion.rpc()
+
 		if Global.mode == "multi":
 			if caller.is_in_group("Damager") and hit.name == "Head":
 				Global.damaged.emit(damage * 2)

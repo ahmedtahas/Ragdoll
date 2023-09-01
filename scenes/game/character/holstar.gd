@@ -26,6 +26,7 @@ extends Node2D
 @onready var barrel: Marker2D = $Character/Body/RF/Barrel
 @onready var cooldown_text: RichTextLabel = $Extra/UI/CooldownBar/Text
 @onready var cooldown_bar: TextureProgressBar = $Extra/UI/CooldownBar
+@onready var blood: GPUParticles2D = $Extra/Blood
 
 @onready var cooldown_set: bool = false
 @onready var aiming: bool = false
@@ -72,10 +73,8 @@ func remove_skill() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-
 	if not is_multiplayer_authority():
 		return
-
 	if aiming:
 		crosshair.rotation += 0.075
 		if growing:
@@ -171,8 +170,17 @@ func aiming_arm(show_arm: bool) -> void:
 		rf.visible = true
 
 
+@rpc("reliable")
+func blood_splat(hit_position: Vector2, hit_rotation: float) -> void:
+	blood.global_position = hit_position
+	blood.global_rotation = hit_rotation
+	blood.emitting = true
+
+
 func hit_signal(hit: Node2D) -> void:
 	if hit is RigidBody2D and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
+		blood_splat(bullet_instance.global_position, bullet_instance.global_rotation)
+		blood_splat.rpc(bullet_instance.global_position, bullet_instance.global_rotation)
 		Global.pushed.emit((hit.global_position - barrel.global_position).normalized() * power * 2)
 		Global.stunned.emit()
 		if Global.mode == "single":

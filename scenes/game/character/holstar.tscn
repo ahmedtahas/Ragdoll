@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cqspmmvt74co0"]
+[gd_scene load_steps=27 format=3 uid="uid://cqspmmvt74co0"]
 
 [ext_resource type="Script" path="res://scenes/game/character/holstar.gd" id="1_s3rep"]
 [ext_resource type="Texture2D" uid="uid://bok5q7sxwnfus" path="res://assets/sprites/character/guidelines/Head.png" id="2_3ativ"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="7_dg6la"]
 [ext_resource type="PackedScene" uid="uid://b1sal3rtbhiur" path="res://scenes/game/modules/ui.tscn" id="12_ahi32"]
 [ext_resource type="Texture2D" uid="uid://b5ctcu202xbwj" path="res://assets/sprites/character/equipped/holstar/Crosshair.png" id="13_77j40"]
+[ext_resource type="Texture2D" uid="uid://ii2517k08sno" path="res://assets/sprites/particle/Flame.png" id="13_dr3p0"]
 [ext_resource type="PackedScene" uid="uid://cmj0xfyl2c61u" path="res://scenes/game/modules/health.tscn" id="13_lt5l2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dnvhu"]
@@ -179,6 +180,31 @@ properties/32/path = NodePath("../Character/Body/RF:rot")
 properties/32/spawn = true
 properties/32/sync = true
 properties/32/watch = false
+
+[sub_resource type="Gradient" id="Gradient_60jho"]
+offsets = PackedFloat32Array(0.00163666, 0.185185, 0.918167, 0.995833)
+colors = PackedColorArray(0, 0, 0, 0, 0.701961, 0.054902, 0.0313726, 1, 0.4, 0, 0, 1, 0.72549, 0, 0.0745098, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_03fms"]
+gradient = SubResource("Gradient_60jho")
+width = 100
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pyewr"]
+emission_shape = 2
+emission_sphere_radius = 17.0
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 10000.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = 9000.0
+radial_accel_max = 9000.0
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_03fms")
 
 [node name="HolStar" type="Node2D"]
 script = ExtResource("1_s3rep")
@@ -904,3 +930,12 @@ replication_config = SubResource("SceneReplicationConfig_k4poa")
 [node name="Cross" type="Sprite2D" parent="Extra"]
 position = Vector2(696, -80)
 texture = ExtResource("13_77j40")
+
+[node name="Blood" type="GPUParticles2D" parent="Extra"]
+emitting = false
+amount = 69
+process_material = SubResource("ParticleProcessMaterial_pyewr")
+texture = ExtResource("13_dr3p0")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.69

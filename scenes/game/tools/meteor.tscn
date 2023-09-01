@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://fcab8s80q7w0"]
+[gd_scene load_steps=17 format=3 uid="uid://fcab8s80q7w0"]
 
 [ext_resource type="Script" path="res://scenes/game/tools/meteor.gd" id="1_r45te"]
 [ext_resource type="Texture2D" uid="uid://blqjaqno01nan" path="res://assets/sprites/character/equipped/moot/fireball.png" id="2_3p4r0"]
 [ext_resource type="Script" path="res://scenes/game/tools/bullet_sync.gd" id="2_cjq44"]
 [ext_resource type="Texture2D" uid="uid://bxptvxqf04n31" path="res://assets/sprites/particle/FireSpriteSheet.png" id="4_11k8d"]
+[ext_resource type="Texture2D" uid="uid://dngvv20yikci7" path="res://assets/sprites/character/equipped/tin/Particle.png" id="5_n8ppf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7gtdm"]
 radius = 80.025
@@ -68,7 +69,32 @@ scale_curve = SubResource("CurveTexture_6rlls")
 color_ramp = SubResource("GradientTexture1D_loi6k")
 anim_offset_max = 1.0
 
-[node name="Meteor" type="CharacterBody2D"]
+[sub_resource type="Gradient" id="Gradient_mtyuu"]
+offsets = PackedFloat32Array(0, 0.185185, 0.913257, 0.995833)
+colors = PackedColorArray(0, 0, 0, 0, 0.747713, 0.612533, 0, 1, 0.74902, 0, 0.12549, 1, 0.72549, 0, 0.0745098, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_43f2x"]
+gradient = SubResource("Gradient_mtyuu")
+width = 100
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v3s06"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 300.0
+emission_ring_inner_radius = 69.0
+particle_flag_align_y = true
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = 9000.0
+radial_accel_max = 9000.0
+scale_min = 10.0
+scale_max = 10.0
+color_ramp = SubResource("GradientTexture1D_43f2x")
+
+[node name="Meteor" type="CharacterBody2D" groups=["Skill"]]
 script = ExtResource("1_r45te")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -92,3 +118,12 @@ material = SubResource("CanvasItemMaterial_1twgw")
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_ff4jp")
 texture = ExtResource("4_11k8d")
+
+[node name="Explosion" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 101
+process_material = SubResource("ParticleProcessMaterial_v3s06")
+texture = ExtResource("5_n8ppf")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.69

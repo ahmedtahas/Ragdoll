@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://d3puoo113oejg"]
+[gd_scene load_steps=28 format=3 uid="uid://d3puoo113oejg"]
 
 [ext_resource type="Script" path="res://scenes/game/character/moot.gd" id="1_3v1lq"]
 [ext_resource type="Script" path="res://scenes/game/character/character.gd" id="2_yrmfp"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bxptvxqf04n31" path="res://assets/sprites/particle/FireSpriteSheet.png" id="8_nxik3"]
 [ext_resource type="PackedScene" uid="uid://b1sal3rtbhiur" path="res://scenes/game/modules/ui.tscn" id="9_24o6c"]
 [ext_resource type="PackedScene" uid="uid://cmj0xfyl2c61u" path="res://scenes/game/modules/health.tscn" id="10_f477k"]
+[ext_resource type="Texture2D" uid="uid://dngvv20yikci7" path="res://assets/sprites/character/equipped/tin/Particle.png" id="12_s2c25"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uy5s7"]
 radius = 137.015
@@ -191,6 +192,37 @@ properties/31/path = NodePath("../Character/LK:glo_rot")
 properties/31/spawn = true
 properties/31/sync = true
 properties/31/watch = false
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yxu5p"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_puep1"]
+offsets = PackedFloat32Array(0, 0.186579, 0.689034, 0.885434, 0.995833)
+colors = PackedColorArray(0, 0, 0, 0, 0.564191, 0.439709, 0.102888, 1, 0.4, 0, 0, 1, 0, 0, 0, 0.843137, 0.379968, 0.38449, 0.372621, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_l070v"]
+gradient = SubResource("Gradient_puep1")
+width = 100
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d1pwy"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 360.0
+emission_ring_inner_radius = 120.0
+particle_flag_align_y = true
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = 900.0
+radial_accel_max = 2000.0
+scale_min = 10.0
+scale_max = 10.0
+color_ramp = SubResource("GradientTexture1D_l070v")
 
 [node name="Moot" type="Node2D"]
 script = ExtResource("1_3v1lq")
@@ -898,3 +930,14 @@ replication_config = SubResource("SceneReplicationConfig_dbfux")
 
 [node name="SkillDuration" type="Timer" parent="Extra"]
 one_shot = true
+
+[node name="Explosion" type="GPUParticles2D" parent="Extra"]
+material = SubResource("CanvasItemMaterial_yxu5p")
+position = Vector2(606, -674)
+emitting = false
+amount = 101
+process_material = SubResource("ParticleProcessMaterial_d1pwy")
+texture = ExtResource("12_s2c25")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.69

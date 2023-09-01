@@ -27,7 +27,7 @@ func _physics_process(_delta: float) -> void:
 			vector = vel.rotated((Global.opponent.center.global_position - global_position).angle())
 		velocity = vector * speed
 		if move_and_slide():
-			emit_signal("hit_signal", get_last_slide_collision().get_collider())
+			hit_signal.emit(get_last_slide_collision().get_collider())
 		sync.pos = global_position
 		sync.rot = global_rotation
 		sync.particle_scale = fire.process_material.scale_min

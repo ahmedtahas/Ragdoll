@@ -110,4 +110,9 @@ func invul_local(wait_time: float = 0.5) -> void:
 
 
 func died() -> void:
-	pass
+	Global.pushed.disconnect(self.pushed)
+	Global.freezed.disconnect(self.freezed)
+	Global.stunned.disconnect(self.stunned)
+	Global.invuled.disconnect(self.invuled)
+	Global.opponent_died.disconnect(died)
+
