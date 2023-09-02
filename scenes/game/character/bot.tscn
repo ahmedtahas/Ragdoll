@@ -413,7 +413,7 @@ shape = SubResource("CapsuleShape2D_noqjx")
 position = Vector2(0, 40)
 
 [node name="Radius" type="Marker2D" parent="Character/Hip/Center"]
-position = Vector2(600, 0)
+position = Vector2(840, 0)
 
 [node name="RLL" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 position = Vector2(180, 672)

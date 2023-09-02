@@ -896,9 +896,6 @@ one_shot = true
 [node name="SkillCooldown" type="Timer" parent="Extra"]
 one_shot = true
 
-[node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
-one_shot = true
-
 [node name="UI" parent="Extra" instance=ExtResource("10_o823r")]
 
 [node name="Health" parent="Extra" instance=ExtResource("11_wuylg")]

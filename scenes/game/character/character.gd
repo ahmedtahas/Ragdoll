@@ -15,13 +15,12 @@ signal hit_signal
 
 
 func _ready() -> void:
-	movement_stick.move_signal.connect(self.move)
+	movement_stick.move_signal.connect(move)
 	Global.player_died.connect(death)
 	if not is_multiplayer_authority():
-		Global.pushed.connect(self.pushed)
-		Global.freezed.connect(self.freezed)
-		Global.stunned.connect(self.stunned)
-		Global.invuled.connect(self.invuled)
+		Global.pushed.connect(push_local)
+		Global.freezed.connect(freeze_local)
+		Global.stunned.connect(hit_stun)
 
 
 func setup(_character_name: String) -> void:
@@ -46,7 +45,7 @@ func move(vector: Vector2) -> void:
 
 func ignore_self() -> void:
 	for child_1 in get_children():
-		child_1.body_entered.connect(self.on_body_entered.bind(child_1))
+		child_1.body_entered.connect(on_body_entered.bind(child_1))
 		for child_2 in get_children():
 			if child_1 != child_2:
 				child_1.add_collision_exception_with(child_2)
@@ -64,20 +63,17 @@ func on_body_entered(hit: PhysicsBody2D, caller: RigidBody2D) -> void:
 		elif caller.is_in_group("Damager") and hit.is_in_group("Damagable"):
 			Global.damaged.emit(damage)
 
-func stunned(wait_time: float = 0.5) -> void:
-	hit_stun.rpc(wait_time)
 
-
-func freezed(duration: float) -> void:
-	freeze_local.rpc(duration)
-
-
-func pushed(vector: Vector2) -> void:
-	push_local.rpc(vector)
-
-
-func invuled(wait_time: float = 0.5) -> void:
-	invul_local.rpc(wait_time)
+@rpc("reliable", "any_peer", "call_remote", 1)
+func freeze_local(duration: float) -> void:
+	if not is_multiplayer_authority():
+		freeze_local.rpc(duration)
+		return
+	for child in get_children():
+		child.freeze = true
+	await get_tree().create_timer(duration).timeout
+	for child in get_children():
+		child.freeze = false
 
 
 @rpc("reliable", "any_peer")
@@ -90,16 +86,10 @@ func slow_motion(time_scale: float = 0.05, duration: float = 0.75) -> void:
 
 
 @rpc("reliable", "any_peer", "call_remote", 1)
-func freeze_local(duration: float) -> void:
-	for child in get_children():
-		child.freeze = true
-	await get_tree().create_timer(duration).timeout
-	for child in get_children():
-		child.freeze = false
-
-
-@rpc("reliable", "any_peer", "call_remote", 1)
 func push_local(vector: Vector2) -> void:
+	if not is_multiplayer_authority():
+		push_local.rpc(vector)
+		return
 	for child in get_children():
 		child.freeze = true
 	for child in get_children():
@@ -111,14 +101,11 @@ func push_local(vector: Vector2) -> void:
 
 @rpc("reliable", "any_peer", "call_remote", 1)
 func hit_stun(wait_time: float = 0.5) -> void:
+	if not is_multiplayer_authority():
+		hit_stun.rpc(wait_time)
+		return
 	hit_cooldown.wait_time = wait_time
 	hit_cooldown.start()
-
-
-@rpc("reliable", "any_peer", "call_remote", 1)
-func invul_local(wait_time: float = 0.5) -> void:
-	invulnerability.wait_time = wait_time
-	invulnerability.start()
 
 
 func death() -> void:

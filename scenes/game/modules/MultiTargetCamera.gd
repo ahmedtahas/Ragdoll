@@ -2,7 +2,7 @@ extends Camera2D
 
 @onready var camera_speed: float = 0.5
 @onready var zoom_speed: float = 0.25
-@onready var min_zoom: float = 0.25
+@onready var min_zoom: float = 0.2
 @onready var max_zoom: float = 15
 @onready var margin: Vector2 = Vector2(1200, 800)
 
@@ -41,11 +41,6 @@ func _physics_process(_delta: float) -> void:
 		zoom_amount = clamp(rect.size.x / screen_size.x, min_zoom, max_zoom)
 	else:
 		zoom_amount = clamp(rect.size.y / screen_size.y, min_zoom, max_zoom)
-
-	if zoom_amount >= max_zoom:
-		zoom_amount = 14.9999999
-	elif zoom_amount <= min_zoom:
-		zoom_amount = 0.5000001
 
 	zoom = lerp(zoom, Vector2.ONE * (1 / zoom_amount), zoom_speed)
 

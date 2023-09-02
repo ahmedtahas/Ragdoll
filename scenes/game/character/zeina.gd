@@ -102,7 +102,6 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 			_flicker()
 
 	else:
-		Global.camera.remove_target(body)
 		center.visible = false
 		end_point = _range.global_position
 		end_point = Global.get_inside_coordinates(end_point)
@@ -120,9 +119,9 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		character.slow_motion()
 		dagger_instance.global_position = center.get_node("Dash").global_position
 		dagger_instance.fire((end_point - center.get_node("Dash").global_position).angle())
-		await get_tree().create_timer((end_point - body.global_position).length() / dagger_instance.speed).timeout
+		await get_tree().create_timer((end_point - center.global_position).length() / dagger_instance.speed).timeout
 		if not _hit:
-			end_point = Global.avoid_enemies(end_point - body.global_position)
+			end_point = Global.avoid_enemies(end_point - center.global_position)
 			teleport()
 			if not multiplayer.is_server():
 				remove_skill.rpc()
@@ -141,14 +140,12 @@ func teleport() -> void:
 		child.rotate(child.global_rotation)
 		child.teleport()
 		dagger_instance.queue_free()
-	Global.camera.add_target(body)
-
 
 
 func hit_signal(hit: Node2D) -> void:
 	_hit = true
 	if hit is RigidBody2D and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
-		end_point = Global.avoid_enemies(end_point - body.global_position)
+		end_point = Global.avoid_enemies(end_point - center.global_position)
 		Global.stunned.emit()
 		character.slow_motion()
 		if hit.name == "Head":
@@ -157,7 +154,7 @@ func hit_signal(hit: Node2D) -> void:
 			Global.damaged.emit(damage)
 	elif hit is StaticBody2D:
 		end_point = dagger_instance.global_position
-		end_point = Global.get_inside_coordinates(end_point - body.global_position)
+		end_point = Global.get_inside_coordinates(end_point)
 	teleport()
 	if not multiplayer.is_server():
 		remove_skill.rpc()

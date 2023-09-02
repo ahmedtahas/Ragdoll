@@ -127,10 +127,10 @@ func _on_host_pressed() -> void:
 			client_id = new_peer_id
 			await get_tree().create_timer(3).timeout
 			get_node("Spawner/1/Character/Head").freeze = false
-			rpc_id(new_peer_id,"set_opponent", Global.player_selection)
-			rpc("add_newly_connected_player_character", new_peer_id)
+			set_opponent.rpc_id(new_peer_id, Global.player_selection)
+			add_newly_connected_player_character.rpc(new_peer_id)
 #			add_newly_connected_player_character(new_peer_id)
-			rpc_id(new_peer_id, "add_previously_connected_player_characters", 1)
+			add_previously_connected_player_characters.rpc_id(new_peer_id, 1)
 			add_player_character(new_peer_id)
 	)
 
@@ -144,7 +144,7 @@ func _on_join_pressed() -> void:
 			client_id = multiplayer.get_unique_id()
 			server_id = _peer_
 			await get_tree().create_timer(2).timeout
-			rpc_id(_peer_,"set_opponent", Global.player_selection)
+			set_opponent.rpc_id(_peer_, Global.player_selection)
 	)
 
 
@@ -187,10 +187,8 @@ func add_previously_connected_player_characters(peer_id) -> void:
 	connected_peer_ids.append(peer_id)
 
 
-
 func _on_line_edit_text_changed(new_text: String) -> void:
 	client_ip = new_text
-
 
 
 func _notification(what: int) -> void:
@@ -245,7 +243,7 @@ func player_died() -> void:
 	$Lost.show()
 	if Global.mode == "single":
 		$Lost/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/Label.text = "You defeated " + str(Global.bots_defeated) + " enemies"
-	await get_tree().create_timer(10).timeout
+	await get_tree().create_timer(8).timeout
 	main_menu()
 
 

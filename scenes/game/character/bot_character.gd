@@ -12,10 +12,9 @@ signal hit_signal
 
 
 func _ready() -> void:
-	Global.pushed.connect(self.pushed)
-	Global.freezed.connect(self.freezed)
-	Global.stunned.connect(self.stunned)
-	Global.invuled.connect(self.invuled)
+	Global.pushed.connect(push_local)
+	Global.freezed.connect(freeze_local)
+	Global.stunned.connect(hit_stun)
 	Global.opponent_died.connect(died)
 
 
@@ -41,7 +40,7 @@ func move(vector: Vector2) -> void:
 
 func ignore_self() -> void:
 	for child_1 in get_children():
-		child_1.body_entered.connect(self.on_body_entered.bind(child_1))
+		child_1.body_entered.connect(on_body_entered.bind(child_1))
 		for child_2 in get_children():
 			if child_1 != child_2:
 				child_1.add_collision_exception_with(child_2)
@@ -57,22 +56,6 @@ func on_body_entered(hit: PhysicsBody2D, caller: RigidBody2D) -> void:
 			Global.player.health.take_damage(damage * 2)
 		elif caller.is_in_group("Damager") and hit.is_in_group("Damagable"):
 			Global.player.health.take_damage(damage)
-
-
-func stunned(wait_time: float = 0.5) -> void:
-	hit_stun(wait_time)
-
-
-func freezed(duration: float) -> void:
-	freeze_local(duration)
-
-
-func pushed(vector: Vector2) -> void:
-	push_local(vector)
-
-
-func invuled(wait_time: float = 0.5) -> void:
-	invul_local(wait_time)
 
 
 func slow_motion(time_scale: float = 0.05, duration: float = 0.75) -> void:
@@ -104,15 +87,9 @@ func hit_stun(wait_time: float = 0.5) -> void:
 	hit_cooldown.start()
 
 
-func invul_local(wait_time: float = 0.5) -> void:
-	invulnerability.wait_time = wait_time
-	invulnerability.start()
-
-
 func died() -> void:
-	Global.pushed.disconnect(self.pushed)
-	Global.freezed.disconnect(self.freezed)
-	Global.stunned.disconnect(self.stunned)
-	Global.invuled.disconnect(self.invuled)
+	Global.pushed.disconnect(push_local)
+	Global.freezed.disconnect(freeze_local)
+	Global.stunned.disconnect(hit_stun)
 	Global.opponent_died.disconnect(died)
 

@@ -9,8 +9,6 @@ extends CanvasLayer
 @onready var health_text: RichTextLabel = $HealthBar/Text
 @onready var remote_health_bar: TextureProgressBar = $RemoteHealthBar
 
-@onready var invulnerability: Timer = get_node("../InvulnerabilityCooldown")
-
 signal died
 signal bot_died
 
@@ -19,7 +17,7 @@ func _ready() -> void:
 	if Global.mode == "single":
 		Global.damaged.connect(damage_bot)
 	if not is_multiplayer_authority():
-		Global.damaged.connect(damaged)
+		Global.damaged.connect(take_damage)
 
 
 func set_health(health: float) -> void:
@@ -40,13 +38,10 @@ func set_health(health: float) -> void:
 		health_text.hide()
 
 
-func damaged(amount: float) -> void:
-	take_damage.rpc(amount)
-
-
 @rpc("reliable", "any_peer", "call_remote", 1)
 func take_damage(amount: float) -> void:
-	if not invulnerability.is_stopped() or not is_multiplayer_authority():
+	if not is_multiplayer_authority():
+		take_damage.rpc(amount)
 		return
 	if current_health <= amount:
 		current_health = 0
