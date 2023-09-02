@@ -16,8 +16,10 @@ signal bot_died
 
 
 func _ready() -> void:
+	if Global.mode == "single":
+		Global.damaged.connect(damage_bot)
 	if not is_multiplayer_authority():
-		Global.damaged.connect(self.damaged)
+		Global.damaged.connect(damaged)
 
 
 func set_health(health: float) -> void:
@@ -48,15 +50,13 @@ func take_damage(amount: float) -> void:
 		return
 	if current_health <= amount:
 		current_health = 0
-		if Global.mode == "multi":
-			update_remote_health.rpc(current_health)
+		update_remote_health.rpc(current_health)
 		health_bar.set_value(current_health)
 		health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
 		Global.player_died.emit()
 		return
 	current_health -= amount
-	if Global.mode == "multi":
-		update_remote_health.rpc(current_health)
+	update_remote_health.rpc(current_health)
 	health_bar.set_value((100 * current_health) / max_health)
 	health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
 

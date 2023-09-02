@@ -56,8 +56,8 @@ func _ready() -> void:
 
 
 @rpc("reliable")
-func add_skill(skill_name: String, pos: Vector2) -> void:
-	Global.world.add_skill(skill_name, pos)
+func add_skill(skill_name: String) -> void:
+	Global.world.add_skill(skill_name)
 
 
 @rpc("reliable")
@@ -87,7 +87,9 @@ func _physics_process(_delta: float) -> void:
 
 
 @rpc("reliable")
-func emit_particles(emit) -> void:
+func emit_particles(emit: bool) -> void:
+	if is_multiplayer_authority():
+		emit_particles.rpc(emit)
 	fire_ring.emitting = emit
 
 
@@ -99,20 +101,18 @@ func skill_signal(using: bool) -> void:
 		pass
 
 	else:
-		fire_ring.emitting = true
-		emit_particles.rpc(true)
+		emit_particles(true)
 		duration.start()
 		await get_tree().create_timer(0.5).timeout
 		center.look_at(Global.opponent.center.global_position)
-		fire_ring.emitting = false
-		emit_particles.rpc(false)
+		emit_particles(false)
 		meteor_instance = meteor.instantiate()
 		if multiplayer.is_server():
 			Global.server_skill.add_child(meteor_instance, true)
 		else:
 			meteor_instance.set_multiplayer_authority(multiplayer.get_unique_id())
 			Global.client_skill.add_child(meteor_instance, true)
-			add_skill.rpc("meteor", radius.global_position)
+			add_skill.rpc("meteor")
 		meteor_instance.global_position = radius.global_position
 		meteor_instance.hit_signal.connect(self.hit_signal)
 		await duration.timeout
@@ -125,6 +125,8 @@ func skill_signal(using: bool) -> void:
 
 @rpc("reliable")
 func explode(contact_point: Vector2) -> void:
+	if is_multiplayer_authority():
+		explode.rpc(contact_point)
 	explosion.global_position = contact_point
 	explosion.emitting = true
 
@@ -132,23 +134,17 @@ func explode(contact_point: Vector2) -> void:
 func hit_signal(hit: Node2D) -> void:
 	is_hit = true
 	explode(meteor_instance.global_position)
-	explode.rpc(meteor_instance.global_position)
 	if hit is RigidBody2D and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
 		if hit.get_node("../..") != self:
-			Global.pushed.emit((hit.global_position - meteor_instance.global_position).normalized() * power * 3)
+			Global.pushed.emit((Global.opponent.center.global_position - meteor_instance.global_position).normalized() * power * 3)
 			Global.stunned.emit()
-			if Global.mode == "multi":
-				if hit.name == "Head":
-					Global.damaged.emit(damage * 3)
-				else:
-					Global.damaged.emit(damage * 1.5)
+			if hit.name == "Head":
+				Global.damaged.emit(damage * 3)
 			else:
-				if hit.name == "Head":
-					health.damage_bot(damage * 3)
-				else:
-					health.damage_bot(damage * 1.5)
+				Global.damaged.emit(damage * 1.5)
 		else:
 			health.take_damage(damage)
+			character.push_local((center.global_position - meteor_instance.global_position).normalized() * power * 3)
 	meteor_instance.queue_free()
 	duration.stop()
 	cooldown.start()

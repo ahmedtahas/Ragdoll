@@ -167,11 +167,12 @@ properties/31/sync = true
 properties/31/watch = false
 
 [node name="Clone" type="Node2D"]
+position = Vector2(10000, -5000)
 script = ExtResource("1_i7qlg")
 
 [node name="Character" type="Node2D" parent="."]
 
-[node name="Head" type="RigidBody2D" parent="Character" groups=["Damagable", "Damager"]]
+[node name="Head" type="RigidBody2D" parent="Character" groups=["Damager", "Skill"]]
 position = Vector2(0, -120)
 mass = 0.1
 gravity_scale = 0.5
@@ -220,7 +221,7 @@ node_b = NodePath("../../Body")
 length = 1.0
 stiffness = 64.0
 
-[node name="Body" type="RigidBody2D" parent="Character" groups=["Damagable"]]
+[node name="Body" type="RigidBody2D" parent="Character" groups=["Skill"]]
 mass = 0.1
 center_of_mass_mode = 1
 center_of_mass = Vector2(0, -107)
@@ -236,7 +237,7 @@ texture = ExtResource("5_8f7pc")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Character/Body"]
 shape = SubResource("CapsuleShape2D_7606f")
 
-[node name="RLA" type="RigidBody2D" parent="Character" groups=["Damagable"]]
+[node name="RLA" type="RigidBody2D" parent="Character" groups=["Skill"]]
 position = Vector2(240, 0)
 rotation = 1.5708
 mass = 0.1
@@ -287,7 +288,7 @@ stiffness = 64.0
 position = Vector2(-0.000396729, -113)
 shape = SubResource("CapsuleShape2D_36api")
 
-[node name="RUA" type="RigidBody2D" parent="Character" groups=["Damagable"]]
+[node name="RUA" type="RigidBody2D" parent="Character" groups=["Skill"]]
 rotation = 1.5708
 mass = 0.1
 gravity_scale = 0.5
@@ -337,7 +338,7 @@ node_b = NodePath("../../Body")
 length = 1.0
 stiffness = 64.0
 
-[node name="RF" type="RigidBody2D" parent="Character" groups=["Damager"]]
+[node name="RF" type="RigidBody2D" parent="Character" groups=["Damager", "Skill"]]
 position = Vector2(480, 0)
 mass = 0.1
 gravity_scale = 0.0
@@ -354,7 +355,7 @@ node_a = NodePath("../../RLA")
 node_b = NodePath("..")
 bias = 0.9
 
-[node name="LLA" type="RigidBody2D" parent="Character" groups=["Damagable"]]
+[node name="LLA" type="RigidBody2D" parent="Character" groups=["Skill"]]
 position = Vector2(-240, 0)
 rotation = -1.5708
 mass = 0.1
@@ -405,7 +406,7 @@ stiffness = 64.0
 position = Vector2(0.000473022, -113)
 shape = SubResource("CapsuleShape2D_36api")
 
-[node name="LUA" type="RigidBody2D" parent="Character" groups=["Damagable"]]
+[node name="LUA" type="RigidBody2D" parent="Character" groups=["Skill"]]
 rotation = 1.5708
 mass = 0.1
 gravity_scale = 0.5
@@ -455,7 +456,7 @@ node_b = NodePath("../../Body")
 length = 1.0
 stiffness = 64.0
 
-[node name="LF" type="RigidBody2D" parent="Character" groups=["Damager"]]
+[node name="LF" type="RigidBody2D" parent="Character" groups=["Damager", "Skill"]]
 position = Vector2(-480, 0)
 mass = 0.1
 gravity_scale = 0.0
@@ -471,7 +472,7 @@ shape = SubResource("CircleShape2D_w7o8c")
 node_a = NodePath("../../LLA")
 node_b = NodePath("..")
 
-[node name="LK" type="RigidBody2D" parent="Character" groups=["Damager"]]
+[node name="LK" type="RigidBody2D" parent="Character" groups=["Damager", "Skill"]]
 position = Vector2(-360, 984)
 mass = 0.01
 gravity_scale = 0.0
@@ -487,7 +488,7 @@ shape = SubResource("CircleShape2D_qc74x")
 node_a = NodePath("../../LLL")
 node_b = NodePath("..")
 
-[node name="Hip" type="RigidBody2D" parent="Character" groups=["Damagable"]]
+[node name="Hip" type="RigidBody2D" parent="Character" groups=["Skill"]]
 position = Vector2(0, 240)
 mass = 0.1
 gravity_scale = 0.5
@@ -542,7 +543,7 @@ position = Vector2(0, 120)
 [node name="Radius" type="Marker2D" parent="Character/Hip/Center"]
 position = Vector2(840, 0)
 
-[node name="RLL" type="RigidBody2D" parent="Character" groups=["Damagable"]]
+[node name="RLL" type="RigidBody2D" parent="Character" groups=["Skill"]]
 position = Vector2(180, 672)
 rotation = -0.506145
 mass = 0.1
@@ -592,7 +593,7 @@ node_b = NodePath("../../RUL")
 length = 1.0
 stiffness = 64.0
 
-[node name="RUL" type="RigidBody2D" parent="Character" groups=["Damagable"]]
+[node name="RUL" type="RigidBody2D" parent="Character" groups=["Skill"]]
 position = Vector2(0, 360)
 rotation = -0.523599
 mass = 0.1
@@ -642,7 +643,7 @@ node_b = NodePath("..")
 length = 1.0
 stiffness = 64.0
 
-[node name="RK" type="RigidBody2D" parent="Character" groups=["Damager"]]
+[node name="RK" type="RigidBody2D" parent="Character" groups=["Damager", "Skill"]]
 position = Vector2(355, 987)
 mass = 0.01
 gravity_scale = 0.0
@@ -658,7 +659,7 @@ shape = SubResource("CircleShape2D_qc74x")
 node_a = NodePath("../../RLL")
 node_b = NodePath("..")
 
-[node name="Stomach" type="RigidBody2D" parent="Character" groups=["Damagable"]]
+[node name="Stomach" type="RigidBody2D" parent="Character" groups=["Skill"]]
 position = Vector2(0, 120)
 mass = 0.1
 gravity_scale = 0.5
@@ -707,7 +708,7 @@ stiffness = 64.0
 position = Vector2(0, 60)
 shape = SubResource("CapsuleShape2D_6a8v7")
 
-[node name="LLL" type="RigidBody2D" parent="Character" groups=["Damagable"]]
+[node name="LLL" type="RigidBody2D" parent="Character" groups=["Skill"]]
 position = Vector2(-180, 672)
 rotation = 0.523599
 mass = 0.1
@@ -757,7 +758,7 @@ node_b = NodePath("../../LUL")
 length = 1.0
 stiffness = 64.0
 
-[node name="LUL" type="RigidBody2D" parent="Character" groups=["Damagable"]]
+[node name="LUL" type="RigidBody2D" parent="Character" groups=["Skill"]]
 position = Vector2(0, 360)
 rotation = 0.523599
 mass = 0.1

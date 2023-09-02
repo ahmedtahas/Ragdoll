@@ -59,18 +59,10 @@ func on_body_entered(hit: PhysicsBody2D, caller: RigidBody2D) -> void:
 		hit_signal.emit(hit, caller)
 		hit_stun()
 		slow_motion.rpc()
-
-		if Global.mode == "multi":
-			if caller.is_in_group("Damager") and hit.name == "Head":
-				Global.damaged.emit(damage * 2)
-			elif caller.is_in_group("Damager") and hit.is_in_group("Damagable"):
-				Global.damaged.emit(damage)
-		else:
-			if caller.is_in_group("Damager") and hit.name == "Head":
-				health.damage_bot(damage * 2)
-			elif caller.is_in_group("Damager") and hit.is_in_group("Damagable"):
-				health.damage_bot(damage)
-
+		if caller.is_in_group("Damager") and hit.name == "Head":
+			Global.damaged.emit(damage * 2)
+		elif caller.is_in_group("Damager") and hit.is_in_group("Damagable"):
+			Global.damaged.emit(damage)
 
 func stunned(wait_time: float = 0.5) -> void:
 	hit_stun.rpc(wait_time)

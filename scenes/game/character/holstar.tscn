@@ -932,6 +932,7 @@ position = Vector2(696, -80)
 texture = ExtResource("13_77j40")
 
 [node name="Blood" type="GPUParticles2D" parent="Extra"]
+top_level = true
 emitting = false
 amount = 69
 process_material = SubResource("ParticleProcessMaterial_pyewr")

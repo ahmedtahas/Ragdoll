@@ -69,6 +69,8 @@ func _physics_process(_delta: float) -> void:
 
 @rpc("reliable")
 func scale_shield(_scale: float) -> void:
+	if is_multiplayer_authority():
+		scale_shield.rpc(_scale)
 	shield.scale.x = _scale
 	shield.scale.y = _scale
 	for part in arm.get_children():
@@ -84,8 +86,6 @@ func skill_signal(using: bool) -> void:
 	if using:
 		duration.start()
 		scale_shield(2)
-		scale_shield.rpc(2)
 		await duration.timeout
 		scale_shield(1)
-		scale_shield.rpc(1)
 		cooldown.start()

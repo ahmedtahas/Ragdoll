@@ -63,8 +63,8 @@ func _ready() -> void:
 
 
 @rpc("reliable")
-func add_skill(skill_name: String, pos: Vector2) -> void:
-	Global.world.add_skill(skill_name, pos)
+func add_skill(skill_name: String) -> void:
+	Global.world.add_skill(skill_name)
 
 
 @rpc("reliable")
@@ -118,7 +118,6 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		aiming = is_aiming
 		growing = true
 		aiming_arm(true)
-		aiming_arm.rpc(true)
 		ra.look_at(crosshair.global_position)
 		crosshair.visible = true
 		crosshair.global_position += direction * 100
@@ -126,7 +125,6 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 
 	else:
 		aiming_arm(false)
-		aiming_arm.rpc(false)
 		aiming = is_aiming
 		growing = false
 		cooldown.start()
@@ -138,7 +136,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		else:
 			bullet_instance.set_multiplayer_authority(multiplayer.get_unique_id())
 			Global.client_skill.add_child(bullet_instance, true)
-			add_skill.rpc("bullet", barrel.global_position)
+			add_skill.rpc("bullet")
 		ignore_skill()
 		bullet_instance.global_position = barrel.global_position
 		bullet_instance.look_at(crosshair.global_position)
@@ -153,6 +151,8 @@ func ignore_skill() -> void:
 
 @rpc("reliable")
 func aiming_arm(show_arm: bool) -> void:
+	if is_multiplayer_authority():
+		aiming_arm.rpc(show_arm)
 	if show_arm:
 		ra.visible = true
 		ra.set_collision_layer_value(1, true)
@@ -172,6 +172,8 @@ func aiming_arm(show_arm: bool) -> void:
 
 @rpc("reliable")
 func blood_splat(hit_position: Vector2, hit_rotation: float) -> void:
+	if is_multiplayer_authority():
+		blood_splat.rpc(hit_position, hit_rotation)
 	blood.global_position = hit_position
 	blood.global_rotation = hit_rotation
 	blood.emitting = true
@@ -180,18 +182,12 @@ func blood_splat(hit_position: Vector2, hit_rotation: float) -> void:
 func hit_signal(hit: Node2D) -> void:
 	if hit is RigidBody2D and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
 		blood_splat(bullet_instance.global_position, bullet_instance.global_rotation)
-		blood_splat.rpc(bullet_instance.global_position, bullet_instance.global_rotation)
 		Global.pushed.emit((hit.global_position - barrel.global_position).normalized() * power * 2)
 		Global.stunned.emit()
-		if Global.mode == "single":
-			if hit.name == "Head":
-				health.damage_bot(damage * 3)
-			else:
-				health.damage_bot(damage * 1.5)
 		if hit.name == "Head":
-			Global.damaged.emit(damage * 3)
+			Global.damaged.emit(damage * 4)
 		else:
-			Global.damaged.emit(damage * 1.5)
+			Global.damaged.emit(damage * 2)
 	bullet_instance.queue_free()
 	if not multiplayer.is_server():
 		remove_skill.rpc()

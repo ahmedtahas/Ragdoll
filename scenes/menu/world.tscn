@@ -74,7 +74,7 @@ particles_anim_loop = false
 
 [sub_resource type="Gradient" id="Gradient_0jweu"]
 offsets = PackedFloat32Array(0, 0.185185, 0.913257, 0.995833)
-colors = PackedColorArray(0, 0, 0, 0, 0.4, 0, 0, 0.678431, 0.4, 0, 0, 1, 0.379968, 0.38449, 0.372621, 0)
+colors = PackedColorArray(0, 0, 0, 0, 0.721639, 0.720467, 0.717269, 0.678431, 0.327759, 0.350116, 0.344733, 1, 0.379968, 0.38449, 0.372621, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_l0ug3"]
 gradient = SubResource("Gradient_0jweu")
@@ -94,7 +94,7 @@ orbit_velocity_max = 0.0
 radial_accel_min = 700.0
 radial_accel_max = 2000.0
 scale_min = 0.1
-scale_max = 0.5
+scale_max = 10.0
 color_ramp = SubResource("GradientTexture1D_l0ug3")
 
 [node name="Main" type="Node2D"]
@@ -483,12 +483,13 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_gf355")
 text = "Exit"
 
 [node name="Particles" type="Node2D" parent="."]
+position = Vector2(-15513, 4786)
 
 [node name="Clash" type="GPUParticles2D" parent="Particles"]
 material = SubResource("CanvasItemMaterial_8qy3f")
 position = Vector2(-414, -437)
 emitting = false
-amount = 69
+amount = 169
 process_material = SubResource("ParticleProcessMaterial_dg50i")
 texture = ExtResource("7_qltj8")
 lifetime = 0.5

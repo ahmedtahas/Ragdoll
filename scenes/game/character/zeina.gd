@@ -49,8 +49,8 @@ func _ready() -> void:
 
 
 @rpc("reliable")
-func add_skill(skill_name: String, pos: Vector2) -> void:
-	Global.world.add_skill(skill_name, pos)
+func add_skill(skill_name: String) -> void:
+	Global.world.add_skill(skill_name)
 
 
 @rpc("reliable")
@@ -115,7 +115,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		else:
 			dagger_instance.set_multiplayer_authority(multiplayer.get_unique_id())
 			Global.client_skill.add_child(dagger_instance, true)
-			add_skill.rpc("dagger", center.get_node("Dash").global_position)
+			add_skill.rpc("dagger")
 		ignore_skill()
 		character.slow_motion()
 		dagger_instance.global_position = center.get_node("Dash").global_position
@@ -151,17 +151,10 @@ func hit_signal(hit: Node2D) -> void:
 		end_point = Global.avoid_enemies(end_point - body.global_position)
 		Global.stunned.emit()
 		character.slow_motion()
-		if Global.mode == "single":
-			if hit.name == "Head":
-				health.damage_bot(damage * 3)
-			else:
-				health.damage_bot(damage * 1.5)
 		if hit.name == "Head":
 			Global.damaged.emit(damage * 2)
 		elif not hit.is_in_group("Undamagable"):
 			Global.damaged.emit(damage)
-		Global.invuled.emit()
-		character.invul_local()
 	elif hit is StaticBody2D:
 		end_point = dagger_instance.global_position
 		end_point = Global.get_inside_coordinates(end_point - body.global_position)

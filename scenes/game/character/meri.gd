@@ -52,8 +52,8 @@ func _ready() -> void:
 
 
 @rpc("reliable")
-func add_skill(skill_name: String, pos: Vector2) -> void:
-	Global.world.add_skill(skill_name, pos)
+func add_skill(skill_name: String) -> void:
+	Global.world.add_skill(skill_name)
 
 
 @rpc("reliable")
@@ -100,7 +100,7 @@ func skill_signal(vector: Vector2, using: bool) -> void:
 			else:
 				clone.set_multiplayer_authority(multiplayer.get_unique_id())
 				Global.client_skill.add_child(clone, true)
-				add_skill.rpc("clone", body.global_position)
+				add_skill.rpc("clone")
 		else:
 			await duration.timeout
 			clone.queue_free()

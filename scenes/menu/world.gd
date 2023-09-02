@@ -166,14 +166,12 @@ func add_player_character(peer_id):
 		player_character.transform = $Point2.transform
 
 
-func add_skill(skill_name: String, pos: Vector2) -> void:
+func add_skill(skill_name: String) -> void:
 	var skill = skill_dictionary.get(skill_name).instantiate()
 	skill.set_multiplayer_authority(client_id)
 	$ClientSkill.add_child(skill)
-	skill.global_position = pos
 
 
-@rpc("call_remote", "reliable")
 func remove_skill() -> void:
 	for child in $ClientSkill.get_children():
 		child.queue_free()
@@ -261,7 +259,7 @@ func opponent_died() -> void:
 			bot_instance.transform = $Point1.transform
 		else:
 			bot_instance.transform = $Point2.transform
-		Global.player.health.damage_bot(0)
+		Global.damaged.emit(0)
 	else:
 		await get_tree().create_timer(2).timeout
 		$Won.show()

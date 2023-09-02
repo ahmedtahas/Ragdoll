@@ -17,11 +17,12 @@ extends Node2D
 
 
 func _ready() -> void:
-	ignore_self()
-	Global.camera.add_target(center)
 	for part in character.get_children():
 		part.locate(Global.player.body.global_position)
+		part.rotate(Global.player.body.global_rotation)
 		part.teleport()
+	ignore_self()
+	Global.camera.add_target(center)
 	speed = Config.get_value("speed", character_name)
 	damage = Config.get_value("damage", character_name)
 	if is_multiplayer_authority():
@@ -51,7 +52,7 @@ func ignore_self() -> void:
 func on_body_entered(hit: PhysicsBody2D, caller: RigidBody2D) -> void:
 	if hit is RigidBody2D and not hit.is_in_group("Skill"):
 		hit_stun()
-		slow_motion.rpc()
+		slow_motion()
 		if Global.mode == "multi":
 			if caller.is_in_group("Damager") and hit.name == "Head":
 				Global.damaged.emit(damage * 2)
