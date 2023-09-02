@@ -60,6 +60,7 @@ func take_damage(amount: float) -> void:
 func update_remote_health(current: float) -> void:
 	if current == 0:
 		Global.opponent_died.emit()
+		Global.damaged.disconnect(take_damage)
 	remote_health_bar.set_value((100 * current) / max_health)
 
 

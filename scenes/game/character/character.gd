@@ -16,7 +16,8 @@ signal hit_signal
 
 func _ready() -> void:
 	movement_stick.move_signal.connect(move)
-	Global.player_died.connect(death)
+	if is_multiplayer_authority():
+		Global.player_died.connect(death)
 	if not is_multiplayer_authority():
 		Global.pushed.connect(push_local)
 		Global.freezed.connect(freeze_local)
@@ -108,15 +109,25 @@ func hit_stun(wait_time: float = 0.5) -> void:
 	hit_cooldown.start()
 
 
-func death() -> void:
+@rpc("reliable")
+func dying() -> void:
 	dead = true
 	for child in get_children():
-		if is_multiplayer_authority():
-			for part in Global.opponent.character.get_children():
-				part.add_collision_exception_with(child)
-		else:
-			for part in Global.player.character.get_children():
-				part.add_collision_exception_with(child)
+		for part in Global.player.character.get_children():
+			part.add_collision_exception_with(child)
+	Global.pushed.disconnect(push_local)
+	Global.freezed.disconnect(freeze_local)
+	Global.stunned.disconnect(hit_stun)
+	await get_tree().create_timer(4).timeout
+	Global.camera.remove_target(get_parent().center)
+
+
+func death() -> void:
+	dying.rpc()
+	dead = true
+	for child in get_children():
+		for part in Global.opponent.character.get_children():
+			part.add_collision_exception_with(child)
 	movement_stick.move_signal.disconnect(self.move)
 	for child in get_children():
 		for joint in child.get_children():

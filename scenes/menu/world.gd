@@ -261,3 +261,5 @@ func opponent_died() -> void:
 	else:
 		await get_tree().create_timer(2).timeout
 		$Won.show()
+		await get_tree().create_timer(8).timeout
+		main_menu()

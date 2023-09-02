@@ -59,13 +59,13 @@ func avoid_enemies(vector: Vector2) -> Vector2:
 		if ((player.center.global_position + vector) - object).length() < (list[object] * 1.5):
 			vector = vector.normalized() * (vector.length() + (list[object] * 1.5))
 			if ((player.center.global_position + vector) - object).length() < (list[object] * 1.5):
-				vector = vector.normalized() * (vector.length() + (list[object] * 0.5))
+				vector = vector.normalized() * (vector.length() + (list[object]))
 	vector = get_inside_coordinates(player.center.global_position + vector) - player.center.global_position
 	for object in list:
 		if ((player.center.global_position + vector) - object).length() < (list[object] * 1.5):
 			vector = vector.normalized() * (vector.length() - (list[object] * 1.5))
 			if ((player.center.global_position + vector) - object).length() < (list[object] * 1.5):
-				vector = vector.normalized() * (vector.length() - (list[object] * 0.5))
+				vector = vector.normalized() * (vector.length() - (list[object]))
 	vector = get_inside_coordinates(player.center.global_position + vector)
 	return vector
 
