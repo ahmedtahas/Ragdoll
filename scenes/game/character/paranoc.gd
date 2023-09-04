@@ -4,6 +4,7 @@ extends Node2D
 
 @onready var duration_time: float
 @onready var cooldown_time: float
+@onready var damage: float
 
 @onready var cooldown_text: RichTextLabel = $Extra/UI/CooldownBar/Text
 @onready var cooldown_bar: TextureProgressBar = $Extra/UI/CooldownBar
@@ -20,20 +21,23 @@ extends Node2D
 @onready var body: RigidBody2D = $Character/Body
 
 @onready var cooldown_set: bool = false
+@onready var using: bool = false
 
 
 func _ready() -> void:
 	name = str(get_multiplayer_authority())
 	character.setup(character_name)
+	character.hit_signal.connect(hit_signal)
 	Global.camera.add_target(center)
 	health.set_health(Config.get_value("health", character_name))
 
 	if is_multiplayer_authority():
 		Global.player = self
-		skill_joy_stick.skill_signal.connect(self.skill_signal)
+		skill_joy_stick.skill_signal.connect(skill_signal)
 		skill_joy_stick.button = true
 		duration_time = Config.get_value("duration", character_name)
 		cooldown_time = Config.get_value("cooldown", character_name)
+		damage = Config.get_value("damage", character_name)
 		cooldown.wait_time = cooldown_time
 		duration.wait_time = duration_time
 		cooldown_bar.set_value(100)
@@ -70,17 +74,23 @@ func black_out(_duration) -> void:
 	Global.black_out.emit(_duration)
 
 
-func skill_signal(using: bool) -> void:
+func hit_signal(hit: RigidBody2D, caller: RigidBody2D) -> void:
+	if hit.is_in_group("Damagable") and caller.is_in_group("Damager") and using:
+		health.take_damage(-(damage / 2))
+
+
+func skill_signal(_using: bool) -> void:
 	if not is_multiplayer_authority() or not cooldown.is_stopped() or not duration.is_stopped():
 		return
 
-	if using:
-		pass
-
-	else:
+	if _using:
+		using = true
+		character.damage /= 2
 		duration.start()
 		black_out.rpc(duration_time)
 		if Global.mode == "single":
 			Global.opponent.get_paralyzed(duration_time)
 		await duration.timeout
+		using = false
+		character.damage *= 2
 		cooldown.start()

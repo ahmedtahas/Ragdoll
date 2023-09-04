@@ -39,7 +39,7 @@ func _ready() -> void:
 
 	if is_multiplayer_authority():
 		Global.player = self
-		skill_joy_stick.skill_signal.connect(self.skill_signal)
+		skill_joy_stick.skill_signal.connect(skill_signal)
 		skill_joy_stick.button = true
 		duration_time = Config.get_value("duration", character_name)
 		cooldown_time = Config.get_value("cooldown", character_name)
@@ -98,9 +98,7 @@ func skill_signal(using: bool) -> void:
 		return
 
 	if using:
-		pass
-
-	else:
+		is_hit = false
 		emit_particles(true)
 		duration.start()
 		await get_tree().create_timer(0.5).timeout
@@ -113,14 +111,13 @@ func skill_signal(using: bool) -> void:
 			meteor_instance.set_multiplayer_authority(multiplayer.get_unique_id())
 			Global.client_skill.add_child(meteor_instance, true)
 			add_skill.rpc("meteor")
-		meteor_instance.global_position = radius.global_position
-		meteor_instance.hit_signal.connect(self.hit_signal)
+		meteor_instance.global_position = global_position
+		meteor_instance.hit_signal.connect(hit_signal)
+		meteor_instance.follow = true
 		await duration.timeout
 		if not is_hit:
-			meteor_instance.duration = false
+			meteor_instance.follow = false
 			cooldown.start()
-		else:
-			is_hit = false
 
 
 @rpc("reliable")
@@ -131,7 +128,7 @@ func explode(contact_point: Vector2) -> void:
 	explosion.emitting = true
 
 
-func hit_signal(hit: Node2D) -> void:
+func hit_signal(hit: PhysicsBody2D) -> void:
 	is_hit = true
 	explode(meteor_instance.global_position)
 	if hit is RigidBody2D and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
@@ -145,6 +142,7 @@ func hit_signal(hit: Node2D) -> void:
 		else:
 			health.take_damage(damage)
 			character.push_local((center.global_position - meteor_instance.global_position).normalized() * power * 3)
+	meteor_instance.hit_signal.disconnect(hit_signal)
 	meteor_instance.queue_free()
 	duration.stop()
 	cooldown.start()

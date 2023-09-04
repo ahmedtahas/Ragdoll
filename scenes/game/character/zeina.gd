@@ -22,6 +22,7 @@ extends Node2D
 @onready var body: RigidBody2D = $Character/Body
 @onready var _range: Marker2D = $Character/Hip/Center/Range
 
+@onready var hit_count: int = 0
 @onready var flicker: bool = false
 @onready var cooldown_set: bool = false
 @onready var _hit: bool = false
@@ -29,13 +30,14 @@ extends Node2D
 func _ready() -> void:
 	name = str(get_multiplayer_authority())
 	character.setup(character_name)
+	character.hit_signal.connect(hit_signal)
 	Global.camera.add_target(center)
 	health.set_health(Config.get_value("health", character_name))
 	center.visible = false
 
 	if is_multiplayer_authority():
 		Global.player = self
-		skill_joy_stick.skill_signal.connect(self.skill_signal)
+		skill_joy_stick.skill_signal.connect(skill_signal)
 		skill_joy_stick.button = false
 		cooldown_time = Config.get_value("cooldown", character_name)
 		damage = Config.get_value("damage", character_name)
@@ -90,7 +92,7 @@ func _flicker() -> void:
 
 
 func skill_signal(direction: Vector2, is_aiming) -> void:
-	if not cooldown.is_stopped() or not is_multiplayer_authority():
+	if not cooldown.is_stopped() or not is_multiplayer_authority() or hit_count < 2:
 		return
 	if is_aiming:
 		center.visible = true
@@ -102,13 +104,14 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 			_flicker()
 
 	else:
+		hit_count = 0
 		center.visible = false
 		end_point = _range.global_position
 		end_point = Global.get_inside_coordinates(end_point)
 		cooldown.start()
 		flicker = false
 		dagger_instance = dagger.instantiate()
-		dagger_instance.hit_signal.connect(self.hit_signal)
+		dagger_instance.hit_signal.connect(dagger_hit_signal)
 		if multiplayer.is_server():
 			Global.server_skill.add_child(dagger_instance, true)
 		else:
@@ -139,13 +142,18 @@ func teleport() -> void:
 		child.locate(end_point)
 		child.rotate(child.global_rotation)
 		child.teleport()
-		dagger_instance.queue_free()
+	dagger_instance.hit_signal.disconnect(dagger_hit_signal)
+	dagger_instance.queue_free()
 
 
-func hit_signal(hit: Node2D) -> void:
+func hit_signal(enemy: RigidBody2D, caller: RigidBody2D) -> void:
+	if enemy.is_in_group("Damagable") and caller.is_in_group("Damager"):
+		hit_count += 1
+
+
+func dagger_hit_signal(hit: PhysicsBody2D) -> void:
 	_hit = true
 	if hit is RigidBody2D and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
-		print(dagger_instance.global_position, "   -----   ", center.global_position)
 		end_point = Global.avoid_enemies(dagger_instance.global_position - center.global_position)
 		Global.stunned.emit()
 		character.slow_motion()

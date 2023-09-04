@@ -111,6 +111,7 @@ script = ExtResource("2_cjq44")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Synchronizer"]
 root_path = NodePath("../..")
+delta_interval = 5.0
 replication_config = SubResource("SceneReplicationConfig_irmbn")
 
 [node name="Fire" type="GPUParticles2D" parent="."]

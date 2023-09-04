@@ -153,61 +153,62 @@ spawn_path = NodePath("../ServerSkill")
 
 [node name="MTC" parent="." instance=ExtResource("3_jormy")]
 position = Vector2(10210, -5090)
-zoom = Vector2(0.1, 0.1)
+zoom = Vector2(0.07, 0.07)
 
-[node name="Menu" type="Control" parent="."]
+[node name="Menu" type="CanvasLayer" parent="."]
 process_mode = 3
-layout_mode = 3
-anchors_preset = 0
-offset_left = 3426.0
-offset_top = -8931.0
-offset_right = 17235.0
-offset_bottom = -581.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Menu"]
-layout_mode = 0
-offset_left = -202.0
-offset_top = -982.0
-offset_right = 15324.0
-offset_bottom = 484.0
+[node name="MarginContainer" type="MarginContainer" parent="Menu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Menu/ScrollContainer/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="Menu/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 1000
+size_flags_stretch_ratio = 2.73
+theme_override_font_sizes/font_size = 120
+alignment = 1
 
-[node name="Host" type="Button" parent="Menu"]
-layout_mode = 0
-offset_left = 3152.0
-offset_top = 515.0
-offset_right = 9672.0
-offset_bottom = 2439.0
-theme_override_font_sizes/font_size = 1000
+[node name="ScrollContainer" type="ScrollContainer" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 90
+text = "asdf"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Host" type="Button" parent="Menu/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 60
 text = "Host
 "
 
-[node name="Join" type="Button" parent="Menu"]
-layout_mode = 0
-offset_left = 3359.0
-offset_top = 2825.0
-offset_right = 9731.0
-offset_bottom = 4577.0
-theme_override_font_sizes/font_size = 1000
+[node name="Join" type="Button" parent="Menu/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 60
 text = "Join
 "
 
-[node name="LineEdit" type="LineEdit" parent="Menu"]
-layout_mode = 0
-offset_left = 4537.0
-offset_top = 5358.0
-offset_right = 9035.0
-offset_bottom = 6816.0
-theme_override_font_sizes/font_size = 800
-
 [node name="Pause" type="CanvasLayer" parent="."]
 process_mode = 3
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Pause"]
 offset_right = 1920.0
@@ -297,6 +298,7 @@ text = "Pause"
 
 [node name="Exit" type="CanvasLayer" parent="."]
 process_mode = 3
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Exit"]
 offset_right = 1920.0
@@ -362,6 +364,7 @@ text = "Exit"
 
 [node name="Won" type="CanvasLayer" parent="."]
 process_mode = 3
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Won"]
 offset_right = 1920.0
@@ -423,6 +426,7 @@ text = "Exit"
 
 [node name="Lost" type="CanvasLayer" parent="."]
 process_mode = 3
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Lost"]
 offset_right = 1920.0
@@ -516,10 +520,19 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 0.69
 
+[node name="Label" type="Label" parent="."]
+offset_left = 8109.0
+offset_top = -9297.0
+offset_right = 12325.0
+offset_bottom = -8384.0
+theme_override_font_sizes/font_size = 800
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="child_entered_tree" from="Spawner" to="Spawner" method="_on_child_entered_tree"]
-[connection signal="button_up" from="Menu/Host" to="." method="_on_host_pressed"]
-[connection signal="button_up" from="Menu/Join" to="." method="_on_join_pressed"]
-[connection signal="text_changed" from="Menu/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="Menu/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="button_up" from="Menu/MarginContainer/VBoxContainer/HBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="button_up" from="Menu/MarginContainer/VBoxContainer/HBoxContainer/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/Button" to="." method="pause"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/Button" to="." method="change_character"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3/Button" to="." method="main_menu"]

@@ -37,7 +37,7 @@ func _ready() -> void:
 
 	if is_multiplayer_authority():
 		Global.player = self
-		skill_joy_stick.skill_signal.connect(self.skill_signal)
+		skill_joy_stick.skill_signal.connect(skill_signal)
 		skill_joy_stick.button = false
 		duration_time = Config.get_value("duration", character_name)
 		cooldown_time = Config.get_value("cooldown", character_name)
@@ -101,12 +101,11 @@ func skill_signal(vector: Vector2, using: bool) -> void:
 				clone.set_multiplayer_authority(multiplayer.get_unique_id())
 				Global.client_skill.add_child(clone, true)
 				add_skill.rpc("clone")
-		else:
-			await duration.timeout
-			clone.queue_free()
-			if not multiplayer.is_server():
-				remove_skill.rpc()
-			cooldown.start()
-			cloned = false
+		await duration.timeout
+		clone.queue_free()
+		if not multiplayer.is_server():
+			remove_skill.rpc()
+		cooldown.start()
+		cloned = false
 
 

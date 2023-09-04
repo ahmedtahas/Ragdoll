@@ -66,10 +66,10 @@ func slow_motion(time_scale: float = 0.05, duration: float = 0.75) -> void:
 
 func freeze_local(duration: float) -> void:
 	for child in get_children():
-		child.freeze = true
+		child.freeze_self(true)
 	await get_tree().create_timer(duration).timeout
 	for child in get_children():
-		child.freeze = false
+		child.freeze_self(false)
 
 
 func push_local(vector: Vector2) -> void:

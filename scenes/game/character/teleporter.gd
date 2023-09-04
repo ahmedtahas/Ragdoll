@@ -7,9 +7,16 @@ extends RigidBody2D
 @onready var teleporting: bool = false
 @onready var power: float
 @onready var contact_normal: Vector2
+@onready var ice_color: Color = Color(0.713725, 0.898039, 0.929412)
+@onready var image: Sprite2D
 
 @export var glo_pos: Vector2 = Vector2.ZERO
 @export var glo_rot: float = 0
+
+
+func _ready() -> void:
+	if has_node("Sprite"):
+		image = get_node("Sprite")
 
 
 func set_power(character_name: String) -> void:
@@ -58,9 +65,18 @@ func _physics_process(_delta: float) -> void:
 	glo_rot = global_rotation
 
 
+func freeze_self(mode: bool) -> void:
+	freeze = mode
+	if image:
+		if mode:
+			image.modulate = ice_color
+		else:
+			image.modulate = Color(1, 1, 1)
+
+
 func dress(character_name: String) -> void:
 	var path = "assets/sprites/character/equipped/" + character_name + "/"
-	if has_node("Sprite"):
-		get_node("Sprite").texture = load(path + name + ".png")
+	if image:
+		image.texture = load(path + name + ".png")
 		if name == "RF" or name == "LF":
-			get_node("Sprite").weapon_collision(character_name)
+			image.weapon_collision(character_name)

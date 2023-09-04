@@ -1,11 +1,12 @@
 extends Node2D
 
-@onready var container: HBoxContainer = $Menu/ScrollContainer/HBoxContainer
+@onready var container: HBoxContainer = $Menu/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer
 @onready var connected_peer_ids: Array = []
 @onready var client_id: int
 @onready var server_id: int
-@onready var server_ip: Label = $Menu/ScrollContainer/HBoxContainer/Label
-@onready var client_ip: String = "192.168.0.21"
+@onready var server_ip: Label = $Menu/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Label
+@onready var client_ip: String = "192.168.0.10"
+@onready var pause_screen: CanvasLayer = $Pause
 
 @onready var bot: PackedScene = preload("res://scenes/game/character/bot.tscn")
 
@@ -33,7 +34,7 @@ extends Node2D
 @onready var addr
 @onready var new_peer
 
-const PORT = 8910
+const PORT = 4141
 
 
 func _ready() -> void:
@@ -48,20 +49,20 @@ func _ready() -> void:
 	if Global.mode == "single":
 		var player_instance = character_dictionary.get(Global.player_selection).instantiate()
 		var bot_instance = bot.instantiate()
-		$Spawner.add_child(bot_instance)
+		Global.spawner.add_child(bot_instance)
 		bot_instance.transform = $Point2.transform
-		$Spawner.add_child(player_instance)
+		Global.spawner.add_child(player_instance)
 		player_instance.transform = $Point1.transform
 
 		$Menu.hide()
-	$Pause.get_child(0).hide()
-	$Pause.get_child(1).hide()
+	pause_screen.get_child(0).hide()
+	pause_screen.get_child(1).hide()
 	$Exit.hide()
 	$Won.hide()
 	$Lost.hide()
 	get_tree().paused = false
 	if Global.mode == "multi":
-		$Pause.get_child(2).hide()
+		pause_screen.get_child(2).hide()
 		server_ip.text = IP.get_local_addresses()[9]
 		for i in range(IP.get_local_addresses().size()):
 			var label = server_ip.duplicate()
@@ -124,6 +125,7 @@ func _on_host_pressed() -> void:
 	get_node("Spawner/1/Character/Head").freeze = true
 	multiplayer_peer.peer_connected.connect(
 		func(new_peer_id):
+			$Label.hide()
 			client_id = new_peer_id
 			await get_tree().create_timer(3).timeout
 			get_node("Spawner/1/Character/Head").freeze = false
@@ -159,7 +161,7 @@ func add_player_character(peer_id):
 		player_character = character_dictionary.get(Global.opponent_selection).instantiate()
 
 	player_character.set_multiplayer_authority(peer_id)
-	$Spawner.add_child(player_character, true)
+	Global.spawner.add_child(player_character, true)
 	if peer_id == 1:
 		player_character.transform = $Point1.transform
 	else:
@@ -204,15 +206,15 @@ func pause() -> void:
 	if get_tree().paused:
 		Global.player.skill_joy_stick.skill_signal.disconnect(Global.player.skill_signal)
 		get_tree().paused = false
-		$Pause.get_child(0).hide()
-		$Pause.get_child(1).hide()
-		$Pause.get_child(2).show()
+		pause_screen.get_child(0).hide()
+		pause_screen.get_child(1).hide()
+		pause_screen.get_child(2).show()
 		Global.player.skill_joy_stick.skill_signal.connect(Global.player.skill_signal)
 	else:
 		get_tree().paused = true
-		$Pause.get_child(0).show()
-		$Pause.get_child(1).show()
-		$Pause.get_child(2).hide()
+		pause_screen.get_child(0).show()
+		pause_screen.get_child(1).show()
+		pause_screen.get_child(2).hide()
 
 
 func change_character() -> void:
@@ -224,6 +226,7 @@ func main_menu() -> void:
 
 
 func _exit_tree() -> void:
+	multiplayer_peer.close()
 	get_tree().paused = false
 
 
@@ -252,12 +255,12 @@ func opponent_died() -> void:
 		Global.bots_defeated += 1
 		await get_tree().create_timer(6).timeout
 		var bot_instance = bot.instantiate()
-		$Spawner.add_child(bot_instance)
+		Global.spawner.add_child(bot_instance)
 		if Global.player.center.global_position.x > Global.room.x / 2:
 			bot_instance.transform = $Point1.transform
 		else:
 			bot_instance.transform = $Point2.transform
-		Global.damaged.emit(0)
+		Global.damaged.emit(-Global.player.health.bot_max_health)
 	else:
 		await get_tree().create_timer(2).timeout
 		$Won.show()

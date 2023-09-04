@@ -42,7 +42,7 @@ func _ready() -> void:
 	ra.arm(character_name)
 	if is_multiplayer_authority():
 		Global.player = self
-		skill_joy_stick.skill_signal.connect(self.skill_signal)
+		skill_joy_stick.skill_signal.connect(skill_signal)
 		skill_joy_stick.button = false
 		cooldown_time = Config.get_value("cooldown", character_name)
 		damage = Config.get_value("damage", character_name)
@@ -130,7 +130,7 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		cooldown.start()
 		character.slow_motion()
 		bullet_instance = bullet.instantiate()
-		bullet_instance.hit_signal.connect(self.hit_signal)
+		bullet_instance.hit_signal.connect(hit_signal)
 		if multiplayer.is_server():
 			Global.server_skill.add_child(bullet_instance, true)
 		else:
@@ -179,7 +179,7 @@ func blood_splat(hit_position: Vector2, hit_rotation: float) -> void:
 	blood.emitting = true
 
 
-func hit_signal(hit: Node2D) -> void:
+func hit_signal(hit: PhysicsBody2D) -> void:
 	if hit is RigidBody2D and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
 		blood_splat(bullet_instance.global_position, bullet_instance.global_rotation)
 		Global.pushed.emit((hit.global_position - barrel.global_position).normalized() * power * 2)
@@ -188,6 +188,7 @@ func hit_signal(hit: Node2D) -> void:
 			Global.damaged.emit(damage * 4)
 		else:
 			Global.damaged.emit(damage * 2)
+	bullet_instance.hit_signal.disconnect(hit_signal)
 	bullet_instance.queue_free()
 	if not multiplayer.is_server():
 		remove_skill.rpc()

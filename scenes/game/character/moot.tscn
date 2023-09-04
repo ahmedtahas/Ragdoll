@@ -926,6 +926,7 @@ one_shot = true
 [node name="Health" parent="Extra" instance=ExtResource("10_f477k")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Extra"]
+delta_interval = 5.0
 replication_config = SubResource("SceneReplicationConfig_dbfux")
 
 [node name="SkillDuration" type="Timer" parent="Extra"]

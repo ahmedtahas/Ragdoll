@@ -35,7 +35,7 @@ func _physics_process(_delta: float) -> void:
 
 func ignore_self() -> void:
 	for child_1 in character.get_children():
-		child_1.body_entered.connect(self.on_body_entered.bind(child_1))
+		child_1.body_entered.connect(on_body_entered.bind(child_1))
 		child_1.dress(character_name)
 		child_1.set_power(character_name)
 		for child_2 in character.get_children():

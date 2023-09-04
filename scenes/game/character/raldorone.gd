@@ -20,8 +20,10 @@ extends Node2D
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var duration: Timer = $Extra/SkillDuration
 @onready var health: CanvasLayer = $Extra/Health
-@onready var shield: Sprite2D = $Character/RF/Sprite
-@onready var arm: RigidBody2D = $Character/RF
+@onready var right_shield: Sprite2D = $Character/RF/Sprite
+@onready var left_shield: Sprite2D = $Character/LF/Sprite
+@onready var right_arm: RigidBody2D = $Character/RF
+@onready var left_arm: RigidBody2D = $Character/LF
 
 
 func _ready() -> void:
@@ -32,7 +34,7 @@ func _ready() -> void:
 
 	if is_multiplayer_authority():
 		Global.player = self
-		skill_joy_stick.skill_signal.connect(self.skill_signal)
+		skill_joy_stick.skill_signal.connect(skill_signal)
 		skill_joy_stick.button = true
 		duration_time = Config.get_value("duration", character_name)
 		cooldown_time = Config.get_value("cooldown", character_name)
@@ -71,12 +73,18 @@ func _physics_process(_delta: float) -> void:
 func scale_shield(_scale: float) -> void:
 	if is_multiplayer_authority():
 		scale_shield.rpc(_scale)
-	shield.scale.x = _scale
-	shield.scale.y = _scale
-	for part in arm.get_children():
+	right_shield.scale.x = _scale
+	right_shield.scale.y = _scale
+	left_shield.scale.x = _scale
+	left_shield.scale.y = _scale
+	for part in right_arm.get_children():
 		if part is CollisionPolygon2D:
 			part.queue_free()
-	shield.weapon_collision(character_name)
+	for part in left_arm.get_children():
+		if part is CollisionPolygon2D:
+			part.queue_free()
+	right_shield.weapon_collision(character_name)
+	left_shield.weapon_collision(character_name)
 
 
 func skill_signal(using: bool) -> void:
@@ -85,7 +93,7 @@ func skill_signal(using: bool) -> void:
 
 	if using:
 		duration.start()
-		scale_shield(2)
+		scale_shield(1.5)
 		await duration.timeout
 		scale_shield(1)
 		cooldown.start()

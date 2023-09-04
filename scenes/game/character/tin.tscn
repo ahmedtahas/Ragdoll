@@ -217,6 +217,8 @@ one_shot = true
 one_shot = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Extra"]
+process_mode = 3
+delta_interval = 5.0
 replication_config = SubResource("SceneReplicationConfig_hy30l")
 
 [node name="UI" parent="Extra" instance=ExtResource("3_3eiw0")]

@@ -280,20 +280,19 @@ shape = SubResource("CapsuleShape2D_xp3fk")
 [node name="RF" type="CharacterBody2D" parent="Character/Body" groups=["Skill"]]
 script = ExtResource("5_55in7")
 
-[node name="RF" type="Sprite2D" parent="Character/Body/RF"]
-self_modulate = Color(0, 0, 0, 1)
-position = Vector2(480, 0)
-script = ExtResource("6_w54ni")
+[node name="RUA" type="Sprite2D" parent="Character/Body/RF"]
+position = Vector2(120, 0)
+rotation = 1.5708
+texture = ExtResource("4_6p2mm")
 
 [node name="RLA" type="Sprite2D" parent="Character/Body/RF"]
 position = Vector2(360, 0)
 rotation = 1.5708
 texture = ExtResource("4_6p2mm")
 
-[node name="RUA" type="Sprite2D" parent="Character/Body/RF"]
-position = Vector2(120, 0)
-rotation = 1.5708
-texture = ExtResource("4_6p2mm")
+[node name="RF" type="Sprite2D" parent="Character/Body/RF"]
+position = Vector2(480, 0)
+script = ExtResource("6_w54ni")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Character/Body/RF"]
 position = Vector2(240, 0)
@@ -925,6 +924,7 @@ one_shot = true
 [node name="Health" parent="Extra" instance=ExtResource("13_lt5l2")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Extra"]
+delta_interval = 5.0
 replication_config = SubResource("SceneReplicationConfig_k4poa")
 
 [node name="Cross" type="Sprite2D" parent="Extra"]

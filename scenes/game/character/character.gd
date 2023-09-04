@@ -3,7 +3,6 @@ extends Node2D
 @onready var hit_cooldown: Timer = get_node("../Extra/HitCooldown")
 @onready var invulnerability: Timer = get_node("../Extra/InvulnerabilityCooldown")
 @onready var movement_stick: Control = get_node("../Extra/UI/MovementJoyStick")
-@onready var health: CanvasLayer = get_node("../Extra/Health")
 @onready var body: Node2D = get_node("Body")
 @onready var movement_vector: Vector2 = Vector2.ZERO
 @onready var speed: float = 0
@@ -71,10 +70,10 @@ func freeze_local(duration: float) -> void:
 		freeze_local.rpc(duration)
 		return
 	for child in get_children():
-		child.freeze = true
+		child.freeze_self(true)
 	await get_tree().create_timer(duration).timeout
 	for child in get_children():
-		child.freeze = false
+		child.freeze_self(false)
 
 
 @rpc("reliable", "any_peer")
@@ -115,6 +114,10 @@ func dying() -> void:
 	for child in get_children():
 		for part in Global.player.character.get_children():
 			part.add_collision_exception_with(child)
+	for child in get_children():
+		for joint in child.get_children():
+			if joint is Joint2D:
+				joint.queue_free()
 	Global.pushed.disconnect(push_local)
 	Global.freezed.disconnect(freeze_local)
 	Global.stunned.disconnect(hit_stun)
@@ -128,7 +131,7 @@ func death() -> void:
 	for child in get_children():
 		for part in Global.opponent.character.get_children():
 			part.add_collision_exception_with(child)
-	movement_stick.move_signal.disconnect(self.move)
+	movement_stick.move_signal.disconnect(move)
 	for child in get_children():
 		for joint in child.get_children():
 			if joint is Joint2D:

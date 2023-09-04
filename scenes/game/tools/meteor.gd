@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 @onready var vel: Vector2 = Vector2.RIGHT
-@onready var speed: float = 1500
-@onready var duration: bool = true
+@onready var speed: float = 2500
+@onready var follow: bool = true
 @onready var vector: Vector2
 @onready var fire: GPUParticles2D = $Fire
 @onready var sync: Node2D = $Synchronizer
@@ -23,7 +23,7 @@ func _physics_process(_delta: float) -> void:
 			scale.x += 0.01
 			scale.y += 0.01
 			speed += 7
-		if duration:
+		if follow:
 			vector = vel.rotated((Global.opponent.center.global_position - global_position).angle())
 		velocity = vector * speed
 		if move_and_slide():

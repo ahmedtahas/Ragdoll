@@ -30,7 +30,7 @@ func _ready() -> void:
 
 	if is_multiplayer_authority():
 		Global.player = self
-		skill_joy_stick.skill_signal.connect(self.skill_signal)
+		skill_joy_stick.skill_signal.connect(skill_signal)
 		skill_joy_stick.button = true
 		duration_time = Config.get_value("duration", character_name)
 		cooldown_time = Config.get_value("cooldown", character_name)
@@ -65,18 +65,19 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 
 
-func skill_signal(using: bool) -> void:
+func skill_signal(_using: bool) -> void:
 	if not is_multiplayer_authority() or not cooldown.is_stopped() or not duration.is_stopped():
 		return
 
-	if using:
+	if _using:
 		var old_health = health.current_health
 		var old_position = body.global_position
 
 		duration.start()
 		await duration.timeout
-		health.current_health = old_health
-		health.take_damage(0)
+		if health.current_health == 0:
+			return
+		health.take_damage(((health.current_health - old_health) * 2) * 69 / 100)
 		cooldown.start()
 		teleport(old_position)
 

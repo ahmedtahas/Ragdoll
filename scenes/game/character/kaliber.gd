@@ -33,7 +33,7 @@ func _ready() -> void:
 	if is_multiplayer_authority():
 		character.hit_signal.connect(hit_signal)
 		Global.player = self
-		skill_joy_stick.skill_signal.connect(self.skill_signal)
+		skill_joy_stick.skill_signal.connect(skill_signal)
 		skill_joy_stick.button = true
 		duration_time = Config.get_value("cooldown", character_name)
 		max_combo = Config.get_value("duration", character_name)
@@ -61,7 +61,6 @@ func _physics_process(_delta: float) -> void:
 
 
 func hit_signal(_body: RigidBody2D, _caller: RigidBody2D) -> void:
-	print(_body, _caller)
 	if using or hit_count == max_combo:
 		return
 	hit_count += 1

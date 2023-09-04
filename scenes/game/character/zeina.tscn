@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://17ggmooh46wy"]
+[gd_scene load_steps=22 format=3 uid="uid://17ggmooh46wy"]
 
 [ext_resource type="Script" path="res://scenes/game/character/zeina.gd" id="1_8om6e"]
 [ext_resource type="Script" path="res://scenes/game/character/teleporter.gd" id="3_ce3sj"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b1sal3rtbhiur" path="res://scenes/game/modules/ui.tscn" id="4_kegfq"]
 [ext_resource type="PackedScene" uid="uid://cmj0xfyl2c61u" path="res://scenes/game/modules/health.tscn" id="5_k5pj8"]
 [ext_resource type="Texture2D" uid="uid://bok5q7sxwnfus" path="res://assets/sprites/character/guidelines/Head.png" id="8_cb3hr"]
+[ext_resource type="Texture2D" uid="uid://dxc53r20j0hpm" path="res://assets/sprites/character/equipped/zeina/LF.png" id="8_gxcnv"]
 [ext_resource type="Texture2D" uid="uid://dddhf8qbmwtuf" path="res://assets/sprites/ui/dash.png" id="8_qcfgh"]
 [ext_resource type="Texture2D" uid="uid://drypq4jdrky7g" path="res://assets/sprites/character/guidelines/3_piece.png" id="9_2eiic"]
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="11_2uji4"]
@@ -190,6 +191,7 @@ one_shot = true
 [node name="Health" parent="Extra" instance=ExtResource("5_k5pj8")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Extra"]
+delta_interval = 5.0
 replication_config = SubResource("SceneReplicationConfig_kuki0")
 
 [node name="Character" type="Node2D" parent="."]
@@ -378,6 +380,7 @@ script = ExtResource("3_ce3sj")
 shape = SubResource("CircleShape2D_tbsbx")
 
 [node name="Sprite" type="Sprite2D" parent="Character/RF"]
+texture = ExtResource("8_gxcnv")
 script = ExtResource("11_vkhgg")
 
 [node name="RF" type="DampedSpringJoint2D" parent="Character/RF"]
