@@ -208,7 +208,6 @@ text = "Join
 
 [node name="Pause" type="CanvasLayer" parent="."]
 process_mode = 3
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Pause"]
 offset_right = 1920.0
@@ -298,7 +297,6 @@ text = "Pause"
 
 [node name="Exit" type="CanvasLayer" parent="."]
 process_mode = 3
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Exit"]
 offset_right = 1920.0
@@ -364,7 +362,6 @@ text = "Exit"
 
 [node name="Won" type="CanvasLayer" parent="."]
 process_mode = 3
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Won"]
 offset_right = 1920.0
@@ -426,7 +423,6 @@ text = "Exit"
 
 [node name="Lost" type="CanvasLayer" parent="."]
 process_mode = 3
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Lost"]
 offset_right = 1920.0
