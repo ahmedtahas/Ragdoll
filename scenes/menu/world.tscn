@@ -143,68 +143,9 @@ script = ExtResource("3_b2un2")
 
 [node name="ClientSkill" type="Node2D" parent="."]
 
-[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/game/character/crock.tscn", "res://scenes/game/character/holstar.tscn", "res://scenes/game/character/tin.tscn", "res://scenes/game/character/zeina.tscn", "res://scenes/game/character/kaliber.tscn", "res://scenes/game/character/meri.tscn", "res://scenes/game/character/paranoc.tscn", "res://scenes/game/character/roki_roki.tscn", "res://scenes/game/character/moot.tscn", "res://scenes/game/character/buccarold.tscn", "res://scenes/game/character/raldorone.tscn")
-spawn_path = NodePath("../Spawner")
-
-[node name="ServerSkillSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/game/tools/bullet.tscn", "res://scenes/game/tools/dagger.tscn", "res://scenes/game/tools/meteor.tscn", "res://scenes/game/character/clone.tscn")
-spawn_path = NodePath("../ServerSkill")
-
 [node name="MTC" parent="." instance=ExtResource("3_jormy")]
 position = Vector2(10210, -5090)
 zoom = Vector2(0.07, 0.07)
-
-[node name="Menu" type="CanvasLayer" parent="."]
-process_mode = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="Menu"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MarginContainer"]
-layout_mode = 2
-
-[node name="LineEdit" type="LineEdit" parent="Menu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_stretch_ratio = 2.73
-theme_override_font_sizes/font_size = 120
-alignment = 1
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Menu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/MarginContainer/VBoxContainer/ScrollContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Menu/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 90
-text = "asdf"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Host" type="Button" parent="Menu/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 60
-text = "Host
-"
-
-[node name="Join" type="Button" parent="Menu/MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 60
-text = "Join
-"
 
 [node name="Pause" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -516,19 +457,7 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 0.69
 
-[node name="Label" type="Label" parent="."]
-offset_left = 8109.0
-offset_top = -9297.0
-offset_right = 12325.0
-offset_bottom = -8384.0
-theme_override_font_sizes/font_size = 800
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [connection signal="child_entered_tree" from="Spawner" to="Spawner" method="_on_child_entered_tree"]
-[connection signal="text_changed" from="Menu/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
-[connection signal="button_up" from="Menu/MarginContainer/VBoxContainer/HBoxContainer/Host" to="." method="_on_host_pressed"]
-[connection signal="button_up" from="Menu/MarginContainer/VBoxContainer/HBoxContainer/Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/Button" to="." method="pause"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/Button" to="." method="change_character"]
 [connection signal="pressed" from="Pause/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3/Button" to="." method="main_menu"]

@@ -154,8 +154,8 @@ theme_override_font_sizes/font_size = 60
 theme_override_styles/normal = SubResource("StyleBoxFlat_0a230")
 theme_override_styles/hover = SubResource("StyleBoxFlat_7fssr")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_fkkdk")
-text = "Options"
+text = "Settings"
 
 [connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/Button" to="." method="store"]
 [connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/Button" to="." method="play"]
-[connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3/Button" to="." method="options"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3/Button" to="." method="settings"]

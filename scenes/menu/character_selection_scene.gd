@@ -20,7 +20,10 @@ func character_preview(selection: String) -> void:
 
 
 func character_selected() -> void:
-	get_tree().change_scene_to_file("res://scenes/menu/world.tscn")
+	if Global.mode == "multi":
+		get_tree().change_scene_to_file("res://scenes/menu/lobby.tscn")
+	else:
+		get_tree().change_scene_to_file("res://scenes/menu/world.tscn")
 
 
 func back() -> void:

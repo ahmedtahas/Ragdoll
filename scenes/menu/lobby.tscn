@@ -1,0 +1,50 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdu8kfcio7vr7"]
+
+[ext_resource type="Script" path="res://scenes/menu/lobby.gd" id="1_ha6o3"]
+
+[node name="Lobby" type="CanvasLayer"]
+script = ExtResource("1_ha6o3")
+
+[node name="LobbyCode" type="LineEdit" parent="."]
+offset_left = 960.0
+offset_top = 32.0
+offset_right = 1920.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 42
+placeholder_text = "Lobby Code"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_right = 960.0
+offset_bottom = 1080.0
+
+[node name="LobbyContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="ConnectToServer" type="Button" parent="."]
+offset_left = 960.0
+offset_top = 144.0
+offset_right = 1920.0
+offset_bottom = 272.0
+theme_override_font_sizes/font_size = 84
+text = "Connect To Server"
+
+[node name="CreateLobby" type="Button" parent="."]
+offset_left = 960.0
+offset_top = 288.0
+offset_right = 1920.0
+offset_bottom = 416.0
+theme_override_font_sizes/font_size = 84
+text = "Create Lobby"
+
+[node name="StartGame" type="Button" parent="."]
+offset_left = 960.0
+offset_top = 432.0
+offset_right = 1920.0
+offset_bottom = 560.0
+theme_override_font_sizes/font_size = 84
+text = "Start Game"
+
+[connection signal="text_changed" from="LobbyCode" to="." method="_on_lobby_code_text_changed"]
+[connection signal="button_up" from="ConnectToServer" to="." method="connect_to_server_button"]
+[connection signal="button_up" from="CreateLobby" to="." method="create_join_lobby"]
+[connection signal="button_up" from="StartGame" to="." method="start_game"]

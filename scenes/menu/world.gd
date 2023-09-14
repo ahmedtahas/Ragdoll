@@ -1,10 +1,10 @@
 extends Node2D
 
-@onready var container: HBoxContainer = $Menu/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer
+#@onready var container: HBoxContainer = $Menu/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer
 @onready var connected_peer_ids: Array = []
 @onready var client_id: int
 @onready var server_id: int
-@onready var server_ip: Label = $Menu/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Label
+#@onready var server_ip: Label = $Menu/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Label
 @onready var client_ip: String = "192.168.0.10"
 @onready var pause_screen: CanvasLayer = $Pause
 
@@ -54,7 +54,6 @@ func _ready() -> void:
 		Global.spawner.add_child(player_instance)
 		player_instance.transform = $Point1.transform
 
-		$Menu.hide()
 	pause_screen.get_child(0).hide()
 	pause_screen.get_child(1).hide()
 	$Exit.hide()
@@ -63,11 +62,13 @@ func _ready() -> void:
 	get_tree().paused = false
 	if Global.mode == "multi":
 		pause_screen.get_child(2).hide()
-		server_ip.text = IP.get_local_addresses()[9]
-		for i in range(IP.get_local_addresses().size()):
-			var label = server_ip.duplicate()
-			label.text = IP.get_local_addresses()[i] + "  //  "
-			container.add_child(label)
+		add_player_character(Global.player_id)
+		add_player_character(Global.opponent_id)
+#		server_ip.text = IP.get_local_addresses()[9]
+#		for i in range(IP.get_local_addresses().size()):
+#			var label = server_ip.duplicate()
+#			label.text = IP.get_local_addresses()[i] + "  //  "
+#			container.add_child(label)
 		multiplayer.peer_connected.connect(peer_connected)
 		multiplayer.peer_disconnected.connect(peer_disconnected)
 		multiplayer.connected_to_server.connect(connected_to_server)
@@ -106,26 +107,19 @@ func set_opponent(selection):
 	Global.opponent_selection = selection
 
 
-@rpc("call_local", "any_peer", "reliable")
-func get_opponent_id():
-	if multiplayer_peer.get_unique_id() > 1000:
-		return 1
-	else:
-		for id in connected_peer_ids:
-			if id != 1:
-				return id
-
-
 func _on_host_pressed() -> void:
 	$Menu.hide()
-	multiplayer_peer.create_server(PORT)
+	Global.is_host = true
+	var error = multiplayer_peer.create_server(PORT)
+	if error != OK:
+		print("Failed to create server: ", error)
+		return
 	multiplayer.multiplayer_peer = multiplayer_peer
 	add_player_character(1)
 	server_id = multiplayer.get_unique_id()
 	get_node("Spawner/1/Character/Head").freeze = true
 	multiplayer_peer.peer_connected.connect(
 		func(new_peer_id):
-			$Label.hide()
 			client_id = new_peer_id
 			await get_tree().create_timer(3).timeout
 			get_node("Spawner/1/Character/Head").freeze = false
@@ -139,7 +133,10 @@ func _on_host_pressed() -> void:
 
 func _on_join_pressed() -> void:
 	$Menu.hide()
-	multiplayer_peer.create_client(client_ip, PORT)
+	var error = multiplayer_peer.create_client(client_ip, PORT)
+	if error != OK:
+		print("Failed to create client: ", error)
+		return
 	multiplayer.multiplayer_peer = multiplayer_peer
 	multiplayer_peer.peer_connected.connect(
 		func(_peer_):
@@ -151,7 +148,6 @@ func _on_join_pressed() -> void:
 
 
 func add_player_character(peer_id):
-	connected_peer_ids.append(peer_id)
 
 	var player_character
 
@@ -162,20 +158,21 @@ func add_player_character(peer_id):
 
 	player_character.set_multiplayer_authority(peer_id)
 	Global.spawner.add_child(player_character, true)
-	if peer_id == 1:
+	if Global.is_host:
 		player_character.transform = $Point1.transform
 	else:
 		player_character.transform = $Point2.transform
 
 
-func add_skill(skill_name: String) -> void:
+func add_skill(skill_name: String, place: String, auth: int) -> void:
 	var skill = skill_dictionary.get(skill_name).instantiate()
-	skill.set_multiplayer_authority(client_id)
-	$ClientSkill.add_child(skill)
+	skill.set_multiplayer_authority(auth)
+	get_node(place).add_child(skill)
+#	$ClientSkill.add_child(skill)
 
 
-func remove_skill() -> void:
-	for child in $ClientSkill.get_children():
+func remove_skill(place: String) -> void:
+	for child in get_node(place).get_children():
 		child.queue_free()
 
 

@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://b83lhk7fgjqjc"]
+
+[ext_resource type="Script" path="res://scenes/menu/settings.gd" id="1_7n32n"]
+[ext_resource type="Script" path="res://scenes/menu/Swiper.gd" id="2_01bhu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r28ew"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7n32n")
+
+[node name="TextEdit" type="Label" parent="."]
+layout_mode = 0
+offset_left = 701.0
+offset_top = 147.0
+offset_right = 1174.0
+offset_bottom = 290.0
+theme_override_font_sizes/font_size = 100
+text = "OPTIONS"
+
+[node name="Swiper" type="TouchScreenButton" parent="."]
+position = Vector2(960, 540)
+scale = Vector2(96, 54)
+shape = SubResource("RectangleShape2D_r28ew")
+shape_centered = false
+script = ExtResource("2_01bhu")
+
+[node name="CheckButton" type="CheckButton" parent="."]
+layout_mode = 0
+offset_left = 1338.0
+offset_top = 429.0
+offset_right = 1382.0
+offset_bottom = 453.0
+scale = Vector2(3, 3)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 627.0
+offset_top = 429.0
+offset_right = 866.0
+offset_bottom = 502.0
+theme_override_font_sizes/font_size = 40
+text = "Switch Joysticks"
+
+[node name="joystick" type="Label" parent="."]
+layout_mode = 0
+offset_left = 993.0
+offset_top = 432.0
+offset_right = 1320.0
+offset_bottom = 492.0
+theme_override_font_sizes/font_size = 40
+text = "Movement | Skill"
+
+[node name="MusicSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 630.0
+offset_top = 491.0
+offset_right = 856.0
+offset_bottom = 534.0
+scale = Vector2(3, 3)
+step = 5.0
+tick_count = 5
+
+[connection signal="toggled" from="CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="value_changed" from="MusicSlider" to="." method="music_level_set"]

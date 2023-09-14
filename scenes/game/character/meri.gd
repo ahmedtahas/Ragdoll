@@ -52,13 +52,13 @@ func _ready() -> void:
 
 
 @rpc("reliable")
-func add_skill(skill_name: String) -> void:
-	Global.world.add_skill(skill_name)
+func add_skill(skill_name: String, place: String) -> void:
+	Global.world.add_skill(skill_name, place, name.to_int())
 
 
 @rpc("reliable")
-func remove_skill() -> void:
-	Global.world.remove_skill()
+func remove_skill(place: String) -> void:
+	Global.world.remove_skill(place)
 
 
 func _physics_process(_delta: float) -> void:
@@ -95,16 +95,19 @@ func skill_signal(vector: Vector2, using: bool) -> void:
 			duration.start()
 			cloned = true
 			clone = clone_instance.instantiate()
-			if multiplayer.is_server():
+			clone.set_multiplayer_authority(multiplayer.get_unique_id())
+			if Global.is_host:
 				Global.server_skill.add_child(clone, true)
+				add_skill.rpc("clone", "ServerSkill")
 			else:
-				clone.set_multiplayer_authority(multiplayer.get_unique_id())
 				Global.client_skill.add_child(clone, true)
-				add_skill.rpc("clone")
+				add_skill.rpc("clone", "ClientSkill")
 		await duration.timeout
 		clone.queue_free()
-		if not multiplayer.is_server():
-			remove_skill.rpc()
+		if not Global.is_host:
+			remove_skill.rpc("ClientSkill")
+		else:
+			remove_skill.rpc("ServerSkill")
 		cooldown.start()
 		cloned = false
 

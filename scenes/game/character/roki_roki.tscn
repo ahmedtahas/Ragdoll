@@ -200,6 +200,8 @@ script = ExtResource("4_5lj84")
 
 [node name="Head" type="RigidBody2D" parent="Character" groups=["Damagable", "Damager"]]
 position = Vector2(0, -120)
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 gravity_scale = 0.5
 continuous_cd = 2
@@ -248,6 +250,8 @@ length = 1.0
 stiffness = 64.0
 
 [node name="Body" type="RigidBody2D" parent="Character" groups=["Damagable"]]
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 center_of_mass_mode = 1
 center_of_mass = Vector2(0, -107)
@@ -266,6 +270,8 @@ shape = SubResource("CapsuleShape2D_pa3fc")
 [node name="RLA" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 position = Vector2(240, 0)
 rotation = 1.5708
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 gravity_scale = 0.5
 continuous_cd = 2
@@ -316,6 +322,8 @@ shape = SubResource("CapsuleShape2D_4hvon")
 
 [node name="RUA" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 rotation = 1.5708
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 gravity_scale = 0.5
 continuous_cd = 2
@@ -366,6 +374,8 @@ stiffness = 64.0
 
 [node name="RF" type="RigidBody2D" parent="Character" groups=["Damager"]]
 position = Vector2(480, 0)
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 gravity_scale = 0.0
 continuous_cd = 2
@@ -419,6 +429,8 @@ stiffness = 64.0
 [node name="LLA" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 position = Vector2(-240, 0)
 rotation = -1.5708
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 gravity_scale = 0.5
 continuous_cd = 2
@@ -469,6 +481,8 @@ shape = SubResource("CapsuleShape2D_4hvon")
 
 [node name="LUA" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 rotation = 1.5708
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 gravity_scale = 0.5
 continuous_cd = 2
@@ -519,6 +533,8 @@ stiffness = 64.0
 
 [node name="LF" type="RigidBody2D" parent="Character" groups=["Damager"]]
 position = Vector2(-480, 0)
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 gravity_scale = 0.0
 continuous_cd = 2
@@ -566,6 +582,8 @@ length = 1.0
 
 [node name="LK" type="RigidBody2D" parent="Character" groups=["Damager"]]
 position = Vector2(-360, 984)
+collision_layer = 0
+collision_mask = 0
 mass = 0.01
 gravity_scale = 0.0
 continuous_cd = 2
@@ -582,6 +600,8 @@ node_b = NodePath("..")
 
 [node name="Hip" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 position = Vector2(0, 240)
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 gravity_scale = 0.5
 continuous_cd = 2
@@ -638,6 +658,8 @@ position = Vector2(840, 0)
 [node name="RLL" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 position = Vector2(180, 672)
 rotation = -0.506145
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 gravity_scale = 0.5
 continuous_cd = 2
@@ -688,6 +710,8 @@ stiffness = 64.0
 [node name="RUL" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 position = Vector2(0, 360)
 rotation = -0.523599
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 gravity_scale = 0.5
 continuous_cd = 2
@@ -737,6 +761,8 @@ stiffness = 64.0
 
 [node name="RK" type="RigidBody2D" parent="Character" groups=["Damager"]]
 position = Vector2(355, 987)
+collision_layer = 0
+collision_mask = 0
 mass = 0.01
 gravity_scale = 0.0
 continuous_cd = 2
@@ -753,6 +779,8 @@ node_b = NodePath("..")
 
 [node name="Stomach" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 position = Vector2(0, 120)
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 gravity_scale = 0.5
 continuous_cd = 2
@@ -803,6 +831,8 @@ shape = SubResource("CapsuleShape2D_5jnn0")
 [node name="LLL" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 position = Vector2(-180, 672)
 rotation = 0.523599
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 gravity_scale = 0.5
 continuous_cd = 2
@@ -853,6 +883,8 @@ stiffness = 64.0
 [node name="LUL" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 position = Vector2(0, 360)
 rotation = 0.523599
+collision_layer = 0
+collision_mask = 0
 mass = 0.1
 gravity_scale = 0.5
 continuous_cd = 2

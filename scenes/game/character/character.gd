@@ -15,12 +15,27 @@ signal hit_signal
 
 func _ready() -> void:
 	movement_stick.move_signal.connect(move)
+	Global.two_players_joined.connect(game_started)
+	if Global.mode == "single":
+		fix_collisions()
 	if is_multiplayer_authority():
 		Global.player_died.connect(death)
 	if not is_multiplayer_authority():
 		Global.pushed.connect(push_local)
 		Global.freezed.connect(freeze_local)
 		Global.stunned.connect(hit_stun)
+
+
+func game_started() -> void:
+	fix_collisions.rpc()
+
+
+@rpc("reliable", "call_local")
+func fix_collisions() -> void:
+	await get_tree().create_timer(0.5).timeout
+	for child in get_children():
+		child.set_collision_layer_value(1, true)
+		child.set_collision_mask_value(1, true)
 
 
 func setup(_character_name: String) -> void:
@@ -64,11 +79,10 @@ func on_body_entered(hit: PhysicsBody2D, caller: RigidBody2D) -> void:
 			Global.damaged.emit(damage)
 
 
-@rpc("reliable", "any_peer", "call_remote", 1)
+@rpc("reliable", "any_peer", "call_remote")
 func freeze_local(duration: float) -> void:
 	if not is_multiplayer_authority():
 		freeze_local.rpc(duration)
-		return
 	for child in get_children():
 		child.freeze_self(true)
 	await get_tree().create_timer(duration).timeout
@@ -76,16 +90,14 @@ func freeze_local(duration: float) -> void:
 		child.freeze_self(false)
 
 
-@rpc("reliable", "any_peer")
+@rpc("reliable", "any_peer", "call_local")
 func slow_motion(time_scale: float = 0.05, duration: float = 0.75) -> void:
-	if is_multiplayer_authority():
-		slow_motion.rpc()
 	Engine.time_scale = time_scale
 	await get_tree().create_timer(time_scale * duration).timeout
 	Engine.time_scale = 1
 
 
-@rpc("reliable", "any_peer", "call_remote", 1)
+@rpc("reliable", "any_peer", "call_remote")
 func push_local(vector: Vector2) -> void:
 	if not is_multiplayer_authority():
 		push_local.rpc(vector)
@@ -99,7 +111,7 @@ func push_local(vector: Vector2) -> void:
 		child.apply_impulse(vector)
 
 
-@rpc("reliable", "any_peer", "call_remote", 1)
+@rpc("reliable", "any_peer", "call_remote")
 func hit_stun(wait_time: float = 0.5) -> void:
 	if not is_multiplayer_authority():
 		hit_stun.rpc(wait_time)

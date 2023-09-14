@@ -19,9 +19,3 @@ texture_normal = ExtResource("1_gwaua")
 position = Vector2(256, 824)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_2o3et")
-
-[node name="SAP" type="Marker2D" parent="."]
-position = Vector2(128, 696)
-
-[node name="SSP" type="Marker2D" parent="."]
-position = Vector2(256, 824)

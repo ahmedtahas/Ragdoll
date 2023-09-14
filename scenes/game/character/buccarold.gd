@@ -66,10 +66,8 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 
 
-@rpc("reliable")
+@rpc("reliable", "call_local")
 func emit_particles(emit: bool) -> void:
-	if is_multiplayer_authority():
-		emit_particles.rpc(emit)
 	flames.emitting = emit
 
 
@@ -82,9 +80,9 @@ func skill_signal(using: bool) -> void:
 	else:
 		character.damage *= 2
 		duration.start()
-		emit_particles(true)
+		emit_particles.rpc(true)
 		await duration.timeout
-		emit_particles(false)
+		emit_particles.rpc(false)
 		cooldown.start()
 		character.damage /= 2
 

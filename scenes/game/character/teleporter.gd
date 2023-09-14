@@ -47,6 +47,7 @@ func _integrate_forces(state):
 
 
 func teleport() -> void:
+
 	teleporting = true
 
 
@@ -78,5 +79,5 @@ func dress(character_name: String) -> void:
 	var path = "assets/sprites/character/equipped/" + character_name + "/"
 	if image:
 		image.texture = load(path + name + ".png")
-		if name == "RF" or name == "LF":
+		if name == "RF" or name == "LF" or name == "RK" or name == "LK":
 			image.weapon_collision(character_name)

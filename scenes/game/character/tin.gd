@@ -59,20 +59,18 @@ func _physics_process(_delta: float) -> void:
 		return
 
 	if shocking and shockwave.scale.x <= 30:
-		scale_shockwave(+0.25)
+		scale_shockwave.rpc(+0.25)
 
 	elif not shocking and shockwave.scale.x > 0.25 and shockwave.visible:
-		scale_shockwave(-2)
+		scale_shockwave.rpc(-2)
 
 	elif shockwave.scale.x <= 0.25:
-		show_shockwave(false)
-		shockwave.scale.x = 0.1
-		shockwave.scale.y = 0.1
+		show_shockwave.rpc(false)
 
 	if charging:
 
 		if shockwave.scale.x <= 30.2  and shockwave.scale.x >= 29.8:
-			gravity_particles(true)
+			gravity_particles.rpc(true)
 
 		if not duration.is_stopped():
 			cooldown_bar.set_value((100 * duration.time_left) / duration_time)
@@ -97,26 +95,23 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 
 
-@rpc("reliable")
+@rpc("reliable", "call_local")
 func scale_shockwave(value: float) -> void:
-	if is_multiplayer_authority():
-		scale_shockwave.rpc(value)
 	shockwave.scale.x += value
 	shockwave.scale.y += value
 
 
-@rpc("reliable")
+@rpc("reliable", "call_local")
 func gravity_particles(emitting: bool) -> void:
-	if is_multiplayer_authority():
-		gravity_particles.rpc(emitting)
 	gravity.emitting = emitting
 
 
-@rpc("reliable")
+@rpc("reliable", "call_local")
 func show_shockwave(_show: bool) -> void:
-	if is_multiplayer_authority():
-		show_shockwave.rpc(_show)
 	shockwave.visible = _show
+	if not _show:
+		shockwave.scale.x = 0.1
+		shockwave.scale.y = 0.1
 
 
 func skill_signal(is_charging: bool) -> void:
@@ -124,14 +119,14 @@ func skill_signal(is_charging: bool) -> void:
 		return
 
 	if is_charging:
-		show_shockwave(true)
+		show_shockwave.rpc(true)
 		charging = true
 		shocking = true
 		body.freeze = true
 		duration.start()
 
 	else:
-		gravity_particles(false)
+		gravity_particles.rpc(false)
 		body.freeze = false
 		shocking = false
 		charging = false

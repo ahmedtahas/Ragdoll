@@ -17,7 +17,7 @@ extends Node2D
 @onready var center: Marker2D = $Character/Hip/Center
 @onready var character: Node2D = $Character
 @onready var health: CanvasLayer = $Extra/Health
-@onready var skill_joy_stick: Control = $Extra/UI/SkillJoyStick
+@onready var skill_stick: Control = $Extra/UI/SkillJoyStick
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var body: RigidBody2D = $Character/Body
 @onready var _range: Marker2D = $Character/Hip/Center/Range
@@ -26,6 +26,7 @@ extends Node2D
 @onready var flicker: bool = false
 @onready var cooldown_set: bool = false
 @onready var _hit: bool = false
+
 
 func _ready() -> void:
 	name = str(get_multiplayer_authority())
@@ -37,8 +38,8 @@ func _ready() -> void:
 
 	if is_multiplayer_authority():
 		Global.player = self
-		skill_joy_stick.skill_signal.connect(skill_signal)
-		skill_joy_stick.button = false
+		skill_stick.skill_signal.connect(skill_signal)
+		skill_stick.button = false
 		cooldown_time = Config.get_value("cooldown", character_name)
 		damage = Config.get_value("damage", character_name)
 		cooldown.wait_time = cooldown_time
@@ -51,13 +52,13 @@ func _ready() -> void:
 
 
 @rpc("reliable")
-func add_skill(skill_name: String) -> void:
-	Global.world.add_skill(skill_name)
+func add_skill(skill_name: String, place: String) -> void:
+	Global.world.add_skill(skill_name, place, name.to_int())
 
 
 @rpc("reliable")
-func remove_skill() -> void:
-	Global.world.remove_skill()
+func remove_skill(place: String) -> void:
+	Global.world.remove_skill(place)
 
 
 
@@ -112,22 +113,25 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		flicker = false
 		dagger_instance = dagger.instantiate()
 		dagger_instance.hit_signal.connect(dagger_hit_signal)
-		if multiplayer.is_server():
+		dagger_instance.set_multiplayer_authority(multiplayer.get_unique_id())
+		if Global.is_host:
 			Global.server_skill.add_child(dagger_instance, true)
+			add_skill.rpc("dagger", "ServerSkill")
 		else:
-			dagger_instance.set_multiplayer_authority(multiplayer.get_unique_id())
 			Global.client_skill.add_child(dagger_instance, true)
-			add_skill.rpc("dagger")
+			add_skill.rpc("dagger", "ClientSkill")
 		ignore_skill()
-		character.slow_motion()
+		character.slow_motion.rpc()
 		dagger_instance.global_position = center.get_node("Dash").global_position
 		dagger_instance.fire((end_point - center.get_node("Dash").global_position).angle())
 		await get_tree().create_timer((end_point - center.global_position).length() / dagger_instance.speed).timeout
 		if not _hit:
 			end_point = Global.avoid_enemies(end_point - center.global_position)
 			teleport()
-			if not multiplayer.is_server():
-				remove_skill.rpc()
+			if not Global.is_host:
+				remove_skill.rpc("ClientSkill")
+			else:
+				remove_skill.rpc("ServerSkill")
 		else:
 			_hit = false
 
@@ -156,7 +160,7 @@ func dagger_hit_signal(hit: PhysicsBody2D) -> void:
 	if hit is RigidBody2D and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
 		end_point = Global.avoid_enemies(dagger_instance.global_position - center.global_position)
 		Global.stunned.emit()
-		character.slow_motion()
+		character.slow_motion.rpc()
 		if hit.name == "Head":
 			Global.damaged.emit(damage * 2)
 		elif not hit.is_in_group("Undamagable"):
@@ -166,5 +170,7 @@ func dagger_hit_signal(hit: PhysicsBody2D) -> void:
 	elif hit is CharacterBody2D:
 		end_point = center.global_position
 	teleport()
-	if not multiplayer.is_server():
-		remove_skill.rpc()
+	if not Global.is_host:
+		remove_skill.rpc("ClientSkill")
+	else:
+		remove_skill.rpc("ServerSkill")

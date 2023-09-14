@@ -18,9 +18,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Config="*res://global/Config.gd"
-CharacterSelection="*res://global/character_selection.gd"
-Global="*res://global/global.gd"
+Config="*res://globals/Config.gd"
+CharacterSelection="*res://globals/character_selection.gd"
+Global="*res://globals/global.gd"
 
 [display]
 

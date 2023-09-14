@@ -56,13 +56,13 @@ func _ready() -> void:
 
 
 @rpc("reliable")
-func add_skill(skill_name: String) -> void:
-	Global.world.add_skill(skill_name)
+func add_skill(skill_name: String, place: String) -> void:
+	Global.world.add_skill(skill_name, place, name.to_int())
 
 
 @rpc("reliable")
-func remove_skill() -> void:
-	Global.world.remove_skill()
+func remove_skill(place: String) -> void:
+	Global.world.remove_skill(place)
 
 
 func _physics_process(_delta: float) -> void:
@@ -86,10 +86,8 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 
 
-@rpc("reliable")
+@rpc("reliable", "call_local")
 func emit_particles(emit: bool) -> void:
-	if is_multiplayer_authority():
-		emit_particles.rpc(emit)
 	fire_ring.emitting = emit
 
 
@@ -99,18 +97,19 @@ func skill_signal(using: bool) -> void:
 
 	if using:
 		is_hit = false
-		emit_particles(true)
+		emit_particles.rpc(true)
 		duration.start()
 		await get_tree().create_timer(0.5).timeout
 		center.look_at(Global.opponent.center.global_position)
-		emit_particles(false)
+		emit_particles.rpc(false)
 		meteor_instance = meteor.instantiate()
-		if multiplayer.is_server():
+		meteor_instance.set_multiplayer_authority(multiplayer.get_unique_id())
+		if Global.is_host:
 			Global.server_skill.add_child(meteor_instance, true)
+			add_skill.rpc("meteor", "ServerSkill")
 		else:
-			meteor_instance.set_multiplayer_authority(multiplayer.get_unique_id())
 			Global.client_skill.add_child(meteor_instance, true)
-			add_skill.rpc("meteor")
+			add_skill.rpc("meteor", "ClientSkill")
 		meteor_instance.global_position = global_position
 		meteor_instance.hit_signal.connect(hit_signal)
 		meteor_instance.follow = true
@@ -120,17 +119,15 @@ func skill_signal(using: bool) -> void:
 			cooldown.start()
 
 
-@rpc("reliable")
+@rpc("reliable", "call_local")
 func explode(contact_point: Vector2) -> void:
-	if is_multiplayer_authority():
-		explode.rpc(contact_point)
 	explosion.global_position = contact_point
 	explosion.emitting = true
 
 
 func hit_signal(hit: PhysicsBody2D) -> void:
 	is_hit = true
-	explode(meteor_instance.global_position)
+	explode.rpc(meteor_instance.global_position)
 	if hit is RigidBody2D and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
 		if hit.get_node("../..") != self:
 			Global.pushed.emit((Global.opponent.center.global_position - meteor_instance.global_position).normalized() * power * 3)
@@ -146,5 +143,7 @@ func hit_signal(hit: PhysicsBody2D) -> void:
 	meteor_instance.queue_free()
 	duration.stop()
 	cooldown.start()
-	if not multiplayer.is_server():
-		remove_skill.rpc()
+	if not Global.is_host:
+		remove_skill.rpc("ClientSkill")
+	else:
+		remove_skill.rpc("ServerSkill")

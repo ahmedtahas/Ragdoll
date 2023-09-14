@@ -71,7 +71,7 @@ func skill_signal(_using: bool) -> void:
 		return
 
 	if _using:
-		character.slow_motion()
+		character.slow_motion.rpc()
 		character.damage *= (hit_count / 2)
 		duration.wait_time = duration_time * hit_count / max_combo
 		duration.start()

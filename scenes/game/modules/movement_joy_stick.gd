@@ -1,10 +1,9 @@
 extends Control
 
-@onready var half_screen: float = get_viewport().size.x / 2
 @onready var movement_area: TouchScreenButton = $MovementArea
 @onready var movement_stick: Sprite2D = $MovementStick
-@onready var movement_area_position: Vector2 = $MAP.position
-@onready var movement_stick_position: Vector2 = $MSP.position
+@onready var movement_area_position: Vector2
+@onready var movement_stick_position: Vector2
 
 @onready var movement_center: Vector2
 @onready var movement_radius: float
@@ -16,6 +15,14 @@ signal move_signal
 
 
 func _ready() -> void:
+	if Global.switch:
+		position = Global.ui_left
+		movement_area_position = Global.right_area_position
+		movement_stick_position = Global.right_stick_position
+	else:
+		position = Global.ui_right
+		movement_area_position = Global.left_area_position
+		movement_stick_position = Global.left_stick_position
 	movement_radius = movement_area.texture_normal.get_size().x / 2
 	movement_area.global_position = movement_area_position
 	movement_stick.global_position = movement_stick_position

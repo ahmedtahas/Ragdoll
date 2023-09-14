@@ -38,7 +38,7 @@ func set_health(health: float) -> void:
 		health_text.hide()
 
 
-@rpc("reliable", "any_peer", "call_remote", 1)
+@rpc("reliable", "any_peer", "call_remote")
 func take_damage(amount: float) -> void:
 	if not is_multiplayer_authority():
 		take_damage.rpc(amount)

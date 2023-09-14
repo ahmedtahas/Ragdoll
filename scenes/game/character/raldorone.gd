@@ -69,10 +69,8 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 
 
-@rpc("reliable")
+@rpc("reliable", "call_local")
 func scale_shield(_scale: float) -> void:
-	if is_multiplayer_authority():
-		scale_shield.rpc(_scale)
 	right_shield.scale.x = _scale
 	right_shield.scale.y = _scale
 	left_shield.scale.x = _scale
@@ -93,7 +91,7 @@ func skill_signal(using: bool) -> void:
 
 	if using:
 		duration.start()
-		scale_shield(1.5)
+		scale_shield.rpc(1.5)
 		await duration.timeout
-		scale_shield(1)
+		scale_shield.rpc(1)
 		cooldown.start()

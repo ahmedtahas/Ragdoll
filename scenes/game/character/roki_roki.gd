@@ -74,7 +74,7 @@ func skill_signal(using: bool) -> void:
 		pass
 
 	else:
-		character.slow_motion()
+		character.slow_motion.rpc()
 		await get_tree().create_timer(0.05).timeout
 		duration.start()
 		Global.freezed.emit(duration_time)

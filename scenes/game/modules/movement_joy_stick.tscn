@@ -20,9 +20,3 @@ texture_normal = ExtResource("1_771y3")
 position = Vector2(1664, 824)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_66vp5")
-
-[node name="MAP" type="Marker2D" parent="."]
-position = Vector2(1536, 696)
-
-[node name="MSP" type="Marker2D" parent="."]
-position = Vector2(1664, 824)
