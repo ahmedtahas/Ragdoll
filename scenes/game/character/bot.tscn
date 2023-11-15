@@ -696,3 +696,6 @@ one_shot = true
 
 [node name="ParalyzeCooldown" type="Timer" parent="Extra"]
 one_shot = true
+
+[node name="Timer" type="Timer" parent="Extra"]
+one_shot = true

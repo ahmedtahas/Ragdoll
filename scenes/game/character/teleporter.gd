@@ -1,7 +1,6 @@
 extends RigidBody2D
 
 
-
 @onready var loc: Vector2 = Vector2.ZERO
 @onready var rot: float = 0
 @onready var teleporting: bool = false
@@ -47,7 +46,6 @@ func _integrate_forces(state):
 
 
 func teleport() -> void:
-
 	teleporting = true
 
 

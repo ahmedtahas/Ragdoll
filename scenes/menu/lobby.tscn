@@ -6,7 +6,7 @@
 script = ExtResource("1_ha6o3")
 
 [node name="LobbyCode" type="LineEdit" parent="."]
-offset_left = 960.0
+offset_left = 980.0
 offset_top = 32.0
 offset_right = 1920.0
 offset_bottom = 128.0
@@ -19,17 +19,18 @@ offset_bottom = 1080.0
 
 [node name="LobbyContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="ConnectToServer" type="Button" parent="."]
-offset_left = 960.0
+offset_left = 980.0
 offset_top = 144.0
 offset_right = 1920.0
 offset_bottom = 272.0
 theme_override_font_sizes/font_size = 84
-text = "Connect To Server"
+text = "Reset Connection"
 
 [node name="CreateLobby" type="Button" parent="."]
-offset_left = 960.0
+offset_left = 980.0
 offset_top = 288.0
 offset_right = 1920.0
 offset_bottom = 416.0
@@ -37,7 +38,7 @@ theme_override_font_sizes/font_size = 84
 text = "Create Lobby"
 
 [node name="StartGame" type="Button" parent="."]
-offset_left = 960.0
+offset_left = 980.0
 offset_top = 432.0
 offset_right = 1920.0
 offset_bottom = 560.0

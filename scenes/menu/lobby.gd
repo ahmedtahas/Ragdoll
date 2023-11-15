@@ -16,12 +16,13 @@ enum Message{
 	characters
 }
 
-var peer = WebSocketMultiplayerPeer.new()
-var id = 0
+var peer: WebSocketMultiplayerPeer = WebSocketMultiplayerPeer.new()
+var id: int = 0
 var rtc_peer : WebRTCMultiplayerPeer = WebRTCMultiplayerPeer.new()
 var host_id : int
-var lobby_value = ""
-var lobby_info = {}
+var lobby_value: String = ""
+var lobby_info: Dictionary = {}
+var p2p_ready: bool = false
 @onready var lobby_container = $ScrollContainer/LobbyContainer
 
 
@@ -32,8 +33,19 @@ func _ready() -> void:
 
 
 func _enter_tree() -> void:
+	connect_to_server()
 	$StartGame.disabled = true
 	$ConnectToServer.disabled = false
+
+
+func back() -> void:
+	get_tree().change_scene_to_file("res://scenes/menu/character_selection.tscn")
+
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_WM_GO_BACK_REQUEST:
+			back()
 
 
 func rtc_server_connected() -> void:
@@ -73,7 +85,6 @@ func _process(delta) -> void:
 
 				get_tree().change_scene_to_file("res://scenes/menu/world.tscn")
 
-
 			if data.message == Message.id:
 				id = data.id
 				Global.player_id = data.id
@@ -81,9 +92,14 @@ func _process(delta) -> void:
 				connected(id)
 			if data.message == Message.list:
 				var lobby_list = data.list
-				var button
+				var button: Button
+				var deleted = false
+				for child in lobby_container.get_children():
+					child.queue_free()
 				for lobby in lobby_list:
 					button = Button.new()
+					button.size_flags_vertical = Control.SIZE_EXPAND_FILL
+					button.add_theme_font_size_override("font_size", 42)
 					button.text = lobby
 					button.pressed.connect(lobby_selected.bind(button.text))
 					lobby_container.add_child(button)
@@ -149,7 +165,6 @@ func offer_created(type, data, id) -> void:
 		send_offer(id, data)
 	else:
 		send_answer(id, data)
-	pass
 
 
 func send_offer(id, data) -> void:
@@ -161,7 +176,6 @@ func send_offer(id, data) -> void:
 		"Lobby": lobby_value
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
-	pass
 
 
 func send_answer(id, data) -> void:
@@ -173,7 +187,6 @@ func send_answer(id, data) -> void:
 		"Lobby": lobby_value
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
-	pass
 
 
 func ice_candidate_created(midName, indexName, sdpName, id) -> void:
@@ -187,37 +200,49 @@ func ice_candidate_created(midName, indexName, sdpName, id) -> void:
 		"Lobby": lobby_value
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
-	pass
 
 
-func connect_to_server(ip: String = "ws://127.0.0.1:8915") -> void:
+func connect_to_server(ip: String = "ws://ec2-16-16-182-118.eu-north-1.compute.amazonaws.com:8915") -> void:
 	peer.create_client(ip)
 
 
 func connect_to_server_button() -> void:
+	$ConnectToServer.text = "Resetting connection"
+	peer.close()
 	connect_to_server()
 	$ConnectToServer.disabled = true
-	pass # Replace with function body.
 
 
 func start_game() -> void:
 	StartGame.rpc()
 
 
-@rpc("any_peer", "call_local")
-func StartGame() -> void:
+func _exit_tree() -> void:
+	delete_lobby()
+	peer.close()
+	$ConnectToServer.text = "Reset Connection"
+	$CreateLobby.text = "Create Lobby"
+	$StartGame.text = "Start Game"
+	$StartGame.disabled = true
+
+
+func delete_lobby() -> void:
 	var message = {
 		"message": Message.remove_lobby,
 		"lobbyID" : lobby_value
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
+
+
+@rpc("any_peer", "call_local")
+func StartGame() -> void:
+	delete_lobby()
 	$StartGame.text = "Starting The Game"
 	$StartGame.disabled = true
-#	var scene = load("res://Multiplayer Tutorial Source Files/testScene.tscn").instantiate()
-#	get_tree().root.add_child(scene)
-#
+
 
 func create_join_lobby() -> void:
+	$ConnectToServer.disabled = true
 	var message ={
 		"id" : id,
 		"message" : Message.lobby,
@@ -226,7 +251,6 @@ func create_join_lobby() -> void:
 		"lobby_value" : $LobbyCode.text
 	}
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
-	pass # Replace with function body.
 
 
 func _on_lobby_code_text_changed(new_text: String) -> void:

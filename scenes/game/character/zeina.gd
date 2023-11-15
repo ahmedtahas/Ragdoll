@@ -22,7 +22,7 @@ extends Node2D
 @onready var body: RigidBody2D = $Character/Body
 @onready var _range: Marker2D = $Character/Hip/Center/Range
 
-@onready var hit_count: int = 0
+@onready var hit_count: int = 2
 @onready var flicker: bool = false
 @onready var cooldown_set: bool = false
 @onready var _hit: bool = false
@@ -106,6 +106,8 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 
 	else:
 		hit_count = 0
+		character.get_node("RF/Sprite").modulate = Color(0.1, 0.1, 0.1)
+		character.get_node("LF/Sprite").modulate = Color(0.1, 0.1, 0.1)
 		center.visible = false
 		end_point = _range.global_position
 		end_point = Global.get_inside_coordinates(end_point)
@@ -153,7 +155,10 @@ func teleport() -> void:
 func hit_signal(enemy: RigidBody2D, caller: RigidBody2D) -> void:
 	if enemy.is_in_group("Damagable") and caller.is_in_group("Damager"):
 		hit_count += 1
-
+		if hit_count == 1:
+			character.get_node("LF/Sprite").modulate = Color(1, 1, 1)
+		else:
+			character.get_node("RF/Sprite").modulate = Color(1, 1, 1)
 
 func dagger_hit_signal(hit: PhysicsBody2D) -> void:
 	_hit = true
