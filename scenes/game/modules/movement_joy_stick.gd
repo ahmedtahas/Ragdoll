@@ -11,23 +11,27 @@ extends Control
 @onready var moving: bool = false
 @onready var using: bool = false
 
+@onready var user_prefs: UserPreferences
+
 signal move_signal
 
 
 func _ready() -> void:
-	if Global.switch:
-		position = Global.ui_left
-		movement_area_position = Global.right_area_position
-		movement_stick_position = Global.right_stick_position
-	else:
-		position = Global.ui_right
-		movement_area_position = Global.left_area_position
-		movement_stick_position = Global.left_stick_position
-	movement_radius = movement_area.texture_normal.get_size().x / 2
-	movement_area.global_position = movement_area_position
-	movement_stick.global_position = movement_stick_position
-	movement_area.modulate.a = 0.2
-	movement_stick.modulate.a = 0.2
+	user_prefs = UserPreferences.load_or_create()
+	if user_prefs:
+		if user_prefs.joystick_switch:
+			position = Global.ui_left
+			movement_area_position = Global.right_area_position
+			movement_stick_position = Global.right_stick_position
+		else:
+			position = Global.ui_right
+			movement_area_position = Global.left_area_position
+			movement_stick_position = Global.left_stick_position
+		movement_radius = movement_area.texture_normal.get_size().x / 2
+		movement_area.global_position = movement_area_position
+		movement_stick.global_position = movement_stick_position
+		movement_area.modulate.a = 0.2
+		movement_stick.modulate.a = 0.2
 
 
 func _gui_input(event: InputEvent) -> void:

@@ -2,6 +2,9 @@ extends Node2D
 
 @onready var character_name: String = "crock"
 
+@onready var after_image: PackedScene = preload("res://scenes/game/tools/after_image.tscn")
+@onready var after_image_instance: Node2D
+
 @onready var duration_time: float
 @onready var cooldown_time: float
 
@@ -23,6 +26,11 @@ extends Node2D
 
 
 func _ready() -> void:
+	if get_parent().name == "Display":
+		get_node("Extra/UI").hide()
+		get_node("Extra/Health").hide()
+		character.setup(character_name)
+		return
 	name = str(get_multiplayer_authority())
 	character.setup(character_name)
 	Global.camera.add_target(center)
@@ -82,8 +90,30 @@ func skill_signal(_using: bool) -> void:
 		teleport(old_position)
 
 
+@rpc("reliable", "call_local")
+func show_after_image() -> void:
+	after_image_instance = after_image.instantiate()
+	add_child(after_image_instance)
+	after_image_instance.global_position = body.global_position
+	Global.camera.add_target(after_image_instance)
+
+
+@rpc("reliable", "call_local")
+func remove_after_image() -> void:
+	after_image_instance.queue_free()
+	Global.camera.remove_target(after_image_instance)
+
+
 func teleport(pos: Vector2) -> void:
 	pos = Global.avoid_enemies(pos - body.global_position)
+	show_after_image.rpc()
+	for child in character.get_children():
+		child.visible = false
 	for child in character.get_children():
 		child.locate(pos)
+		child.rotate(child.global_rotation)
 		child.teleport()
+	await get_tree().create_timer((pos - center.global_position).length() / 50000).timeout
+	for child in character.get_children():
+		child.visible = true
+	remove_after_image.rpc()

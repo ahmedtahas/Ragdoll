@@ -1,10 +1,13 @@
 extends CanvasLayer
 
+@onready var damage_count: int = 0
+@onready var damage_timeout: bool = true
 @onready var max_health: float = 0
 @onready var current_health: float = 0
 @onready var bot_max_health: float = 0
 @onready var bot_current_health: float = 0
 
+@onready var character: Node2D = get_node("../../Character")
 @onready var health_bar: TextureProgressBar = $HealthBar
 @onready var health_text: RichTextLabel = $HealthBar/Text
 @onready var remote_health_bar: TextureProgressBar = $RemoteHealthBar
@@ -43,6 +46,14 @@ func take_damage(amount: float) -> void:
 	if not is_multiplayer_authority():
 		take_damage.rpc(amount)
 		return
+	if not damage_timeout and damage_count > 2:
+		character.reset_local()
+		Global.reset_positions.emit()
+		return
+	if amount > 0:
+		damage_count += 1
+		damage_timeout = false
+		damage_timer()
 	if current_health <= amount:
 		current_health = 0
 		update_remote_health.rpc(current_health)
@@ -56,6 +67,12 @@ func take_damage(amount: float) -> void:
 	update_remote_health.rpc(current_health)
 	health_bar.set_value((100 * current_health) / max_health)
 	health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
+
+
+func damage_timer() -> void:
+	await get_tree().create_timer(0.05).timeout
+	damage_timeout = true
+	damage_count = 0
 
 
 @rpc("reliable")

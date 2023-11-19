@@ -4,6 +4,9 @@ extends RigidBody2D
 @onready var loc: Vector2 = Vector2.ZERO
 @onready var rot: float = 0
 @onready var teleporting: bool = false
+@onready var can_hit: bool = true
+@onready var hit_count: int = 0
+@onready var character: Node2D = get_parent()
 @onready var power: float
 @onready var contact_normal: Vector2
 @onready var ice_color: Color = Color(0.713725, 0.898039, 0.929412)
@@ -36,14 +39,26 @@ func _integrate_forces(state):
 				rotate(global_rotation)
 				teleport()
 		if state.get_contact_collider_object(0) is RigidBody2D:
+			if Global.mode == 'multi':
+				if not can_hit and hit_count > 2:
+					character.reset_position()
+					Global.reset_positions.emit()
+				can_hit = false
+				hit_count += 1
+				hit_timer()
 			contact_normal = state.get_contact_local_normal(0).normalized()
 			state.apply_impulse(contact_normal * power)
-			for child in get_parent().get_children():
+			for child in character.get_children():
 				child.apply_impulse(contact_normal * power)
 	if teleporting:
 		state.transform = Transform2D(rot, loc)
 		teleporting = false
 
+
+func hit_timer() -> void:
+	await get_tree().create_timer(0.05).timeout
+	can_hit = true
+	hit_count = 0
 
 func teleport() -> void:
 	teleporting = true

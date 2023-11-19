@@ -4,6 +4,8 @@ extends Node2D
 @onready var connected_peer_ids: Array = []
 @onready var client_id: int
 @onready var server_id: int
+@onready var host_point: Transform2D = $Point1.transform
+@onready var client_point: Transform2D = $Point2.transform
 #@onready var server_ip: Label = $Menu/MarginContainer/VBoxContainer/ScrollContainer/HBoxContainer/Label
 @onready var client_ip: String = "192.168.0.10"
 @onready var pause_screen: CanvasLayer = $Pause
@@ -50,9 +52,9 @@ func _ready() -> void:
 		var player_instance = character_dictionary.get(Global.player_selection).instantiate()
 		var bot_instance = bot.instantiate()
 		Global.spawner.add_child(bot_instance)
-		bot_instance.transform = $Point2.transform
+		bot_instance.transform = client_point
 		Global.spawner.add_child(player_instance)
-		player_instance.transform = $Point1.transform
+		player_instance.transform = host_point
 
 	pause_screen.get_child(0).hide()
 	pause_screen.get_child(1).hide()
@@ -159,16 +161,15 @@ func add_player_character(peer_id):
 	player_character.set_multiplayer_authority(peer_id)
 	Global.spawner.add_child(player_character, true)
 	if Global.is_host:
-		player_character.transform = $Point1.transform
+		player_character.transform = host_point
 	else:
-		player_character.transform = $Point2.transform
+		player_character.transform = client_point
 
 
 func add_skill(skill_name: String, place: String, auth: int) -> void:
 	var skill = skill_dictionary.get(skill_name).instantiate()
 	skill.set_multiplayer_authority(auth)
 	get_node(place).add_child(skill)
-#	$ClientSkill.add_child(skill)
 
 
 func remove_skill(place: String) -> void:
@@ -254,9 +255,9 @@ func opponent_died() -> void:
 		var bot_instance = bot.instantiate()
 		Global.spawner.add_child(bot_instance)
 		if Global.player.center.global_position.x > Global.room.x / 2:
-			bot_instance.transform = $Point1.transform
+			bot_instance.transform = host_point
 		else:
-			bot_instance.transform = $Point2.transform
+			bot_instance.transform = client_point
 		Global.damaged.emit(-Global.player.health.bot_max_health)
 	else:
 		await get_tree().create_timer(2).timeout

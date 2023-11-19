@@ -24,6 +24,7 @@ func _ready() -> void:
 		Global.pushed.connect(push_local)
 		Global.freezed.connect(freeze_local)
 		Global.stunned.connect(hit_stun)
+		Global.reset_positions.connect(reset_local)
 
 
 func game_started() -> void:
@@ -80,9 +81,23 @@ func on_body_entered(hit: PhysicsBody2D, caller: RigidBody2D) -> void:
 
 
 @rpc("reliable", "any_peer", "call_remote")
+func reset_local() -> void:
+	if not is_multiplayer_authority():
+		reset_local.rpc()
+		return
+	for child in get_children():
+		if Global.is_host:
+			child.locate(Global.world.host_point.global_position)
+		else:
+			child.locate(Global.world.client_point.global_position)
+		child.teleport()
+
+
+@rpc("reliable", "any_peer", "call_remote")
 func freeze_local(duration: float) -> void:
 	if not is_multiplayer_authority():
 		freeze_local.rpc(duration)
+		return
 	for child in get_children():
 		child.freeze_self(true)
 	await get_tree().create_timer(duration).timeout
@@ -124,6 +139,7 @@ func hit_stun(wait_time: float = 0.5) -> void:
 func dying() -> void:
 	dead = true
 	for child in get_children():
+		Global.camera.add_target(child)
 		for part in Global.player.character.get_children():
 			part.add_collision_exception_with(child)
 	for child in get_children():
@@ -133,7 +149,10 @@ func dying() -> void:
 	Global.pushed.disconnect(push_local)
 	Global.freezed.disconnect(freeze_local)
 	Global.stunned.disconnect(hit_stun)
+	Global.reset_positions.disconnect(reset_local)
 	await get_tree().create_timer(4).timeout
+	for child in get_children():
+		Global.camera.remove_target(child)
 	Global.camera.remove_target(get_parent().center)
 
 

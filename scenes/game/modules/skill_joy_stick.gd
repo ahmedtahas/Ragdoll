@@ -12,23 +12,27 @@ extends Control
 @onready var moving: bool = false
 @onready var using: bool = false
 
+@onready var user_prefs: UserPreferences
+
 signal skill_signal
 
 
 func _ready() -> void:
-	if Global.switch:
-		position = Global.ui_right
-		skill_area_position = Global.left_area_position
-		skill_stick_position = Global.left_stick_position
-	else:
-		position = Global.ui_left
-		skill_area_position = Global.right_area_position
-		skill_stick_position = Global.right_stick_position
-	skill_radius = skill_area.texture_normal.get_size().x / 2
-	skill_area.global_position = skill_area_position
-	skill_stick.global_position = skill_stick_position
-	skill_area.modulate.a = 0.2
-	skill_stick.modulate.a = 0.2
+	user_prefs = UserPreferences.load_or_create()
+	if user_prefs:
+		if user_prefs.joystick_switch:
+			position = Global.ui_right
+			skill_area_position = Global.left_area_position
+			skill_stick_position = Global.left_stick_position
+		else:
+			position = Global.ui_left
+			skill_area_position = Global.right_area_position
+			skill_stick_position = Global.right_stick_position
+		skill_radius = skill_area.texture_normal.get_size().x / 2
+		skill_area.global_position = skill_area_position
+		skill_stick.global_position = skill_stick_position
+		skill_area.modulate.a = 0.2
+		skill_stick.modulate.a = 0.2
 
 
 func _gui_input(event: InputEvent) -> void:

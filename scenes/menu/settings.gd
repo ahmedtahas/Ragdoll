@@ -1,18 +1,25 @@
 extends Control
 
-const joystick_state: Dictionary = {
-	false: "Skill | Movement",
-	true: "Movement | Skill"
-}
+
+@onready var joystick_swapped: bool = false
 
 @onready var user_prefs: UserPreferences
 
+@onready var left_stick_position: Vector2
+@onready var right_stick_position: Vector2
+@onready var skill_stick: Sprite2D
+@onready var movement_stick: Sprite2D
+
 
 func _enter_tree() -> void:
+	skill_stick = get_node("JoystickSwap/Skill")
+	movement_stick = get_node("JoystickSwap/Movement")
+	left_stick_position = skill_stick.position
+	right_stick_position = movement_stick.position
 	user_prefs = UserPreferences.load_or_create()
 	if user_prefs:
 		$MusicSlider.value = user_prefs.music_audio_level
-		$CheckButton.button_pressed = user_prefs.joystick_switch
+		joystick_swapped = user_prefs.joystick_switch
 		update_joystick_state()
 
 
@@ -32,15 +39,20 @@ func _notification(what: int) -> void:
 			back()
 
 
-func update_joystick_state() -> void:
-	$joystick.text = joystick_state.get(user_prefs.joystick_switch)
-
-
-func _on_check_button_toggled(button_pressed: bool) -> void:
+func on_joystick_swap() -> void:
 	if user_prefs:
-		user_prefs.joystick_switch = button_pressed
+		user_prefs.joystick_switch = !user_prefs.joystick_switch
 		user_prefs.save()
 		update_joystick_state()
+
+
+func update_joystick_state() -> void:
+	if user_prefs.joystick_switch:
+		skill_stick.position = right_stick_position
+		movement_stick.position = left_stick_position
+	else:
+		skill_stick.position = left_stick_position
+		movement_stick.position = right_stick_position
 
 
 func music_level_set(value: float) -> void:

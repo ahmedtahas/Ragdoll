@@ -41,6 +41,7 @@ func get_paralyzed(duration) -> void:
 func death() -> void:
 	dead = true
 	for child in character.get_children():
+		Global.camera.add_target(child)
 		for part in Global.player.character.get_children():
 			child.add_collision_exception_with(part)
 	for child in character.get_children():
@@ -48,6 +49,8 @@ func death() -> void:
 			if joint is Joint2D:
 				joint.queue_free()
 	await get_tree().create_timer(4).timeout
+	for child in character.get_children():
+		Global.camera.remove_target(child)
 	Global.camera.remove_target(center)
 	for child in character.get_children():
 		child.set_collision_layer_value(1, false)

@@ -21,29 +21,28 @@ extends Node2D
 @onready var rf: RigidBody2D = $Character/RF
 @onready var body: RigidBody2D = $Character/Body
 @onready var health: CanvasLayer = $Extra/Health
-@onready var ra: CharacterBody2D = $Character/Body/RF
-@onready var crosshair: Sprite2D = $Extra/Cross
-@onready var barrel: Marker2D = $Character/Body/RF/Barrel
+@onready var barrel: Marker2D = $Character/RF/Barrel
 @onready var cooldown_text: RichTextLabel = $Extra/UI/CooldownBar/Text
 @onready var cooldown_bar: TextureProgressBar = $Extra/UI/CooldownBar
 @onready var blood: GPUParticles2D = $Extra/Blood
 
 @onready var cooldown_set: bool = false
-@onready var aiming: bool = false
-@onready var growing: bool = false
 
 
 func _ready() -> void:
+	if get_parent().name == "Display":
+		get_node("Extra/UI").hide()
+		get_node("Extra/Health").hide()
+		character.setup(character_name)
+		return
 	name = str(get_multiplayer_authority())
 	character.setup(character_name)
-	ignore_self()
 	Global.camera.add_target(center)
 	health.set_health(Config.get_value("health", character_name))
-	ra.arm(character_name)
 	if is_multiplayer_authority():
 		Global.player = self
 		skill_joy_stick.skill_signal.connect(skill_signal)
-		skill_joy_stick.button = false
+		skill_joy_stick.button = true
 		cooldown_time = Config.get_value("cooldown", character_name)
 		damage = Config.get_value("damage", character_name)
 		power = Config.get_value("power", character_name)
@@ -54,12 +53,6 @@ func _ready() -> void:
 	else:
 		get_node("Extra/UI").hide()
 		Global.opponent = self
-
-	ra.visible = false
-	ra.set_collision_layer_value(1, false)
-	ra.set_collision_mask_value(1, false)
-
-	crosshair.visible = false
 
 
 @rpc("reliable")
@@ -75,23 +68,6 @@ func remove_skill(place: String) -> void:
 func _physics_process(_delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
-	if aiming:
-		crosshair.rotation += 0.075
-		if growing:
-			if crosshair.scale.x < 1.51:
-				crosshair.scale.x += 0.05
-				crosshair.scale.y += 0.05
-			elif crosshair.scale.x >= 1.5:
-				growing = false
-		else:
-			if crosshair.scale.x > 0.49:
-				crosshair.scale.x -= 0.05
-				crosshair.scale.y -= 0.05
-			elif crosshair.scale.x == 0.5:
-				growing = true
-	else:
-		crosshair.scale = Vector2(2,2)
-
 	if cooldown.is_stopped():
 		if not cooldown_set:
 			cooldown_bar.set_value(100)
@@ -104,29 +80,10 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
 
 
-func ignore_self() -> void:
-	for child in character.get_children():
-		child.add_collision_exception_with(ra)
-
-
-func skill_signal(direction: Vector2, is_aiming) -> void:
+func skill_signal(did_shot: bool) -> void:
 	if not cooldown.is_stopped() or not is_multiplayer_authority():
 		return
-	if not aiming:
-		crosshair.global_position = barrel.global_position
-	if is_aiming:
-		aiming = is_aiming
-		growing = true
-		aiming_arm.rpc(true)
-		ra.look_at(crosshair.global_position)
-		crosshair.visible = true
-		crosshair.global_position += direction * 100
-		crosshair.rotation += 0.075
-
-	else:
-		aiming_arm.rpc(false)
-		aiming = is_aiming
-		growing = false
+	if did_shot:
 		cooldown.start()
 		character.slow_motion.rpc()
 		bullet_instance = bullet.instantiate()
@@ -140,33 +97,12 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 			add_skill.rpc("bullet", "ClientSkill")
 		ignore_skill()
 		bullet_instance.global_position = barrel.global_position
-		bullet_instance.look_at(crosshair.global_position)
-		bullet_instance.fire((crosshair.global_position - barrel.global_position).angle())
-		crosshair.visible = false
+		bullet_instance.fire(rf.global_rotation)
 
 
 func ignore_skill() -> void:
 	for child in character.get_children():
 		child.add_collision_exception_with(bullet_instance)
-
-
-@rpc("reliable", "call_local")
-func aiming_arm(show_arm: bool) -> void:
-	if show_arm:
-		ra.visible = true
-		ra.set_collision_layer_value(1, true)
-		ra.set_collision_mask_value(1, true)
-		rua.visible = false
-		rla.visible = false
-		rf.visible = false
-
-	else:
-		ra.visible = false
-		ra.set_collision_layer_value(1, false)
-		ra.set_collision_mask_value(1, false)
-		rua.visible = true
-		rla.visible = true
-		rf.visible = true
 
 
 @rpc("reliable", "call_local")

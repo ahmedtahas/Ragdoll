@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5s5nff032il4"]
+[gd_scene load_steps=3 format=3 uid="uid://b5s5nff032il4"]
 
 [ext_resource type="Script" path="res://scenes/game/modules/skill_joy_stick.gd" id="1_8xw7p"]
 [ext_resource type="Texture2D" uid="uid://dl216oppgvk0c" path="res://assets/sprites/ui/SkillArea.png" id="1_gwaua"]
-[ext_resource type="Texture2D" uid="uid://dddhf8qbmwtuf" path="res://assets/sprites/ui/dash.png" id="2_2o3et"]
 
 [node name="SkillJoyStick" type="Control"]
 layout_mode = 3
@@ -17,5 +16,5 @@ texture_normal = ExtResource("1_gwaua")
 
 [node name="SkillStick" type="Sprite2D" parent="."]
 position = Vector2(256, 824)
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_2o3et")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_gwaua")

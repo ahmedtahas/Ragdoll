@@ -8,7 +8,6 @@ func _ready() -> void:
 	for child in get_node("Stats").get_children():
 		if child is Label:
 			child.text = str(get_node("/root/Config").get_value(child.name, "crock"))
-	get_node("SkillDescription").text = get_node("/root/Config").get_value("skill_description", "crock")
 
 
 func character_preview(selection: String) -> void:
@@ -16,7 +15,6 @@ func character_preview(selection: String) -> void:
 	for child in get_node("Stats").get_children():
 		if child is Label:
 			child.text = str(get_node("/root/Config").get_value(child.name, selection))
-	get_node("SkillDescription").text = get_node("/root/Config").get_value("skill_description", selection)
 
 
 func character_selected() -> void:

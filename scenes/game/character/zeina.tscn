@@ -198,7 +198,7 @@ replication_config = SubResource("SceneReplicationConfig_kuki0")
 script = ExtResource("4_cgnau")
 
 [node name="Head" type="RigidBody2D" parent="Character" groups=["Damagable", "Damager"]]
-position = Vector2(0, -96)
+position = Vector2(0, -114)
 collision_layer = 0
 collision_mask = 0
 mass = 0.1
@@ -218,32 +218,33 @@ position = Vector2(0, -89.8)
 shape = SubResource("CircleShape2D_v042u")
 
 [node name="HB" type="DampedSpringJoint2D" parent="Character/Head"]
-position = Vector2(-43, 0)
+position = Vector2(-43, 18)
 node_a = NodePath("..")
 node_b = NodePath("../../Body")
 length = 1.0
 stiffness = 64.0
 
 [node name="HB2" type="DampedSpringJoint2D" parent="Character/Head"]
-position = Vector2(43, 0)
+position = Vector2(43, 18)
 node_a = NodePath("..")
 node_b = NodePath("../../Body")
 length = 1.0
 stiffness = 64.0
 
 [node name="HB3" type="PinJoint2D" parent="Character/Head"]
+position = Vector2(0, 18)
 node_a = NodePath("..")
 node_b = NodePath("../../Body")
 
 [node name="HB4" type="DampedSpringJoint2D" parent="Character/Head"]
-position = Vector2(-43, 0)
+position = Vector2(-43, 18)
 node_a = NodePath("..")
 node_b = NodePath("../../Body")
 length = 1.0
 stiffness = 64.0
 
 [node name="HB5" type="DampedSpringJoint2D" parent="Character/Head"]
-position = Vector2(43, 0)
+position = Vector2(43, 18)
 node_a = NodePath("..")
 node_b = NodePath("../../Body")
 length = 1.0

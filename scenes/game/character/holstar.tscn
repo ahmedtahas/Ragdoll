@@ -1,16 +1,14 @@
-[gd_scene load_steps=27 format=3 uid="uid://cqspmmvt74co0"]
+[gd_scene load_steps=24 format=3 uid="uid://cqspmmvt74co0"]
 
 [ext_resource type="Script" path="res://scenes/game/character/holstar.gd" id="1_s3rep"]
 [ext_resource type="Texture2D" uid="uid://bok5q7sxwnfus" path="res://assets/sprites/character/guidelines/Head.png" id="2_3ativ"]
 [ext_resource type="Script" path="res://scenes/game/character/character.gd" id="2_lvrh6"]
 [ext_resource type="Script" path="res://scenes/game/character/teleporter.gd" id="3_55wp0"]
 [ext_resource type="Texture2D" uid="uid://drypq4jdrky7g" path="res://assets/sprites/character/guidelines/3_piece.png" id="4_6p2mm"]
-[ext_resource type="Script" path="res://scenes/game/modules/shooting_arm.gd" id="5_55in7"]
 [ext_resource type="Script" path="res://scenes/game/modules/weapon_collision.gd" id="6_w54ni"]
 [ext_resource type="Texture2D" uid="uid://die5me60kg1r5" path="res://assets/sprites/character/guidelines/4_piece.png" id="7_d0ght"]
 [ext_resource type="Texture2D" uid="uid://cnhkrdor3gjqg" path="res://assets/sprites/character/guidelines/2_piece.png" id="7_dg6la"]
 [ext_resource type="PackedScene" uid="uid://b1sal3rtbhiur" path="res://scenes/game/modules/ui.tscn" id="12_ahi32"]
-[ext_resource type="Texture2D" uid="uid://b5ctcu202xbwj" path="res://assets/sprites/character/equipped/holstar/Crosshair.png" id="13_77j40"]
 [ext_resource type="Texture2D" uid="uid://ii2517k08sno" path="res://assets/sprites/particle/Flame.png" id="13_dr3p0"]
 [ext_resource type="PackedScene" uid="uid://cmj0xfyl2c61u" path="res://scenes/game/modules/health.tscn" id="13_lt5l2"]
 
@@ -20,10 +18,6 @@ radius = 137.015
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xp3fk"]
 radius = 60.0
 height = 362.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ag634"]
-radius = 60.0
-height = 602.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4u5jn"]
 radius = 60.0
@@ -281,31 +275,6 @@ texture = ExtResource("4_6p2mm")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Character/Body"]
 shape = SubResource("CapsuleShape2D_xp3fk")
 
-[node name="RF" type="CharacterBody2D" parent="Character/Body" groups=["Skill"]]
-script = ExtResource("5_55in7")
-
-[node name="RUA" type="Sprite2D" parent="Character/Body/RF"]
-position = Vector2(120, 0)
-rotation = 1.5708
-texture = ExtResource("4_6p2mm")
-
-[node name="RLA" type="Sprite2D" parent="Character/Body/RF"]
-position = Vector2(360, 0)
-rotation = 1.5708
-texture = ExtResource("4_6p2mm")
-
-[node name="RF" type="Sprite2D" parent="Character/Body/RF"]
-position = Vector2(480, 0)
-script = ExtResource("6_w54ni")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Character/Body/RF"]
-position = Vector2(240, 0)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_ag634")
-
-[node name="Barrel" type="Marker2D" parent="Character/Body/RF"]
-position = Vector2(696, -80)
-
 [node name="RLA" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 position = Vector2(240, 0)
 rotation = 1.5708
@@ -464,6 +433,9 @@ node_a = NodePath("../../RLA")
 node_b = NodePath("..")
 length = 1.0
 stiffness = 64.0
+
+[node name="Barrel" type="Marker2D" parent="Character/RF"]
+position = Vector2(216, -80)
 
 [node name="LLA" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 position = Vector2(-240, 0)
@@ -958,10 +930,6 @@ one_shot = true
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Extra"]
 delta_interval = 5.0
 replication_config = SubResource("SceneReplicationConfig_k4poa")
-
-[node name="Cross" type="Sprite2D" parent="Extra"]
-position = Vector2(696, -80)
-texture = ExtResource("13_77j40")
 
 [node name="Blood" type="GPUParticles2D" parent="Extra"]
 top_level = true

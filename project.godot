@@ -36,10 +36,6 @@ enabled=PackedStringArray()
 
 import/blender/enabled=false
 
-[gui]
-
-theme/custom_font="res://assets/font/Fighting Spirit 2 bold.otf"
-
 [input]
 
 left={

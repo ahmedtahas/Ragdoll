@@ -24,6 +24,11 @@ extends Node2D
 
 
 func _ready() -> void:
+	if get_parent().name == "Display":
+		get_node("Extra/UI").hide()
+		get_node("Extra/Health").hide()
+		character.setup(character_name)
+		return
 	name = str(get_multiplayer_authority())
 	character.setup(character_name)
 	Global.camera.add_target(center)

@@ -37,6 +37,7 @@ signal stunned
 signal bot_died
 signal player_died
 signal opponent_died
+signal reset_positions
 
 
 func _ready() -> void:

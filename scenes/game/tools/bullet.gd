@@ -21,6 +21,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func fire(angle: float) -> void:
+	global_rotation = angle
 	set_velocity(vel.rotated(angle) * speed)
 
 

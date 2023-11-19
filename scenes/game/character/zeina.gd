@@ -3,6 +3,7 @@ extends Node2D
 @onready var character_name: String = "zeina"
 
 @onready var dagger: PackedScene = preload("res://scenes/game/tools/dagger.tscn")
+@onready var after_image: PackedScene = preload("res://scenes/game/tools/after_image.tscn")
 
 @onready var cooldown_time: float
 @onready var damage: float
@@ -12,12 +13,13 @@ extends Node2D
 @onready var cooldown_bar: TextureProgressBar = $Extra/UI/CooldownBar
 
 @onready var dagger_instance: CharacterBody2D
+@onready var after_image_instance: Node2D
 
 @onready var radius: Marker2D = $Character/Hip/Center/Radius
 @onready var center: Marker2D = $Character/Hip/Center
 @onready var character: Node2D = $Character
 @onready var health: CanvasLayer = $Extra/Health
-@onready var skill_stick: Control = $Extra/UI/SkillJoyStick
+@onready var skill_joy_stick: Control = $Extra/UI/SkillJoyStick
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var body: RigidBody2D = $Character/Body
 @onready var _range: Marker2D = $Character/Hip/Center/Range
@@ -29,6 +31,12 @@ extends Node2D
 
 
 func _ready() -> void:
+	if get_parent().name == "Display":
+		get_node("Extra/UI").hide()
+		get_node("Extra/Health").hide()
+		character.setup(character_name)
+		center.visible = false
+		return
 	name = str(get_multiplayer_authority())
 	character.setup(character_name)
 	character.hit_signal.connect(hit_signal)
@@ -38,8 +46,8 @@ func _ready() -> void:
 
 	if is_multiplayer_authority():
 		Global.player = self
-		skill_stick.skill_signal.connect(skill_signal)
-		skill_stick.button = false
+		skill_joy_stick.skill_signal.connect(skill_signal)
+		skill_joy_stick.button = false
 		cooldown_time = Config.get_value("cooldown", character_name)
 		damage = Config.get_value("damage", character_name)
 		cooldown.wait_time = cooldown_time
@@ -130,10 +138,10 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		if not _hit:
 			end_point = Global.avoid_enemies(end_point - center.global_position)
 			teleport()
-			if not Global.is_host:
-				remove_skill.rpc("ClientSkill")
-			else:
+			if Global.is_host:
 				remove_skill.rpc("ServerSkill")
+			else:
+				remove_skill.rpc("ClientSkill")
 		else:
 			_hit = false
 
@@ -143,13 +151,34 @@ func ignore_skill() -> void:
 		child.add_collision_exception_with(dagger_instance)
 
 
+@rpc("reliable", "call_local")
+func show_after_image() -> void:
+	after_image_instance = after_image.instantiate()
+	add_child(after_image_instance)
+	after_image_instance.global_position = body.global_position
+	Global.camera.add_target(after_image_instance)
+
+
+@rpc("reliable", "call_local")
+func remove_after_image() -> void:
+	after_image_instance.queue_free()
+	Global.camera.remove_target(after_image_instance)
+
+
 func teleport() -> void:
+	show_after_image.rpc()
+	for child in character.get_children():
+		child.visible = false
 	for child in character.get_children():
 		child.locate(end_point)
 		child.rotate(child.global_rotation)
 		child.teleport()
 	dagger_instance.hit_signal.disconnect(dagger_hit_signal)
 	dagger_instance.queue_free()
+	await get_tree().create_timer((end_point - center.global_position).length() / (_range.position.x * 3)).timeout
+	for child in character.get_children():
+		child.visible = true
+	remove_after_image.rpc()
 
 
 func hit_signal(enemy: RigidBody2D, caller: RigidBody2D) -> void:
@@ -175,7 +204,7 @@ func dagger_hit_signal(hit: PhysicsBody2D) -> void:
 	elif hit is CharacterBody2D:
 		end_point = center.global_position
 	teleport()
-	if not Global.is_host:
-		remove_skill.rpc("ClientSkill")
-	else:
+	if Global.is_host:
 		remove_skill.rpc("ServerSkill")
+	else:
+		remove_skill.rpc("ClientSkill")

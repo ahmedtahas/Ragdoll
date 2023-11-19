@@ -938,3 +938,5 @@ replication_config = SubResource("SceneReplicationConfig_lxuvm")
 
 [node name="SkillDuration" type="Timer" parent="Extra"]
 one_shot = true
+
+[node name="InvulnerabilityCooldown" type="Timer" parent="Extra"]
