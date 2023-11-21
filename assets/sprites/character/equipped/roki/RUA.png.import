@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://di5m8ejd7oetr"
-path="res://.godot/imported/LUA.png-c3a55029e02b10bba99d9e9e17000213.ctex"
+uid="uid://bug2kyb8hnqrp"
+path="res://.godot/imported/RUA.png-4c92457082b28ec6db19473d5bf72364.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/character/equipped/roki_roki/LUA.png"
-dest_files=["res://.godot/imported/LUA.png-c3a55029e02b10bba99d9e9e17000213.ctex"]
+source_file="res://assets/sprites/character/equipped/roki/RUA.png"
+dest_files=["res://.godot/imported/RUA.png-4c92457082b28ec6db19473d5bf72364.ctex"]
 
 [params]
 

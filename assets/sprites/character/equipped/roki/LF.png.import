@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbx7hfiiel2h"
-path="res://.godot/imported/Hip.png-2fdb2ccb2fd40589aa9820fd0ce78cba.ctex"
+uid="uid://cmg6k5l5ebhlu"
+path="res://.godot/imported/LF.png-e87c5cb4aa51c7ffe5413f12d1d6217c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/character/equipped/roki_roki/Hip.png"
-dest_files=["res://.godot/imported/Hip.png-2fdb2ccb2fd40589aa9820fd0ce78cba.ctex"]
+source_file="res://assets/sprites/character/equipped/roki/LF.png"
+dest_files=["res://.godot/imported/LF.png-e87c5cb4aa51c7ffe5413f12d1d6217c.ctex"]
 
 [params]
 

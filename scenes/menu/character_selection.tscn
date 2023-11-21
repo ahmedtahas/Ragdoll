@@ -191,7 +191,7 @@ offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 64
-text = "Roki Roki"
+text = "Roki"
 horizontal_alignment = 1
 vertical_alignment = 1
 

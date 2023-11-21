@@ -1,7 +1,7 @@
 extends Node2D
 
 
-@onready var character_name: String = "roki_roki"
+@onready var character_name: String = "roki"
 
 @onready var duration_time: float
 @onready var cooldown_time: float

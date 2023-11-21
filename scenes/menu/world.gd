@@ -17,7 +17,7 @@ extends Node2D
 	"zeina": preload("res://scenes/game/character/zeina.tscn"),
 	"tin": preload("res://scenes/game/character/tin.tscn"),
 	"holstar": preload("res://scenes/game/character/holstar.tscn"),
-	"roki_roki": preload("res://scenes/game/character/roki_roki.tscn"),
+	"roki": preload("res://scenes/game/character/roki.tscn"),
 	"paranoc": preload("res://scenes/game/character/paranoc.tscn"),
 	"kaliber": preload("res://scenes/game/character/kaliber.tscn"),
 	"meri": preload("res://scenes/game/character/meri.tscn"),

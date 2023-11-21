@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0yeehquu3kbd"
-path="res://.godot/imported/Head.png-021bdf3d08eb2fd47fb84ff23d3320ba.ctex"
+uid="uid://ddvjquwcjyapg"
+path="res://.godot/imported/RLL.png-9431b0bbf2f99e31cdb5257d51875b54.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/character/equipped/roki_roki/Head.png"
-dest_files=["res://.godot/imported/Head.png-021bdf3d08eb2fd47fb84ff23d3320ba.ctex"]
+source_file="res://assets/sprites/character/equipped/roki/RLL.png"
+dest_files=["res://.godot/imported/RLL.png-9431b0bbf2f99e31cdb5257d51875b54.ctex"]
 
 [params]
 

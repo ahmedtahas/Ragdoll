@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmg6k5l5ebhlu"
-path="res://.godot/imported/LF.png-4bec2aee40d68abe790d27ae53d07f2d.ctex"
+uid="uid://b7nntbai32b2o"
+path="res://.godot/imported/Stomach.png-53a8b20652d7ab405ecee8a15ebee8bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/character/equipped/roki_roki/LF.png"
-dest_files=["res://.godot/imported/LF.png-4bec2aee40d68abe790d27ae53d07f2d.ctex"]
+source_file="res://assets/sprites/character/equipped/roki/Stomach.png"
+dest_files=["res://.godot/imported/Stomach.png-53a8b20652d7ab405ecee8a15ebee8bb.ctex"]
 
 [params]
 

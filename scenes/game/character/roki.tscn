@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://dfm7luceo6sgm"]
 
-[ext_resource type="Script" path="res://scenes/game/character/roki_roki.gd" id="1_kxefk"]
+[ext_resource type="Script" path="res://scenes/game/character/roki.gd" id="1_kxefk"]
 [ext_resource type="PackedScene" uid="uid://b1sal3rtbhiur" path="res://scenes/game/modules/ui.tscn" id="2_4443f"]
 [ext_resource type="PackedScene" uid="uid://cmj0xfyl2c61u" path="res://scenes/game/modules/health.tscn" id="3_shusp"]
 [ext_resource type="Script" path="res://scenes/game/character/character.gd" id="4_5lj84"]

@@ -5,7 +5,7 @@ extends Control
 
 
 func _ready() -> void:
-	for child in get_node("Buttons/ButtonContainer").get_children():
+	for child in get_child(0).get_children():
 		child.pressed.connect(self.character_preview.bind(child.name))
 	Global.player_selection = "crock"
 	for child in get_node("Stats").get_children():
