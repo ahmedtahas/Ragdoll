@@ -1,35 +1,17 @@
-[gd_scene load_steps=16 format=3 uid="uid://dufxxfvtqhfml"]
+[gd_scene load_steps=17 format=3 uid="uid://cf8578vuwyibt"]
 
-[ext_resource type="Script" path="res://scenes/menu/character_selection_scene.gd" id="1_hdp2c"]
-[ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="2_78u4u"]
-[ext_resource type="Script" path="res://scenes/menu/scroll_container.gd" id="2_dkvof"]
-[ext_resource type="Texture2D" uid="uid://b4j6sr1nmlxp7" path="res://assets/sprites/ui/Level.png" id="3_l605i"]
-[ext_resource type="Texture2D" uid="uid://jqfinyb6lktd" path="res://assets/sprites/ui/Speed.png" id="4_0qtc4"]
-[ext_resource type="Texture2D" uid="uid://cu77x8exijha" path="res://assets/sprites/ui/Damage.png" id="4_ojy41"]
-[ext_resource type="Texture2D" uid="uid://dd7vi4ngs4pa1" path="res://assets/sprites/ui/HP.png" id="5_eymu3"]
-[ext_resource type="Texture2D" uid="uid://b7s7mpemc5o88" path="res://assets/sprites/character/equipped/meri/SkillIcon.png" id="7_pexx1"]
+[ext_resource type="Script" path="res://scenes/menu/inventory.gd" id="1_ka0ac"]
+[ext_resource type="Script" path="res://scenes/menu/Swiper.gd" id="1_yga3v"]
+[ext_resource type="Texture2D" uid="uid://b4i0476eaq54k" path="res://assets/sprites/ui/LevelProgressBase.png" id="2_yposh"]
+[ext_resource type="Texture2D" uid="uid://cf7snjnlxilsn" path="res://assets/sprites/ui/LevelProgress.png" id="3_3vaes"]
+[ext_resource type="Script" path="res://scenes/menu/scroll_container.gd" id="3_sqvsk"]
+[ext_resource type="Texture2D" uid="uid://dqp2brr12b3wp" path="res://assets/sprites/ui/MovementArea.png" id="6_6eaii"]
+[ext_resource type="Texture2D" uid="uid://dl216oppgvk0c" path="res://assets/sprites/ui/SkillArea.png" id="7_5tl1t"]
+[ext_resource type="Script" path="res://scenes/menu/auto_font_size.gd" id="9_fffbx"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h3468"]
-bg_color = Color(0, 0.807843, 0.0980392, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6p3xa"]
 
-[sub_resource type="Theme" id="Theme_hty3k"]
-Button/styles/normal = SubResource("StyleBoxFlat_h3468")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yap3k"]
-bg_color = Color(0.854902, 0.501961, 0, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="Theme" id="Theme_wc25s"]
-Button/styles/normal = SubResource("StyleBoxFlat_yap3k")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jh0mm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0tecq"]
 bg_color = Color(0, 0.807843, 0.0980392, 1)
 border_color = Color(0.8, 0.8, 0.8, 0)
 corner_radius_top_left = 10
@@ -37,54 +19,169 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="Theme" id="Theme_1vq8i"]
-Button/styles/normal = SubResource("StyleBoxFlat_jh0mm")
+[sub_resource type="Theme" id="Theme_b8rqx"]
+Button/styles/normal = SubResource("StyleBoxFlat_0tecq")
 
-[sub_resource type="LabelSettings" id="LabelSettings_ls2vu"]
-font = ExtResource("2_78u4u")
-font_size = 32
-outline_size = 1
-outline_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n22kj"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
-[node name="character selection" type="Control"]
-process_mode = 3
+[sub_resource type="Theme" id="Theme_y3vr2"]
+Button/styles/normal = SubResource("StyleBoxFlat_n22kj")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80wfs"]
+bg_color = Color(0.905882, 0.458824, 0, 1)
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fnfn"]
+bg_color = Color(0.854902, 0.501961, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_8316o"]
+Button/styles/disabled = SubResource("StyleBoxFlat_80wfs")
+Button/styles/normal = SubResource("StyleBoxFlat_8fnfn")
+
+[node name="Inventory" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-script = ExtResource("1_hdp2c")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ka0ac")
+
+[node name="Swiper" type="TouchScreenButton" parent="."]
+position = Vector2(960, 540)
+scale = Vector2(96, 54)
+shape = SubResource("RectangleShape2D_6p3xa")
+shape_centered = false
+script = ExtResource("1_yga3v")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0.00784314, 0.180392, 0.223529, 1)
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-layout_mode = 0
+[node name="Top" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
 offset_right = 1920.0
-offset_bottom = 1080.0
-mouse_filter = 2
+offset_bottom = 128.0
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(1920, 1080)
-size_2d_override_stretch = true
-render_target_update_mode = 4
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Top"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 1056.0
+offset_bottom = 96.0
+value = 50.0
+texture_under = ExtResource("2_yposh")
+texture_progress = ExtResource("3_3vaes")
 
-[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
-zoom = Vector2(0.4, 0.4)
+[node name="YellowStone" type="TextureRect" parent="Top"]
+layout_mode = 0
+offset_left = 1088.0
+offset_top = 32.0
+offset_right = 1152.0
+offset_bottom = 96.0
+texture = ExtResource("6_6eaii")
+expand_mode = 1
 
-[node name="Display" type="Node2D" parent="SubViewportContainer/SubViewport/Camera2D"]
-position = Vector2(-1152, -448)
+[node name="Amount" type="Label" parent="Top/YellowStone"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = -24.0
+offset_right = 192.0
+offset_bottom = 24.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "99.9k"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AstroCurrency" type="TextureRect" parent="Top"]
+layout_mode = 0
+offset_left = 1280.0
+offset_top = 32.0
+offset_right = 1344.0
+offset_bottom = 96.0
+texture = ExtResource("7_5tl1t")
+expand_mode = 1
+
+[node name="Amount" type="Label" parent="Top/AstroCurrency"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = -24.0
+offset_right = 192.0
+offset_bottom = 24.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "99.9k"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Top"]
+layout_mode = 0
+offset_left = 1472.0
+offset_top = 16.0
+offset_right = 1920.0
+offset_bottom = 112.0
+theme_override_font_sizes/font_size = 46
+text = "Player Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_fffbx")
+
+[node name="CharacterSelection" type="Button" parent="."]
+self_modulate = Color(0, 0.552941, 0.129412, 1)
+offset_left = 32.0
+offset_top = 128.0
+offset_right = 464.0
+offset_bottom = 256.0
+theme = SubResource("Theme_b8rqx")
+theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
+
+[node name="Text" type="Label" parent="CharacterSelection"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Crock"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Characters" type="ScrollContainer" parent="."]
 visible = false
-layout_mode = 0
 offset_left = 32.0
-offset_top = 472.0
-offset_right = 608.0
-offset_bottom = 920.0
-script = ExtResource("2_dkvof")
+offset_top = 128.0
+offset_right = 464.0
+offset_bottom = 576.0
+script = ExtResource("3_sqvsk")
 
 [node name="CharacterContainer" type="VBoxContainer" parent="Characters"]
 layout_mode = 2
@@ -93,10 +190,10 @@ size_flags_vertical = 3
 
 [node name="crock" type="Button" parent="Characters/CharacterContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
-custom_minimum_size = Vector2(576, 128)
+custom_minimum_size = Vector2(432, 128)
 layout_mode = 2
 mouse_filter = 1
-theme = SubResource("Theme_hty3k")
+theme = SubResource("Theme_y3vr2")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
 [node name="Text" type="Label" parent="Characters/CharacterContainer/crock"]
@@ -119,10 +216,10 @@ vertical_alignment = 1
 
 [node name="zeina" type="Button" parent="Characters/CharacterContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
-custom_minimum_size = Vector2(576, 128)
+custom_minimum_size = Vector2(432, 128)
 layout_mode = 2
 mouse_filter = 1
-theme = SubResource("Theme_hty3k")
+theme = SubResource("Theme_y3vr2")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
 [node name="Text" type="Label" parent="Characters/CharacterContainer/zeina"]
@@ -145,10 +242,10 @@ vertical_alignment = 1
 
 [node name="holstar" type="Button" parent="Characters/CharacterContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
-custom_minimum_size = Vector2(576, 128)
+custom_minimum_size = Vector2(432, 128)
 layout_mode = 2
 mouse_filter = 1
-theme = SubResource("Theme_hty3k")
+theme = SubResource("Theme_y3vr2")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
 [node name="Text" type="Label" parent="Characters/CharacterContainer/holstar"]
@@ -171,10 +268,10 @@ vertical_alignment = 1
 
 [node name="roki" type="Button" parent="Characters/CharacterContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
-custom_minimum_size = Vector2(576, 128)
+custom_minimum_size = Vector2(432, 128)
 layout_mode = 2
 mouse_filter = 1
-theme = SubResource("Theme_hty3k")
+theme = SubResource("Theme_y3vr2")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
 [node name="Text" type="Label" parent="Characters/CharacterContainer/roki"]
@@ -197,10 +294,10 @@ vertical_alignment = 1
 
 [node name="kaliber" type="Button" parent="Characters/CharacterContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
-custom_minimum_size = Vector2(576, 128)
+custom_minimum_size = Vector2(432, 128)
 layout_mode = 2
 mouse_filter = 1
-theme = SubResource("Theme_hty3k")
+theme = SubResource("Theme_y3vr2")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
 [node name="Text" type="Label" parent="Characters/CharacterContainer/kaliber"]
@@ -223,10 +320,10 @@ vertical_alignment = 1
 
 [node name="buccarold" type="Button" parent="Characters/CharacterContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
-custom_minimum_size = Vector2(576, 128)
+custom_minimum_size = Vector2(432, 128)
 layout_mode = 2
 mouse_filter = 1
-theme = SubResource("Theme_hty3k")
+theme = SubResource("Theme_y3vr2")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
 [node name="Text" type="Label" parent="Characters/CharacterContainer/buccarold"]
@@ -249,10 +346,10 @@ vertical_alignment = 1
 
 [node name="paranoc" type="Button" parent="Characters/CharacterContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
-custom_minimum_size = Vector2(576, 128)
+custom_minimum_size = Vector2(432, 128)
 layout_mode = 2
 mouse_filter = 1
-theme = SubResource("Theme_hty3k")
+theme = SubResource("Theme_y3vr2")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
 [node name="Text" type="Label" parent="Characters/CharacterContainer/paranoc"]
@@ -275,10 +372,10 @@ vertical_alignment = 1
 
 [node name="tin" type="Button" parent="Characters/CharacterContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
-custom_minimum_size = Vector2(576, 128)
+custom_minimum_size = Vector2(432, 128)
 layout_mode = 2
 mouse_filter = 1
-theme = SubResource("Theme_hty3k")
+theme = SubResource("Theme_y3vr2")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
 [node name="Text" type="Label" parent="Characters/CharacterContainer/tin"]
@@ -301,10 +398,10 @@ vertical_alignment = 1
 
 [node name="moot" type="Button" parent="Characters/CharacterContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
-custom_minimum_size = Vector2(576, 128)
+custom_minimum_size = Vector2(432, 128)
 layout_mode = 2
 mouse_filter = 1
-theme = SubResource("Theme_hty3k")
+theme = SubResource("Theme_y3vr2")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
 [node name="Text" type="Label" parent="Characters/CharacterContainer/moot"]
@@ -327,10 +424,10 @@ vertical_alignment = 1
 
 [node name="meri" type="Button" parent="Characters/CharacterContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
-custom_minimum_size = Vector2(576, 128)
+custom_minimum_size = Vector2(432, 128)
 layout_mode = 2
 mouse_filter = 1
-theme = SubResource("Theme_hty3k")
+theme = SubResource("Theme_y3vr2")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
 [node name="Text" type="Label" parent="Characters/CharacterContainer/meri"]
@@ -353,10 +450,10 @@ vertical_alignment = 1
 
 [node name="raldorone" type="Button" parent="Characters/CharacterContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
-custom_minimum_size = Vector2(576, 128)
+custom_minimum_size = Vector2(432, 128)
 layout_mode = 2
 mouse_filter = 1
-theme = SubResource("Theme_hty3k")
+theme = SubResource("Theme_y3vr2")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
 [node name="Text" type="Label" parent="Characters/CharacterContainer/raldorone"]
@@ -377,43 +474,34 @@ text = "Raldorone"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CharacterSelection" type="Button" parent="."]
-layout_mode = 0
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
+zoom = Vector2(0.4, 0.4)
+
+[node name="Display" type="Node2D" parent="SubViewportContainer/SubViewport/Camera2D"]
+position = Vector2(-640, -384)
+
+[node name="Store" type="Button" parent="."]
+self_modulate = Color(0, 0.552941, 0.129412, 1)
 offset_left = 32.0
 offset_top = 920.0
-offset_right = 608.0
+offset_right = 464.0
 offset_bottom = 1048.0
-theme = SubResource("Theme_wc25s")
-
-[node name="Text" type="Label" parent="CharacterSelection"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -216.0
-offset_top = -64.0
-offset_right = 216.0
-offset_bottom = 64.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 64
-text = "Crock"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Select" type="Button" parent="."]
-self_modulate = Color(0, 0.552941, 0.129412, 1)
-layout_mode = 0
-offset_left = 672.0
-offset_top = 920.0
-offset_right = 1248.0
-offset_bottom = 1048.0
-theme = SubResource("Theme_1vq8i")
+theme = SubResource("Theme_b8rqx")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="Text" type="Label" parent="Select"]
+[node name="Text" type="Label" parent="Store"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -427,21 +515,73 @@ offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 64
-text = "Select"
+text = "Store"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Back" type="Button" parent="."]
+[node name="Inventory" type="Button" parent="."]
+offset_left = 504.0
+offset_top = 920.0
+offset_right = 936.0
+offset_bottom = 1048.0
+theme = SubResource("Theme_8316o")
+disabled = true
+
+[node name="Text" type="Label" parent="Inventory"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Play" type="Button" parent="."]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
-layout_mode = 0
-offset_left = 1312.0
+offset_left = 984.0
+offset_top = 920.0
+offset_right = 1416.0
+offset_bottom = 1048.0
+theme = SubResource("Theme_b8rqx")
+theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
+
+[node name="Text" type="Label" parent="Play"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Settings" type="Button" parent="."]
+self_modulate = Color(0, 0.552941, 0.129412, 1)
+offset_left = 1456.0
 offset_top = 920.0
 offset_right = 1888.0
 offset_bottom = 1048.0
-theme = SubResource("Theme_1vq8i")
+theme = SubResource("Theme_b8rqx")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="Text" type="Label" parent="Back"]
+[node name="Text" type="Label" parent="Settings"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -455,149 +595,9 @@ offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 64
-text = "Back"
+text = "Settings"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Stats" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="level" type="TextureRect" parent="Stats"]
-layout_mode = 2
-offset_left = 1024.0
-offset_top = 32.0
-offset_right = 1152.0
-offset_bottom = 160.0
-texture = ExtResource("3_l605i")
-expand_mode = 2
-
-[node name="level" type="Label" parent="Stats/level"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 160.0
-offset_top = -47.0
-offset_right = 396.0
-offset_bottom = 47.0
-grow_vertical = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 64
-text = "99"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="speed" type="TextureRect" parent="Stats"]
-layout_mode = 2
-offset_left = 1428.0
-offset_top = 32.0
-offset_right = 1556.0
-offset_bottom = 160.0
-texture = ExtResource("4_0qtc4")
-expand_mode = 2
-
-[node name="speed" type="Label" parent="Stats/speed"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 160.0
-offset_top = -47.0
-offset_right = 396.0
-offset_bottom = 47.0
-grow_vertical = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 64
-text = "60"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="damage" type="TextureRect" parent="Stats"]
-layout_mode = 2
-offset_left = 1428.0
-offset_top = 192.0
-offset_right = 1556.0
-offset_bottom = 320.0
-texture = ExtResource("4_ojy41")
-expand_mode = 2
-
-[node name="damage" type="Label" parent="Stats/damage"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 160.0
-offset_top = -47.0
-offset_right = 396.0
-offset_bottom = 47.0
-grow_vertical = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 64
-text = "999"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="health" type="TextureRect" parent="Stats"]
-layout_mode = 2
-offset_left = 1024.0
-offset_top = 192.0
-offset_right = 1152.0
-offset_bottom = 320.0
-texture = ExtResource("5_eymu3")
-expand_mode = 2
-
-[node name="health" type="Label" parent="Stats/health"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 160.0
-offset_top = -47.0
-offset_right = 396.0
-offset_bottom = 47.0
-grow_vertical = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 64
-text = "2000"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="skill" type="TextureRect" parent="Stats"]
-layout_mode = 2
-offset_left = 1024.0
-offset_top = 352.0
-offset_right = 1152.0
-offset_bottom = 480.0
-texture = ExtResource("7_pexx1")
-expand_mode = 2
-
-[node name="skill_name" type="Label" parent="Stats/skill"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 144.0
-offset_top = -47.0
-offset_right = 784.0
-offset_bottom = 47.0
-grow_vertical = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 64
-text = "Skill"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="skill_description" type="Label" parent="Stats/skill/skill_name"]
-layout_mode = 0
-offset_left = -196.0
-offset_top = 144.0
-offset_right = 668.0
-offset_bottom = 528.0
-label_settings = SubResource("LabelSettings_ls2vu")
-autowrap_mode = 3
 
 [connection signal="pressed" from="CharacterSelection" to="Characters" method="show"]
-[connection signal="pressed" from="Select" to="." method="character_selected"]
-[connection signal="pressed" from="Back" to="." method="back"]
+[connection signal="pressed" from="CharacterSelection" to="CharacterSelection" method="hide"]

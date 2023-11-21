@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dxuo5p3a2yde3"]
+[gd_scene load_steps=16 format=3 uid="uid://dxuo5p3a2yde3"]
 
 [ext_resource type="Script" path="res://scenes/menu/main_menu.gd" id="1_l8f8e"]
 [ext_resource type="Script" path="res://scenes/menu/Swiper.gd" id="2_lcs8g"]
@@ -8,10 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://bgut5y6pcjr4y" path="res://assets/sprites/ui/LevelProgressKnob.png" id="6_h41gk"]
 [ext_resource type="Texture2D" uid="uid://dqp2brr12b3wp" path="res://assets/sprites/ui/MovementArea.png" id="7_0lxo8"]
 [ext_resource type="Texture2D" uid="uid://dl216oppgvk0c" path="res://assets/sprites/ui/SkillArea.png" id="8_xs87w"]
+[ext_resource type="Script" path="res://scenes/menu/auto_font_size.gd" id="9_w471v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rrtya"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0tecq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pr6ec"]
 bg_color = Color(0, 0.807843, 0.0980392, 1)
 border_color = Color(0.8, 0.8, 0.8, 0)
 corner_radius_top_left = 10
@@ -20,9 +21,9 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="Theme" id="Theme_uyfvj"]
-Button/styles/normal = SubResource("StyleBoxFlat_0tecq")
+Button/styles/normal = SubResource("StyleBoxFlat_pr6ec")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80wfs"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v34xy"]
 bg_color = Color(0.905882, 0.458824, 0, 1)
 border_color = Color(0.8, 0.8, 0.8, 0)
 corner_radius_top_left = 10
@@ -30,7 +31,7 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fnfn"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu7hl"]
 bg_color = Color(0.854902, 0.501961, 0, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
@@ -38,8 +39,8 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="Theme" id="Theme_3snf8"]
-Button/styles/disabled = SubResource("StyleBoxFlat_80wfs")
-Button/styles/normal = SubResource("StyleBoxFlat_8fnfn")
+Button/styles/disabled = SubResource("StyleBoxFlat_v34xy")
+Button/styles/normal = SubResource("StyleBoxFlat_wu7hl")
 
 [node name="MainMenu" type="Control"]
 process_mode = 3
@@ -71,6 +72,7 @@ offset_right = 1920.0
 offset_bottom = 128.0
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Top"]
+layout_mode = 0
 offset_left = 32.0
 offset_top = 32.0
 offset_right = 1056.0
@@ -109,6 +111,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AstroCurrency" type="TextureRect" parent="Top"]
+layout_mode = 0
 offset_left = 1280.0
 offset_top = 32.0
 offset_right = 1344.0
@@ -132,14 +135,16 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label" type="Label" parent="Top"]
+layout_mode = 0
 offset_left = 1472.0
 offset_top = 16.0
 offset_right = 1920.0
 offset_bottom = 112.0
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 46
 text = "Player Name"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("9_w471v")
 
 [node name="Store" type="Button" parent="."]
 self_modulate = Color(0, 0.552941, 0.129412, 1)

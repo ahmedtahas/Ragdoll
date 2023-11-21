@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c0gtvbmidh5pw"]
+[gd_scene load_steps=16 format=3 uid="uid://c0gtvbmidh5pw"]
 
 [ext_resource type="Script" path="res://scenes/menu/store.gd" id="1_neg87"]
 [ext_resource type="Script" path="res://scenes/menu/Swiper.gd" id="2_0y0uj"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bgut5y6pcjr4y" path="res://assets/sprites/ui/LevelProgressKnob.png" id="6_bbgtf"]
 [ext_resource type="Texture2D" uid="uid://dqp2brr12b3wp" path="res://assets/sprites/ui/MovementArea.png" id="7_wpgj0"]
 [ext_resource type="Texture2D" uid="uid://dl216oppgvk0c" path="res://assets/sprites/ui/SkillArea.png" id="8_puepp"]
+[ext_resource type="Script" path="res://scenes/menu/auto_font_size.gd" id="9_71vnp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cew8f"]
 
@@ -58,6 +59,7 @@ shape_centered = false
 script = ExtResource("2_0y0uj")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0.00784314, 0.180392, 0.223529, 1)
@@ -69,6 +71,7 @@ offset_right = 1920.0
 offset_bottom = 128.0
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Top"]
+layout_mode = 0
 offset_left = 32.0
 offset_top = 32.0
 offset_right = 1056.0
@@ -107,6 +110,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AstroCurrency" type="TextureRect" parent="Top"]
+layout_mode = 0
 offset_left = 1280.0
 offset_top = 32.0
 offset_right = 1344.0
@@ -130,16 +134,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label" type="Label" parent="Top"]
+layout_mode = 0
 offset_left = 1472.0
 offset_top = 16.0
 offset_right = 1920.0
-offset_bottom = 112.0
-theme_override_font_sizes/font_size = 64
+offset_bottom = 114.0
+theme_override_font_sizes/font_size = 69
 text = "Player Name"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("9_71vnp")
 
 [node name="Store" type="Button" parent="."]
+layout_mode = 0
 offset_left = 32.0
 offset_top = 920.0
 offset_right = 464.0
@@ -167,6 +174,7 @@ vertical_alignment = 1
 
 [node name="Inventory" type="Button" parent="."]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
+layout_mode = 0
 offset_left = 504.0
 offset_top = 920.0
 offset_right = 936.0
@@ -194,6 +202,7 @@ vertical_alignment = 1
 
 [node name="Play" type="Button" parent="."]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
+layout_mode = 0
 offset_left = 984.0
 offset_top = 920.0
 offset_right = 1416.0
@@ -221,6 +230,7 @@ vertical_alignment = 1
 
 [node name="Settings" type="Button" parent="."]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
+layout_mode = 0
 offset_left = 1456.0
 offset_top = 920.0
 offset_right = 1888.0
