@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_01lp4")
-music_audio_level = 25.0
+music_audio_level = 20.0
 sfx_audio_level = 1.0
 joystick_switch = false

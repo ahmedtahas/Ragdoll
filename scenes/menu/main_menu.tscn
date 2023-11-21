@@ -1,31 +1,45 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxuo5p3a2yde3"]
+[gd_scene load_steps=15 format=3 uid="uid://dxuo5p3a2yde3"]
 
 [ext_resource type="Script" path="res://scenes/menu/main_menu.gd" id="1_l8f8e"]
 [ext_resource type="Script" path="res://scenes/menu/Swiper.gd" id="2_lcs8g"]
-[ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="3_svfnv"]
+[ext_resource type="Texture2D" uid="uid://b4i0476eaq54k" path="res://assets/sprites/ui/LevelProgressBase.png" id="3_4chw4"]
+[ext_resource type="Texture2D" uid="uid://cf7snjnlxilsn" path="res://assets/sprites/ui/LevelProgress.png" id="4_mrha7"]
+[ext_resource type="Script" path="res://scenes/menu/level_progress_bar.gd" id="5_vuno6"]
+[ext_resource type="Texture2D" uid="uid://bgut5y6pcjr4y" path="res://assets/sprites/ui/LevelProgressKnob.png" id="6_h41gk"]
+[ext_resource type="Texture2D" uid="uid://dqp2brr12b3wp" path="res://assets/sprites/ui/MovementArea.png" id="7_0lxo8"]
+[ext_resource type="Texture2D" uid="uid://dl216oppgvk0c" path="res://assets/sprites/ui/SkillArea.png" id="8_xs87w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rrtya"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0a230"]
-bg_color = Color(0, 0, 0, 0.392157)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0tecq"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7fssr"]
-bg_color = Color(0, 0, 0, 0.588235)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="Theme" id="Theme_uyfvj"]
+Button/styles/normal = SubResource("StyleBoxFlat_0tecq")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fkkdk"]
-bg_color = Color(0, 0, 0, 0.784314)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80wfs"]
+bg_color = Color(0.905882, 0.458824, 0, 1)
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fnfn"]
+bg_color = Color(0.854902, 0.501961, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_3snf8"]
+Button/styles/disabled = SubResource("StyleBoxFlat_80wfs")
+Button/styles/normal = SubResource("StyleBoxFlat_8fnfn")
 
 [node name="MainMenu" type="Control"]
 process_mode = 3
@@ -50,112 +64,204 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0.00784314, 0.180392, 0.223529, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Top" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 128.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Top"]
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 1056.0
+offset_bottom = 96.0
+value = 70.0
+texture_under = ExtResource("3_4chw4")
+texture_progress = ExtResource("4_mrha7")
+script = ExtResource("5_vuno6")
+
+[node name="LevelProgressKnob" type="Sprite2D" parent="Top/TextureProgressBar"]
+position = Vector2(10, 32)
+texture = ExtResource("6_h41gk")
+
+[node name="YellowStone" type="TextureRect" parent="Top"]
+layout_mode = 0
+offset_left = 1088.0
+offset_top = 32.0
+offset_right = 1152.0
+offset_bottom = 96.0
+texture = ExtResource("7_0lxo8")
+expand_mode = 1
+
+[node name="Amount" type="Label" parent="Top/YellowStone"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = -24.0
+offset_right = 192.0
+offset_bottom = 24.0
 grow_vertical = 2
-theme_override_constants/margin_left = 200
-theme_override_constants/margin_top = 75
-theme_override_constants/margin_right = 200
-theme_override_constants/margin_bottom = 100
+theme_override_font_sizes/font_size = 32
+text = "99.9k"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
+[node name="AstroCurrency" type="TextureRect" parent="Top"]
+offset_left = 1280.0
+offset_top = 32.0
+offset_right = 1344.0
+offset_bottom = 96.0
+texture = ExtResource("8_xs87w")
+expand_mode = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
+[node name="Amount" type="Label" parent="Top/AstroCurrency"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = -24.0
+offset_right = 192.0
+offset_bottom = 24.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "99.9k"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("3_svfnv")
-theme_override_font_sizes/font_size = 80
+[node name="Label" type="Label" parent="Top"]
+offset_left = 1472.0
+offset_top = 16.0
+offset_right = 1920.0
+offset_bottom = 112.0
+theme_override_font_sizes/font_size = 64
 text = "Player Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_fonts/font = ExtResource("3_svfnv")
-theme_override_font_sizes/font_size = 120
-text = "Ragdoll Legends"
+[node name="Store" type="Button" parent="."]
+self_modulate = Color(0, 0.552941, 0.129412, 1)
+layout_mode = 0
+offset_left = 32.0
+offset_top = 920.0
+offset_right = 464.0
+offset_bottom = 1048.0
+theme = SubResource("Theme_uyfvj")
+theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
+
+[node name="Text" type="Label" parent="Store"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Store"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect3" type="TextureRect" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
+[node name="Inventory" type="Button" parent="."]
+self_modulate = Color(0, 0.552941, 0.129412, 1)
+layout_mode = 0
+offset_left = 504.0
+offset_top = 920.0
+offset_right = 936.0
+offset_bottom = 1048.0
+theme = SubResource("Theme_uyfvj")
+theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
+[node name="Text" type="Label" parent="Inventory"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
+[node name="Play" type="Button" parent="."]
+layout_mode = 0
+offset_left = 984.0
+offset_top = 920.0
+offset_right = 1416.0
+offset_bottom = 1048.0
+theme = SubResource("Theme_3snf8")
+disabled = true
 
-[node name="VBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 20
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_right = 50
-
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer"]
-layout_mode = 2
-focus_mode = 0
-theme_override_fonts/font = ExtResource("3_svfnv")
-theme_override_font_sizes/font_size = 60
-theme_override_styles/normal = SubResource("StyleBoxFlat_0a230")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7fssr")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_fkkdk")
-text = "Store"
-
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_right = 50
-
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2"]
-layout_mode = 2
-focus_mode = 0
-theme_override_fonts/font = ExtResource("3_svfnv")
-theme_override_font_sizes/font_size = 60
-theme_override_styles/normal = SubResource("StyleBoxFlat_0a230")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7fssr")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_fkkdk")
+[node name="Text" type="Label" parent="Play"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
 text = "Play"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_right = 50
+[node name="Settings" type="Button" parent="."]
+self_modulate = Color(0, 0.552941, 0.129412, 1)
+layout_mode = 0
+offset_left = 1456.0
+offset_top = 920.0
+offset_right = 1888.0
+offset_bottom = 1048.0
+theme = SubResource("Theme_uyfvj")
+theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3"]
-layout_mode = 2
-focus_mode = 0
-theme_override_fonts/font = ExtResource("3_svfnv")
-theme_override_font_sizes/font_size = 60
-theme_override_styles/normal = SubResource("StyleBoxFlat_0a230")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7fssr")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_fkkdk")
+[node name="Text" type="Label" parent="Settings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
 text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer/Button" to="." method="store"]
-[connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer2/Button" to="." method="play"]
-[connection signal="button_up" from="MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3/Button" to="." method="settings"]
+[node name="MultiPlayer" type="Button" parent="."]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 192.0
+offset_right = 896.0
+offset_bottom = 832.0
+
+[node name="SinglePlayer" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1024.0
+offset_top = 192.0
+offset_right = 1664.0
+offset_bottom = 832.0

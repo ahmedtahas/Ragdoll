@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dufxxfvtqhfml"]
+[gd_scene load_steps=16 format=3 uid="uid://dufxxfvtqhfml"]
 
 [ext_resource type="Script" path="res://scenes/menu/character_selection_scene.gd" id="1_hdp2c"]
 [ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="2_78u4u"]
@@ -18,6 +18,16 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="Theme" id="Theme_hty3k"]
 Button/styles/normal = SubResource("StyleBoxFlat_n22kj")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yap3k"]
+bg_color = Color(0.854902, 0.501961, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_wc25s"]
+Button/styles/normal = SubResource("StyleBoxFlat_yap3k")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jh0mm"]
 bg_color = Color(0, 0.807843, 0.0980392, 1)
@@ -89,15 +99,23 @@ mouse_filter = 1
 theme = SubResource("Theme_hty3k")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Buttons/ButtonContainer/crock"]
-layout_mode = 0
-offset_right = 576.0
-offset_bottom = 128.0
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 84
-bbcode_enabled = true
-text = "[center]Crock[center]"
-fit_content = true
+[node name="Text" type="Label" parent="Buttons/ButtonContainer/crock"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Crock"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="zeina" type="Button" parent="Buttons/ButtonContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
@@ -107,15 +125,23 @@ mouse_filter = 1
 theme = SubResource("Theme_hty3k")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Buttons/ButtonContainer/zeina"]
-layout_mode = 0
-offset_right = 576.0
-offset_bottom = 128.0
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 84
-bbcode_enabled = true
-text = "[center]Zeina[center]"
-fit_content = true
+[node name="Text" type="Label" parent="Buttons/ButtonContainer/zeina"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Zeina"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="holstar" type="Button" parent="Buttons/ButtonContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
@@ -125,15 +151,23 @@ mouse_filter = 1
 theme = SubResource("Theme_hty3k")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Buttons/ButtonContainer/holstar"]
-layout_mode = 0
-offset_right = 576.0
-offset_bottom = 128.0
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 84
-bbcode_enabled = true
-text = "[center]Holstar[center]"
-fit_content = true
+[node name="Text" type="Label" parent="Buttons/ButtonContainer/holstar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Holstar"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="roki_roki" type="Button" parent="Buttons/ButtonContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
@@ -143,15 +177,23 @@ mouse_filter = 1
 theme = SubResource("Theme_hty3k")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Buttons/ButtonContainer/roki_roki"]
-layout_mode = 0
-offset_right = 576.0
-offset_bottom = 128.0
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 84
-bbcode_enabled = true
-text = "[center]Roki Roki[center]"
-fit_content = true
+[node name="Text" type="Label" parent="Buttons/ButtonContainer/roki_roki"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Roki Roki"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="kaliber" type="Button" parent="Buttons/ButtonContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
@@ -161,15 +203,23 @@ mouse_filter = 1
 theme = SubResource("Theme_hty3k")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Buttons/ButtonContainer/kaliber"]
-layout_mode = 0
-offset_right = 576.0
-offset_bottom = 128.0
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 84
-bbcode_enabled = true
-text = "[center]Kaliber[center]"
-fit_content = true
+[node name="Text" type="Label" parent="Buttons/ButtonContainer/kaliber"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Kaliber"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="buccarold" type="Button" parent="Buttons/ButtonContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
@@ -179,15 +229,23 @@ mouse_filter = 1
 theme = SubResource("Theme_hty3k")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Buttons/ButtonContainer/buccarold"]
-layout_mode = 0
-offset_right = 576.0
-offset_bottom = 128.0
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 84
-bbcode_enabled = true
-text = "[center]Buccarold[center]"
-fit_content = true
+[node name="Text" type="Label" parent="Buttons/ButtonContainer/buccarold"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Buccarold"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="paranoc" type="Button" parent="Buttons/ButtonContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
@@ -197,15 +255,23 @@ mouse_filter = 1
 theme = SubResource("Theme_hty3k")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Buttons/ButtonContainer/paranoc"]
-layout_mode = 0
-offset_right = 576.0
-offset_bottom = 128.0
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 84
-bbcode_enabled = true
-text = "[center]Paranoc[center]"
-fit_content = true
+[node name="Text" type="Label" parent="Buttons/ButtonContainer/paranoc"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Paranoc"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="tin" type="Button" parent="Buttons/ButtonContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
@@ -215,15 +281,23 @@ mouse_filter = 1
 theme = SubResource("Theme_hty3k")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Buttons/ButtonContainer/tin"]
-layout_mode = 0
-offset_right = 576.0
-offset_bottom = 128.0
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 84
-bbcode_enabled = true
-text = "[center]Tin[center]"
-fit_content = true
+[node name="Text" type="Label" parent="Buttons/ButtonContainer/tin"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Tin"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="moot" type="Button" parent="Buttons/ButtonContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
@@ -233,15 +307,23 @@ mouse_filter = 1
 theme = SubResource("Theme_hty3k")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Buttons/ButtonContainer/moot"]
-layout_mode = 0
-offset_right = 576.0
-offset_bottom = 128.0
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 84
-bbcode_enabled = true
-text = "[center]Moot[center]"
-fit_content = true
+[node name="Text" type="Label" parent="Buttons/ButtonContainer/moot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Moot"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="meri" type="Button" parent="Buttons/ButtonContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
@@ -251,15 +333,23 @@ mouse_filter = 1
 theme = SubResource("Theme_hty3k")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Buttons/ButtonContainer/meri"]
-layout_mode = 0
-offset_right = 576.0
-offset_bottom = 128.0
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 84
-bbcode_enabled = true
-text = "[center]Meri[center]"
-fit_content = true
+[node name="Text" type="Label" parent="Buttons/ButtonContainer/meri"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Meri"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="raldorone" type="Button" parent="Buttons/ButtonContainer"]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
@@ -269,37 +359,53 @@ mouse_filter = 1
 theme = SubResource("Theme_hty3k")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Buttons/ButtonContainer/raldorone"]
-layout_mode = 0
-offset_right = 576.0
-offset_bottom = 128.0
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 84
-bbcode_enabled = true
-text = "[center]Raldorone[center]"
-fit_content = true
+[node name="Text" type="Label" parent="Buttons/ButtonContainer/raldorone"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Raldorone"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CharacterSelection" type="Button" parent="."]
-self_modulate = Color(0, 0.552941, 0.129412, 1)
 layout_mode = 0
 offset_left = 32.0
 offset_top = 920.0
 offset_right = 608.0
 offset_bottom = 1048.0
-theme = SubResource("Theme_1vq8i")
+theme = SubResource("Theme_wc25s")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CharacterSelection"]
-layout_mode = 0
-offset_right = 576.0
-offset_bottom = 128.0
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 84
-bbcode_enabled = true
-text = "[center]Crock[center]"
-fit_content = true
+[node name="Text" type="Label" parent="CharacterSelection"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Crock"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Select" type="Button" parent="."]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
+layout_mode = 0
 offset_left = 672.0
 offset_top = 920.0
 offset_right = 1248.0
@@ -307,18 +413,27 @@ offset_bottom = 1048.0
 theme = SubResource("Theme_1vq8i")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Select"]
-layout_mode = 0
-offset_right = 576.0
-offset_bottom = 128.0
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 84
-bbcode_enabled = true
-text = "[center]Select[center]"
-fit_content = true
+[node name="Text" type="Label" parent="Select"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Select"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Back" type="Button" parent="."]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
+layout_mode = 0
 offset_left = 1312.0
 offset_top = 920.0
 offset_right = 1888.0
@@ -326,22 +441,30 @@ offset_bottom = 1048.0
 theme = SubResource("Theme_1vq8i")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Back"]
-layout_mode = 0
-offset_right = 576.0
-offset_bottom = 128.0
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 84
-bbcode_enabled = true
-text = "[center]Back[center]"
-fit_content = true
+[node name="Text" type="Label" parent="Back"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Back"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Stats" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Level" type="TextureRect" parent="Stats"]
+[node name="level" type="TextureRect" parent="Stats"]
 layout_mode = 2
 offset_left = 1024.0
 offset_top = 32.0
@@ -350,18 +473,23 @@ offset_bottom = 160.0
 texture = ExtResource("3_l605i")
 expand_mode = 2
 
-[node name="level" type="Label" parent="Stats"]
-layout_mode = 2
-offset_left = 1156.0
-offset_top = 48.0
-offset_right = 1392.0
-offset_bottom = 142.0
+[node name="level" type="Label" parent="Stats/level"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 160.0
+offset_top = -47.0
+offset_right = 396.0
+offset_bottom = 47.0
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 64
 text = "99"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Speed" type="TextureRect" parent="Stats"]
+[node name="speed" type="TextureRect" parent="Stats"]
 layout_mode = 2
 offset_left = 1428.0
 offset_top = 32.0
@@ -370,18 +498,23 @@ offset_bottom = 160.0
 texture = ExtResource("4_0qtc4")
 expand_mode = 2
 
-[node name="speed" type="Label" parent="Stats"]
-layout_mode = 2
-offset_left = 1560.0
-offset_top = 48.0
-offset_right = 1796.0
-offset_bottom = 142.0
+[node name="speed" type="Label" parent="Stats/speed"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 160.0
+offset_top = -47.0
+offset_right = 396.0
+offset_bottom = 47.0
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 64
 text = "60"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Damage" type="TextureRect" parent="Stats"]
+[node name="damage" type="TextureRect" parent="Stats"]
 layout_mode = 2
 offset_left = 1428.0
 offset_top = 192.0
@@ -390,18 +523,23 @@ offset_bottom = 320.0
 texture = ExtResource("4_ojy41")
 expand_mode = 2
 
-[node name="damage" type="Label" parent="Stats"]
-layout_mode = 2
-offset_left = 1560.0
-offset_top = 208.0
-offset_right = 1796.0
-offset_bottom = 302.0
+[node name="damage" type="Label" parent="Stats/damage"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 160.0
+offset_top = -47.0
+offset_right = 396.0
+offset_bottom = 47.0
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 64
 text = "999"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Health" type="TextureRect" parent="Stats"]
+[node name="health" type="TextureRect" parent="Stats"]
 layout_mode = 2
 offset_left = 1024.0
 offset_top = 192.0
@@ -410,18 +548,23 @@ offset_bottom = 320.0
 texture = ExtResource("5_eymu3")
 expand_mode = 2
 
-[node name="health" type="Label" parent="Stats"]
-layout_mode = 2
-offset_left = 1156.0
-offset_top = 208.0
-offset_right = 1392.0
-offset_bottom = 302.0
+[node name="health" type="Label" parent="Stats/health"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 160.0
+offset_top = -47.0
+offset_right = 396.0
+offset_bottom = 47.0
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 64
 text = "2000"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Skill" type="TextureRect" parent="Stats"]
+[node name="skill" type="TextureRect" parent="Stats"]
 layout_mode = 2
 offset_left = 1024.0
 offset_top = 352.0
@@ -430,23 +573,28 @@ offset_bottom = 480.0
 texture = ExtResource("7_pexx1")
 expand_mode = 2
 
-[node name="skill_name" type="Label" parent="Stats"]
-layout_mode = 2
-offset_left = 1220.0
-offset_top = 368.0
-offset_right = 1860.0
-offset_bottom = 462.0
+[node name="skill_name" type="Label" parent="Stats/skill"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 144.0
+offset_top = -47.0
+offset_right = 784.0
+offset_bottom = 47.0
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 64
 text = "Skill"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="skill_description" type="Label" parent="Stats"]
+[node name="skill_description" type="Label" parent="Stats/skill/skill_name"]
 layout_mode = 0
-offset_left = 1024.0
-offset_top = 512.0
-offset_right = 1888.0
-offset_bottom = 896.0
+offset_left = -196.0
+offset_top = 144.0
+offset_right = 668.0
+offset_bottom = 528.0
 label_settings = SubResource("LabelSettings_ls2vu")
 autowrap_mode = 3
 

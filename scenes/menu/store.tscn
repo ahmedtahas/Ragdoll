@@ -1,9 +1,45 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0gtvbmidh5pw"]
+[gd_scene load_steps=15 format=3 uid="uid://c0gtvbmidh5pw"]
 
 [ext_resource type="Script" path="res://scenes/menu/store.gd" id="1_neg87"]
 [ext_resource type="Script" path="res://scenes/menu/Swiper.gd" id="2_0y0uj"]
+[ext_resource type="Texture2D" uid="uid://b4i0476eaq54k" path="res://assets/sprites/ui/LevelProgressBase.png" id="3_4bfch"]
+[ext_resource type="Texture2D" uid="uid://cf7snjnlxilsn" path="res://assets/sprites/ui/LevelProgress.png" id="4_mk0wr"]
+[ext_resource type="Script" path="res://scenes/menu/level_progress_bar.gd" id="5_13efo"]
+[ext_resource type="Texture2D" uid="uid://bgut5y6pcjr4y" path="res://assets/sprites/ui/LevelProgressKnob.png" id="6_bbgtf"]
+[ext_resource type="Texture2D" uid="uid://dqp2brr12b3wp" path="res://assets/sprites/ui/MovementArea.png" id="7_wpgj0"]
+[ext_resource type="Texture2D" uid="uid://dl216oppgvk0c" path="res://assets/sprites/ui/SkillArea.png" id="8_puepp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cew8f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0yb7l"]
+bg_color = Color(0.905882, 0.458824, 0, 1)
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qrfb"]
+bg_color = Color(0.854902, 0.501961, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_sbsst"]
+Button/styles/disabled = SubResource("StyleBoxFlat_0yb7l")
+Button/styles/normal = SubResource("StyleBoxFlat_7qrfb")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ub5pj"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+border_color = Color(0.8, 0.8, 0.8, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_op8fl"]
+Button/styles/normal = SubResource("StyleBoxFlat_ub5pj")
 
 [node name="Store" type="Control"]
 layout_mode = 3
@@ -14,17 +50,198 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_neg87")
 
-[node name="TextEdit" type="TextEdit" parent="."]
-layout_mode = 0
-offset_left = 628.0
-offset_top = 327.0
-offset_right = 869.0
-offset_bottom = 375.0
-text = "STORE"
-
 [node name="Swiper" type="TouchScreenButton" parent="."]
 position = Vector2(960, 540)
 scale = Vector2(96, 54)
 shape = SubResource("RectangleShape2D_cew8f")
 shape_centered = false
 script = ExtResource("2_0y0uj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.00784314, 0.180392, 0.223529, 1)
+
+[node name="Top" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 128.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Top"]
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 1056.0
+offset_bottom = 96.0
+value = 70.0
+texture_under = ExtResource("3_4bfch")
+texture_progress = ExtResource("4_mk0wr")
+script = ExtResource("5_13efo")
+
+[node name="LevelProgressKnob" type="Sprite2D" parent="Top/TextureProgressBar"]
+position = Vector2(10, 32)
+texture = ExtResource("6_bbgtf")
+
+[node name="YellowStone" type="TextureRect" parent="Top"]
+layout_mode = 0
+offset_left = 1088.0
+offset_top = 32.0
+offset_right = 1152.0
+offset_bottom = 96.0
+texture = ExtResource("7_wpgj0")
+expand_mode = 1
+
+[node name="Amount" type="Label" parent="Top/YellowStone"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = -24.0
+offset_right = 192.0
+offset_bottom = 24.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "99.9k"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AstroCurrency" type="TextureRect" parent="Top"]
+offset_left = 1280.0
+offset_top = 32.0
+offset_right = 1344.0
+offset_bottom = 96.0
+texture = ExtResource("8_puepp")
+expand_mode = 1
+
+[node name="Amount" type="Label" parent="Top/AstroCurrency"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 64.0
+offset_top = -24.0
+offset_right = 192.0
+offset_bottom = 24.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "99.9k"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Top"]
+offset_left = 1472.0
+offset_top = 16.0
+offset_right = 1920.0
+offset_bottom = 112.0
+theme_override_font_sizes/font_size = 64
+text = "Player Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Store" type="Button" parent="."]
+offset_left = 32.0
+offset_top = 920.0
+offset_right = 464.0
+offset_bottom = 1048.0
+theme = SubResource("Theme_sbsst")
+disabled = true
+
+[node name="Text" type="Label" parent="Store"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Store"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Inventory" type="Button" parent="."]
+self_modulate = Color(0, 0.552941, 0.129412, 1)
+offset_left = 504.0
+offset_top = 920.0
+offset_right = 936.0
+offset_bottom = 1048.0
+theme = SubResource("Theme_op8fl")
+theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
+
+[node name="Text" type="Label" parent="Inventory"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Play" type="Button" parent="."]
+self_modulate = Color(0, 0.552941, 0.129412, 1)
+offset_left = 984.0
+offset_top = 920.0
+offset_right = 1416.0
+offset_bottom = 1048.0
+theme = SubResource("Theme_op8fl")
+theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
+
+[node name="Text" type="Label" parent="Play"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Settings" type="Button" parent="."]
+self_modulate = Color(0, 0.552941, 0.129412, 1)
+offset_left = 1456.0
+offset_top = 920.0
+offset_right = 1888.0
+offset_bottom = 1048.0
+theme = SubResource("Theme_op8fl")
+theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
+
+[node name="Text" type="Label" parent="Settings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -216.0
+offset_top = -64.0
+offset_right = 216.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
