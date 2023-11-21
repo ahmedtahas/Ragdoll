@@ -9,7 +9,7 @@ extends CanvasLayer
 
 @onready var character: Node2D = get_node("../../Character")
 @onready var health_bar: TextureProgressBar = $HealthBar
-@onready var health_text: RichTextLabel = $HealthBar/Text
+@onready var health_text: Label = $HealthBar/Text
 @onready var remote_health_bar: TextureProgressBar = $RemoteHealthBar
 
 signal died
@@ -28,7 +28,7 @@ func set_health(health: float) -> void:
 	current_health = health
 	if is_multiplayer_authority():
 		health_bar.set_value(100)
-		health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
+		health_text.set_text(str(current_health).pad_decimals(0))
 		if Global.mode == "multi":
 			remote_health_bar.hide()
 		else:
@@ -58,7 +58,7 @@ func take_damage(amount: float) -> void:
 		current_health = 0
 		update_remote_health.rpc(current_health)
 		health_bar.set_value(current_health)
-		health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
+		health_text.set_text(str(current_health).pad_decimals(0))
 		Global.player_died.emit()
 		return
 	current_health -= amount
@@ -66,7 +66,7 @@ func take_damage(amount: float) -> void:
 		current_health = max_health
 	update_remote_health.rpc(current_health)
 	health_bar.set_value((100 * current_health) / max_health)
-	health_text.set_text("[center]" + str(current_health).pad_decimals(0) + "[/center]")
+	health_text.set_text(str(current_health).pad_decimals(0))
 
 
 func damage_timer() -> void:

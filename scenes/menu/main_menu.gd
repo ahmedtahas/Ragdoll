@@ -27,7 +27,7 @@ func settings() -> void:
 
 func inventory() -> void:
 	pass
-#	get_tree().change_scene_to_file("res://scenes/menu/inventory.tscn")
+	get_tree().change_scene_to_file("res://scenes/menu/inventory.tscn")
 
 
 func mode_selected(mode: String) -> void:

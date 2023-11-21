@@ -5,7 +5,7 @@ extends Node2D
 @onready var duration_time: float
 @onready var cooldown_time: float
 
-@onready var cooldown_text: RichTextLabel = $Extra/UI/CooldownBar/Text
+@onready var cooldown_text: Label = $Extra/UI/CooldownBar/Text
 @onready var cooldown_bar: TextureProgressBar = $Extra/UI/CooldownBar
 
 @onready var radius: Marker2D = $Character/Hip/Center/Radius
@@ -37,7 +37,7 @@ func _ready() -> void:
 		cooldown.wait_time = cooldown_time
 		duration.wait_time = duration_time
 		cooldown_bar.set_value(100)
-		cooldown_text.set_text("[center]ready[/center]")
+		cooldown_text.set_text("Ready")
 
 	else:
 		get_node("Extra/UI").hide()
@@ -50,19 +50,19 @@ func _physics_process(_delta: float) -> void:
 
 	if not duration.is_stopped():
 		cooldown_bar.set_value((100 * duration.time_left) / duration_time)
-		cooldown_text.set_text("[center]" + str(duration.time_left).pad_decimals(1) + "s[/center]")
+		cooldown_text.set_text(str(duration.time_left).pad_decimals(1) + "s")
 
 	elif cooldown.is_stopped():
 		if not cooldown_set:
 			cooldown_bar.set_value(100)
-			cooldown_text.set_text("[center]ready[/center]")
+			cooldown_text.set_text("Ready")
 			cooldown_set = true
 
 	elif duration.is_stopped():
 		if cooldown_set:
 			cooldown_set = false
 		cooldown_bar.set_value(100 - ((100 * cooldown.time_left) / cooldown_time))
-		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
+		cooldown_text.set_text(str(cooldown.time_left).pad_decimals(1) + "s")
 
 
 func skill_signal(_using: bool) -> void:

@@ -7,9 +7,10 @@ extends Node2D
 
 @onready var cooldown_time: float
 @onready var damage: float
+@onready var power: float
 @onready var end_point: Vector2
 
-@onready var cooldown_text: RichTextLabel = $Extra/UI/CooldownBar/Text
+@onready var cooldown_text: Label = $Extra/UI/CooldownBar/Text
 @onready var cooldown_bar: TextureProgressBar = $Extra/UI/CooldownBar
 
 @onready var dagger_instance: CharacterBody2D
@@ -50,9 +51,10 @@ func _ready() -> void:
 		skill_joy_stick.button = false
 		cooldown_time = Config.get_value("cooldown", character_name)
 		damage = Config.get_value("damage", character_name)
+		power = Config.get_value("power", character_name)
 		cooldown.wait_time = cooldown_time
 		cooldown_bar.set_value(100)
-		cooldown_text.set_text("[center]ready[/center]")
+		cooldown_text.set_text("Ready")
 
 	else:
 		get_node("Extra/UI").hide()
@@ -77,13 +79,13 @@ func _physics_process(_delta: float) -> void:
 	if cooldown.is_stopped():
 		if not cooldown_set:
 			cooldown_bar.set_value(100)
-			cooldown_text.set_text("[center]ready[/center]")
+			cooldown_text.set_text("Ready")
 			cooldown_set = true
 	else:
 		if cooldown_set:
 			cooldown_set = false
 		cooldown_bar.set_value(100 - ((100 * cooldown.time_left) / cooldown_time))
-		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
+		cooldown_text.set_text("" + str(cooldown.time_left).pad_decimals(1) + "s")
 
 
 func _flicker() -> void:
@@ -191,10 +193,10 @@ func hit_signal(enemy: RigidBody2D, caller: RigidBody2D) -> void:
 
 func dagger_hit_signal(hit: PhysicsBody2D) -> void:
 	_hit = true
-	if hit is RigidBody2D and not hit.is_in_group("Skill") and not hit.is_in_group("Undamagable"):
+	if hit is RigidBody2D and not hit.is_in_group("Skill"):
 		end_point = Global.avoid_enemies(dagger_instance.global_position - center.global_position)
+		Global.pushed.emit((dagger_instance.global_position - center.global_position).normalized() * power)
 		Global.stunned.emit()
-		character.slow_motion.rpc()
 		if hit.name == "Head":
 			Global.damaged.emit(damage * 2)
 		elif not hit.is_in_group("Undamagable"):

@@ -4,7 +4,7 @@ extends Control
 func _input(event):
 	if event is InputEventScreenDrag:
 		if $Swiper.get_swipe_direction(event.relative, 27) == Vector2.LEFT:
-			get_tree().change_scene_to_file("res://scenes/menu/main_menu.tscn")
+			get_tree().change_scene_to_file("res://scenes/menu/inventory.tscn")
 
 
 

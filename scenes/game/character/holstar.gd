@@ -22,7 +22,7 @@ extends Node2D
 @onready var body: RigidBody2D = $Character/Body
 @onready var health: CanvasLayer = $Extra/Health
 @onready var barrel: Marker2D = $Character/RF/Barrel
-@onready var cooldown_text: RichTextLabel = $Extra/UI/CooldownBar/Text
+@onready var cooldown_text: Label = $Extra/UI/CooldownBar/Text
 @onready var cooldown_bar: TextureProgressBar = $Extra/UI/CooldownBar
 @onready var blood: GPUParticles2D = $Extra/Blood
 
@@ -48,7 +48,7 @@ func _ready() -> void:
 		power = Config.get_value("power", character_name)
 		cooldown.wait_time = cooldown_time
 		cooldown_bar.set_value(100)
-		cooldown_text.set_text("[center]ready[/center]")
+		cooldown_text.set_text("Ready")
 
 	else:
 		get_node("Extra/UI").hide()
@@ -71,13 +71,13 @@ func _physics_process(_delta: float) -> void:
 	if cooldown.is_stopped():
 		if not cooldown_set:
 			cooldown_bar.set_value(100)
-			cooldown_text.set_text("[center]ready[/center]")
+			cooldown_text.set_text("Ready")
 			cooldown_set = true
 	else:
 		if cooldown_set:
 			cooldown_set = false
 		cooldown_bar.set_value(100 - ((100 * cooldown.time_left) / cooldown_time))
-		cooldown_text.set_text("[center]" + str(cooldown.time_left).pad_decimals(1) + "s[/center]")
+		cooldown_text.set_text(str(cooldown.time_left).pad_decimals(1) + "s")
 
 
 func skill_signal(did_shot: bool) -> void:
