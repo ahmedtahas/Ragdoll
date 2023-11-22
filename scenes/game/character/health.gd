@@ -48,7 +48,7 @@ func take_damage(amount: float) -> void:
 		return
 	if not damage_timeout and damage_count > 2:
 		character.reset_local()
-		Global.reset_positions.emit()
+		Global.seperate.emit()
 		return
 	if amount > 0:
 		damage_count += 1

@@ -13,7 +13,6 @@ func _ready() -> void:
 	description.text = str(get_node("/root/Config").get_value("skill_description", "crock"))
 
 
-
 func character_preview(selection: String) -> void:
 	Global.player_selection = selection
 	for child in get_node("Stats").get_children():

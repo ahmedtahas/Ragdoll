@@ -16,6 +16,7 @@ signal hit_signal
 func _ready() -> void:
 	movement_stick.move_signal.connect(move)
 	Global.two_players_joined.connect(game_started)
+	Global.seperate.connect(seperate_local)
 	if Global.mode == "single":
 		fix_collisions()
 	if is_multiplayer_authority():
@@ -24,7 +25,6 @@ func _ready() -> void:
 		Global.pushed.connect(push_local)
 		Global.freezed.connect(freeze_local)
 		Global.stunned.connect(hit_stun)
-		Global.reset_positions.connect(reset_local)
 
 
 func game_started() -> void:
@@ -81,9 +81,9 @@ func on_body_entered(hit: PhysicsBody2D, caller: RigidBody2D) -> void:
 
 
 @rpc("reliable", "any_peer", "call_remote")
-func reset_local() -> void:
+func seperate_local() -> void:
 	if not is_multiplayer_authority():
-		reset_local.rpc()
+		seperate_local.rpc()
 		return
 	var away = Global.avoid_enemies(Global.player.center - Global.opponent.center)
 	for child in get_children():
@@ -147,7 +147,7 @@ func dying() -> void:
 	Global.pushed.disconnect(push_local)
 	Global.freezed.disconnect(freeze_local)
 	Global.stunned.disconnect(hit_stun)
-	Global.reset_positions.disconnect(reset_local)
+	Global.seperate.disconnect(seperate_local)
 	await get_tree().create_timer(4).timeout
 	for child in get_children():
 		Global.camera.remove_target(child)
