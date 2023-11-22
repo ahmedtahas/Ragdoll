@@ -8,7 +8,6 @@ var path: String = "res://assets/sprites/character/equipped/tin/Body.png"
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_T:
-			print("pressed")
 			pilot_item.add_item(path)
 	if event is InputEventScreenDrag:
 		if $Swiper.get_swipe_direction(event.relative, 27) == Vector2.RIGHT:

@@ -5,7 +5,6 @@ extends HBoxContainer
 
 
 func add_item(item: TextureButton) -> void:
-	print("item_row")
 	if get_child_count() == 6:
 		if not new_row or new_row.get_child_count() == 6:
 			new_row = duplicate()
