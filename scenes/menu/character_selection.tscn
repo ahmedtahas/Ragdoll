@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dufxxfvtqhfml"]
+[gd_scene load_steps=25 format=3 uid="uid://dufxxfvtqhfml"]
 
 [ext_resource type="Script" path="res://scenes/menu/character_selection_scene.gd" id="1_hdp2c"]
 [ext_resource type="FontFile" uid="uid://crhsbxjftucer" path="res://assets/font/Fighting Spirit 2 bold.otf" id="2_78u4u"]
@@ -9,6 +9,20 @@
 [ext_resource type="Texture2D" uid="uid://dd7vi4ngs4pa1" path="res://assets/sprites/ui/HP.png" id="5_eymu3"]
 [ext_resource type="Texture2D" uid="uid://b7s7mpemc5o88" path="res://assets/sprites/character/equipped/meri/SkillIcon.png" id="7_pexx1"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qicwi"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qbj5b"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h3468"]
 bg_color = Color(0, 0.807843, 0.0980392, 1)
 corner_radius_top_left = 10
@@ -16,8 +30,32 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5a2ss"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="Theme" id="Theme_hty3k"]
+Button/styles/focus = SubResource("StyleBoxFlat_qicwi")
+Button/styles/hover = SubResource("StyleBoxFlat_qbj5b")
 Button/styles/normal = SubResource("StyleBoxFlat_h3468")
+Button/styles/pressed = SubResource("StyleBoxFlat_5a2ss")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5oelr"]
+bg_color = Color(0.854902, 0.501961, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cac4t"]
+bg_color = Color(0.854902, 0.501961, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yap3k"]
 bg_color = Color(0.854902, 0.501961, 0, 1)
@@ -26,8 +64,32 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ll7mq"]
+bg_color = Color(0.854902, 0.501961, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="Theme" id="Theme_wc25s"]
+Button/styles/focus = SubResource("StyleBoxFlat_5oelr")
+Button/styles/hover = SubResource("StyleBoxFlat_cac4t")
 Button/styles/normal = SubResource("StyleBoxFlat_yap3k")
+Button/styles/pressed = SubResource("StyleBoxFlat_ll7mq")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7piqa"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fblfu"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jh0mm"]
 bg_color = Color(0, 0.807843, 0.0980392, 1)
@@ -37,8 +99,18 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ogvdd"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="Theme" id="Theme_1vq8i"]
+Button/styles/focus = SubResource("StyleBoxFlat_7piqa")
+Button/styles/hover = SubResource("StyleBoxFlat_fblfu")
 Button/styles/normal = SubResource("StyleBoxFlat_jh0mm")
+Button/styles/pressed = SubResource("StyleBoxFlat_ogvdd")
 
 [sub_resource type="LabelSettings" id="LabelSettings_ls2vu"]
 font = ExtResource("2_78u4u")

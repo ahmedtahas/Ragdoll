@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cf8578vuwyibt"]
+[gd_scene load_steps=28 format=3 uid="uid://cf8578vuwyibt"]
 
 [ext_resource type="Script" path="res://scenes/menu/inventory.gd" id="1_ka0ac"]
 [ext_resource type="Script" path="res://scenes/menu/Swiper.gd" id="1_yga3v"]
@@ -16,6 +16,20 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6p3xa"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plfdr"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o51wv"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0tecq"]
 bg_color = Color(0, 0.807843, 0.0980392, 1)
 border_color = Color(0.8, 0.8, 0.8, 0)
@@ -24,8 +38,32 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uebpu"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="Theme" id="Theme_b8rqx"]
+Button/styles/focus = SubResource("StyleBoxFlat_plfdr")
+Button/styles/hover = SubResource("StyleBoxFlat_o51wv")
 Button/styles/normal = SubResource("StyleBoxFlat_0tecq")
+Button/styles/pressed = SubResource("StyleBoxFlat_uebpu")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_13pa7"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8of1s"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n22kj"]
 bg_color = Color(0, 0.807843, 0.0980392, 1)
@@ -34,8 +72,18 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_utbig"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="Theme" id="Theme_y3vr2"]
+Button/styles/focus = SubResource("StyleBoxFlat_13pa7")
+Button/styles/hover = SubResource("StyleBoxFlat_8of1s")
 Button/styles/normal = SubResource("StyleBoxFlat_n22kj")
+Button/styles/pressed = SubResource("StyleBoxFlat_utbig")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_80wfs"]
 bg_color = Color(0.905882, 0.458824, 0, 1)

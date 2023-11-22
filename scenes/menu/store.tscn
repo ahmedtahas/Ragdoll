@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c0gtvbmidh5pw"]
+[gd_scene load_steps=17 format=3 uid="uid://c0gtvbmidh5pw"]
 
 [ext_resource type="Script" path="res://scenes/menu/store.gd" id="1_neg87"]
 [ext_resource type="Script" path="res://scenes/menu/Swiper.gd" id="2_0y0uj"]
@@ -29,6 +29,20 @@ corner_radius_bottom_left = 10
 Button/styles/disabled = SubResource("StyleBoxFlat_0yb7l")
 Button/styles/normal = SubResource("StyleBoxFlat_7qrfb")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l8u2d"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mf6s8"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ub5pj"]
 bg_color = Color(0, 0.807843, 0.0980392, 1)
 border_color = Color(0.8, 0.8, 0.8, 0)
@@ -37,8 +51,18 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qy3il"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="Theme" id="Theme_op8fl"]
+Button/styles/focus = SubResource("StyleBoxFlat_l8u2d")
+Button/styles/hover = SubResource("StyleBoxFlat_mf6s8")
 Button/styles/normal = SubResource("StyleBoxFlat_ub5pj")
+Button/styles/pressed = SubResource("StyleBoxFlat_qy3il")
 
 [node name="Store" type="Control"]
 layout_mode = 3

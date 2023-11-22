@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b83lhk7fgjqjc"]
+[gd_scene load_steps=14 format=3 uid="uid://b83lhk7fgjqjc"]
 
 [ext_resource type="Script" path="res://scenes/menu/settings.gd" id="1_7n32n"]
 [ext_resource type="Script" path="res://scenes/menu/Swiper.gd" id="2_01bhu"]
@@ -6,6 +6,20 @@
 [ext_resource type="Texture2D" uid="uid://dl216oppgvk0c" path="res://assets/sprites/ui/SkillArea.png" id="4_auv87"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r28ew"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_igmor"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghs2d"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jh0mm"]
 bg_color = Color(0, 0.807843, 0.0980392, 1)
@@ -15,8 +29,18 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_22a3j"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="Theme" id="Theme_l63wt"]
+Button/styles/focus = SubResource("StyleBoxFlat_igmor")
+Button/styles/hover = SubResource("StyleBoxFlat_ghs2d")
 Button/styles/normal = SubResource("StyleBoxFlat_jh0mm")
+Button/styles/pressed = SubResource("StyleBoxFlat_22a3j")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stt88"]
 bg_color = Color(0.905882, 0.458824, 0, 1)
@@ -67,7 +91,6 @@ offset_top = 920.0
 offset_right = 464.0
 offset_bottom = 1048.0
 theme = SubResource("Theme_l63wt")
-theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
 [node name="Text" type="Label" parent="Store"]
 layout_mode = 1
@@ -95,7 +118,6 @@ offset_top = 920.0
 offset_right = 936.0
 offset_bottom = 1048.0
 theme = SubResource("Theme_l63wt")
-theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
 [node name="Text" type="Label" parent="Inventory"]
 layout_mode = 1
@@ -123,7 +145,6 @@ offset_top = 920.0
 offset_right = 1416.0
 offset_bottom = 1048.0
 theme = SubResource("Theme_l63wt")
-theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
 [node name="Text" type="Label" parent="Play"]
 layout_mode = 1

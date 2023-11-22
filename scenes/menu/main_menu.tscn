@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dxuo5p3a2yde3"]
+[gd_scene load_steps=17 format=3 uid="uid://dxuo5p3a2yde3"]
 
 [ext_resource type="Script" path="res://scenes/menu/main_menu.gd" id="1_l8f8e"]
 [ext_resource type="Script" path="res://scenes/menu/Swiper.gd" id="2_lcs8g"]
@@ -10,6 +10,20 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rrtya"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wsapr"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fq7sh"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pr6ec"]
 bg_color = Color(0, 0.807843, 0.0980392, 1)
 border_color = Color(0.8, 0.8, 0.8, 0)
@@ -18,8 +32,18 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hsrsd"]
+bg_color = Color(0, 0.807843, 0.0980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="Theme" id="Theme_uyfvj"]
+Button/styles/focus = SubResource("StyleBoxFlat_wsapr")
+Button/styles/hover = SubResource("StyleBoxFlat_fq7sh")
 Button/styles/normal = SubResource("StyleBoxFlat_pr6ec")
+Button/styles/pressed = SubResource("StyleBoxFlat_hsrsd")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v34xy"]
 bg_color = Color(0.905882, 0.458824, 0, 1)
