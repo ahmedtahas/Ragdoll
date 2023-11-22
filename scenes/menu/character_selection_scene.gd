@@ -2,7 +2,7 @@ extends Control
 
 
 @onready var description: Label = $Stats/skill/skill_name/skill_description
-
+@onready var character: String
 
 func _ready() -> void:
 	for child in get_node("Characters/CharacterContainer").get_children():
@@ -15,7 +15,6 @@ func _ready() -> void:
 
 
 func character_preview(selection: String) -> void:
-	print(selection)
 	Global.player_selection = selection
 	for child in get_node("Stats").get_children():
 		child.get_child(0).text = str(get_node("/root/Config").get_value(child.get_child(0).name, selection))
@@ -26,7 +25,6 @@ func character_selected() -> void:
 	if Global.mode == "multi":
 		get_tree().change_scene_to_file("res://scenes/menu/lobby.tscn")
 	else:
-		print(Global.player_selection)
 		get_tree().change_scene_to_file("res://scenes/menu/world.tscn")
 
 

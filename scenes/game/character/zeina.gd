@@ -26,7 +26,6 @@ extends Node2D
 @onready var _range: Marker2D = $Character/Hip/Center/Range
 
 @onready var hit_count: int = 2
-@onready var flicker: bool = false
 @onready var cooldown_set: bool = false
 @onready var _hit: bool = false
 
@@ -88,31 +87,12 @@ func _physics_process(_delta: float) -> void:
 		cooldown_text.set_text("" + str(cooldown.time_left).pad_decimals(1) + "s")
 
 
-func _flicker() -> void:
-	if not is_multiplayer_authority():
-		return
-
-	if flicker:
-		for line in center.get_node("Dash").get_children():
-			line.visible = true
-			await get_tree().create_timer(0.017).timeout
-		for line in center.get_node("Dash").get_children():
-			line.visible = false
-			await get_tree().create_timer(0.017).timeout
-		_flicker()
-
-
 func skill_signal(direction: Vector2, is_aiming) -> void:
 	if not cooldown.is_stopped() or not is_multiplayer_authority() or hit_count < 2:
 		return
 	if is_aiming:
 		center.visible = true
 		center.global_rotation = direction.angle()
-		if not flicker:
-			flicker = true
-			for line in center.get_node("Dash").get_children():
-				line.visible = true
-			_flicker()
 
 	else:
 		hit_count = 0
@@ -122,9 +102,9 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		end_point = _range.global_position
 		end_point = Global.get_inside_coordinates(end_point)
 		cooldown.start()
-		flicker = false
 		dagger_instance = dagger.instantiate()
 		dagger_instance.hit_signal.connect(dagger_hit_signal)
+		dagger_instance.travel_signal.connect(max_distance)
 		dagger_instance.set_multiplayer_authority(multiplayer.get_unique_id())
 		if Global.is_host:
 			Global.server_skill.add_child(dagger_instance, true)
@@ -135,17 +115,19 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		ignore_skill()
 		character.slow_motion.rpc()
 		dagger_instance.global_position = center.get_node("Dash").global_position
+		dagger_instance.set_original_position()
 		dagger_instance.fire((end_point - center.get_node("Dash").global_position).angle())
-		await get_tree().create_timer((end_point - center.global_position).length() / dagger_instance.speed).timeout
-		if not _hit:
-			end_point = Global.avoid_enemies(end_point - center.global_position)
-			teleport()
-			if Global.is_host:
-				remove_skill.rpc("ServerSkill")
-			else:
-				remove_skill.rpc("ClientSkill")
-		else:
-			_hit = false
+
+
+
+func max_distance() -> void:
+	end_point = Global.avoid_enemies(end_point - center.global_position)
+	teleport()
+	if Global.is_host:
+		remove_skill.rpc("ServerSkill")
+	else:
+		remove_skill.rpc("ClientSkill")
+
 
 
 func ignore_skill() -> void:
@@ -191,8 +173,8 @@ func hit_signal(enemy: RigidBody2D, caller: RigidBody2D) -> void:
 		else:
 			character.get_node("RF/Sprite").modulate = Color(1, 1, 1)
 
+
 func dagger_hit_signal(hit: PhysicsBody2D) -> void:
-	_hit = true
 	if hit is RigidBody2D and not hit.is_in_group("Skill"):
 		end_point = Global.avoid_enemies(dagger_instance.global_position - center.global_position)
 		Global.pushed.emit((dagger_instance.global_position - center.global_position).normalized() * power)

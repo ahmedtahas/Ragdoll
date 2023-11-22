@@ -85,11 +85,9 @@ func reset_local() -> void:
 	if not is_multiplayer_authority():
 		reset_local.rpc()
 		return
+	var away = Global.avoid_enemies(Global.player.center - Global.opponent.center)
 	for child in get_children():
-		if Global.is_host:
-			child.locate(Global.world.host_point.global_position)
-		else:
-			child.locate(Global.world.client_point.global_position)
+		child.locate(away)
 		child.teleport()
 
 

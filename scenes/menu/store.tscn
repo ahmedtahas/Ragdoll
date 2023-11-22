@@ -126,7 +126,6 @@ text = "99.9k"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("9_71vnp")
-max_font_size = 32
 
 [node name="AstroCurrency" type="TextureRect" parent="Top"]
 layout_mode = 0
@@ -152,7 +151,6 @@ text = "99.9k"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("9_71vnp")
-max_font_size = 32
 
 [node name="Label" type="Label" parent="Top"]
 layout_mode = 0

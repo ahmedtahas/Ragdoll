@@ -209,8 +209,6 @@ offset_top = 412.0
 offset_right = 848.0
 offset_bottom = 455.0
 scale = Vector2(3, 3)
-step = 5.0
-tick_count = 5
 
 [node name="JoystickSwap" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)

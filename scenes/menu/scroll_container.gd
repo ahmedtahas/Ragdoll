@@ -14,6 +14,7 @@ func _ready() -> void:
 
 
 func close_character_menu(character: String) -> void:
+	get_parent().character = character
 	hide()
 	character_button.show()
 	character_text.show()

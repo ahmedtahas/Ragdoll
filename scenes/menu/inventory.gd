@@ -2,7 +2,8 @@ extends Control
 
 
 @onready var pilot_item = $Items/ItemContainer/HBoxContainer/PilotItem
-var path: String = "res://assets/sprites/character/equipped/tin/Body.png"
+@onready var path: String = "res://assets/sprites/character/equipped/tin/Body.png"
+@onready var character: String
 
 
 func _input(event):
