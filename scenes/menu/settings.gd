@@ -23,10 +23,22 @@ func _enter_tree() -> void:
 		update_joystick_state()
 
 
+func store() -> void:
+	get_tree().change_scene_to_file("res://scenes/menu/store.tscn")
+
+
+func inventory() -> void:
+	get_tree().change_scene_to_file("res://scenes/menu/inventory.tscn")
+
+
+func play() -> void:
+	get_tree().change_scene_to_file("res://scenes/menu/main_menu.tscn")
+
+
 func _input(event):
 	if event is InputEventScreenDrag:
 		if $Swiper.get_swipe_direction(event.relative, 27) == Vector2.RIGHT:
-			get_tree().change_scene_to_file("res://scenes/menu/main_menu.tscn")
+			play()
 
 
 func back() -> void:

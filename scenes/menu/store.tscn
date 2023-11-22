@@ -1,11 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://c0gtvbmidh5pw"]
+[gd_scene load_steps=14 format=3 uid="uid://c0gtvbmidh5pw"]
 
 [ext_resource type="Script" path="res://scenes/menu/store.gd" id="1_neg87"]
 [ext_resource type="Script" path="res://scenes/menu/Swiper.gd" id="2_0y0uj"]
 [ext_resource type="Texture2D" uid="uid://b4i0476eaq54k" path="res://assets/sprites/ui/LevelProgressBase.png" id="3_4bfch"]
 [ext_resource type="Texture2D" uid="uid://cf7snjnlxilsn" path="res://assets/sprites/ui/LevelProgress.png" id="4_mk0wr"]
-[ext_resource type="Script" path="res://scenes/menu/level_progress_bar.gd" id="5_13efo"]
-[ext_resource type="Texture2D" uid="uid://bgut5y6pcjr4y" path="res://assets/sprites/ui/LevelProgressKnob.png" id="6_bbgtf"]
 [ext_resource type="Texture2D" uid="uid://dqp2brr12b3wp" path="res://assets/sprites/ui/MovementArea.png" id="7_wpgj0"]
 [ext_resource type="Texture2D" uid="uid://dl216oppgvk0c" path="res://assets/sprites/ui/SkillArea.png" id="8_puepp"]
 [ext_resource type="Script" path="res://scenes/menu/auto_font_size.gd" id="9_71vnp"]
@@ -76,14 +74,9 @@ offset_left = 32.0
 offset_top = 32.0
 offset_right = 1056.0
 offset_bottom = 96.0
-value = 70.0
+value = 50.0
 texture_under = ExtResource("3_4bfch")
 texture_progress = ExtResource("4_mk0wr")
-script = ExtResource("5_13efo")
-
-[node name="LevelProgressKnob" type="Sprite2D" parent="Top/TextureProgressBar"]
-position = Vector2(10, 32)
-texture = ExtResource("6_bbgtf")
 
 [node name="YellowStone" type="TextureRect" parent="Top"]
 layout_mode = 0
@@ -108,6 +101,8 @@ theme_override_font_sizes/font_size = 32
 text = "99.9k"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("9_71vnp")
+max_font_size = 32
 
 [node name="AstroCurrency" type="TextureRect" parent="Top"]
 layout_mode = 0
@@ -132,14 +127,16 @@ theme_override_font_sizes/font_size = 32
 text = "99.9k"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("9_71vnp")
+max_font_size = 32
 
 [node name="Label" type="Label" parent="Top"]
 layout_mode = 0
 offset_left = 1472.0
 offset_top = 16.0
 offset_right = 1920.0
-offset_bottom = 114.0
-theme_override_font_sizes/font_size = 69
+offset_bottom = 112.0
+theme_override_font_sizes/font_size = 46
 text = "Player Name"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -255,3 +252,7 @@ theme_override_font_sizes/font_size = 64
 text = "Settings"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="pressed" from="Inventory" to="." method="inventory"]
+[connection signal="pressed" from="Play" to="." method="play"]
+[connection signal="pressed" from="Settings" to="." method="setting"]

@@ -59,7 +59,7 @@ shape = SubResource("RectangleShape2D_r28ew")
 shape_centered = false
 script = ExtResource("2_01bhu")
 
-[node name="Shop" type="Button" parent="."]
+[node name="Store" type="Button" parent="."]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
 layout_mode = 0
 offset_left = 32.0
@@ -69,7 +69,7 @@ offset_bottom = 1048.0
 theme = SubResource("Theme_l63wt")
 theme_override_colors/icon_normal_color = Color(0.929412, 0, 0.784314, 1)
 
-[node name="Text" type="Label" parent="Shop"]
+[node name="Text" type="Label" parent="Store"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -227,5 +227,8 @@ position = Vector2(448, 64)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_8bnsq")
 
+[connection signal="pressed" from="Store" to="." method="store"]
+[connection signal="pressed" from="Inventory" to="." method="inventory"]
+[connection signal="pressed" from="Play" to="." method="play"]
 [connection signal="value_changed" from="MusicSlider" to="." method="music_level_set"]
 [connection signal="pressed" from="JoystickSwap" to="." method="on_joystick_swap"]

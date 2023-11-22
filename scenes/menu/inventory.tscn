@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cf8578vuwyibt"]
+[gd_scene load_steps=22 format=3 uid="uid://cf8578vuwyibt"]
 
 [ext_resource type="Script" path="res://scenes/menu/inventory.gd" id="1_ka0ac"]
 [ext_resource type="Script" path="res://scenes/menu/Swiper.gd" id="1_yga3v"]
@@ -9,11 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://dl216oppgvk0c" path="res://assets/sprites/ui/SkillArea.png" id="7_5tl1t"]
 [ext_resource type="Script" path="res://scenes/menu/auto_font_size.gd" id="9_fffbx"]
 [ext_resource type="Script" path="res://scenes/menu/items.gd" id="9_kkuaw"]
+[ext_resource type="Script" path="res://scenes/menu/item_container.gd" id="10_gv0kj"]
 [ext_resource type="Texture2D" uid="uid://b0d37ns0djsiw" path="res://assets/sprites/character/equipped/tin/Head.png" id="10_lchqu"]
-[ext_resource type="Texture2D" uid="uid://djh8crcvlk7w1" path="res://assets/sprites/character/equipped/tin/Hip.png" id="11_wxm2a"]
-[ext_resource type="Texture2D" uid="uid://33spwdqs22le" path="res://assets/sprites/character/equipped/tin/LLA.png" id="12_33tfd"]
-[ext_resource type="Texture2D" uid="uid://bw0wiopcqliax" path="res://assets/sprites/character/equipped/tin/LLL.png" id="13_dwu55"]
-[ext_resource type="Texture2D" uid="uid://gixase2g622y" path="res://assets/sprites/character/equipped/tin/RF.png" id="14_t56vf"]
+[ext_resource type="Script" path="res://scenes/menu/items_row.gd" id="11_e0ptq"]
+[ext_resource type="Script" path="res://scenes/menu/item.gd" id="12_fo1ci"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6p3xa"]
 
@@ -118,6 +117,8 @@ theme_override_font_sizes/font_size = 32
 text = "99.9k"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("9_fffbx")
+max_font_size = 32
 
 [node name="AstroCurrency" type="TextureRect" parent="Top"]
 layout_mode = 0
@@ -142,6 +143,8 @@ theme_override_font_sizes/font_size = 32
 text = "99.9k"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("9_fffbx")
+max_font_size = 32
 
 [node name="Label" type="Label" parent="Top"]
 layout_mode = 0
@@ -506,389 +509,36 @@ position = Vector2(-640, -384)
 layout_mode = 2
 offset_left = 1088.0
 offset_top = 192.0
-offset_right = 1856.0
+offset_right = 1864.0
 offset_bottom = 832.0
 mouse_filter = 0
 mouse_force_pass_scroll_events = false
+scroll_vertical_custom_step = 128.0
 horizontal_scroll_mode = 0
+vertical_scroll_mode = 0
 script = ExtResource("9_kkuaw")
 
 [node name="ItemContainer" type="VBoxContainer" parent="Items"]
-custom_minimum_size = Vector2(768, 0)
+custom_minimum_size = Vector2(776, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+alignment = 1
+script = ExtResource("10_gv0kj")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Items/ItemContainer"]
-custom_minimum_size = Vector2(768, 0)
+custom_minimum_size = Vector2(776, 0)
 layout_mode = 2
-size_flags_vertical = 3
+script = ExtResource("11_e0ptq")
 
-[node name="TextureButton" type="TextureButton" parent="Items/ItemContainer/HBoxContainer"]
+[node name="PilotItem" type="TextureButton" parent="Items/ItemContainer/HBoxContainer"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 mouse_filter = 1
+action_mode = 0
 texture_normal = ExtResource("10_lchqu")
 ignore_texture_size = true
 stretch_mode = 5
-
-[node name="TextureButton2" type="TextureButton" parent="Items/ItemContainer/HBoxContainer"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("11_wxm2a")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton3" type="TextureButton" parent="Items/ItemContainer/HBoxContainer"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("12_33tfd")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton4" type="TextureButton" parent="Items/ItemContainer/HBoxContainer"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("13_dwu55")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton5" type="TextureButton" parent="Items/ItemContainer/HBoxContainer"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("14_t56vf")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton6" type="TextureButton" parent="Items/ItemContainer/HBoxContainer"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Items/ItemContainer"]
-custom_minimum_size = Vector2(768, 0)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="TextureButton" type="TextureButton" parent="Items/ItemContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton2" type="TextureButton" parent="Items/ItemContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton3" type="TextureButton" parent="Items/ItemContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton4" type="TextureButton" parent="Items/ItemContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton5" type="TextureButton" parent="Items/ItemContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton6" type="TextureButton" parent="Items/ItemContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="Items/ItemContainer"]
-custom_minimum_size = Vector2(768, 0)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="TextureButton" type="TextureButton" parent="Items/ItemContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton2" type="TextureButton" parent="Items/ItemContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton3" type="TextureButton" parent="Items/ItemContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton4" type="TextureButton" parent="Items/ItemContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton5" type="TextureButton" parent="Items/ItemContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton6" type="TextureButton" parent="Items/ItemContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="Items/ItemContainer"]
-custom_minimum_size = Vector2(768, 0)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="TextureButton" type="TextureButton" parent="Items/ItemContainer/HBoxContainer4"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton2" type="TextureButton" parent="Items/ItemContainer/HBoxContainer4"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton3" type="TextureButton" parent="Items/ItemContainer/HBoxContainer4"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton4" type="TextureButton" parent="Items/ItemContainer/HBoxContainer4"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton5" type="TextureButton" parent="Items/ItemContainer/HBoxContainer4"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton6" type="TextureButton" parent="Items/ItemContainer/HBoxContainer4"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="HBoxContainer5" type="HBoxContainer" parent="Items/ItemContainer"]
-custom_minimum_size = Vector2(768, 0)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="TextureButton" type="TextureButton" parent="Items/ItemContainer/HBoxContainer5"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton2" type="TextureButton" parent="Items/ItemContainer/HBoxContainer5"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton3" type="TextureButton" parent="Items/ItemContainer/HBoxContainer5"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton4" type="TextureButton" parent="Items/ItemContainer/HBoxContainer5"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton5" type="TextureButton" parent="Items/ItemContainer/HBoxContainer5"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton6" type="TextureButton" parent="Items/ItemContainer/HBoxContainer5"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="HBoxContainer6" type="HBoxContainer" parent="Items/ItemContainer"]
-custom_minimum_size = Vector2(768, 0)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="TextureButton" type="TextureButton" parent="Items/ItemContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton2" type="TextureButton" parent="Items/ItemContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton3" type="TextureButton" parent="Items/ItemContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton4" type="TextureButton" parent="Items/ItemContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton5" type="TextureButton" parent="Items/ItemContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton6" type="TextureButton" parent="Items/ItemContainer/HBoxContainer6"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="HBoxContainer7" type="HBoxContainer" parent="Items/ItemContainer"]
-custom_minimum_size = Vector2(768, 0)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="TextureButton" type="TextureButton" parent="Items/ItemContainer/HBoxContainer7"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton2" type="TextureButton" parent="Items/ItemContainer/HBoxContainer7"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton3" type="TextureButton" parent="Items/ItemContainer/HBoxContainer7"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton4" type="TextureButton" parent="Items/ItemContainer/HBoxContainer7"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton5" type="TextureButton" parent="Items/ItemContainer/HBoxContainer7"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
-
-[node name="TextureButton6" type="TextureButton" parent="Items/ItemContainer/HBoxContainer7"]
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-mouse_filter = 1
-texture_normal = ExtResource("10_lchqu")
-ignore_texture_size = true
-stretch_mode = 5
+script = ExtResource("12_fo1ci")
 
 [node name="Store" type="Button" parent="."]
 self_modulate = Color(0, 0.552941, 0.129412, 1)
@@ -1003,3 +653,6 @@ vertical_alignment = 1
 
 [connection signal="pressed" from="CharacterSelection" to="CharacterSelection" method="hide"]
 [connection signal="pressed" from="CharacterSelection" to="Characters" method="show"]
+[connection signal="pressed" from="Store" to="." method="store"]
+[connection signal="pressed" from="Play" to="." method="play"]
+[connection signal="pressed" from="Settings" to="." method="settings"]
