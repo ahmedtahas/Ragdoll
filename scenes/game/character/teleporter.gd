@@ -41,8 +41,8 @@ func _integrate_forces(state):
 		if state.get_contact_collider_object(0) is RigidBody2D:
 			if Global.mode == 'multi':
 				if not can_hit and hit_count > 2:
-					character.reset_position()
-					Global.reset_positions.emit()
+					character.seperate_local()
+					Global.seperate.emit()
 				can_hit = false
 				hit_count += 1
 				hit_timer()

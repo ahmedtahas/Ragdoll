@@ -779,48 +779,8 @@ position = Vector2(800, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("8_qcfgh")
 
-[node name="Sprite2D2" type="Sprite2D" parent="Character/Hip/Center/Dash"]
-position = Vector2(310, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("8_qcfgh")
-
-[node name="Sprite2D3" type="Sprite2D" parent="Character/Hip/Center/Dash"]
-position = Vector2(620, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("8_qcfgh")
-
-[node name="Sprite2D4" type="Sprite2D" parent="Character/Hip/Center/Dash"]
-position = Vector2(930, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("8_qcfgh")
-
-[node name="Sprite2D5" type="Sprite2D" parent="Character/Hip/Center/Dash"]
-position = Vector2(1240, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("8_qcfgh")
-
-[node name="Sprite2D6" type="Sprite2D" parent="Character/Hip/Center/Dash"]
-position = Vector2(1550, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("8_qcfgh")
-
-[node name="Sprite2D7" type="Sprite2D" parent="Character/Hip/Center/Dash"]
-position = Vector2(1860, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("8_qcfgh")
-
-[node name="Sprite2D8" type="Sprite2D" parent="Character/Hip/Center/Dash"]
-position = Vector2(2170, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("8_qcfgh")
-
 [node name="Sprite2D9" type="Sprite2D" parent="Character/Hip/Center/Dash"]
 position = Vector2(2480, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("8_qcfgh")
-
-[node name="Sprite2D10" type="Sprite2D" parent="Character/Hip/Center/Dash"]
-position = Vector2(2790, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("8_qcfgh")
 
@@ -829,18 +789,8 @@ position = Vector2(3100, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("8_qcfgh")
 
-[node name="Sprite2D12" type="Sprite2D" parent="Character/Hip/Center/Dash"]
-position = Vector2(3410, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("8_qcfgh")
-
 [node name="Sprite2D13" type="Sprite2D" parent="Character/Hip/Center/Dash"]
 position = Vector2(3720, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("8_qcfgh")
-
-[node name="Sprite2D14" type="Sprite2D" parent="Character/Hip/Center/Dash"]
-position = Vector2(4030, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("8_qcfgh")
 
@@ -849,18 +799,10 @@ position = Vector2(4340, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("8_qcfgh")
 
-[node name="Sprite2D16" type="Sprite2D" parent="Character/Hip/Center/Dash"]
-position = Vector2(4650, 0)
-scale = Vector2(2, 2)
-texture = ExtResource("8_qcfgh")
-
 [node name="Range" type="Sprite2D" parent="Character/Hip/Center/Dash"]
 position = Vector2(4960, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("8_qcfgh")
-
-[node name="Range" type="Marker2D" parent="Character/Hip/Center"]
-position = Vector2(5860, 0)
 
 [node name="Stomach" type="RigidBody2D" parent="Character" groups=["Damagable"]]
 position = Vector2(0, 96)

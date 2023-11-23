@@ -85,7 +85,7 @@ func seperate_local() -> void:
 	if not is_multiplayer_authority():
 		seperate_local.rpc()
 		return
-	var away = Global.avoid_enemies(Global.player.center - Global.opponent.center)
+	var away = Global.avoid_enemies(Global.player.center.global_position - Global.opponent.center.global_position)
 	for child in get_children():
 		child.locate(away)
 		child.teleport()

@@ -6,6 +6,10 @@ extends Control
 @onready var character: String
 
 
+func _ready() -> void:
+	Global.inventory = self
+
+
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_T:
@@ -15,6 +19,10 @@ func _input(event):
 			store()
 		if $Swiper.get_swipe_direction(event.relative, 27) == Vector2.LEFT:
 			play()
+
+
+func item_pressed(item: TextureButton) -> void:
+	print(item.texture_normal.resource_path)
 
 
 func play() -> void:
@@ -27,3 +35,4 @@ func store() -> void:
 
 func settings() -> void:
 	get_tree().change_scene_to_file("res://scenes/menu/settings.tscn")
+

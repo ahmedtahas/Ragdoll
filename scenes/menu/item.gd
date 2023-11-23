@@ -11,4 +11,4 @@ func add_item(path: String) -> void:
 
 
 func _pressed() -> void:
-	print("pressed" + texture_path)
+	Global.inventory.item_pressed(self)

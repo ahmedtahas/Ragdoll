@@ -202,7 +202,7 @@ func ice_candidate_created(midName, indexName, sdpName, id) -> void:
 	peer.put_packet(JSON.stringify(message).to_utf8_buffer())
 
 
-func connect_to_server(ip: String = "ws://ec2-16-16-182-118.eu-north-1.compute.amazonaws.com:8915") -> void:
+func connect_to_server(ip: String = "ws://ec2-16-171-240-197.eu-north-1.compute.amazonaws.com:8915") -> void:
 	peer.create_client(ip)
 
 

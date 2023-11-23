@@ -11,6 +11,7 @@ extends Node
 @onready var player_selection: String
 @onready var opponent_selection: String
 @onready var mode: String
+@onready var inventory: Control
 @onready var bots_defeated: int = 0
 @onready var switch: bool = false
 @onready var is_host: bool = false

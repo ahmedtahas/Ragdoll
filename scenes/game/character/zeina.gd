@@ -8,6 +8,7 @@ extends Node2D
 @onready var cooldown_time: float
 @onready var damage: float
 @onready var power: float
+@onready var throw_angle: float
 @onready var end_point: Vector2
 
 @onready var cooldown_text: Label = $Extra/UI/CooldownBar/Text
@@ -23,7 +24,6 @@ extends Node2D
 @onready var skill_joy_stick: Control = $Extra/UI/SkillJoyStick
 @onready var cooldown: Timer = $Extra/SkillCooldown
 @onready var body: RigidBody2D = $Character/Body
-@onready var _range: Marker2D = $Character/Hip/Center/Range
 
 @onready var hit_count: int = 2
 @onready var cooldown_set: bool = false
@@ -91,16 +91,14 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 	if not cooldown.is_stopped() or not is_multiplayer_authority() or hit_count < 2:
 		return
 	if is_aiming:
+		throw_angle = direction.angle()
 		center.visible = true
 		center.global_rotation = direction.angle()
-
 	else:
 		hit_count = 0
 		character.get_node("RF/Sprite").modulate = Color(0.1, 0.1, 0.1)
 		character.get_node("LF/Sprite").modulate = Color(0.1, 0.1, 0.1)
 		center.visible = false
-		end_point = _range.global_position
-		end_point = Global.get_inside_coordinates(end_point)
 		cooldown.start()
 		dagger_instance = dagger.instantiate()
 		dagger_instance.hit_signal.connect(dagger_hit_signal)
@@ -116,18 +114,16 @@ func skill_signal(direction: Vector2, is_aiming) -> void:
 		character.slow_motion.rpc()
 		dagger_instance.global_position = center.get_node("Dash").global_position
 		dagger_instance.set_original_position()
-		dagger_instance.fire((end_point - center.get_node("Dash").global_position).angle())
-
+		dagger_instance.fire(throw_angle)
 
 
 func max_distance() -> void:
-	end_point = Global.avoid_enemies(end_point - center.global_position)
+	end_point = Global.avoid_enemies(dagger_instance.global_position - center.global_position)
 	teleport()
 	if Global.is_host:
 		remove_skill.rpc("ServerSkill")
 	else:
 		remove_skill.rpc("ClientSkill")
-
 
 
 func ignore_skill() -> void:
@@ -159,7 +155,7 @@ func teleport() -> void:
 		child.teleport()
 	dagger_instance.hit_signal.disconnect(dagger_hit_signal)
 	dagger_instance.queue_free()
-	await get_tree().create_timer((end_point - center.global_position).length() / (_range.position.x * 3)).timeout
+	await get_tree().create_timer((end_point - center.global_position).length() / (dagger_instance.max_distance * 3)).timeout
 	for child in character.get_children():
 		child.visible = true
 	remove_after_image.rpc()

@@ -66,11 +66,6 @@ func _ready() -> void:
 		pause_screen.get_child(2).hide()
 		add_player_character(Global.player_id)
 		add_player_character(Global.opponent_id)
-#		server_ip.text = IP.get_local_addresses()[9]
-#		for i in range(IP.get_local_addresses().size()):
-#			var label = server_ip.duplicate()
-#			label.text = IP.get_local_addresses()[i] + "  //  "
-#			container.add_child(label)
 		multiplayer.peer_connected.connect(peer_connected)
 		multiplayer.peer_disconnected.connect(peer_disconnected)
 		multiplayer.connected_to_server.connect(connected_to_server)
@@ -150,19 +145,21 @@ func _on_join_pressed() -> void:
 
 
 func add_player_character(peer_id):
-
 	var player_character
 
 	if peer_id == multiplayer.get_unique_id():
 		player_character = character_dictionary.get(Global.player_selection).instantiate()
 	else:
+		print("opponent")
 		player_character = character_dictionary.get(Global.opponent_selection).instantiate()
 
 	player_character.set_multiplayer_authority(peer_id)
 	Global.spawner.add_child(player_character, true)
 	if Global.is_host:
+		print("host")
 		player_character.transform = host_point
 	else:
+		print("client")
 		player_character.transform = client_point
 
 
